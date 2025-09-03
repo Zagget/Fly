@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "FlyPlayer",
+    "maps": [
+        {
+            "name": "Controler",
+            "id": "b487110d-980d-479d-859a-047dd841a6b6",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "882541e7-ceab-48ac-8886-43d07b8b9049",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0496f4c1-0137-494b-9ccc-11d217bf327b",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

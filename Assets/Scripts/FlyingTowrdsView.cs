@@ -1,25 +1,42 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FlyingTowrdsView : MonoBehaviour
 {
+    [SerializeField] Transform character;
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed;
     [SerializeField] float deceleration;
+    [SerializeField] PlayerInput playerInput;
+    [SerializeField] InputAction inputAction;
 
-    Vector3 forward;
+    bool isFlying;
     Vector3 velocity;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        forward = transform.forward;
+        playerInput.actions.FindAction("Jump").performed += toggleFlying;
     }
 
     private void FixedUpdate()
     {
-        velocity += forward * speed;
+        if (isFlying) velocity += character.forward * speed;
         velocity *= deceleration;
 
         rb.linearVelocity = velocity;
+    }
+
+    private void toggleFlying(InputAction.CallbackContext callbackContext)
+    {
+        inputAction.Enable();
+        isFlying = !isFlying;
+        Debug.Log(callbackContext.action);
+    }
+
+
+    private void OnDisable()
+    {
+        playerInput.actions.FindAction("Jump").performed -= toggleFlying;
     }
 }
