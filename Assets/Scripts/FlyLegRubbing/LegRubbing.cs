@@ -21,7 +21,5 @@ public class LegRubbing : MonoBehaviour
         float differenceInDifference = Mathf.Abs(difference - lastDifference);
         lastDifference = difference;
         totalRubbing += differenceInDifference;
-        Debug.Log(totalRubbing);
     }
-
 }
