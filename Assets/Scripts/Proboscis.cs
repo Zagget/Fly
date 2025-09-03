@@ -51,7 +51,7 @@ public class Proboscis : MonoBehaviour
     private void AttachProboscis()
     {
         Vector3 point;
-        Vector3 finalPoint;
+        Vector3 finalPoint = default;
         float squareLength;
         float finalSquareLength = Mathf.Infinity;
         foreach (Collider collider in foods)
@@ -63,6 +63,7 @@ public class Proboscis : MonoBehaviour
                 finalSquareLength = squareLength;
                 finalPoint = point - transform.position;
             }
+            targetPosition = finalPoint;
         }
     }
 
