@@ -4,11 +4,12 @@ using UnityEngine.Audio;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class SoundManager : MonoBehaviour
 {
-    private static SoundManager instance;
-    public static SoundManager Instance { get { return instance; } }
+    private static SoundManager _instance;
+    public static SoundManager instance { get { return _instance; } }
 
     [SerializeField] public AudioMixer audioMixer;
     [SerializeField] public AudioMixerVolumeData mixerData;
@@ -16,14 +17,14 @@ public class SoundManager : MonoBehaviour
     [SerializeField, Range(1, 100)] private int _amountOfAudioSourcesLoop = 5;
 
     private List<SoundData> _currentSoundData = new List<SoundData>();
-    private AudioSourcePool _oneShotPool;
-    private AudioSourcePool _loopPool;
+    private AudioSourcePool _oneShotPool2D;
+    private AudioSourcePool _loopPool2D;
 
     private void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
 
             var handle = Addressables.LoadAssetsAsync<SoundData>("Sound");
@@ -36,6 +37,14 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    // void Update()
+    // {
+    //     if (Keyboard.current.spaceKey.wasPressedThisFrame)
+    //     {
+    //         PlaySound(Test123.CoinDropping);
+    //     }
+    // }
 
     private void OnSoundsLoaded(AsyncOperationHandle<IList<SoundData>> handle)
     {
@@ -51,6 +60,10 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Creates audio sources for 2D sounds, plays at a constant volume, unaffected by distance or listener position.
+    /// Used for Player sounds, UI clicks, music etc.
+    /// </summary>
     private void CreateAudioSources()
     {
         GameObject audioSourceContainerOneShot = new GameObject("AudioSourcesOneShot");
@@ -59,8 +72,8 @@ public class SoundManager : MonoBehaviour
         audioSourceContainerOneShot.transform.SetParent(transform);
         audioSourceContainerLoops.transform.SetParent(transform);
 
-        _oneShotPool = new AudioSourcePool(audioSourceContainerOneShot, _amountOfAudioSources);
-        _loopPool = new AudioSourcePool(audioSourceContainerLoops, _amountOfAudioSourcesLoop);
+        _oneShotPool2D = new AudioSourcePool(audioSourceContainerOneShot, _amountOfAudioSources);
+        _loopPool2D = new AudioSourcePool(audioSourceContainerLoops, _amountOfAudioSourcesLoop);
     }
 
     /// <summary>
@@ -68,8 +81,9 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <typeparam name="T">An enum type representing the sound identifier.</typeparam>
     /// <param name="sound">The enum value specifying which sound to play.</param>
+    /// <param name="source"> For 3D Sounds, use a specific audio soruce.</param>
     /// <param name="loop">If true, the sound will loop continuously; otherwise, it will play once.</param>
-    public void PlaySound<T>(T sound, bool loop = false) where T : struct, System.Enum
+    public void PlaySound<T>(T sound, AudioSource source = null, bool loop = false) where T : struct, System.Enum
     {
         var sid = SoundHelper.GetSoundIdentifiers(sound);
 
@@ -77,10 +91,11 @@ public class SoundManager : MonoBehaviour
 
         if (!SoundHelper.IsSoundDataValid(soundData, sid.dataName, this.name)) return;
 
+
         if (sid.songName == "Random")
         {
             SoundData.SoundEntry randomEntry = soundData.sounds[Random.Range(0, soundData.sounds.Length)];
-            PlayClip(randomEntry, loop);
+            PlayClip(randomEntry, source, loop);
             return;
         }
 
@@ -92,36 +107,38 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        PlayClip(entry, loop);
+        PlayClip(entry, source, loop);
     }
 
-    private void PlayClip(SoundData.SoundEntry entry, bool loop)
+    private void PlayClip(SoundData.SoundEntry entry, AudioSource source, bool loop)
     {
         Debug.Log($"{name} in playclip");
-        AudioSource currentSource;
 
-        if (loop)
+        if (source == null)
         {
-            currentSource = _loopPool.GetAvailable();
-            _loopPool.AddInLookUp(currentSource, entry.name);
-            Debug.Log($"{name} {entry.name} added to loop");
-        }
-        else
-        {
-            currentSource = _oneShotPool.GetAvailable();
+            if (loop)
+            {
+                source = _loopPool2D.GetAvailable();
+                _loopPool2D.AddInLookUp(source, entry.name);
+                Debug.Log($"{name} {entry.name} added to loop");
+            }
+            else
+            {
+                source = _oneShotPool2D.GetAvailable();
+            }
         }
 
-        currentSource.loop = loop;
-        currentSource.clip = entry.clip;
-        currentSource.volume = entry.volume;
+        source.loop = loop;
+        source.clip = entry.clip;
+        source.volume = entry.volume;
 
         float randomPitch = Random.Range(entry.minPitch, entry.maxPitch);
-        currentSource.pitch = randomPitch;
+        source.pitch = randomPitch;
 
-        currentSource.outputAudioMixerGroup = entry.mixer;
-        currentSource.Play();
+        source.outputAudioMixerGroup = entry.mixer;
+        source.Play();
 
-        Debug.Log($"{name} Played {entry.name} on {entry.mixer} looping: {loop}");
+        Debug.Log($"{name} Played {entry.name} on {entry.mixer} on AudioSource: {source} looping: {loop}");
     }
 
     /// <summary>
@@ -134,7 +151,7 @@ public class SoundManager : MonoBehaviour
     {
         var sid = SoundHelper.GetSoundIdentifiers(song);
 
-        AudioSource sound = _loopPool.GetSourceBySoundName(sid.songName);
+        AudioSource sound = _loopPool2D.GetSourceBySoundName(sid.songName);
         if (sound == null)
         {
             Debug.Log($"{name} Couldn't find looping source for: {sid.songName}");
@@ -173,21 +190,21 @@ public class SoundManager : MonoBehaviour
         }
 
         // Find the playing source for the 'from' clip
-        AudioSource fromSource = _loopPool.GetSourceBySoundName(fromEntry.name);
+        AudioSource fromSource = _loopPool2D.GetSourceBySoundName(fromEntry.name);
         if (fromSource == null)
         {
             Debug.Log($"{name} No active source for {fromEntry.name}, playing {toEntry.name} immediately.");
-            PlayClip(toEntry, loop: true);
+            // PlayClip(toEntry, loop: true);
             return;
         }
 
         // Create new source for 'to' clip
-        AudioSource toSource = _loopPool.GetAvailable();
+        AudioSource toSource = _loopPool2D.GetAvailable();
         toSource.clip = toEntry.clip;
         toSource.loop = true;
         toSource.outputAudioMixerGroup = toEntry.mixer;
         toSource.volume = 0f;
-        _loopPool.AddInLookUp(toSource, toEntry.name);
+        _loopPool2D.AddInLookUp(toSource, toEntry.name);
         toSource.Play();
 
         // Start crossfade

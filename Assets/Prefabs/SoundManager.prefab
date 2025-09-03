@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   audioMixer: {fileID: 24100000, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
   mixerData: {fileID: 11400000, guid: ed6160fa3376b6f49bb13a97c2d7d3c7, type: 2}
-  _amountOfAudioSources: 40
+  _amountOfAudioSources: 10
   _amountOfAudioSourcesLoop: 5

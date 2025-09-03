@@ -15,13 +15,7 @@ MonoBehaviour:
   sounds:
   - name: CoinDropping
     clip: {fileID: 8300000, guid: e7a0ae8539183e64890145464ea5430c, type: 3}
-    volume: 0.536
-    minPitch: 1
-    maxPitch: 1
-    mixer: {fileID: 24300002, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
-  - name: Empty Clip
-    clip: {fileID: 0}
     volume: 1
     minPitch: 1
-    maxPitch: 1
-    mixer: {fileID: 0}
+    maxPitch: 1.43
+    mixer: {fileID: 24300002, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
