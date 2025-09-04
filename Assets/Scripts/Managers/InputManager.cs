@@ -5,17 +5,18 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private static InputManager _instance;
-    public static InputManager Instance {  get { return _instance; } }
+    public static InputManager Instance { get { return _instance; } }
 
     private InputAction r_JoyStickAction;
     private InputAction lookDirection;
     private InputAction r_ButtonAAction;
     private InputAction r_ButtonBAction;
-    private PlayerInput playerInput;
+    public PlayerInput playerInput;
 
     public event Action<InputAction.CallbackContext> buttonAContext;
     public event Action<InputAction.CallbackContext> buttonBContext;
     public event Action<InputAction.CallbackContext> r_JoyStickContext;
+
     private void OnEnable()
     {
         if (playerInput == null)

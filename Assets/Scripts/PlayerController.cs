@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum MovementState
 {
@@ -9,45 +10,88 @@ public enum MovementState
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] float speed;
     MovementState currentMov = MovementState.Flying;
     Rigidbody rb;
-
 
     private void Start()
     {
         rb = RigManager.instance.rb;
+        if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
+
+        SubscribeToInput();
     }
 
-
-    // Will prop change to event based movement.
-    void Update()
+    private void SubscribeToInput()
     {
+        InputManager.Instance.buttonAContext += OnAPressed;
+        InputManager.Instance.r_JoyStickContext += OnMove;
+        //InputManager.Instance.lookContext += OnLook;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.buttonAContext -= OnAPressed;
+        InputManager.Instance.r_JoyStickContext -= OnMove;
+    }
+
+    private void OnAPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed) // Only trigger on button press
+        {
+            Debug.Log("Button A Pressed! Activating dash.");
+
+        }
+    }
+
+    private void OnMove(InputAction.CallbackContext context)
+    {
+        if (rb == null) return;
+
+        Vector2 moveInput = context.ReadValue<Vector2>();
+
+        Debug.Log($"MoveInput {moveInput}");
+
         switch (currentMov)
         {
             case MovementState.Flying:
+                Flying(rb, moveInput);
                 break;
+
             case MovementState.Walking:
-
-                break;
-
-            case MovementState.None:
-                rb.linearVelocity = Vector3.zero;
+                Walking(rb, moveInput);
                 break;
         }
     }
 
-    public void OnFlyInput()
+    private void Flying(Rigidbody rb, Vector2 moveInput)
     {
-        currentMov = MovementState.Flying;
+        if (moveInput.sqrMagnitude < 0.01f) // deadzone
+        {
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
+
+        // Use the player’s forward/right (ignoring camera rotation if camera is a child)
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+
+        // Flatten to avoid tilting movement if player rotates vertically
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        // Translate joystick into 3D direction
+        Vector3 move = forward * moveInput.y + right * moveInput.x;
+
+        rb.linearVelocity = move * speed;
     }
 
-    public void OnWalkingInput()
+
+    private void Walking(Rigidbody rb, Vector2 moveInput)
     {
-        currentMov = MovementState.Walking;
+
     }
 
-    public void FreezePlayer()
-    {
-        currentMov = MovementState.None;
-    }
 }

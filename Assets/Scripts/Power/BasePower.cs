@@ -4,13 +4,12 @@ using UnityEngine;
 /// <summary>
 /// Base for all powers
 /// </summary>
-public class BasePower
+public class BasePower : MonoBehaviour
 {
     public float speedFactor;
     public float damage;
 
     public float cooldown;
-
     protected int maximumCharge = 10;
 
     public BasePower(float speedFactor = 0f, float damage = 0f, float cooldown = 1f)
