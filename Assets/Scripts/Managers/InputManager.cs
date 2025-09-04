@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
         r_ButtonBAction = playerInput.actions["ButtonB"];
 
         r_JoyStickAction.performed += EventHandeler;
+        r_JoyStickAction.canceled += EventHandeler;
         r_ButtonAAction.performed += EventHandeler;
         r_ButtonBAction.performed += EventHandeler;
     }
