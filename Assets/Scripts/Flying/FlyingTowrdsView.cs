@@ -16,7 +16,6 @@ public class FlyingTowrdsView : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        playerInput.actions.FindAction("Jump").performed += toggleFlying;
     }
 
     private void FixedUpdate()
@@ -37,6 +36,6 @@ public class FlyingTowrdsView : MonoBehaviour
 
     private void OnDisable()
     {
-        playerInput.actions.FindAction("Jump").performed -= toggleFlying;
+
     }
 }

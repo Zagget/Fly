@@ -6,8 +6,12 @@ public class Proboscis : MonoBehaviour
     [SerializeField] GameObject mouthAnchor;
     [SerializeField] float proboscisSpeed = 1;
     [SerializeField] float hideDistance = 1;
+    [SerializeField] float distanceToEat = 1;
+    [SerializeField] float EatingPower = 1;
 
-    HashSet<Collider> foods = new();
+    public float FoodValue { get; private set; }
+
+    Dictionary<Collider, Food> foods = new();
     Vector3 targetPosition = Vector3.zero;
     Vector3 offset = default;
     bool isProboscisVisible = false;
@@ -16,10 +20,11 @@ public class Proboscis : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Food")) return;
-        if (foods.Contains(other)) return;
+        if (!other.gameObject.TryGetComponent<Food>(out Food food)) return;
+        if (foods.ContainsKey(other)) return;
         else
         {
-            foods.Add(other);
+            foods.Add(other, food);
             ShowProboscis();
         }
     }
@@ -27,8 +32,13 @@ public class Proboscis : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Food")) return;
-        if (!foods.Contains(other)) return;
-        else foods.Remove(other);
+        RemoveFood(other);
+    }
+
+    public void RemoveFood(Collider collider)
+    {
+        if (!foods.ContainsKey(collider)) return;
+        foods.Remove(collider);
         if (foods.Count < 1) HideProboscis();
     }
 
@@ -53,13 +63,15 @@ public class Proboscis : MonoBehaviour
 
     private void AttachProboscis()
     {
+        Food currentFood = null;
         Vector3 point;
         Vector3 finalPoint = default;
         float squareLength;
         float finalSquareLength = Mathf.Infinity;
-        foreach (Collider collider in foods)
+        foreach (var kvp in foods)
         {
-            point = collider.ClosestPoint(transform.position);
+            if (kvp.Key == null) continue;
+            point = kvp.Key.ClosestPoint(transform.position);
             squareLength = (point - transform.position).sqrMagnitude;
             if (squareLength < finalSquareLength)
             {
@@ -67,6 +79,11 @@ public class Proboscis : MonoBehaviour
                 finalPoint = point - transform.position;
             }
             targetPosition = finalPoint;
+            currentFood = kvp.Value;
+        }
+        if (currentFood != null && (offset - targetPosition).sqrMagnitude < Mathf.Pow(distanceToEat, 2)) 
+        {
+            FoodValue += currentFood.Eat(EatingPower * Time.deltaTime, this); 
         }
     }
 
