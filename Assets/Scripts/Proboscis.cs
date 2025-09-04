@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class Proboscis : MonoBehaviour
 {
-    [SerializeField] GameObject proboscisVisuals;
+    [SerializeField] GameObject mouthAnchor;
     [SerializeField] float proboscisSpeed = 1;
+    [SerializeField] float hideDistance = 1;
 
     HashSet<Collider> foods = new();
     Vector3 targetPosition = Vector3.zero;
+    Vector3 offset = default;
     bool isProboscisVisible = false;
+    bool isProboscisActive = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,7 +20,7 @@ public class Proboscis : MonoBehaviour
         else
         {
             foods.Add(other);
-            if (!isProboscisVisible) ShowProboscis();
+            ShowProboscis();
         }
     }
 
@@ -29,24 +32,24 @@ public class Proboscis : MonoBehaviour
         if (foods.Count < 1) HideProboscis();
     }
 
-    private void Awake()
+    private void Start()
     {
-        if (proboscisVisuals == null) gameObject.SetActive(false);
+        if (mouthAnchor == null) gameObject.SetActive(false);
     }
 
     private void ShowProboscis()
     {
-        isProboscisVisible = true;
-        targetPosition = default;
-        proboscisVisuals.transform.localPosition = default;
-        proboscisVisuals.SetActive(true);
+        if (!isProboscisVisible)
+        {
+            mouthAnchor.transform.localPosition = default;
+            mouthAnchor.SetActive(true);
+            isProboscisVisible = true;
+        }
+        isProboscisActive = true;
+        AttachProboscis();
     }
 
-    private void HideProboscis()
-    {
-        isProboscisVisible = false;
-        proboscisVisuals.SetActive(false);
-    }
+    private void HideProboscis() { isProboscisActive = false; }
 
     private void AttachProboscis()
     {
@@ -69,16 +72,31 @@ public class Proboscis : MonoBehaviour
 
     private void Update()
     {
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
         if (isProboscisVisible)
         {
-            proboscisVisuals.transform.localPosition = Vector3.Lerp(proboscisVisuals.transform.localPosition, targetPosition, proboscisSpeed * Time.deltaTime);
-            if (targetPosition != default) proboscisVisuals.transform.rotation = Quaternion.LookRotation(targetPosition);
+            offset = Vector3.Lerp(offset, targetPosition, proboscisSpeed * Time.deltaTime);
+            mouthAnchor.transform.position = transform.position + offset;
+            if (targetPosition != default) mouthAnchor.transform.rotation = Quaternion.LookRotation(targetPosition);
         }
     }
 
     private void FixedUpdate()
     {
-        if (isProboscisVisible) AttachProboscis();
+        if (isProboscisActive) AttachProboscis();
+        else
+        {
+            if (mouthAnchor.transform.localPosition.sqrMagnitude < Mathf.Pow(hideDistance, 2))
+            {
+                mouthAnchor.SetActive(false);
+                isProboscisVisible = false;
+            }
+            targetPosition = default;
+        }
     }
 }
 

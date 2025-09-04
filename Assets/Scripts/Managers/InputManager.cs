@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,17 +8,52 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance {  get { return _instance; } }
 
     private InputAction r_JoyStickAction;
+    private InputAction lookDirection;
+    private InputAction r_ButtonAAction;
+    private InputAction r_ButtonBAction;
     private PlayerInput playerInput;
 
+    public event Action<InputAction.CallbackContext> buttonAContext;
+    public event Action<InputAction.CallbackContext> buttonBContext;
+    public event Action<InputAction.CallbackContext> r_JoyStickContext;
     private void OnEnable()
     {
+        if (playerInput == null)
+            playerInput = GetComponent<PlayerInput>();
+
         r_JoyStickAction = playerInput.actions["Move"];
-        r_JoyStickAction.performed += DebugInputs;
+        lookDirection = playerInput.actions["Look"];
+        r_ButtonAAction = playerInput.actions["ButtonA"];
+        r_ButtonBAction = playerInput.actions["ButtonB"];
+
+        r_JoyStickAction.performed += EventHandeler;
+        r_ButtonAAction.performed += EventHandeler;
+        r_ButtonBAction.performed += EventHandeler;
+    }
+
+    void EventHandeler(InputAction.CallbackContext context)
+    {
+        if (context.action == r_ButtonAAction)
+        {
+            buttonAContext?.Invoke(context);
+        }
+
+        if (context.action == r_ButtonBAction)
+        {
+            buttonBContext?.Invoke(context);
+        }
+
+        if (context.action == r_JoyStickAction)
+        {
+            r_JoyStickContext?.Invoke(context);
+        }
     }
 
     private void OnDisable()
     {
-        
+        r_JoyStickAction.performed -= EventHandeler;
+        r_ButtonAAction.performed -= EventHandeler;
+        r_ButtonBAction.performed -= EventHandeler;
     }
 
     private void Awake()
@@ -31,9 +67,9 @@ public class InputManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    void DebugInputs(InputAction.CallbackContext context)
-    {
-        Debug.Log(context);
-    }
 }
+
+/* Example code
+ *  Read a value: Vector2 contextValue = context.ReadValue<Vector2>();
+ * 
+ */
