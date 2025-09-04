@@ -5,9 +5,19 @@ public class LegRubbing : MonoBehaviour
     [SerializeField] Transform leftHand;
     [SerializeField] Transform rightHand;
     [SerializeField] Transform center;
+    [SerializeField] float maxDistance;
+    [SerializeField] float minRubbingPerSecound = 0.1f;
+    
+    public float TotalRubbing { get; private set; }
 
     float lastDifference;
-    float totalRubbing;
+
+    private void Start()
+    {
+        if (leftHand == null || rightHand == null || center == null) gameObject.SetActive(false);
+    }
+
+    public void ResetRubbing() { TotalRubbing = 0; }
 
     private void Update()
     {
@@ -20,6 +30,6 @@ public class LegRubbing : MonoBehaviour
         float difference = Mathf.Abs(leftPoint.y - rightPoint.y);
         float differenceInDifference = Mathf.Abs(difference - lastDifference);
         lastDifference = difference;
-        totalRubbing += differenceInDifference;
+        if (Mathf.Pow(maxDistance, 2) > distance && differenceInDifference > minRubbingPerSecound * Time.deltaTime) TotalRubbing += differenceInDifference;
     }
 }
