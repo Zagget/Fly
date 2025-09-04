@@ -50,8 +50,6 @@ public class PlayerController : MonoBehaviour
 
         Vector2 moveInput = context.ReadValue<Vector2>();
 
-        Debug.Log($"MoveInput {moveInput}");
-
         switch (currentMov)
         {
             case MovementState.Flying:
