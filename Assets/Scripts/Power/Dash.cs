@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class DashPower : BasePower
 {
-    public DashPower(float speed, float damage, float cooldown)
-        : base(speed, damage, cooldown) { }
+    public DashPower(float speedFactor, float damage, float cooldown)
+        : base(speedFactor, damage, cooldown) { }
 
     public override void Activate(Rigidbody player, float currentCharge)
     {
@@ -13,7 +13,7 @@ public class DashPower : BasePower
 
         currentCharge = Mathf.Clamp(currentCharge, 0f, maximumCharge);
 
-        float dashSpeed = baseDashSpeed * (currentCharge / maximumCharge);
+        float dashSpeed = speedFactor * (currentCharge / maximumCharge);
 
         player.AddForce(player.transform.forward * dashSpeed, ForceMode.VelocityChange);
 
