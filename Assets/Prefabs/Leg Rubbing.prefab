@@ -80,4 +80,5 @@ MonoBehaviour:
   rightHand: {fileID: 0}
   center: {fileID: 4666009665202329088}
   maxDistance: 0.2
-  minRubbingPerSecound: 1.7
+  minRubbingPerSecond: 0.1
+  desktopInterval: 0.1

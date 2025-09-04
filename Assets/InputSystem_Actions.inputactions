@@ -46,7 +46,7 @@
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -100,6 +100,24 @@
                     "name": "ButtonB",
                     "type": "Button",
                     "id": "a1e0cad9-cb3d-44f5-965a-e61ced81c790",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftArrowKey",
+                    "type": "Button",
+                    "id": "f69f7a4b-500c-4620-ba2f-0fceeb036316",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightArrowKey",
+                    "type": "Button",
+                    "id": "7e5f2b39-987b-46a9-9fae-0eca54cea35f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -511,6 +529,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ButtonB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b48812e-7c6b-451b-8d7d-70c8dd37a05f",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftArrowKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0cec7dd8-ec7e-4430-82e9-d0e4595c0098",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightArrowKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

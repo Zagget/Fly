@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LegRubbing : MonoBehaviour
 {
@@ -6,20 +7,38 @@ public class LegRubbing : MonoBehaviour
     [SerializeField] Transform rightHand;
     [SerializeField] Transform center;
     [SerializeField] float maxDistance;
-    [SerializeField] float minRubbingPerSecound = 0.1f;
-    
+    [SerializeField] float minRubbingPerSecond = 0.1f;
+    [SerializeField] float desktopInterval = 0.2f;
+
     public float TotalRubbing { get; private set; }
 
+    InputAction lastRubAction;
+    float lastRubTime;
     float lastDifference;
+    bool inVR;
 
     private void Start()
     {
-        if (leftHand == null || rightHand == null || center == null) gameObject.SetActive(false);
+        inVR = RigManager.instance.usingVr;
+
+        if (inVR && (leftHand == null || rightHand == null || center == null))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        InputManager.Instance.leftArrowContext += HandleDesktopRubbing;
+        InputManager.Instance.rightArrowContext += HandleDesktopRubbing;
     }
 
     public void ResetRubbing() { TotalRubbing = 0; }
 
     private void Update()
+    {
+        if (inVR) HandleVRRubbing();
+    }
+
+    private void HandleVRRubbing()
     {
         center.rotation = Quaternion.Slerp(Quaternion.identity, leftHand.rotation * rightHand.rotation, 0.5f);
         center.position = leftHand.position - (leftHand.position - rightHand.position) / 2;
@@ -30,6 +49,16 @@ public class LegRubbing : MonoBehaviour
         float difference = Mathf.Abs(leftPoint.y - rightPoint.y);
         float differenceInDifference = Mathf.Abs(difference - lastDifference);
         lastDifference = difference;
-        if (Mathf.Pow(maxDistance, 2) > distance && differenceInDifference > minRubbingPerSecound * Time.deltaTime) TotalRubbing += differenceInDifference;
+        if (Mathf.Pow(maxDistance, 2) > distance && differenceInDifference > minRubbingPerSecond * Time.deltaTime) TotalRubbing += differenceInDifference;
+    }
+
+    public void HandleDesktopRubbing(InputAction.CallbackContext callbackContext)
+    {
+        if (lastRubAction != callbackContext.action && Time.time - lastRubTime < desktopInterval)
+        {
+            TotalRubbing++;
+        }
+        lastRubTime = Time.time;
+        lastRubAction = callbackContext.action;
     }
 }
