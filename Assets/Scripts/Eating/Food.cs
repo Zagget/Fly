@@ -4,12 +4,12 @@ public class Food : MonoBehaviour
 {
     [SerializeField] float foodValue;
 
-    Collider collider;
+    Collider foodCollider;
 
     private void Awake()
     {
-        collider = GetComponent<Collider>();
-        if (collider == null)
+        foodCollider = GetComponent<Collider>();
+        if (foodCollider == null)
         {
             Debug.LogWarning("A Food object could not finds its collider");
             Destroy(gameObject);
@@ -23,7 +23,7 @@ public class Food : MonoBehaviour
         {
             Debug.Log(foodValue + ", " + eatingAmount + ", " + (eatingAmount + foodValue));
             DestroySelf();
-            proboscis.RemoveFood(collider);
+            proboscis.RemoveFood(foodCollider);
             eatingAmount += foodValue;
         }
 
