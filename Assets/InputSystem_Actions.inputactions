@@ -627,8 +627,30 @@
                 },
                 {
                     "name": "",
+                    "id": "50fc1d4e-f450-42c7-8568-6b8f2a1ef5d9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3ecaf194-2a17-473a-86cb-09a01f386a4f",
-                    "path": "",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlyDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a569f59e-ae55-4860-80b4-697c4ca20224",
+                    "path": "<XRController>{RightHand}/{SecondaryTrigger}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
