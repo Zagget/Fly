@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR.Management;
 using UnityEngine.XR;
 
 public class RigManager : MonoBehaviour
@@ -9,8 +10,6 @@ public class RigManager : MonoBehaviour
     public GameObject vrRig;
     public GameObject desktopRig;
 
-    // Just for easy reference to rigidbody
-    public GameObject trackingSpace;
 
     public bool usingVr;
     public Rigidbody rb;
@@ -32,14 +31,15 @@ public class RigManager : MonoBehaviour
     private void CheckRig()
     {
         // Check if XR is initialized and a headset is connected
-        if (XRSettings.isDeviceActive)
+        if (XRGeneralSettings.Instance.Manager.activeLoader != null)
         {
             Debug.Log("RigSwitcher: Activating VrRig");
             vrRig.SetActive(true);
             desktopRig.SetActive(false);
 
             usingVr = true;
-            rb = trackingSpace.GetComponent<Rigidbody>();
+            rb = vrRig.GetComponent<Rigidbody>();
+            //vrRig.AddComponent<AudioListener>();
         }
         else
         {
@@ -49,6 +49,7 @@ public class RigManager : MonoBehaviour
 
             usingVr = false;
             rb = desktopRig.GetComponent<Rigidbody>();
+            desktopRig.AddComponent<AudioListener>();
         }
     }
 }

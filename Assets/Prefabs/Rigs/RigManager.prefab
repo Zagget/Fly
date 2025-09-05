@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RigSwitcher
   vrRig: {fileID: 0}
   desktopRig: {fileID: 0}
+  trackingSpace: {fileID: 0}
   usingVr: 0
   rb: {fileID: 7024370704107152800}
 --- !u!54 &7024370704107152800
@@ -71,7 +72,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
