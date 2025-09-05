@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.XR.Management;
-using UnityEngine.XR;
 
 public class RigManager : MonoBehaviour
 {
     private static RigManager _instance;
     public static RigManager instance { get { return _instance; } }
 
-    public GameObject vrRig;
-    public GameObject desktopRig;
+    [SerializeField] private GameObject vrRig;
+    [SerializeField] private GameObject desktopRig;
 
 
     public bool usingVr;
-    public Rigidbody rb;
+    public Rigidbody currentRb;
+    public Camera desktopCamera;
 
     void Awake()
     {
@@ -30,26 +30,30 @@ public class RigManager : MonoBehaviour
 
     private void CheckRig()
     {
-        // Check if XR is initialized and a headset is connected
         if (XRGeneralSettings.Instance.Manager.activeLoader != null)
         {
             Debug.Log("RigSwitcher: Activating VrRig");
-            vrRig.SetActive(true);
-            desktopRig.SetActive(false);
 
-            usingVr = true;
-            rb = vrRig.GetComponent<Rigidbody>();
-            //vrRig.AddComponent<AudioListener>();
+            SetRigsActive(true, false);
+
+            currentRb = vrRig.GetComponent<Rigidbody>();
         }
         else
         {
             Debug.Log("RigSwitcher: Activating DesktopRig");
-            vrRig.SetActive(false);
-            desktopRig.SetActive(true);
 
-            usingVr = false;
-            rb = desktopRig.GetComponent<Rigidbody>();
-            desktopRig.AddComponent<AudioListener>();
+            SetRigsActive(false, true);
+
+            currentRb = desktopRig.GetComponent<Rigidbody>();
+            desktopCamera = desktopRig.GetComponent<Camera>();
         }
+    }
+
+    private void SetRigsActive(bool useVrRig, bool useDesktopRig)
+    {
+        vrRig.SetActive(useVrRig);
+        desktopRig.SetActive(useDesktopRig);
+
+        usingVr = useVrRig;
     }
 }
