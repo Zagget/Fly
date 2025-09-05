@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEditor.ShaderGraph.Internal;
 
 public enum MovementState
 {
@@ -12,12 +13,14 @@ public enum MovementState
 public class PlayerController : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] float speed;
-    [SerializeField] float rotateFactor;
-    [SerializeField] float rotateCooldown = 1f;
+    [SerializeField] float movSpeed;
 
-    [Range(0, 1)]
-    [SerializeField] float rotateSmothness = 0f;
+    [Header("Rotation Settings")]
+    [SerializeField] float pcRotationFactor = 10;
+    [SerializeField] float vrRotationFactor = 10;
+    [Range(0, 0.5f)][SerializeField] float rotateSmothness = 0.5f;
+    [Range(0, 2)][SerializeField] float rotateCooldown = 1f;
+    private float rotationVelo = 0f;
 
     [Header("Ref")]
     [SerializeField] private GameObject vrRig;
@@ -101,15 +104,15 @@ public class PlayerController : MonoBehaviour
     private bool isRotating = false;
     private void OnRotateVision(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            Vector2 rotateInput = context.ReadValue<Vector2>();
+        // if (context.performed)
+        // {
+        Vector2 rotateInput = context.ReadValue<Vector2>();
 
-            if (!isRotating)
-            {
-                StartCoroutine(RotateVision(rotateInput));
-            }
+        if (!isRotating)
+        {
+            StartCoroutine(RotateVision(rotateInput));
         }
+        //}
     }
 
     private IEnumerator RotateVision(Vector2 rotateInput)
@@ -122,11 +125,11 @@ public class PlayerController : MonoBehaviour
 
         if (vr)
         {
-            targetY = vrRig.transform.eulerAngles.y + rotateInput.x * rotateFactor;
+            targetY = vrRig.transform.eulerAngles.y + rotateInput.x * pcRotationFactor;
         }
         else
         {
-            targetY = desktopCamera.transform.eulerAngles.y + rotateInput.x * rotateFactor;
+            targetY = desktopCamera.transform.eulerAngles.y + rotateInput.x * vrRotationFactor;
         }
 
         Vector3 currentEuler = Vector3.zero;
@@ -136,23 +139,23 @@ public class PlayerController : MonoBehaviour
             if (vr)
             {
                 currentEuler = vrRig.transform.eulerAngles;
-                currentEuler.y = Mathf.MoveTowardsAngle(currentEuler.y, targetY, rotateSmothness * Time.deltaTime * 100);
+                float smoothTime = Mathf.Lerp(0, 0.5f, rotateSmothness);
+                float newY = Mathf.SmoothDampAngle(currentEuler.y, targetY, ref rotationVelo, smoothTime);
+                currentEuler.y = newY;
                 vrRig.transform.eulerAngles = currentEuler;
 
-                Debug.Log($"VR In loop: current {currentEuler.y} target {targetY}");
-
-                if (Mathf.Abs(Mathf.DeltaAngle(currentEuler.y, targetY)) < 0.01f)
+                if (GetIsAngleMatching(newY, targetY))
                     break;
             }
             else
             {
                 currentEuler = desktopCamera.transform.eulerAngles;
-                currentEuler.y = Mathf.MoveTowardsAngle(currentEuler.y, targetY, rotateSmothness * Time.deltaTime * 1500);
+                float smoothTime = Mathf.Lerp(0, 1, rotateSmothness);
+                float newY = Mathf.SmoothDampAngle(currentEuler.y, targetY, ref rotationVelo, smoothTime);
+                currentEuler.y = newY;
                 desktopCamera.transform.eulerAngles = currentEuler;
 
-                Debug.Log($"Desktop In  loop: current {currentEuler.y} target {targetY}");
-
-                if (Mathf.Abs(Mathf.DeltaAngle(currentEuler.y, targetY)) < 0.01f)
+                if (GetIsAngleMatching(newY, targetY))
                     break;
             }
 
@@ -161,6 +164,11 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Done rotating");
         isRotating = false;
+    }
+
+    private bool GetIsAngleMatching(float newY, float targetY)
+    {
+        return (Mathf.Abs(Mathf.DeltaAngle(newY, targetY)) < 0.1f);
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -212,6 +220,6 @@ public class PlayerController : MonoBehaviour
         // Translate joystick into 3D direction
         Vector3 move = forward * moveInput.y + right * moveInput.x;
 
-        rb.linearVelocity = move * speed;
+        rb.linearVelocity = move * movSpeed;
     }
 }

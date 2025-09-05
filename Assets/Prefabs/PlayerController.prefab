@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2765bb29eb02aff4fb7851b7c7b3a503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  movSpeed: 5
+  rotationFactor: 50
+  rotateSmothness: 0.113
+  rotateCooldown: 0.2
+  vrRig: {fileID: 0}
