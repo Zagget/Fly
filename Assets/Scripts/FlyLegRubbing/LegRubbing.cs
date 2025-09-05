@@ -27,8 +27,8 @@ public class LegRubbing : MonoBehaviour
             return;
         }
 
-        InputManager.Instance.leftArrowContext += HandleDesktopRubbing;
-        InputManager.Instance.rightArrowContext += HandleDesktopRubbing;
+        InputManager.Instance.leftArrowKey.performed += HandleDesktopRubbing;
+        InputManager.Instance.leftArrowKey.performed += HandleDesktopRubbing;
     }
 
     public void ResetRubbing() { TotalRubbing = 0; }

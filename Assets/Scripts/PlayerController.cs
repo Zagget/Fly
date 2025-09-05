@@ -24,15 +24,15 @@ public class PlayerController : MonoBehaviour
 
     private void SubscribeToInput()
     {
-        InputManager.Instance.buttonAContext += OnAPressed;
-        InputManager.Instance.r_JoyStickContext += OnMove;
+        InputManager.Instance.r_ButtonAAction.performed += OnAPressed;
+        InputManager.Instance.r_JoyStickAction.performed += OnMove;
         //InputManager.Instance.lookContext += OnLook;
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.buttonAContext -= OnAPressed;
-        InputManager.Instance.r_JoyStickContext -= OnMove;
+        InputManager.Instance.r_ButtonAAction.performed -= OnAPressed;
+        InputManager.Instance.r_JoyStickAction.performed -= OnMove;
     }
 
     private void OnAPressed(InputAction.CallbackContext context)
