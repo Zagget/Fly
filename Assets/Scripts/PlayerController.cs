@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public enum MovementState
 {
@@ -13,6 +14,10 @@ public class PlayerController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] float speed;
     [SerializeField] float rotateFactor;
+    [SerializeField] float rotateCooldown = 1f;
+
+    [Range(0, 1)]
+    [SerializeField] float rotateSmothness = 0f;
 
     [Header("Ref")]
     [SerializeField] private GameObject vrRig;
@@ -65,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnLook(InputAction.CallbackContext context)
     {
+        if (isRotating) return;
         Vector2 lookDelta = context.ReadValue<Vector2>();
 
         float lookSensitivity = 0.2f;
@@ -79,7 +85,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Button A Pressed! Activating dash.");
+
         }
     }
 
@@ -87,30 +93,74 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Button B Pressed! Activating dash.");
+
         }
     }
 
+
+    private bool isRotating = false;
     private void OnRotateVision(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             Vector2 rotateInput = context.ReadValue<Vector2>();
-            Debug.Log($"RotateInput: {rotateInput}");
 
+            if (!isRotating)
+            {
+                StartCoroutine(RotateVision(rotateInput));
+            }
+        }
+    }
+
+    private IEnumerator RotateVision(Vector2 rotateInput)
+    {
+        if (isRotating) yield break;
+        isRotating = true;
+
+        Debug.Log("Started Rotating");
+        float targetY;
+
+        if (vr)
+        {
+            targetY = vrRig.transform.eulerAngles.y + rotateInput.x * rotateFactor;
+        }
+        else
+        {
+            targetY = desktopCamera.transform.eulerAngles.y + rotateInput.x * rotateFactor;
+        }
+
+        Vector3 currentEuler = Vector3.zero;
+
+        while (true)
+        {
             if (vr)
             {
-                Vector3 currentEuler = vrRig.transform.eulerAngles;
-                currentEuler.y += rotateInput.x * rotateFactor; // rotate around Y only
+                currentEuler = vrRig.transform.eulerAngles;
+                currentEuler.y = Mathf.MoveTowardsAngle(currentEuler.y, targetY, rotateSmothness * Time.deltaTime * 100);
                 vrRig.transform.eulerAngles = currentEuler;
+
+                Debug.Log($"VR In loop: current {currentEuler.y} target {targetY}");
+
+                if (Mathf.Abs(Mathf.DeltaAngle(currentEuler.y, targetY)) < 0.01f)
+                    break;
             }
             else
             {
-                Vector3 currentEuler = desktopCamera.transform.eulerAngles;
-                currentEuler.y += rotateInput.x * 10; // rotate around Y only
+                currentEuler = desktopCamera.transform.eulerAngles;
+                currentEuler.y = Mathf.MoveTowardsAngle(currentEuler.y, targetY, rotateSmothness * Time.deltaTime * 1500);
                 desktopCamera.transform.eulerAngles = currentEuler;
+
+                Debug.Log($"Desktop In  loop: current {currentEuler.y} target {targetY}");
+
+                if (Mathf.Abs(Mathf.DeltaAngle(currentEuler.y, targetY)) < 0.01f)
+                    break;
             }
+
+            yield return null;
         }
+
+        Debug.Log("Done rotating");
+        isRotating = false;
     }
 
     private void OnMove(InputAction.CallbackContext context)

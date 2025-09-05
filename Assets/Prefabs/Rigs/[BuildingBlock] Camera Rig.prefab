@@ -3957,7 +3957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 93b0420f-6903-4b12-a2fc-1fe6a9df1bd6
+  instanceId: b140d342-a045-4213-8574-8480a7d6f6b0
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -4163,7 +4163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 8dff4e68-f74d-4267-a451-63a419ee49e3
+  instanceId: 5af008e3-43aa-4a26-995c-87e5ac3897a0
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -7153,7 +7153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: c8137960-be0a-43c8-a178-5a62b274b358
+  instanceId: 69060620-b7b6-49ae-8d87-bb9d03b33e9d
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -7351,6 +7351,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5561841327593112518}
   - {fileID: 4509740527578040952}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7367,7 +7368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 34daabdd-fb31-4a6f-8908-c21854e4c34c
+  instanceId: 53cdee92-3278-4766-ad35-18c75a69b4a6
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -9294,7 +9295,6 @@ Transform:
   - {fileID: 2567199410175814953}
   - {fileID: 1229830718106727176}
   - {fileID: 3703910692028866417}
-  - {fileID: 5561841327593112518}
   m_Father: {fileID: 1388064432731622709}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7703486234083351139
@@ -9542,14 +9542,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8102507820692257660}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2076815519277415577}
   - {fileID: 70046137923598132}
-  m_Father: {fileID: 4509740527578040952}
+  m_Father: {fileID: 1388064432731622709}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8128635027280507332
 GameObject:
@@ -11310,7 +11310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 2037b452-445f-46ce-8eb3-fa77ea2c0880
+  instanceId: a15754cc-c8c7-44ff-8a55-961cbdf4dcfa
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
