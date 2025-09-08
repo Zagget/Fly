@@ -73,7 +73,7 @@
                     "name": "Next",
                     "type": "Button",
                     "id": "b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -616,8 +616,8 @@
                 },
                 {
                     "name": "",
-                    "id": "99fea13a-df0e-4961-820a-87365555ae24",
-                    "path": "<XRController>{RightHand}/{PrimaryTrigger}",
+                    "id": "50fc1d4e-f450-42c7-8568-6b8f2a1ef5d9",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -627,8 +627,8 @@
                 },
                 {
                     "name": "",
-                    "id": "50fc1d4e-f450-42c7-8568-6b8f2a1ef5d9",
-                    "path": "<Keyboard>/space",
+                    "id": "63841236-58ba-4653-b16a-f7cf57bb9a3c",
+                    "path": "<XRController>{RightHand}/{TriggerButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -649,8 +649,19 @@
                 },
                 {
                     "name": "",
-                    "id": "a569f59e-ae55-4860-80b4-697c4ca20224",
+                    "id": "1c9ea7f8-cc6f-413e-b8b1-524c8b22265d",
                     "path": "<XRController>{RightHand}/{SecondaryTrigger}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlyDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6fd1525-73ce-4e16-bca1-d02c5af6cecb",
+                    "path": "<XRController>{RightHand}/{GripButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

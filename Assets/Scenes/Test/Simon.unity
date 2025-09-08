@@ -407,7 +407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: horizontalAcceleration
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: horizontalDecceleration
