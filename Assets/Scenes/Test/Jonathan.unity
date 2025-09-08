@@ -9139,18 +9139,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerController
       objectReference: {fileID: 0}
-    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: vrRig
-      value: 
-      objectReference: {fileID: 1687067115}
-    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: rotateSmothness
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: pcRotationFactor
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9282,6 +9270,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3242077975401104625, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3669970260420095825, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
       propertyPath: m_Name
       value: DesktopRig
