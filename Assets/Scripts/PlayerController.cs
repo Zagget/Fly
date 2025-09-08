@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 public enum MovementState
 {
@@ -12,11 +11,6 @@ public enum MovementState
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Rotation Settings")]
-    [Range(1, 180)][SerializeField] float rotationDegree = 90;
-    [Range(0, 0.5f)][SerializeField] float rotateSmothness = 0.5f;
-    private bool isRotating = false;
-
     [Header("Ref")]
     [SerializeField] private FlightControls flightControls;
     [SerializeField] private LookingControls lookingControls;
@@ -25,9 +19,10 @@ public class PlayerController : MonoBehaviour
 
     private bool vr;
 
-
     private void Start()
     {
+        vr = RigManager.instance.usingVr;
+
         SubscribeToInputs();
     }
 
@@ -35,13 +30,14 @@ public class PlayerController : MonoBehaviour
     {
         // Movement 
         InputManager.Instance.r_JoyStickAction.performed += OnMove;
-        InputManager.Instance.r_JoyStickAction.canceled += OnMove;
+        InputManager.Instance.r_JoyStickAction.canceled += OnMoveCanceled;
         InputManager.Instance.rotateVisionAction.performed += OnRotateVision;
         InputManager.Instance.flyUpAction.performed += FlyUp;
         InputManager.Instance.flyUpAction.canceled += FlyUp;
 
         InputManager.Instance.flyDownAction.performed += FlyDown;
         InputManager.Instance.flyDownAction.canceled += FlyDown;
+
         if (!vr)
         {
             InputManager.Instance.lookDirection.performed += OnLook;
@@ -50,7 +46,6 @@ public class PlayerController : MonoBehaviour
         // Buttons
         InputManager.Instance.r_ButtonAAction.performed += OnAPressed;
         InputManager.Instance.r_ButtonBAction.performed += OnBPressed;
-
     }
 
     private void OnDisable()
@@ -63,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
         InputManager.Instance.flyDownAction.performed -= FlyDown;
         InputManager.Instance.flyDownAction.canceled -= FlyDown;
+
         if (!vr)
         {
             InputManager.Instance.lookDirection.performed -= OnLook;
@@ -77,6 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
 
+        Debug.Log($"blä MoveStarted");
         switch (currentMov)
         {
             case MovementState.Flying:
@@ -88,6 +85,11 @@ public class PlayerController : MonoBehaviour
 
                 break;
         }
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        Debug.Log($"blä move canceled");
     }
 
     private void FlyUp(InputAction.CallbackContext context)
@@ -125,10 +127,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 rotateInput = context.ReadValue<Vector2>();
 
-        if (!isRotating)
-        {
-            StartCoroutine(lookingControls.RotateVision(rotateInput));
-        }
+        StartCoroutine(lookingControls.RotateVision(rotateInput));
     }
 
     private void OnAPressed(InputAction.CallbackContext context)

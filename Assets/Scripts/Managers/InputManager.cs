@@ -5,33 +5,40 @@ public class InputManager : MonoBehaviour
     private static InputManager _instance;
     public static InputManager Instance { get { return _instance; } }
 
+    [Header("References")]
+    public PlayerInput playerInput;
+
+    // Right hand actions
     public InputAction r_JoyStickAction;
-    public InputAction lookDirection;
     public InputAction r_ButtonAAction;
     public InputAction r_ButtonBAction;
-    public InputAction leftArrowKey;
-    public InputAction rightArrowKey;
     public InputAction flyUpAction;
     public InputAction flyDownAction;
+
+    // Left hand actions
+    public InputAction lookDirection;
     public InputAction rotateVisionAction;
     public InputAction activatePower;
 
-    private PlayerInput playerInput;
-    private void OnEnable()
+    private void Start()
     {
-        if (playerInput == null)
-            playerInput = GetComponent<PlayerInput>();
+        // Right hand map
+        var rightMap = playerInput.actions.FindActionMap("RightHand", true);
+        r_JoyStickAction = rightMap["Move"];
+        r_ButtonAAction = rightMap["ButtonA"];
+        r_ButtonBAction = rightMap["ButtonB"];
+        flyUpAction = rightMap["FlyUp"];
+        flyDownAction = rightMap["FlyDown"];
 
-        r_JoyStickAction = playerInput.actions["Move"];
-        lookDirection = playerInput.actions["Look"];
-        r_ButtonAAction = playerInput.actions["ButtonA"];
-        r_ButtonBAction = playerInput.actions["ButtonB"];
-        leftArrowKey = playerInput.actions["LeftArrowKey"];
-        rightArrowKey = playerInput.actions["RightArrowKey"];
-        flyUpAction = playerInput.actions["FlyUp"];
-        flyDownAction = playerInput.actions["FlyDown"];
-        rotateVisionAction = playerInput.actions["RotateVision"];
-        activatePower = playerInput.actions["ActivatePower"];
+        // Left hand map
+        var leftMap = playerInput.actions.FindActionMap("LeftHand", true);
+        lookDirection = leftMap["Look"];
+        rotateVisionAction = leftMap["RotateVision"];
+        activatePower = leftMap["ActivatePower"];
+
+        // Enable them explicitly
+        rightMap.Enable();
+        leftMap.Enable();
     }
 
     private void Awake()

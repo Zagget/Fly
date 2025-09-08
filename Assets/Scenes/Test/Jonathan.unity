@@ -9272,7 +9272,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3242077975401104625, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3669970260420095825, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
       propertyPath: m_Name
@@ -9334,42 +9334,6 @@ PrefabInstance:
     - target: {fileID: 1416269577732998182, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
       propertyPath: m_Name
       value: InputManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: flyUpAction.m_Name
-      value: Fly Up
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: leftArrowKey.m_Name
-      value: Left Arrow Key
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: flyDownAction.m_Name
-      value: Fly Down
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: lookDirection.m_Name
-      value: Look Direction
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: rightArrowKey.m_Name
-      value: Right Arrow Key
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: r_ButtonAAction.m_Name
-      value: R_Button A
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: r_ButtonBAction.m_Name
-      value: R_Button B
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: r_JoyStickAction.m_Name
-      value: R_Joy Stick
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475810836851971932, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
-      propertyPath: rotateVisionAction.m_Name
-      value: Rotate Vision
       objectReference: {fileID: 0}
     - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
       propertyPath: m_LocalPosition.x

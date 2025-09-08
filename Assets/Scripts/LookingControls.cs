@@ -28,7 +28,6 @@ public class LookingControls : MonoBehaviour
         pTransform = RigManager.instance.pTransform;
     }
 
-
     public void OnLook(Vector2 mouseInput)
     {
         if (isRotating) return;

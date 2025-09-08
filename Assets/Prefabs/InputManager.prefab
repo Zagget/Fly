@@ -46,6 +46,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
   playerInput: {fileID: 1984846266295471705}
+  r_JoyStickAction:
+    m_Name: R_Joy Stick
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 246a29ed-2a2b-4e26-8d0c-4ee4541d99f2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  r_ButtonAAction:
+    m_Name: R_Button A
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 59ac202e-a290-4c31-ac72-3a6a90b50e5e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  r_ButtonBAction:
+    m_Name: R_Button B
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 821baa08-51cd-419b-9a47-65594a4fe9f1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  flyUpAction:
+    m_Name: Fly Up
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8167c4d6-5935-4ccc-9568-91f301a0e08e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  flyDownAction:
+    m_Name: Fly Down
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8068d001-fe76-494c-82ef-e1afed306db8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  activatePower:
+    m_Name: Activate Power
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 3bb43c80-e6d0-47f2-8acb-269530c831a8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  lookDirection:
+    m_Name: Look Direction
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: cd307ddc-8c8c-4381-8a61-5a55f0591828
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  rotateVisionAction:
+    m_Name: Rotate Vision
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: bf3a02cd-cdfd-4cd1-92c7-c6dda6f203a6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &1984846266295471705
 MonoBehaviour:
   m_ObjectHideFlags: 0

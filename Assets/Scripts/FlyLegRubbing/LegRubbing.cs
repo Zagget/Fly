@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class LegRubbing : MonoBehaviour
 {
-    public static LegRubbing Instance {  get; private set; }
+    public static LegRubbing Instance { get; private set; }
 
     [SerializeField] Transform leftHand;
     [SerializeField] Transform rightHand;
@@ -35,11 +35,11 @@ public class LegRubbing : MonoBehaviour
             return;
         }
 
-        InputManager.Instance.leftArrowKey.performed += HandleDesktopRubbing;
-        InputManager.Instance.rightArrowKey.performed += HandleDesktopRubbing;
+        // InputManager.Instance.leftArrowKey.performed += HandleDesktopRubbing;
+        // InputManager.Instance.rightArrowKey.performed += HandleDesktopRubbing;
     }
 
-    public float ResetRubbing() 
+    public float ResetRubbing()
     {
         float temp = TotalRubbing;
         TotalRubbing = 0;
@@ -77,7 +77,7 @@ public class LegRubbing : MonoBehaviour
 
     private void OnDisable()
     {
-        InputManager.Instance.leftArrowKey.performed -= HandleDesktopRubbing;
-        InputManager.Instance.rightArrowKey.performed -= HandleDesktopRubbing;
+        // InputManager.Instance.leftArrowKey.performed -= HandleDesktopRubbing;
+        // InputManager.Instance.rightArrowKey.performed -= HandleDesktopRubbing;
     }
 }
