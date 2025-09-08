@@ -387,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: maxVerticalVel
-      value: 25
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: yDecceleration
@@ -399,15 +399,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: verticalAcceleration
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: verticalDecceleration
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: horizontalAcceleration
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: horizontalDecceleration

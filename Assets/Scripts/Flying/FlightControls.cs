@@ -60,6 +60,10 @@ public class FlightControls : MonoBehaviour
         {
             verticalSpeed += verticalAcceleration * Time.fixedDeltaTime * verticalInput;
         }
+        else
+        {
+            verticalSpeed = maxVerticalVel * verticalInput;
+        }
 
         if (verticalInput == 0)
         {
