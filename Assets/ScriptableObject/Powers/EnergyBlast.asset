@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbc944038a3a8b44b7fbfa692330244, type: 3}
   m_Name: EnergyBlast
   m_EditorClassIdentifier: Assembly-CSharp::PowerBlast
-  maximumCharge: 40
+  maximumCharge: 10
   duration: 0
   projectile: {fileID: 4180912581957138858, guid: 9d6adfc5d52f7694f9ec7f9c1fee1971, type: 3}
   powerCurve:
