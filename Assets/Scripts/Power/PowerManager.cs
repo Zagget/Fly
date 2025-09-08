@@ -22,7 +22,6 @@ public class PowerManager : MonoBehaviour
         {
             if (powerMapping[i].basePower == null) return;
             float charge = LegRubbing.Instance.ResetRubbing();
-            Debug.Log(charge);
             powerMapping[i].basePower.Activate(currentRigidbody, charge, this);
         }
         else Debug.LogWarning("Power does not exist inside of power mapping: " + power);
