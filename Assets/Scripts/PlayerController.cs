@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using UnityEditor.ShaderGraph.Internal;
 
 public enum MovementState
 {
@@ -23,7 +22,6 @@ public class PlayerController : MonoBehaviour
     private float rotationVelo = 0f;
 
     [Header("Ref")]
-    [SerializeField] private GameObject vrRig;
     [SerializeField] private FlightControls flightControls;
 
     private MovementState currentMov = MovementState.Flying;
@@ -34,17 +32,20 @@ public class PlayerController : MonoBehaviour
 
     private bool vr;
 
+    private Transform playerTransform;
+
     private void Start()
     {
         rb = RigManager.instance.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
 
-        vr = RigManager.instance.usingVr;
+        //vr = RigManager.instance.usingVr;
+
+        playerTransform = RigManager.instance.pTransform;
+        if (playerTransform == null) Debug.LogError("playerTransform not found from RigManager");
 
         if (!vr)
         {
-            desktopCamera = RigManager.instance.desktopCamera;
-            if (desktopCamera == null) Debug.LogError("Rigidbody not found from RigManager");
         }
 
         SubscribeToInputs();
@@ -110,8 +111,8 @@ public class PlayerController : MonoBehaviour
         float rotationX = lookDelta.y * lookSensitivity;
         float rotationY = lookDelta.x * lookSensitivity;
 
-        desktopCamera.transform.Rotate(Vector3.left * rotationX);
-        desktopCamera.transform.Rotate(Vector3.up * rotationY, Space.World);
+        playerTransform.transform.Rotate(Vector3.left * rotationX);
+        playerTransform.transform.Rotate(Vector3.up * rotationY, Space.World);
     }
 
     private void OnAPressed(InputAction.CallbackContext context)
@@ -155,7 +156,7 @@ public class PlayerController : MonoBehaviour
 
         if (vr)
         {
-            targetY = vrRig.transform.eulerAngles.y + rotateInput.x * pcRotationFactor;
+            targetY = playerTransform.transform.eulerAngles.y + rotateInput.x * pcRotationFactor;
         }
         else
         {
@@ -168,11 +169,11 @@ public class PlayerController : MonoBehaviour
         {
             if (vr)
             {
-                currentEuler = vrRig.transform.eulerAngles;
+                currentEuler = playerTransform.transform.eulerAngles;
                 float smoothTime = Mathf.Lerp(0, 0.5f, rotateSmothness);
                 float newY = Mathf.SmoothDampAngle(currentEuler.y, targetY, ref rotationVelo, smoothTime);
                 currentEuler.y = newY;
-                vrRig.transform.eulerAngles = currentEuler;
+                playerTransform.transform.eulerAngles = currentEuler;
 
                 if (GetIsAngleMatching(newY, targetY))
                     break;

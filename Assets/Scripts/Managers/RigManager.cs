@@ -6,12 +6,15 @@ public class RigManager : MonoBehaviour
     private static RigManager _instance;
     public static RigManager instance { get { return _instance; } }
 
+    [Header("Refs")]
     [SerializeField] private GameObject vrRig;
     [SerializeField] private GameObject desktopRig;
 
 
+    [Header("Shared References")]
     public bool usingVr;
     public Rigidbody currentRb;
+    public Transform pTransform;
     public Camera desktopCamera;
 
     void Awake()
@@ -37,6 +40,7 @@ public class RigManager : MonoBehaviour
             SetRigsActive(true, false);
 
             currentRb = vrRig.GetComponent<Rigidbody>();
+            pTransform = vrRig.transform;
         }
         else
         {
@@ -46,6 +50,7 @@ public class RigManager : MonoBehaviour
 
             currentRb = desktopRig.GetComponent<Rigidbody>();
             desktopCamera = desktopRig.GetComponent<Camera>();
+            pTransform = desktopCamera.transform;
         }
     }
 
