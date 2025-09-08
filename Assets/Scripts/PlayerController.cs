@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ref")]
     [SerializeField] private GameObject vrRig;
+    [SerializeField] private FlightControls flightControls;
 
     private MovementState currentMov = MovementState.Flying;
 
@@ -54,6 +55,11 @@ public class PlayerController : MonoBehaviour
         // Movement 
         InputManager.Instance.r_JoyStickAction.performed += OnMove;
         InputManager.Instance.rotateVisionAction.performed += OnRotateVision;
+        InputManager.Instance.flyUpAction.performed += FlyUp;
+        InputManager.Instance.flyUpAction.canceled += FlyUp;
+
+        InputManager.Instance.flyDownAction.performed += FlyDown;
+        InputManager.Instance.flyDownAction.canceled += FlyDown;
         if (!vr)
         {
             InputManager.Instance.lookDirection.performed += OnLook;
@@ -69,6 +75,30 @@ public class PlayerController : MonoBehaviour
     {
         InputManager.Instance.r_ButtonAAction.performed -= OnAPressed;
         InputManager.Instance.r_JoyStickAction.performed -= OnMove;
+    }
+
+    private void FlyUp(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            flightControls.FlyUp(true);
+        }
+        else
+        {
+            flightControls.FlyUp(false);
+        }
+    }
+
+    private void FlyDown(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            flightControls.FlyDown(true);
+        }
+        else
+        {
+            flightControls.FlyDown(false);
+        }
     }
 
     private void OnLook(InputAction.CallbackContext context)
@@ -180,15 +210,7 @@ public class PlayerController : MonoBehaviour
         switch (currentMov)
         {
             case MovementState.Flying:
-
-                // VR
-                // FlyingScript(rb,moveinput, gameobject vrig or Vector3 currentEuler)
-                // 
-                // Pc
-                // FlyingScript(rb, moveinput, camera)
-
-                // Just for testing
-                Flying(rb, moveInput);
+                flightControls.FlyingInput(moveInput);
 
                 break;
 
@@ -198,28 +220,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Will be replaced by another script.
-    private void Flying(Rigidbody rb, Vector2 moveInput)
-    {
-        if (moveInput.sqrMagnitude < 0.01f) // deadzone
-        {
-            rb.linearVelocity = Vector3.zero;
-            return;
-        }
+    // Testing
+    // private void Flying(Rigidbody rb, Vector2 moveInput)
+    // {
+    //     if (moveInput.sqrMagnitude < 0.01f) // deadzone
+    //     {
+    //         rb.linearVelocity = Vector3.zero;
+    //         return;
+    //     }
 
-        // Use the player’s forward/right (ignoring camera rotation if camera is a child)
-        Vector3 forward = transform.forward;
-        Vector3 right = transform.right;
+    //     // Use the player’s forward/right (ignoring camera rotation if camera is a child)
+    //     Vector3 forward = transform.forward;
+    //     Vector3 right = transform.right;
 
-        // Flatten to avoid tilting movement if player rotates vertically
-        forward.y = 0f;
-        right.y = 0f;
-        forward.Normalize();
-        right.Normalize();
+    //     // Flatten to avoid tilting movement if player rotates vertically
+    //     forward.y = 0f;
+    //     right.y = 0f;
+    //     forward.Normalize();
+    //     right.Normalize();
 
-        // Translate joystick into 3D direction
-        Vector3 move = forward * moveInput.y + right * moveInput.x;
+    //     // Translate joystick into 3D direction
+    //     Vector3 move = forward * moveInput.y + right * moveInput.x;
 
-        rb.linearVelocity = move * movSpeed;
-    }
+    //     rb.linearVelocity = move * movSpeed;
+    // }
 }

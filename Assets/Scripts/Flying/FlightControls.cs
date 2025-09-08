@@ -36,16 +36,10 @@ public class FlightControls : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = RigManager.instance.currentRb;
+        if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
 
-        InputManager.Instance.flyUpAction.performed += FlyUp;
-        InputManager.Instance.flyUpAction.canceled += FlyUp;
 
-        InputManager.Instance.flyDownAction.performed += FlyDown;
-        InputManager.Instance.flyDownAction.canceled += FlyDown;
-
-        InputManager.Instance.r_JoyStickAction.performed += GetHorizontalInput;
-        InputManager.Instance.r_JoyStickAction.canceled += GetHorizontalInput;
     }
 
 
@@ -85,7 +79,7 @@ public class FlightControls : MonoBehaviour
                 verticalSpeed -= verticalAcceleration * Time.fixedDeltaTime;
             }
         }
-        
+
 
         //if (!flyingUp) //if you are not trying to fly stabilize overtime.
         //{
@@ -153,9 +147,9 @@ public class FlightControls : MonoBehaviour
         linVel = new Vector3(horizontalVel.x, verticalSpeed, horizontalVel.z);
     }
 
-    private void FlyUp(InputAction.CallbackContext context)
+    public void FlyUp(bool performed)
     {
-        if (context.performed)
+        if (performed)
         {
             flyingUp = true;
         }
@@ -165,9 +159,9 @@ public class FlightControls : MonoBehaviour
         }
     }
 
-    private void FlyDown(InputAction.CallbackContext context)
+    public void FlyDown(bool performed)
     {
-        if (context.performed)
+        if (performed)
         {
             flyingDown = true;
         }
@@ -177,8 +171,8 @@ public class FlightControls : MonoBehaviour
         }
     }
 
-    private void GetHorizontalInput(InputAction.CallbackContext context)
+    public void FlyingInput(Vector2 input)
     {
-        horizontalInput = context.ReadValue<Vector2>();
+        horizontalInput = input;
     }
 }

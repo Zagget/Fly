@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4104068749865634198}
   - component: {fileID: 4655907038890342957}
+  - component: {fileID: 5134278582470079586}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -45,7 +46,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   movSpeed: 5
-  rotationFactor: 50
+  pcRotationFactor: 10
+  vrRotationFactor: 10
   rotateSmothness: 0.113
   rotateCooldown: 0.2
   vrRig: {fileID: 0}
+  flightControls: {fileID: 5134278582470079586}
+--- !u!114 &5134278582470079586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326761119930820967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed4cd01c379a384297d8cef08bf7d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlightControls
+  maxYVelocity: 5
+  minYVelocity: 5
+  yAcceleration: 5
+  flyDownSpeed: 5
+  yDecceleration: 5
+  horizontalAcceleration: 5
+  horizontalMaxVel: 5
+  horizontalDecceleration: 5
+  verticalAcceleration: 5
