@@ -3,8 +3,6 @@ using UnityEngine;
 public class DrawingBoard : MonoBehaviour
 {
     [SerializeField] Texture2D texture;
-    //Color drawColor = Color.black;
-    //int brushSize = 5;
     Renderer render;
 
     void Start()
