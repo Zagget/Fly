@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
     public InputAction flyUpAction;
     public InputAction flyDownAction;
     public InputAction rotateVisionAction;
+    public InputAction activatePower;
 
     private PlayerInput playerInput;
     private void OnEnable()
@@ -30,6 +31,7 @@ public class InputManager : MonoBehaviour
         flyUpAction = playerInput.actions["FlyUp"];
         flyDownAction = playerInput.actions["FlyDown"];
         rotateVisionAction = playerInput.actions["RotateVision"];
+        activatePower = playerInput.actions["ActivatePower"];
     }
 
     private void Awake()

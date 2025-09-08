@@ -1,21 +1,18 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "new Dash", menuName = "Scriptable Objects/Powers/Dash Power")]
 public class DashPower : BasePower
 {
-    public DashPower(float speedFactor, float damage, float cooldown)
-        : base(speedFactor, damage, cooldown) { }
-
-    public override void Activate(Rigidbody player, float currentCharge)
+    [SerializeField] float speedFactor = 10;
+    public override void Start()
     {
-        if (player == null) return;
-
-        player.linearVelocity = Vector3.zero;
+        playersRigidbody.linearVelocity = Vector3.zero;
 
         currentCharge = Mathf.Clamp(currentCharge, 0f, maximumCharge);
 
         float dashSpeed = speedFactor * (currentCharge / maximumCharge);
 
-        player.AddForce(player.transform.forward * dashSpeed, ForceMode.VelocityChange);
+        playersRigidbody.AddForce(playersRigidbody.transform.forward * dashSpeed, ForceMode.VelocityChange);
 
         Debug.Log($"Dashed forward with, currentCharge: {currentCharge}, speed: {dashSpeed}");
     }

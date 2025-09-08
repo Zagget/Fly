@@ -1,18 +1,39 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+
+#if UNITY_EDITOR
+using UnityEditor;
+[CustomEditor(typeof(PowerProgression))]
+public class PowerProgressionEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        if (GUILayout.Button("Set debug as real power"))
+        {
+            PowerProgression powerProgression = (PowerProgression)target;
+            powerProgression.ChangePower(powerProgression.debugPower);
+            powerProgression.SetDebugPower();
+        }
+    }
+}
+#endif
+
 /// <summary>
 /// Handles the power selection and progression.
 /// </summary>
 public class PowerProgression : MonoBehaviour
 {
     private static PowerProgression _instance;
-    public static PowerProgression Instance {  get { return _instance; } }
+    public static PowerProgression Instance { get { return _instance; } }
     public Powers currentPower { private set; get; }
 
     private float energyLevel;
     private int powerLevel;
 
     [SerializeField] private List<Powers> sortedPowers;
+    public Powers debugPower;
 
     private void Awake()
     {
@@ -59,12 +80,22 @@ public class PowerProgression : MonoBehaviour
 
         return false;
     }
+
+    /// <summary>
+    /// uses the debug power as the new power
+    /// </summary>
+    /// <param name="powers"></param>
+    public void SetDebugPower() { currentPower = debugPower; }
 }
 /// <summary>
 /// All the powers in the game, 0 is None. This is in PowerProgression Script.
 /// </summary>
+
+
+[Serializable]
 public enum Powers
 {
     None,
     Dash,
+    EnergyBlast
 }

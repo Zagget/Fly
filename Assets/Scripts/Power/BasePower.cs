@@ -1,38 +1,59 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-/// <summary>
-/// Base for all powers
-/// </summary>
-public class BasePower : MonoBehaviour
+[Serializable]
+public class BasePower : ScriptableObject
 {
-    public float speedFactor;
-    public float damage;
+    public float Cooldown { get; protected set; }
 
-    public float cooldown;
-    protected int maximumCharge = 10;
+    protected Rigidbody playersRigidbody;
+    protected float currentCharge;
+    
+    [SerializeField] protected int maximumCharge = 10;
+    [SerializeField] protected float duration = 0;
 
-    public BasePower(float speedFactor = 0f, float damage = 0f, float cooldown = 1f)
+    PowerManager powerManager;
+
+    float timeStarted;
+
+    public virtual void Activate(Rigidbody player, float currentCharge, PowerManager powerManager)
     {
-        this.speedFactor = speedFactor;
-        this.damage = damage;
-        this.cooldown = cooldown;
-    }
+        playersRigidbody = player;
+        if (playersRigidbody == null) return;
+        this.currentCharge = currentCharge;
+        this.powerManager = powerManager;
+        powerManager.continues += Continues;
+        timeStarted = Time.time;
 
+        Start();
+    }
 
     /// <summary>
-    /// Activates whatever power
+    /// Gets called once when activating
     /// </summary>
-    public virtual void Activate(Rigidbody player, float currentCharge)
-    {
+    public virtual void Start() { }
 
+    public void Continues()
+    {
+        if (Time.time - timeStarted >= duration)
+        {
+            End();
+            powerManager.continues -= Continues;
+        }
+        else
+        {
+            Update();
+        }
     }
 
     /// <summary>
-    ///  
+    ///  Gets called once every frame as long as the duration has not run out
     /// </summary>
-    public virtual void Damage(Rigidbody obj, float currentCharge)
-    {
+    public virtual void Update() { }
 
-    }
+    /// <summary>
+    /// Gets called one time instead of update if the duration has run out
+    /// </summary>
+    public virtual void End() { }
 }
