@@ -6,19 +6,16 @@ public enum MovementState
 {
     Flying,
     Walking,
+    Dash,
     None // Used for menu and testing
 }
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] float movSpeed;
-
     [Header("Rotation Settings")]
-    [SerializeField] float pcRotationFactor = 10;
-    [SerializeField] float vrRotationFactor = 10;
+    [SerializeField] float rotationFactor = 10;
     [Range(0, 0.5f)][SerializeField] float rotateSmothness = 0.5f;
-    [Range(0, 2)][SerializeField] float rotateCooldown = 1f;
+    private bool isRotating = false;
     private float rotationVelo = 0f;
 
     [Header("Ref")]
@@ -26,12 +23,8 @@ public class PlayerController : MonoBehaviour
 
     private MovementState currentMov = MovementState.Flying;
 
-    // rb for pc or vr
     private Rigidbody rb;
-    private Camera desktopCamera;
-
     private bool vr;
-
     private Transform playerTransform;
 
     private void Start()
@@ -39,14 +32,8 @@ public class PlayerController : MonoBehaviour
         rb = RigManager.instance.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
 
-        //vr = RigManager.instance.usingVr;
-
         playerTransform = RigManager.instance.pTransform;
         if (playerTransform == null) Debug.LogError("playerTransform not found from RigManager");
-
-        if (!vr)
-        {
-        }
 
         SubscribeToInputs();
     }
@@ -74,8 +61,41 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        InputManager.Instance.r_ButtonAAction.performed -= OnAPressed;
+        // Movement
         InputManager.Instance.r_JoyStickAction.performed -= OnMove;
+        InputManager.Instance.rotateVisionAction.performed -= OnRotateVision;
+        InputManager.Instance.flyUpAction.performed -= FlyUp;
+        InputManager.Instance.flyUpAction.canceled -= FlyUp;
+
+        InputManager.Instance.flyDownAction.performed -= FlyDown;
+        InputManager.Instance.flyDownAction.canceled -= FlyDown;
+        if (!vr)
+        {
+            InputManager.Instance.lookDirection.performed -= OnLook;
+        }
+
+        // Buttons
+        InputManager.Instance.r_ButtonAAction.performed -= OnAPressed;
+        InputManager.Instance.r_ButtonBAction.performed -= OnBPressed;
+    }
+
+    private void OnMove(InputAction.CallbackContext context)
+    {
+        if (rb == null) return;
+
+        Vector2 moveInput = context.ReadValue<Vector2>();
+
+        switch (currentMov)
+        {
+            case MovementState.Flying:
+                flightControls.FlyingInput(moveInput);
+
+                break;
+
+            case MovementState.Walking:
+
+                break;
+        }
     }
 
     private void FlyUp(InputAction.CallbackContext context)
@@ -132,7 +152,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private bool isRotating = false;
     private void OnRotateVision(InputAction.CallbackContext context)
     {
         // if (context.performed)
@@ -151,74 +170,30 @@ public class PlayerController : MonoBehaviour
         if (isRotating) yield break;
         isRotating = true;
 
-        Debug.Log("Started Rotating");
-        float targetY;
-
-        if (vr)
-        {
-            targetY = playerTransform.transform.eulerAngles.y + rotateInput.x * pcRotationFactor;
-        }
-        else
-        {
-            targetY = desktopCamera.transform.eulerAngles.y + rotateInput.x * vrRotationFactor;
-        }
+        float targetY = playerTransform.transform.rotation.y + rotateInput.x * rotationFactor;
 
         Vector3 currentEuler = Vector3.zero;
 
         while (true)
         {
-            if (vr)
-            {
-                currentEuler = playerTransform.transform.eulerAngles;
-                float smoothTime = Mathf.Lerp(0, 0.5f, rotateSmothness);
-                float newY = Mathf.SmoothDampAngle(currentEuler.y, targetY, ref rotationVelo, smoothTime);
-                currentEuler.y = newY;
-                playerTransform.transform.eulerAngles = currentEuler;
+            currentEuler = playerTransform.transform.eulerAngles;
+            float smoothTime = Mathf.Lerp(0, 0.5f, rotateSmothness);
 
-                if (GetIsAngleMatching(newY, targetY))
-                    break;
-            }
-            else
-            {
-                currentEuler = desktopCamera.transform.eulerAngles;
-                float smoothTime = Mathf.Lerp(0, 1, rotateSmothness);
-                float newY = Mathf.SmoothDampAngle(currentEuler.y, targetY, ref rotationVelo, smoothTime);
-                currentEuler.y = newY;
-                desktopCamera.transform.eulerAngles = currentEuler;
+            float newY = Mathf.SmoothDampAngle(currentEuler.y, targetY, ref rotationVelo, smoothTime);
+            currentEuler.y = newY;
+            playerTransform.transform.eulerAngles = currentEuler;
 
-                if (GetIsAngleMatching(newY, targetY))
-                    break;
-            }
+            if (GetIsAngleMatching(newY, targetY))
+                break;
 
             yield return null;
         }
-
-        Debug.Log("Done rotating");
         isRotating = false;
     }
 
     private bool GetIsAngleMatching(float newY, float targetY)
     {
         return (Mathf.Abs(Mathf.DeltaAngle(newY, targetY)) < 0.1f);
-    }
-
-    private void OnMove(InputAction.CallbackContext context)
-    {
-        if (rb == null) return;
-
-        Vector2 moveInput = context.ReadValue<Vector2>();
-
-        switch (currentMov)
-        {
-            case MovementState.Flying:
-                flightControls.FlyingInput(moveInput);
-
-                break;
-
-            case MovementState.Walking:
-
-                break;
-        }
     }
 
     // Testing
