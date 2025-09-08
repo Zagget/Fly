@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         // Movement 
         InputManager.Instance.r_JoyStickAction.performed += OnMove;
+        InputManager.Instance.r_JoyStickAction.canceled += OnMove;
         InputManager.Instance.rotateVisionAction.performed += OnRotateVision;
         InputManager.Instance.flyUpAction.performed += FlyUp;
         InputManager.Instance.flyUpAction.canceled += FlyUp;

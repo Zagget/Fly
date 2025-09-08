@@ -1,14 +1,11 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 public class FlightControls : MonoBehaviour
 {
     private Rigidbody rb;
 
-    [SerializeField] private float maxYVelocity;
-    [SerializeField] private float minYVelocity;
-    [SerializeField] private float yAcceleration;
-    [SerializeField] private float flyDownSpeed;
-    [SerializeField] private float yDecceleration;
+    [SerializeField] private float maxVerticalVel;
+    [SerializeField] private float verticalDecceleration;
+    [SerializeField] private float verticalAcceleration;
 
     [SerializeField] private float horizontalAcceleration;
     [SerializeField] private float horizontalMaxVel;
@@ -17,22 +14,17 @@ public class FlightControls : MonoBehaviour
     private bool flyingUp = false;
     private bool flyingDown = false;
 
-    private float minYVelThreashold = -10;
-    private float maxYVelThreashold = 10;
-
     private float currentHorizontalSpeed;
     private float targetHorizontalSpeed;
 
     private float speed;
-    private float accelerationTime;
 
-    [SerializeField] private float verticalAcceleration;
 
     private Vector2 horizontalInput;
 
-    float verticalSpeed;
+    private float verticalSpeed;
 
-    Vector3 linVel;
+    Vector3 linVel; //rb.linearVelocity
 
     private void Start()
     {
@@ -47,73 +39,45 @@ public class FlightControls : MonoBehaviour
     {
         linVel = rb.linearVelocity;
 
-        FlyUpControlls();
-        FlyDownControlls();
+        VerticalFlight();
         HorizontalControlls();
         rb.linearVelocity = linVel;
     }
 
-    private void FlyUpControlls()
+    private void VerticalFlight()
     {
-        if (verticalSpeed <= 0)
-        {
-            accelerationTime = 0;
-        }
-        else
-        {
-            accelerationTime += Time.fixedDeltaTime;
-        }
-
+        float verticalInput = 0;
         if (flyingUp)
         {
-            if (verticalSpeed < maxYVelocity)
-            {
-                verticalSpeed += verticalAcceleration * Time.fixedDeltaTime;
-            }
+            verticalInput += 1;
         }
-
         if (flyingDown)
         {
-            if (verticalSpeed > minYVelocity)
+            verticalInput -= 1;
+        }
+
+        if (Mathf.Abs(verticalSpeed) < maxVerticalVel)
+        {
+            verticalSpeed += verticalAcceleration * Time.fixedDeltaTime * verticalInput;
+        }
+
+        if (verticalInput == 0)
+        {
+            //Stabilize vertical speed when close to 0.
+            if (verticalSpeed > -0.5f && verticalSpeed < 0.5f)
             {
-                verticalSpeed -= verticalAcceleration * Time.fixedDeltaTime;
+                verticalSpeed = 0;
+            }
+
+            if (verticalSpeed > 0)
+            {
+                verticalSpeed -= Time.fixedDeltaTime * verticalDecceleration;
+            }
+            else if (verticalSpeed < 0)
+            {
+                verticalSpeed += Time.fixedDeltaTime * verticalDecceleration;
             }
         }
-
-
-        //if (!flyingUp) //if you are not trying to fly stabilize overtime.
-        //{
-        //    if (linVel.y > 0)
-        //    {
-        //        linVel = new Vector3(linVel.x,
-        //            linVel.y - yDecceleration * Time.fixedDeltaTime, linVel.z);
-        //    }
-        //    else if (linVel.y > minYVelThreashold && linVel.y < maxYVelThreashold && !flyingDown)
-        //    {
-        //        linVel = new Vector3(linVel.x, 0, linVel.z);
-        //    }
-        //    return;
-        //}
-
-        //if (linVel.y < maxYVelocity * Time.fixedDeltaTime)
-        //{
-        //    linVel = new Vector3(linVel.x,
-        //        linVel.y + yAcceleration * Time.fixedDeltaTime, linVel.z);
-        //}
-        //else
-        //{
-        //    linVel = new Vector3(linVel.x, maxYVelocity * Time.fixedDeltaTime, linVel.z);
-        //}
-    }
-
-    private void FlyDownControlls()
-    {
-        if (flyingDown == false)
-        {
-            return;
-        }
-
-        linVel = new Vector3(linVel.x, -flyDownSpeed * Time.fixedDeltaTime, linVel.z);
     }
 
     private void HorizontalControlls()
@@ -122,14 +86,17 @@ public class FlightControls : MonoBehaviour
         {
             targetHorizontalSpeed = 0;
         }
-
-        targetHorizontalSpeed = horizontalMaxVel;
+        else
+        {
+            targetHorizontalSpeed = horizontalMaxVel;
+        }
 
         currentHorizontalSpeed = rb.linearVelocity.magnitude;
 
         float inputMagnitude = horizontalInput.magnitude;
 
-        Vector3 inputDirection = transform.right * horizontalInput.x + transform.forward * horizontalInput.y;
+        Vector3 inputDirection = RigManager.instance.pTransform.right * horizontalInput.x
+            + RigManager.instance.pTransform.forward * horizontalInput.y;
 
         if (currentHorizontalSpeed < horizontalMaxVel || currentHorizontalSpeed > horizontalMaxVel)
         {
