@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private bool vr;
 
-    InputNewVR inputActions;
+    Input inputActions;
 
     private void Start()
     {

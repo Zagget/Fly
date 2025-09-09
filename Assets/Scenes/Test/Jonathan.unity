@@ -9196,10 +9196,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerController
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: maxVerticalVel
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

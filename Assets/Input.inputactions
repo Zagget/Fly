@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "InputNewVR",
+    "name": "Input",
     "maps": [
         {
             "name": "LeftHand",
