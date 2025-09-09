@@ -117,7 +117,6 @@ public class PowerProgression : MonoBehaviour
     {
         int indexOfPower = sortedPowers.IndexOf(currentPower);
         currentPower = sortedPowers[(indexOfPower + 1) % (powerLevel + 1)];
-        Debug.Log(currentPower);
     }
 
     /// <summary>
