@@ -4,6 +4,7 @@ using UnityEngine;
 public interface IGrabbable
 {
     Rigidbody rb { get; }
+    int weight { get; }
     void OnGrab(Transform hand);
     void OnRelease(Vector3 velocity, Vector3 rotationSpeed);
 }

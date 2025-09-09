@@ -11,6 +11,8 @@ public class Grabber : MonoBehaviour
     private Vector3 currentAngularVelocity;
     private Vector3 prevPos;
     private Quaternion prevRot;
+    //temp
+    private int strength;
 
 
     void Start()
@@ -37,6 +39,7 @@ public class Grabber : MonoBehaviour
                 closestGrab = candidate;
             }
         }
+        if (closestGrab.weight > strength) return;
         currentGrabbed = closestGrab;
         closestGrab.OnGrab(transform);
     }
@@ -45,6 +48,7 @@ public class Grabber : MonoBehaviour
     { 
         if (currentGrabbed == null) return;
         currentGrabbed.OnRelease(currentLinearVelocity, currentAngularVelocity);
+        currentGrabbed = null;
     }
 
     private void Update()
