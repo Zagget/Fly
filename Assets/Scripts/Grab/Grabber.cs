@@ -7,6 +7,10 @@ public class Grabber : MonoBehaviour
     SphereCollider reachCollider;
     private List<IGrabbable> grabCandidates = new List<IGrabbable>();
     private IGrabbable currentGrabbed;
+    private Vector3 currentLinearVelocity;
+    private Vector3 currentAngularVelocity;
+    private Vector3 prevPos;
+    private Quaternion prevRot;
 
 
     void Start()
@@ -40,17 +44,22 @@ public class Grabber : MonoBehaviour
     void Release()
     { 
         if (currentGrabbed == null) return;
-
-
-
-
-
+        currentGrabbed.OnRelease(currentLinearVelocity, currentAngularVelocity);
     }
 
-    //private void Update()
-    //{
-    //    if (currentGrabbed != null)
-    //}
+    private void Update()
+    {
+        currentLinearVelocity = (transform.position - prevPos) / Time.deltaTime;
+        // Angular difference calculation    
+        Quaternion deltaRot = transform.rotation * Quaternion.Inverse(prevRot);
+        //convert to degrees
+        deltaRot.ToAngleAxis(out float angleInDegrees, out Vector3 rotationAxis);
+        // Convert to radians and divide by delta time to get angular velocity
+        currentAngularVelocity = rotationAxis * angleInDegrees * Mathf.Deg2Rad / Time.deltaTime;
+
+        prevPos = transform.position;
+        prevRot = transform.rotation;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
