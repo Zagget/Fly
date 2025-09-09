@@ -1,3 +1,4 @@
+using System;
 using Meta.XR.InputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,22 +35,12 @@ public class PlayerController : MonoBehaviour
     private void SubscribeToInputs()
     {
         // Right hand
-        inputActions.RightHand.Movement.started += OnMove;
-        inputActions.RightHand.Movement.performed += OnMove;
-        inputActions.RightHand.Movement.canceled += OnMove;
+        SubscribeToAction(inputActions.RightHand.Movement, OnMove);
+        SubscribeToAction(inputActions.RightHand.FlyUp, OnFlyUp);
+        SubscribeToAction(inputActions.RightHand.FlyDown, OnFlyDown);
 
-        inputActions.RightHand.FlyUp.started += OnFlyUp;
-        inputActions.RightHand.FlyUp.performed += OnFlyUp;
-        inputActions.RightHand.FlyUp.canceled += OnFlyUp;
-
-        inputActions.RightHand.FlyDown.started += OnFlyDown;
-        inputActions.RightHand.FlyDown.performed += OnFlyDown;
-        inputActions.RightHand.FlyDown.canceled += OnFlyDown;
-
-        // Left Hand
-        inputActions.LeftHand.Rotate.started += OnRotateVision;
-        inputActions.LeftHand.Rotate.performed += OnRotateVision;
-        inputActions.LeftHand.Rotate.canceled += OnRotateVision;
+        // Left hand
+        SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
 
         // Look around with mouse
         if (!vr)
@@ -61,7 +52,33 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        // Right hand
+        UnsubscribeFromAction(inputActions.RightHand.Movement, OnMove);
+        UnsubscribeFromAction(inputActions.RightHand.FlyUp, OnFlyUp);
+        UnsubscribeFromAction(inputActions.RightHand.FlyDown, OnFlyDown);
 
+        // Left hand
+        UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
+
+        // Look around with mouse
+        if (!vr)
+        {
+            inputActions.LeftHand.MousePointer.performed -= OnLook;
+        }
+    }
+
+    private void SubscribeToAction(InputAction action, Action<InputAction.CallbackContext> callback)
+    {
+        action.started += callback;
+        action.performed += callback;
+        action.canceled += callback;
+    }
+
+    private void UnsubscribeFromAction(InputAction action, Action<InputAction.CallbackContext> callback)
+    {
+        action.started -= callback;
+        action.performed -= callback;
+        action.canceled -= callback;
     }
 
     private void OnMove(InputAction.CallbackContext context)
