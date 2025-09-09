@@ -567,118 +567,6 @@
             ]
         },
         {
-            "name": "LeftHand",
-            "id": "636d94f0-b4a5-4a2b-9d67-039f556f117d",
-            "actions": [
-                {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "e66315f8-dff3-488b-ad48-87962c1e23b8",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "RotateVision",
-                    "type": "Value",
-                    "id": "0fc79314-6f51-4ee4-8df5-b84b1960f4a2",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "ActivatePower",
-                    "type": "Button",
-                    "id": "2eae5e3a-092f-40dd-befa-2b9e25fe494b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "45f6ec0b-400c-42d0-aa12-3c281b96d69e",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "129a72d3-023c-47ea-804e-3dd9f2c1c80f",
-                    "path": "<XRController>{LeftHand}/{Primary2DAxis}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";XR",
-                    "action": "RotateVision",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Q/E",
-                    "id": "d5c2b831-a045-4b1b-a1b8-43e05b5f9a15",
-                    "path": "Dpad",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RotateVision",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "left",
-                    "id": "76d59e2e-0c92-4f12-bed8-9383432a0150",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "RotateVision",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "dbc2990b-c88e-4838-ad16-48760cf74fa9",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "RotateVision",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "b5dfccad-3c75-48e7-8268-0744979ebbe1",
-                    "path": "<XRController>{LeftHand}/{PrimaryTrigger}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";XR",
-                    "action": "ActivatePower",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "efa9e460-46bb-4e94-9724-5188bad2e3b5",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "ActivatePower",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "RightHand",
             "id": "cd16d85a-940c-43aa-9a12-a7b93afb1b33",
             "actions": [
@@ -896,8 +784,8 @@
                 },
                 {
                     "name": "",
-                    "id": "69d6de90-7172-43e6-a0a2-8e969fd94816",
-                    "path": "<XRController>{RightHand}/{TriggerButton}",
+                    "id": "a06c7b99-ccb4-4f68-9be8-1c3c1e08daea",
+                    "path": "<OculusTouchController>{RightHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": ";XR",

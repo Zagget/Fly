@@ -24,11 +24,12 @@ public class InputManager : MonoBehaviour
     {
         // Right hand map
         var rightMap = playerInput.actions.FindActionMap("RightHand", true);
-        r_JoyStickAction = rightMap["Move"];
+       // r_JoyStickAction = rightMap["Move"];
         r_ButtonAAction = rightMap["ButtonA"];
         r_ButtonBAction = rightMap["ButtonB"];
-        flyUpAction = rightMap["FlyUp"];
-        flyDownAction = rightMap["FlyDown"];
+        // flyUpAction = rightMap["FlyUp"];
+        // flyDownAction = rightMap["FlyDown"];
+
 
         // Left hand map
         var leftMap = playerInput.actions.FindActionMap("LeftHand", true);
@@ -36,9 +37,25 @@ public class InputManager : MonoBehaviour
         rotateVisionAction = leftMap["RotateVision"];
         activatePower = leftMap["ActivatePower"];
 
+
         // Enable them explicitly
         rightMap.Enable();
         leftMap.Enable();
+    }
+
+
+    public InputNewVR inputActions;
+
+    private void OnEnable()
+    {
+        // Enable the whole action map
+        inputActions.ActionMap.Enable();
+    }
+
+    private void OnDisable()
+    {
+        // Enable the whole action map
+        inputActions.ActionMap.Disable();
     }
 
     private void Awake()
@@ -51,5 +68,7 @@ public class InputManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        inputActions = new InputNewVR();
     }
 }

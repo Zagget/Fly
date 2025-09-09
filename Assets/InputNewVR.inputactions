@@ -1,0 +1,75 @@
+{
+    "version": 1,
+    "name": "InputNewVR",
+    "maps": [
+        {
+            "name": "ActionMap",
+            "id": "9fa01b98-33f0-4cec-ba85-6e3f7a8a931f",
+            "actions": [
+                {
+                    "name": "Right Shoot",
+                    "type": "Button",
+                    "id": "759d49a9-6f13-4ba8-8853-92a91569033e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Left Shoot",
+                    "type": "Button",
+                    "id": "87b55e7f-a440-4b6c-b145-d608118050d2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "a6199f71-8062-4f05-ab4b-837a63a34040",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a83abede-0d5a-4176-9786-0a8afcc620da",
+                    "path": "<XRController>{RightHand}/{TriggerButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6686bc97-af4a-4999-9d37-37d305c31641",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "23bc45bd-23ef-4065-8717-2db1b404e7a8",
+                    "path": "<XRController>{RightHand}/{Primary2DAxis}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

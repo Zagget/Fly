@@ -11,11 +11,13 @@ public class PowerManager : MonoBehaviour
     private void Start()
     {
         currentRigidbody = RigManager.instance.currentRb;
-        InputManager.Instance.activatePower.performed += ActivatePower;
+        //InputManager.Instance.activatePower.performed += ActivatePower;
     }
 
     public void ActivatePower(InputAction.CallbackContext context)
     {
+        Debug.Log("KILL ME WITH FIRE");
+        /*
         Powers power = PowerProgression.Instance.currentPower;
 
         if (FindPower(power, out int i))
@@ -25,6 +27,7 @@ public class PowerManager : MonoBehaviour
             powerMapping[i].basePower.Activate(currentRigidbody, charge, this);
         }
         else Debug.LogWarning("Power does not exist inside of power mapping: " + power);
+        */
     }
 
     bool FindPower(Powers power, out int index)
@@ -45,7 +48,7 @@ public class PowerManager : MonoBehaviour
 
     private void OnDisable()
     {
-        InputManager.Instance.activatePower.performed -= ActivatePower;
+        //InputManager.Instance.activatePower.performed -= ActivatePower;
     }
 }
 

@@ -56,12 +56,12 @@ public class PowerProgression : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.Instance.r_ButtonAAction.started += NextPower;
+       // InputManager.Instance.r_ButtonAAction.started += NextPower;
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.r_ButtonAAction.started -= NextPower;
+       // InputManager.Instance.r_ButtonAAction.started -= NextPower;
     }
 
     /// <summary>

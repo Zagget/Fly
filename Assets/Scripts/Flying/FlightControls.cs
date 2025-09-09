@@ -122,7 +122,6 @@ public class FlightControls : MonoBehaviour
     {
         if (performed)
         {
-            Debug.Log("FlyUp");
             flyingUp = true;
         }
         else
@@ -135,7 +134,6 @@ public class FlightControls : MonoBehaviour
     {
         if (performed)
         {
-            Debug.Log("FlyDown");
             flyingDown = true;
         }
         else

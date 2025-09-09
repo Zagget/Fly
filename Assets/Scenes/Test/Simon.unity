@@ -395,7 +395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: horizontalMaxVel
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: verticalAcceleration
@@ -407,11 +407,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: horizontalAcceleration
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: horizontalDecceleration
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: m_EditorClassIdentifier
@@ -422,102 +422,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
---- !u!1 &493359365
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 493359368}
-  - component: {fileID: 493359367}
-  - component: {fileID: 493359366}
-  m_Layer: 0
-  m_Name: '[BuildingBlock] Controller Buttons Mapper'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &493359366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493359365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d376240d064f4484e81824d51391caf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buttonClickActions:
-  - Title: Shoot
-    Button: 0
-    ButtonMode: 0
-    InputActionReference: {fileID: 0}
-    CallbackWithContext:
-      m_PersistentCalls:
-        m_Calls: []
-    Callback:
-      m_PersistentCalls:
-        m_Calls: []
-  - Title: Shoot
-    Button: 0
-    ButtonMode: 0
-    InputActionReference: {fileID: 0}
-    CallbackWithContext:
-      m_PersistentCalls:
-        m_Calls: []
-    Callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &493359367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493359365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
-  blockId: 80aa2eb2-af2f-40a9-ad9e-18044ce65bee
-  instanceId: b5b6afa7-ee8a-4d35-9b75-b15c89d995d3
-  version: 1
-  installationRoutineCheckpoint:
-    _installationRoutineId: 
-    _installationVariants: []
---- !u!4 &493359368
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493359365}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,175 +699,63 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 7024370704107152800, guid: 2598131bcf737b544843da3973e4c923, type: 3}
   m_PrefabInstance: {fileID: 1729983590}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1166684749
-GameObject:
+--- !u!1001 &1027336799
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1166684751}
-  - component: {fileID: 1166684750}
-  - component: {fileID: 1166684752}
-  - component: {fileID: 1166684753}
-  m_Layer: 0
-  m_Name: InputManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1166684750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166684749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 711a2390c8df5d7439868b10086a1375, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InputManager
-  r_JoyStickAction:
-    m_Name: R_Joy Stick
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 3bf6b8b8-e1cf-4737-a768-3cdd2f49e1a2
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  lookDirection:
-    m_Name: Look Direction
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ca6e3725-310e-4490-bf2e-2f34fbc09edf
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  r_ButtonAAction:
-    m_Name: R_Button A
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 2fc536fa-27a2-4b7e-a71b-4e1237f49b65
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  r_ButtonBAction:
-    m_Name: R_Button B
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e3619003-602b-422e-a190-5fa325af0302
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  leftArrowKey:
-    m_Name: Left Arrow Key
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: c110bc10-49f0-47a1-acfb-e4cd617b7a4c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  rightArrowKey:
-    m_Name: Right Arrow Key
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e3dcde75-ffe2-4075-8eed-e2e6db81f3b6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  flyUpAction:
-    m_Name: Fly Up
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 2d7c12d7-7806-40c7-9851-a55d0504810b
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  flyDownAction:
-    m_Name: Fly Down
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 9eeb2f9e-5754-42c0-914b-0094280dc1c1
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  rotateVisionAction:
-    m_Name: Rotate Vision
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 7950242e-6bab-4ac1-b5f7-a915d5b33010
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
---- !u!4 &1166684751
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166684749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1994, y: -1.71, z: 1.34192}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1166684752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166684749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: 
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &1166684753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166684749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd70283b61de8d14fbca3b4c36f19dba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::test
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1416269577732998182, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_Name
+      value: InputManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.30309
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.03187
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870240967772896042, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
 --- !u!1 &1178207845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,10 +1228,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 493359368}
   - {fileID: 1687599301}
   - {fileID: 937095994}
-  - {fileID: 1166684751}
   - {fileID: 1335520553}
   - {fileID: 1265756923}
   - {fileID: 1729983590}
@@ -1448,3 +1238,4 @@ SceneRoots:
   - {fileID: 937339018}
   - {fileID: 454736564}
   - {fileID: 95259}
+  - {fileID: 1027336799}

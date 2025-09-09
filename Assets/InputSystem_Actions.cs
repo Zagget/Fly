@@ -653,118 +653,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""LeftHand"",
-            ""id"": ""636d94f0-b4a5-4a2b-9d67-039f556f117d"",
-            ""actions"": [
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""e66315f8-dff3-488b-ad48-87962c1e23b8"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""RotateVision"",
-                    ""type"": ""Value"",
-                    ""id"": ""0fc79314-6f51-4ee4-8df5-b84b1960f4a2"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""ActivatePower"",
-                    ""type"": ""Button"",
-                    ""id"": ""2eae5e3a-092f-40dd-befa-2b9e25fe494b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""45f6ec0b-400c-42d0-aa12-3c281b96d69e"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""129a72d3-023c-47ea-804e-3dd9f2c1c80f"",
-                    ""path"": ""<XRController>{LeftHand}/{Primary2DAxis}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";XR"",
-                    ""action"": ""RotateVision"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Q/E"",
-                    ""id"": ""d5c2b831-a045-4b1b-a1b8-43e05b5f9a15"",
-                    ""path"": ""Dpad"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateVision"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""76d59e2e-0c92-4f12-bed8-9383432a0150"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""RotateVision"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""dbc2990b-c88e-4838-ad16-48760cf74fa9"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""RotateVision"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b5dfccad-3c75-48e7-8268-0744979ebbe1"",
-                    ""path"": ""<XRController>{LeftHand}/{PrimaryTrigger}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";XR"",
-                    ""action"": ""ActivatePower"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""efa9e460-46bb-4e94-9724-5188bad2e3b5"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""ActivatePower"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""RightHand"",
             ""id"": ""cd16d85a-940c-43aa-9a12-a7b93afb1b33"",
             ""actions"": [
@@ -982,8 +870,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""69d6de90-7172-43e6-a0a2-8e969fd94816"",
-                    ""path"": ""<XRController>{RightHand}/{TriggerButton}"",
+                    ""id"": ""a06c7b99-ccb4-4f68-9be8-1c3c1e08daea"",
+                    ""path"": ""<OculusTouchController>{RightHand}/triggerPressed"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";XR"",
@@ -1106,11 +994,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        // LeftHand
-        m_LeftHand = asset.FindActionMap("LeftHand", throwIfNotFound: true);
-        m_LeftHand_Look = m_LeftHand.FindAction("Look", throwIfNotFound: true);
-        m_LeftHand_RotateVision = m_LeftHand.FindAction("RotateVision", throwIfNotFound: true);
-        m_LeftHand_ActivatePower = m_LeftHand.FindAction("ActivatePower", throwIfNotFound: true);
         // RightHand
         m_RightHand = asset.FindActionMap("RightHand", throwIfNotFound: true);
         m_RightHand_Move = m_RightHand.FindAction("Move", throwIfNotFound: true);
@@ -1124,7 +1007,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_LeftHand.enabled, "This will cause a leak and performance issues, InputSystem_Actions.LeftHand.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_RightHand.enabled, "This will cause a leak and performance issues, InputSystem_Actions.RightHand.Disable() has not been called.");
     }
 
@@ -1500,124 +1382,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// </summary>
     public UIActions @UI => new UIActions(this);
 
-    // LeftHand
-    private readonly InputActionMap m_LeftHand;
-    private List<ILeftHandActions> m_LeftHandActionsCallbackInterfaces = new List<ILeftHandActions>();
-    private readonly InputAction m_LeftHand_Look;
-    private readonly InputAction m_LeftHand_RotateVision;
-    private readonly InputAction m_LeftHand_ActivatePower;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "LeftHand".
-    /// </summary>
-    public struct LeftHandActions
-    {
-        private @InputSystem_Actions m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public LeftHandActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "LeftHand/Look".
-        /// </summary>
-        public InputAction @Look => m_Wrapper.m_LeftHand_Look;
-        /// <summary>
-        /// Provides access to the underlying input action "LeftHand/RotateVision".
-        /// </summary>
-        public InputAction @RotateVision => m_Wrapper.m_LeftHand_RotateVision;
-        /// <summary>
-        /// Provides access to the underlying input action "LeftHand/ActivatePower".
-        /// </summary>
-        public InputAction @ActivatePower => m_Wrapper.m_LeftHand_ActivatePower;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_LeftHand; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="LeftHandActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(LeftHandActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="LeftHandActions" />
-        public void AddCallbacks(ILeftHandActions instance)
-        {
-            if (instance == null || m_Wrapper.m_LeftHandActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_LeftHandActionsCallbackInterfaces.Add(instance);
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
-            @RotateVision.started += instance.OnRotateVision;
-            @RotateVision.performed += instance.OnRotateVision;
-            @RotateVision.canceled += instance.OnRotateVision;
-            @ActivatePower.started += instance.OnActivatePower;
-            @ActivatePower.performed += instance.OnActivatePower;
-            @ActivatePower.canceled += instance.OnActivatePower;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="LeftHandActions" />
-        private void UnregisterCallbacks(ILeftHandActions instance)
-        {
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
-            @RotateVision.started -= instance.OnRotateVision;
-            @RotateVision.performed -= instance.OnRotateVision;
-            @RotateVision.canceled -= instance.OnRotateVision;
-            @ActivatePower.started -= instance.OnActivatePower;
-            @ActivatePower.performed -= instance.OnActivatePower;
-            @ActivatePower.canceled -= instance.OnActivatePower;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="LeftHandActions.UnregisterCallbacks(ILeftHandActions)" />.
-        /// </summary>
-        /// <seealso cref="LeftHandActions.UnregisterCallbacks(ILeftHandActions)" />
-        public void RemoveCallbacks(ILeftHandActions instance)
-        {
-            if (m_Wrapper.m_LeftHandActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="LeftHandActions.AddCallbacks(ILeftHandActions)" />
-        /// <seealso cref="LeftHandActions.RemoveCallbacks(ILeftHandActions)" />
-        /// <seealso cref="LeftHandActions.UnregisterCallbacks(ILeftHandActions)" />
-        public void SetCallbacks(ILeftHandActions instance)
-        {
-            foreach (var item in m_Wrapper.m_LeftHandActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_LeftHandActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="LeftHandActions" /> instance referencing this action map.
-    /// </summary>
-    public LeftHandActions @LeftHand => new LeftHandActions(this);
-
     // RightHand
     private readonly InputActionMap m_RightHand;
     private List<IRightHandActions> m_RightHandActionsCallbackInterfaces = new List<IRightHandActions>();
@@ -1921,35 +1685,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "LeftHand" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="LeftHandActions.AddCallbacks(ILeftHandActions)" />
-    /// <seealso cref="LeftHandActions.RemoveCallbacks(ILeftHandActions)" />
-    public interface ILeftHandActions
-    {
-        /// <summary>
-        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLook(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "RotateVision" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateVision(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "ActivatePower" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnActivatePower(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RightHand" which allows adding and removing callbacks.
