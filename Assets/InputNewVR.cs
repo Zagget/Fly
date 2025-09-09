@@ -89,31 +89,22 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
     ""name"": ""InputNewVR"",
     ""maps"": [
         {
-            ""name"": ""ActionMap"",
-            ""id"": ""9fa01b98-33f0-4cec-ba85-6e3f7a8a931f"",
+            ""name"": ""LeftHand"",
+            ""id"": ""ab2829f5-b97a-4e8c-a9b9-3c3776424f93"",
             ""actions"": [
                 {
-                    ""name"": ""Right Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""759d49a9-6f13-4ba8-8853-92a91569033e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Left Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""87b55e7f-a440-4b6c-b145-d608118050d2"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Movement"",
+                    ""name"": ""Rotate"",
                     ""type"": ""Value"",
-                    ""id"": ""a6199f71-8062-4f05-ab4b-837a63a34040"",
+                    ""id"": ""8add8cb1-0299-48fd-9b6b-f6a90ff75e5f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MousePointer"",
+                    ""type"": ""Value"",
+                    ""id"": ""204c1248-4f38-4e88-8ab1-7afd78074a07"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -123,34 +114,179 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""a83abede-0d5a-4176-9786-0a8afcc620da"",
-                    ""path"": ""<XRController>{RightHand}/{TriggerButton}"",
+                    ""id"": ""fb5dc95f-3afd-414e-8174-9f1c82fd8c44"",
+                    ""path"": ""<XRController>{LeftHand}/{Primary2DAxis}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Right Shoot"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""6686bc97-af4a-4999-9d37-37d305c31641"",
-                    ""path"": ""<XRController>{LeftHand}/triggerPressed"",
+                    ""name"": ""WASD"",
+                    ""id"": ""5abf1561-5cdf-4ff2-8bf3-7668dd83f5ea"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Left Shoot"",
-                    ""isComposite"": false,
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
+                    ""name"": ""Right"",
+                    ""id"": ""5179ef08-f99a-4ed3-8576-ee6cbeea7f57"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""f57674dc-2a7e-4515-908e-945568981a37"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
-                    ""id"": ""23bc45bd-23ef-4065-8717-2db1b404e7a8"",
+                    ""id"": ""829203c4-e612-447c-82d0-7774969087d3"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""RightHand"",
+            ""id"": ""4320b2b2-27f7-49c8-9129-a0cf5680e813"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""8e20ae48-7cf2-4482-a8c7-94b54d68073f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""FlyUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""13b4de4c-8b8f-4923-889b-e1849962b39d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FlyDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""21575f4c-0f67-4b23-92ff-0948eea86c75"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f888880d-ecdf-4fd5-914e-ce987902fd33"",
                     ""path"": ""<XRController>{RightHand}/{Primary2DAxis}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""c25e9c52-991a-4bf6-b244-ab134b01671c"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""003003af-3eb5-4c6b-b5b3-c67dc4a809db"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""e505ebc7-9797-458f-915e-23da8a092ad7"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Down"",
+                    ""id"": ""2af326df-8312-4950-8201-c5fb4da8f068"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""04c2c5b4-9902-4fd8-897d-7e9f98d45ed5"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9c392b5-d6c8-4cda-ab47-2206a50807f8"",
+                    ""path"": ""<XRController>{RightHand}/{TriggerButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a03f4f9-90ce-49ad-9f97-935d09fe090e"",
+                    ""path"": ""<XRController>{RightHand}/{GripButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlyDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -159,16 +295,21 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // ActionMap
-        m_ActionMap = asset.FindActionMap("ActionMap", throwIfNotFound: true);
-        m_ActionMap_RightShoot = m_ActionMap.FindAction("Right Shoot", throwIfNotFound: true);
-        m_ActionMap_LeftShoot = m_ActionMap.FindAction("Left Shoot", throwIfNotFound: true);
-        m_ActionMap_Movement = m_ActionMap.FindAction("Movement", throwIfNotFound: true);
+        // LeftHand
+        m_LeftHand = asset.FindActionMap("LeftHand", throwIfNotFound: true);
+        m_LeftHand_Rotate = m_LeftHand.FindAction("Rotate", throwIfNotFound: true);
+        m_LeftHand_MousePointer = m_LeftHand.FindAction("MousePointer", throwIfNotFound: true);
+        // RightHand
+        m_RightHand = asset.FindActionMap("RightHand", throwIfNotFound: true);
+        m_RightHand_Movement = m_RightHand.FindAction("Movement", throwIfNotFound: true);
+        m_RightHand_FlyUp = m_RightHand.FindAction("FlyUp", throwIfNotFound: true);
+        m_RightHand_FlyDown = m_RightHand.FindAction("FlyDown", throwIfNotFound: true);
     }
 
     ~@InputNewVR()
     {
-        UnityEngine.Debug.Assert(!m_ActionMap.enabled, "This will cause a leak and performance issues, InputNewVR.ActionMap.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_LeftHand.enabled, "This will cause a leak and performance issues, InputNewVR.LeftHand.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_RightHand.enabled, "This will cause a leak and performance issues, InputNewVR.RightHand.Disable() has not been called.");
     }
 
     /// <summary>
@@ -241,39 +382,34 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // ActionMap
-    private readonly InputActionMap m_ActionMap;
-    private List<IActionMapActions> m_ActionMapActionsCallbackInterfaces = new List<IActionMapActions>();
-    private readonly InputAction m_ActionMap_RightShoot;
-    private readonly InputAction m_ActionMap_LeftShoot;
-    private readonly InputAction m_ActionMap_Movement;
+    // LeftHand
+    private readonly InputActionMap m_LeftHand;
+    private List<ILeftHandActions> m_LeftHandActionsCallbackInterfaces = new List<ILeftHandActions>();
+    private readonly InputAction m_LeftHand_Rotate;
+    private readonly InputAction m_LeftHand_MousePointer;
     /// <summary>
-    /// Provides access to input actions defined in input action map "ActionMap".
+    /// Provides access to input actions defined in input action map "LeftHand".
     /// </summary>
-    public struct ActionMapActions
+    public struct LeftHandActions
     {
         private @InputNewVR m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public ActionMapActions(@InputNewVR wrapper) { m_Wrapper = wrapper; }
+        public LeftHandActions(@InputNewVR wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "ActionMap/RightShoot".
+        /// Provides access to the underlying input action "LeftHand/Rotate".
         /// </summary>
-        public InputAction @RightShoot => m_Wrapper.m_ActionMap_RightShoot;
+        public InputAction @Rotate => m_Wrapper.m_LeftHand_Rotate;
         /// <summary>
-        /// Provides access to the underlying input action "ActionMap/LeftShoot".
+        /// Provides access to the underlying input action "LeftHand/MousePointer".
         /// </summary>
-        public InputAction @LeftShoot => m_Wrapper.m_ActionMap_LeftShoot;
-        /// <summary>
-        /// Provides access to the underlying input action "ActionMap/Movement".
-        /// </summary>
-        public InputAction @Movement => m_Wrapper.m_ActionMap_Movement;
+        public InputAction @MousePointer => m_Wrapper.m_LeftHand_MousePointer;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
+        public InputActionMap Get() { return m_Wrapper.m_LeftHand; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -281,9 +417,9 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="ActionMapActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="LeftHandActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(ActionMapActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(LeftHandActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -291,20 +427,17 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="ActionMapActions" />
-        public void AddCallbacks(IActionMapActions instance)
+        /// <seealso cref="LeftHandActions" />
+        public void AddCallbacks(ILeftHandActions instance)
         {
-            if (instance == null || m_Wrapper.m_ActionMapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_ActionMapActionsCallbackInterfaces.Add(instance);
-            @RightShoot.started += instance.OnRightShoot;
-            @RightShoot.performed += instance.OnRightShoot;
-            @RightShoot.canceled += instance.OnRightShoot;
-            @LeftShoot.started += instance.OnLeftShoot;
-            @LeftShoot.performed += instance.OnLeftShoot;
-            @LeftShoot.canceled += instance.OnLeftShoot;
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
+            if (instance == null || m_Wrapper.m_LeftHandActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_LeftHandActionsCallbackInterfaces.Add(instance);
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+            @MousePointer.started += instance.OnMousePointer;
+            @MousePointer.performed += instance.OnMousePointer;
+            @MousePointer.canceled += instance.OnMousePointer;
         }
 
         /// <summary>
@@ -313,27 +446,24 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="ActionMapActions" />
-        private void UnregisterCallbacks(IActionMapActions instance)
+        /// <seealso cref="LeftHandActions" />
+        private void UnregisterCallbacks(ILeftHandActions instance)
         {
-            @RightShoot.started -= instance.OnRightShoot;
-            @RightShoot.performed -= instance.OnRightShoot;
-            @RightShoot.canceled -= instance.OnRightShoot;
-            @LeftShoot.started -= instance.OnLeftShoot;
-            @LeftShoot.performed -= instance.OnLeftShoot;
-            @LeftShoot.canceled -= instance.OnLeftShoot;
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+            @MousePointer.started -= instance.OnMousePointer;
+            @MousePointer.performed -= instance.OnMousePointer;
+            @MousePointer.canceled -= instance.OnMousePointer;
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ActionMapActions.UnregisterCallbacks(IActionMapActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="LeftHandActions.UnregisterCallbacks(ILeftHandActions)" />.
         /// </summary>
-        /// <seealso cref="ActionMapActions.UnregisterCallbacks(IActionMapActions)" />
-        public void RemoveCallbacks(IActionMapActions instance)
+        /// <seealso cref="LeftHandActions.UnregisterCallbacks(ILeftHandActions)" />
+        public void RemoveCallbacks(ILeftHandActions instance)
         {
-            if (m_Wrapper.m_ActionMapActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_LeftHandActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -343,42 +473,168 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="ActionMapActions.AddCallbacks(IActionMapActions)" />
-        /// <seealso cref="ActionMapActions.RemoveCallbacks(IActionMapActions)" />
-        /// <seealso cref="ActionMapActions.UnregisterCallbacks(IActionMapActions)" />
-        public void SetCallbacks(IActionMapActions instance)
+        /// <seealso cref="LeftHandActions.AddCallbacks(ILeftHandActions)" />
+        /// <seealso cref="LeftHandActions.RemoveCallbacks(ILeftHandActions)" />
+        /// <seealso cref="LeftHandActions.UnregisterCallbacks(ILeftHandActions)" />
+        public void SetCallbacks(ILeftHandActions instance)
         {
-            foreach (var item in m_Wrapper.m_ActionMapActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_LeftHandActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_ActionMapActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_LeftHandActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="ActionMapActions" /> instance referencing this action map.
+    /// Provides a new <see cref="LeftHandActions" /> instance referencing this action map.
     /// </summary>
-    public ActionMapActions @ActionMap => new ActionMapActions(this);
+    public LeftHandActions @LeftHand => new LeftHandActions(this);
+
+    // RightHand
+    private readonly InputActionMap m_RightHand;
+    private List<IRightHandActions> m_RightHandActionsCallbackInterfaces = new List<IRightHandActions>();
+    private readonly InputAction m_RightHand_Movement;
+    private readonly InputAction m_RightHand_FlyUp;
+    private readonly InputAction m_RightHand_FlyDown;
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "ActionMap" which allows adding and removing callbacks.
+    /// Provides access to input actions defined in input action map "RightHand".
     /// </summary>
-    /// <seealso cref="ActionMapActions.AddCallbacks(IActionMapActions)" />
-    /// <seealso cref="ActionMapActions.RemoveCallbacks(IActionMapActions)" />
-    public interface IActionMapActions
+    public struct RightHandActions
+    {
+        private @InputNewVR m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public RightHandActions(@InputNewVR wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "RightHand/Movement".
+        /// </summary>
+        public InputAction @Movement => m_Wrapper.m_RightHand_Movement;
+        /// <summary>
+        /// Provides access to the underlying input action "RightHand/FlyUp".
+        /// </summary>
+        public InputAction @FlyUp => m_Wrapper.m_RightHand_FlyUp;
+        /// <summary>
+        /// Provides access to the underlying input action "RightHand/FlyDown".
+        /// </summary>
+        public InputAction @FlyDown => m_Wrapper.m_RightHand_FlyDown;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_RightHand; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="RightHandActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(RightHandActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="RightHandActions" />
+        public void AddCallbacks(IRightHandActions instance)
+        {
+            if (instance == null || m_Wrapper.m_RightHandActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_RightHandActionsCallbackInterfaces.Add(instance);
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+            @FlyUp.started += instance.OnFlyUp;
+            @FlyUp.performed += instance.OnFlyUp;
+            @FlyUp.canceled += instance.OnFlyUp;
+            @FlyDown.started += instance.OnFlyDown;
+            @FlyDown.performed += instance.OnFlyDown;
+            @FlyDown.canceled += instance.OnFlyDown;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="RightHandActions" />
+        private void UnregisterCallbacks(IRightHandActions instance)
+        {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+            @FlyUp.started -= instance.OnFlyUp;
+            @FlyUp.performed -= instance.OnFlyUp;
+            @FlyUp.canceled -= instance.OnFlyUp;
+            @FlyDown.started -= instance.OnFlyDown;
+            @FlyDown.performed -= instance.OnFlyDown;
+            @FlyDown.canceled -= instance.OnFlyDown;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="RightHandActions.UnregisterCallbacks(IRightHandActions)" />.
+        /// </summary>
+        /// <seealso cref="RightHandActions.UnregisterCallbacks(IRightHandActions)" />
+        public void RemoveCallbacks(IRightHandActions instance)
+        {
+            if (m_Wrapper.m_RightHandActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="RightHandActions.AddCallbacks(IRightHandActions)" />
+        /// <seealso cref="RightHandActions.RemoveCallbacks(IRightHandActions)" />
+        /// <seealso cref="RightHandActions.UnregisterCallbacks(IRightHandActions)" />
+        public void SetCallbacks(IRightHandActions instance)
+        {
+            foreach (var item in m_Wrapper.m_RightHandActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_RightHandActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="RightHandActions" /> instance referencing this action map.
+    /// </summary>
+    public RightHandActions @RightHand => new RightHandActions(this);
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "LeftHand" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="LeftHandActions.AddCallbacks(ILeftHandActions)" />
+    /// <seealso cref="LeftHandActions.RemoveCallbacks(ILeftHandActions)" />
+    public interface ILeftHandActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Right Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRightShoot(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Left Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "MousePointer" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLeftShoot(InputAction.CallbackContext context);
+        void OnMousePointer(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RightHand" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="RightHandActions.AddCallbacks(IRightHandActions)" />
+    /// <seealso cref="RightHandActions.RemoveCallbacks(IRightHandActions)" />
+    public interface IRightHandActions
+    {
         /// <summary>
         /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -386,5 +642,19 @@ public partial class @InputNewVR: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMovement(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FlyUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFlyUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FlyDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFlyDown(InputAction.CallbackContext context);
     }
 }

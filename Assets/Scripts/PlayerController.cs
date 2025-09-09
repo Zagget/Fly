@@ -33,123 +33,100 @@ public class PlayerController : MonoBehaviour
 
     private void SubscribeToInputs()
     {
-        // Movement 
-        inputActions.ActionMap.Movement.performed += OnMove;
-        inputActions.ActionMap.Movement.canceled += OnMove;
-        inputActions.ActionMap.Movement.started += OnMove;
+        // Right hand
+        inputActions.RightHand.Movement.started += OnMove;
+        inputActions.RightHand.Movement.performed += OnMove;
+        inputActions.RightHand.Movement.canceled += OnMove;
 
-        //InputManager.Instance.rotateVisionAction.performed += OnRotateVision;
-        //InputManager.Instance.flyUpAction.performed += FlyUp;
-        //InputManager.Instance.flyUpAction.canceled += FlyUp;
+        inputActions.RightHand.FlyUp.started += OnFlyUp;
+        inputActions.RightHand.FlyUp.performed += OnFlyUp;
+        inputActions.RightHand.FlyUp.canceled += OnFlyUp;
 
-        //InputManager.Instance.flyDownAction.performed += FlyDown;
-        //InputManager.Instance.flyDownAction.canceled += FlyDown;
+        inputActions.RightHand.FlyDown.started += OnFlyDown;
+        inputActions.RightHand.FlyDown.performed += OnFlyDown;
+        inputActions.RightHand.FlyDown.canceled += OnFlyDown;
 
-        //if (!vr)
-        //{
-        //    InputManager.Instance.lookDirection.performed += OnLook;
-        //}
+        // Left Hand
+        inputActions.LeftHand.Rotate.started += OnRotateVision;
+        inputActions.LeftHand.Rotate.performed += OnRotateVision;
+        inputActions.LeftHand.Rotate.canceled += OnRotateVision;
 
-        //// Buttons
-        //InputManager.Instance.r_ButtonAAction.performed += OnAPressed;
-        //InputManager.Instance.r_ButtonBAction.performed += OnBPressed;
-
-
-
-        // Subscribe to the button press
-        inputActions.ActionMap.RightShoot.canceled += FlyUp;
-        inputActions.ActionMap.RightShoot.performed += FlyUp;
-        inputActions.ActionMap.RightShoot.started += FlyUp;
-
-        // Subscribe to the button press
-        //inputActions.ActionMap.LeftShoot.canceled += LeftTrigger;
-        //inputActions.ActionMap.LeftShoot.performed += LeftTrigger;
-        //inputActions.ActionMap.LeftShoot.started += LeftTrigger;
+        // Look around with mouse
+        if (!vr)
+        {
+            inputActions.LeftHand.MousePointer.performed += OnLook;
+        }
     }
 
 
     private void OnDisable()
     {
-        // Movement
-        //InputManager.Instance.rotateVisionAction.performed -= OnRotateVision;
-        //InputManager.Instance.flyUpAction.performed -= FlyUp;
-        //InputManager.Instance.flyUpAction.canceled -= FlyUp;
 
-        //InputManager.Instance.flyDownAction.performed -= FlyDown;
-        //InputManager.Instance.flyDownAction.canceled -= FlyDown;
-
-        //if (!vr)
-        //{
-        //    InputManager.Instance.lookDirection.performed -= OnLook;
-        //}
-
-        //// Buttons
-        //InputManager.Instance.r_ButtonAAction.performed -= OnAPressed;
-        //InputManager.Instance.r_ButtonBAction.performed -= OnBPressed;
-
-        inputActions.ActionMap.Movement.performed -= OnMove;
-        inputActions.ActionMap.Movement.canceled -= OnMove;
-        inputActions.ActionMap.Movement.started -= OnMove;
-
-        inputActions.ActionMap.RightShoot.canceled -= FlyUp;
-        inputActions.ActionMap.RightShoot.performed -= FlyUp;
-        inputActions.ActionMap.RightShoot.started -= FlyUp;
-
-        // Subscribe to the button press
-        //inputActions.ActionMap.LeftShoot.performed -= LeftTrigger;
-        //inputActions.ActionMap.LeftShoot.canceled -= LeftTrigger;
-        //inputActions.ActionMap.LeftShoot.started -= LeftTrigger;
-
-        // Enable the whole action map
-        inputActions.ActionMap.Disable();
     }
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 moveInput = context.ReadValue<Vector2>();
-
-        Debug.Log($"blä MoveStarted");
-        switch (currentMov)
+        if (context.started)
         {
-            case MovementState.Flying:
-                flightControls.FlyingInput(moveInput);
+            Debug.Log($"blä Move Started");
 
-                break;
-
-            case MovementState.Walking:
-
-                break;
         }
-    }
 
-    private void OnMoveCanceled(InputAction.CallbackContext context)
-    {
-        Debug.Log($"blä move canceled");
-    }
-
-    private void FlyUp(InputAction.CallbackContext context)
-    {
         if (context.performed)
         {
-            Debug.Log("FlyUp" + context);
-            flightControls.FlyUp(true);
+            Debug.Log($"blä Move Performed");
+
         }
-        else if (context.canceled)
+
+        if (context.canceled)
         {
-            Debug.Log("StopFlyUp" + context);
-            flightControls.FlyUp(false);
+            Debug.Log($"blä move canceled");
+        }
+
+
+    }
+
+
+    private void OnFlyUp(InputAction.CallbackContext context)
+    {
+        // float triggerValue = context.ReadValue<float>();
+        // Debug.Log($"blä FlyUp value: {triggerValue}");
+
+        if (context.started)
+        {
+            Debug.Log($"blä FlyUp Started");
+
+        }
+
+        if (context.performed)
+        {
+            Debug.Log($"blä FlyUp Performed");
+
+        }
+
+        if (context.canceled)
+        {
+            Debug.Log($"blä FlyUp canceled");
         }
     }
 
-    private void FlyDown(InputAction.CallbackContext context)
+    private void OnFlyDown(InputAction.CallbackContext context)
     {
+        if (context.started)
+        {
+            Debug.Log($"blä FlyDown Started");
+
+        }
+
         if (context.performed)
         {
-            flightControls.FlyDown(true);
+            Debug.Log($"blä FlyDown Performed");
+
         }
-        else
+
+        if (context.canceled)
         {
-            flightControls.FlyDown(false);
+            Debug.Log($"blä FlyDown canceled");
         }
     }
 
@@ -162,6 +139,22 @@ public class PlayerController : MonoBehaviour
 
     private void OnRotateVision(InputAction.CallbackContext context)
     {
+        if (context.started)
+        {
+            Debug.Log($"blä Rotate Started");
+
+        }
+
+        if (context.performed)
+        {
+            Debug.Log($"blä Rotate Performed");
+
+        }
+
+        if (context.canceled)
+        {
+            Debug.Log($"blä Rotate canceled");
+        }
         Vector2 rotateInput = context.ReadValue<Vector2>();
 
         StartCoroutine(lookingControls.RotateVision(rotateInput));

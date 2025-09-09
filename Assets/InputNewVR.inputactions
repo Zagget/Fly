@@ -3,31 +3,22 @@
     "name": "InputNewVR",
     "maps": [
         {
-            "name": "ActionMap",
-            "id": "9fa01b98-33f0-4cec-ba85-6e3f7a8a931f",
+            "name": "LeftHand",
+            "id": "ab2829f5-b97a-4e8c-a9b9-3c3776424f93",
             "actions": [
                 {
-                    "name": "Right Shoot",
-                    "type": "Button",
-                    "id": "759d49a9-6f13-4ba8-8853-92a91569033e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Left Shoot",
-                    "type": "Button",
-                    "id": "87b55e7f-a440-4b6c-b145-d608118050d2",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Movement",
+                    "name": "Rotate",
                     "type": "Value",
-                    "id": "a6199f71-8062-4f05-ab4b-837a63a34040",
+                    "id": "8add8cb1-0299-48fd-9b6b-f6a90ff75e5f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MousePointer",
+                    "type": "Value",
+                    "id": "204c1248-4f38-4e88-8ab1-7afd78074a07",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -37,34 +28,179 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "a83abede-0d5a-4176-9786-0a8afcc620da",
-                    "path": "<XRController>{RightHand}/{TriggerButton}",
+                    "id": "fb5dc95f-3afd-414e-8174-9f1c82fd8c44",
+                    "path": "<XRController>{LeftHand}/{Primary2DAxis}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right Shoot",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "6686bc97-af4a-4999-9d37-37d305c31641",
-                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "name": "WASD",
+                    "id": "5abf1561-5cdf-4ff2-8bf3-7668dd83f5ea",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left Shoot",
-                    "isComposite": false,
+                    "action": "Rotate",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "Right",
+                    "id": "5179ef08-f99a-4ed3-8576-ee6cbeea7f57",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "f57674dc-2a7e-4515-908e-945568981a37",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
-                    "id": "23bc45bd-23ef-4065-8717-2db1b404e7a8",
+                    "id": "829203c4-e612-447c-82d0-7774969087d3",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "RightHand",
+            "id": "4320b2b2-27f7-49c8-9129-a0cf5680e813",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "8e20ae48-7cf2-4482-a8c7-94b54d68073f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "FlyUp",
+                    "type": "Button",
+                    "id": "13b4de4c-8b8f-4923-889b-e1849962b39d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FlyDown",
+                    "type": "Button",
+                    "id": "21575f4c-0f67-4b23-92ff-0948eea86c75",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f888880d-ecdf-4fd5-914e-ce987902fd33",
                     "path": "<XRController>{RightHand}/{Primary2DAxis}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WASD",
+                    "id": "c25e9c52-991a-4bf6-b244-ab134b01671c",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "003003af-3eb5-4c6b-b5b3-c67dc4a809db",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right",
+                    "id": "e505ebc7-9797-458f-915e-23da8a092ad7",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "2af326df-8312-4950-8201-c5fb4da8f068",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "04c2c5b4-9902-4fd8-897d-7e9f98d45ed5",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d9c392b5-d6c8-4cda-ab47-2206a50807f8",
+                    "path": "<XRController>{RightHand}/{TriggerButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a03f4f9-90ce-49ad-9f97-935d09fe090e",
+                    "path": "<XRController>{RightHand}/{GripButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlyDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
