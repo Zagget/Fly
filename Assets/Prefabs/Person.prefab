@@ -385,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PersonMovement
   moveSpeed: 10
   movingArea:
-    m_Center: {x: -59.89, y: 0, z: 0}
+    m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 200, y: 0, z: 200}
 --- !u!114 &7043585250266492040
 MonoBehaviour:
