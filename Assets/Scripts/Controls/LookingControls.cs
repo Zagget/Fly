@@ -8,7 +8,9 @@ public enum RotationStep
 {
     Deg180 = 179,
     Deg90 = 90,
-    Deg45 = 45
+    Deg45 = 45,
+    Deg20 = 20,
+    Deg1 = 1
 }
 
 public class LookingControls : MonoBehaviour
@@ -107,7 +109,13 @@ public class LookingControls : MonoBehaviour
             yield return null;
         }
 
-        float cooldown = Mathf.Clamp(0.4f - smoothTime, 0f, 0.4f);
+        float cooldown;
+
+        if (rotationStep == RotationStep.Deg1)
+            cooldown = 0.02f;
+
+        else
+            cooldown = Mathf.Clamp(0.4f - smoothTime, 0f, 0.4f);
 
         yield return new WaitForSeconds(cooldown);
 
