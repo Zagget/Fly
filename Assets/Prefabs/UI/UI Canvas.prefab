@@ -28,7 +28,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5071370455431870212}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -59,7 +59,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   shape: 0
   curveRadius: 1
   overlapMask: 0
-  overlayType: 1
+  overlayType: 2
   _overlayEnabled: 1
 --- !u!114 &8943268154961011505
 MonoBehaviour:
@@ -154,13 +154,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8610307886491761019}
     m_Modifications:
+    - target: {fileID: 480147603636595985, guid: f5b9d45041c35874386c98393e800f27, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 90f84b588a7a02b4b85a6462ce103ed2, type: 2}
     - target: {fileID: 740335954085383037, guid: f5b9d45041c35874386c98393e800f27, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 46.35
+      value: 47.97
       objectReference: {fileID: 0}
+    - target: {fileID: 1903221722222129379, guid: f5b9d45041c35874386c98393e800f27, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903221722222129379, guid: f5b9d45041c35874386c98393e800f27, type: 3}
+      propertyPath: m_Color.g
+      value: 0.87292755
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903221722222129379, guid: f5b9d45041c35874386c98393e800f27, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 90f84b588a7a02b4b85a6462ce103ed2, type: 2}
     - target: {fileID: 2891310027950954964, guid: f5b9d45041c35874386c98393e800f27, type: 3}
       propertyPath: m_Name
       value: Power UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891310027950954964, guid: f5b9d45041c35874386c98393e800f27, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4950024864477588370, guid: f5b9d45041c35874386c98393e800f27, type: 3}
       propertyPath: m_Pivot.x
@@ -241,6 +261,14 @@ PrefabInstance:
     - target: {fileID: 4950024864477588370, guid: f5b9d45041c35874386c98393e800f27, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104600411447142245, guid: f5b9d45041c35874386c98393e800f27, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 90f84b588a7a02b4b85a6462ce103ed2, type: 2}
+    - target: {fileID: 5470569754264953795, guid: f5b9d45041c35874386c98393e800f27, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 49.270004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

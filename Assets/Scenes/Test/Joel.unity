@@ -8190,6 +8190,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3068609467574053609, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3669970260420095825, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
       propertyPath: m_Name
       value: DesktopRig
@@ -9028,9 +9032,17 @@ PrefabInstance:
       value: 47.97
       objectReference: {fileID: 0}
     - target: {fileID: 738533225384202010, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
+      propertyPath: m_OverrideSorting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 738533225384202010, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 793337832304052461, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 90f84b588a7a02b4b85a6462ce103ed2, type: 2}
     - target: {fileID: 1504830036806061320, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -9051,6 +9063,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1712152012625564959, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 90f84b588a7a02b4b85a6462ce103ed2, type: 2}
+    - target: {fileID: 2716985709127121960, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4364520757244189537, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -9063,6 +9083,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5439359042252276377, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 90f84b588a7a02b4b85a6462ce103ed2, type: 2}
     - target: {fileID: 6449491389383291090, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
       propertyPath: m_IsActive
       value: 0
