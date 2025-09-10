@@ -83,68 +83,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            Debug.Log($"blä Move Started");
-
-        }
-
-        if (context.performed)
-        {
-            Debug.Log($"blä Move Performed");
-
-        }
-
-        if (context.canceled)
-        {
-            Debug.Log($"blä move canceled");
-        }
-
-
+        flightControls.FlyingInput(context);
     }
 
 
     private void OnFlyUp(InputAction.CallbackContext context)
     {
-        // float triggerValue = context.ReadValue<float>();
-        // Debug.Log($"blä FlyUp value: {triggerValue}");
-
-        if (context.started)
-        {
-            Debug.Log($"blä FlyUp Started");
-
-        }
-
-        if (context.performed)
-        {
-            Debug.Log($"blä FlyUp Performed");
-
-        }
-
-        if (context.canceled)
-        {
-            Debug.Log($"blä FlyUp canceled");
-        }
+        flightControls.FlyUp(context);
     }
 
     private void OnFlyDown(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            Debug.Log($"blä FlyDown Started");
-
-        }
-
-        if (context.performed)
-        {
-            Debug.Log($"blä FlyDown Performed");
-
-        }
-
-        if (context.canceled)
-        {
-            Debug.Log($"blä FlyDown canceled");
-        }
+        flightControls.FlyDown(context);
     }
 
     private void OnLook(InputAction.CallbackContext context)
