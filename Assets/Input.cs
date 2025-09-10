@@ -210,7 +210,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2722a6d9-e8d3-41e5-89aa-00ed14baf3a6"",
-                    ""path"": ""<XRController>{LeftHand}/{PrimaryTrigger}"",
+                    ""path"": ""<XRController>{LeftHand}/{TriggerButton}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

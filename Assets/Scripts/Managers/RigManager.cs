@@ -15,6 +15,7 @@ public class RigManager : MonoBehaviour
     public bool usingVr;
     public Rigidbody currentRb;
     public Transform pTransform;
+    public Transform eyeAnchor;
     public Camera desktopCamera;
 
     void Awake()
@@ -41,6 +42,7 @@ public class RigManager : MonoBehaviour
 
             currentRb = vrRig.GetComponent<Rigidbody>();
             pTransform = vrRig.transform;
+            eyeAnchor = pTransform.GetComponentInChildren<AudioListener>().transform;
         }
         else
         {
@@ -51,6 +53,7 @@ public class RigManager : MonoBehaviour
             currentRb = desktopRig.GetComponent<Rigidbody>();
             desktopCamera = desktopRig.GetComponent<Camera>();
             pTransform = desktopCamera.transform;
+            eyeAnchor = desktopCamera.transform;
         }
     }
 

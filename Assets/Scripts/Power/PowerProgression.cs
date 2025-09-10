@@ -84,7 +84,14 @@ public class PowerProgression : MonoBehaviour
         if (Mathf.FloorToInt(energyLevel) > powerLevel)
         {
             powerLevel++;
-            powerLevel = Mathf.Clamp(powerLevel, 0, sortedPowers.Count - 1);
+            if (powerLevel > sortedPowers.Count - 1)
+            {
+                powerLevel = sortedPowers.Count - 1;
+            }
+            else
+            {
+                ChangePower(sortedPowers[powerLevel]);
+            }
         }
     }
 

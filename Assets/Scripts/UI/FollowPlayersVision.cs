@@ -10,7 +10,7 @@ public class FollowPlayersVision : MonoBehaviour
 
     private void Start()
     {
-        cameraTransform = RigManager.instance.pTransform;
+        cameraTransform = RigManager.instance.eyeAnchor;
         currentDirection = cameraTransform.forward;
     }
 
