@@ -14,7 +14,7 @@ public enum MovementState
 public class PlayerController : MonoBehaviour
 {
     [Header("Ref")]
-    [SerializeField] private FlightControls flightControls;
+    [SerializeField] private FloatingMovement flightControls; //TODO make sure this is correct class.
     [SerializeField] private LookingControls lookingControls;
 
     private MovementState currentMov = MovementState.Flying;
@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         // Right hand
         SubscribeToAction(inputActions.RightHand.Movement, OnMove);
-        SubscribeToAction(inputActions.RightHand.FlyUp, OnFlyUp);
-        SubscribeToAction(inputActions.RightHand.FlyDown, OnFlyDown);
+        //SubscribeToAction(inputActions.RightHand.FlyUp, OnFlyUp);
+        //SubscribeToAction(inputActions.RightHand.FlyDown, OnFlyDown);
 
         // Left hand
         SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
     {
         // Right hand
         UnsubscribeFromAction(inputActions.RightHand.Movement, OnMove);
-        UnsubscribeFromAction(inputActions.RightHand.FlyUp, OnFlyUp);
-        UnsubscribeFromAction(inputActions.RightHand.FlyDown, OnFlyDown);
+        //UnsubscribeFromAction(inputActions.RightHand.FlyUp, OnFlyUp);
+        //UnsubscribeFromAction(inputActions.RightHand.FlyDown, OnFlyDown);
 
         // Left hand
         UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
@@ -97,15 +97,15 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnFlyUp(InputAction.CallbackContext context)
-    {
-        flightControls.FlyUp(context);
-    }
+    //private void OnFlyUp(InputAction.CallbackContext context)
+    //{
+    //    flightControls.FlyUp(context);
+    //}
 
-    private void OnFlyDown(InputAction.CallbackContext context)
-    {
-        flightControls.FlyDown(context);
-    }
+    //private void OnFlyDown(InputAction.CallbackContext context)
+    //{
+    //    flightControls.FlyDown(context);
+    //}
 
     private void OnLook(InputAction.CallbackContext context)
     {

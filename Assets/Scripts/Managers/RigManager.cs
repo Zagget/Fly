@@ -17,6 +17,7 @@ public class RigManager : MonoBehaviour
     public Transform pTransform;
     public Transform eyeAnchor;
     public Camera desktopCamera;
+    public Camera VRCamera;
 
     void Awake()
     {
@@ -43,6 +44,7 @@ public class RigManager : MonoBehaviour
             currentRb = vrRig.GetComponent<Rigidbody>();
             pTransform = vrRig.transform;
             eyeAnchor = pTransform.GetComponentInChildren<AudioListener>().transform;
+            VRCamera = vrRig.GetComponent<Camera>();
         }
         else
         {
