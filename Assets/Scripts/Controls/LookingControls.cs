@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum RotationStep
 {
@@ -15,17 +18,21 @@ public class LookingControls : MonoBehaviour
 
     [Header("Rotation Settings")]
     [SerializeField] private RotationStep rotationStep = RotationStep.Deg90;
-    [Range(0, 0.5f)][SerializeField] float rotateSmothness = 0.5f;
+    [Range(0, 0.5f)][SerializeField] private float rotateSmothness = 0.5f;
 
     private float rotationDegree => (float)rotationStep;
+
+    private bool holdingDown;
     private bool isRotating = false;
 
     private Transform pTransform;
+    private bool vr;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         pTransform = RigManager.instance.pTransform;
+        vr = RigManager.instance.usingVr;
     }
 
     public void OnLook(Vector2 mouseInput)
@@ -39,7 +46,35 @@ public class LookingControls : MonoBehaviour
         pTransform.transform.Rotate(Vector3.up * rotationY, Space.World);
     }
 
-    public IEnumerator RotateVision(Vector2 rotateInput)
+    public void OnRotate(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            holdingDown = true;
+            Vector2 input = context.ReadValue<Vector2>();
+            StartCoroutine(RotateWhileHolding(input));
+        }
+
+        if (context.canceled)
+        {
+            holdingDown = false;
+        }
+    }
+
+    private IEnumerator RotateWhileHolding(Vector2 input)
+    {
+        while (holdingDown)
+        {
+            if (!isRotating)
+            {
+                yield return RotateVision(input);
+            }
+            yield return null;
+        }
+        yield break;
+    }
+
+    private IEnumerator RotateVision(Vector2 rotateInput)
     {
         if (isRotating) yield break;
         isRotating = true;
@@ -71,6 +106,13 @@ public class LookingControls : MonoBehaviour
 
             yield return null;
         }
+
+        float cooldown = Mathf.Clamp(0.4f - smoothTime, 0f, 0.4f);
+
+        yield return new WaitForSeconds(cooldown);
+
+        Debug.Log($"blä smoothtime: {smoothTime}");
+        Debug.Log($"blä cooldown:  {cooldown}");
         isRotating = false;
     }
 }

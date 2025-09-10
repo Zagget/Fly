@@ -106,40 +106,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnRotateVision(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            Debug.Log($"blä Rotate Started");
-
-        }
-
-        if (context.performed)
-        {
-            Debug.Log($"blä Rotate Performed");
-
-        }
-
-        if (context.canceled)
-        {
-            Debug.Log($"blä Rotate canceled");
-        }
-        Vector2 rotateInput = context.ReadValue<Vector2>();
-
-        StartCoroutine(lookingControls.RotateVision(rotateInput));
+        lookingControls.OnRotate(context);
     }
 
     private void OnAPressed(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
 
-        }
     }
 
     private void OnBPressed(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
 
-        }
     }
 }
