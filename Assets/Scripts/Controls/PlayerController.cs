@@ -14,7 +14,7 @@ public enum MovementState
 public class PlayerController : MonoBehaviour
 {
     [Header("Ref")]
-    [SerializeField] private FlightControls flightControls;
+    [SerializeField] private FloatingMovement flightControls; //TODO make sure this is correct class.
     [SerializeField] private LookingControls lookingControls;
 
     private MovementState currentMov = MovementState.Flying;
