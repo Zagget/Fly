@@ -22,16 +22,6 @@ public class FloatingMovement : MonoBehaviour
 
     private Vector3 leftController;
     private Vector3 rightController;
-    private Vector3 controllerAverage;
-
-    private bool flyingUp = false;
-    private bool flyingDown = false;
-
-    float speed;
-
-    private Vector2 horizontalInput;
-
-    private float verticalSpeed;
 
     Vector3 linVel; //rb.linearVelocity
 
@@ -70,8 +60,6 @@ public class FloatingMovement : MonoBehaviour
 
     private void ForwardFlight()
     {
-        //Vector3 inputDirection = activeCamera.transform.right * horizontalInput.x
-        //    + activeCamera.transform.forward * horizontalInput.y;
 
         float xValue = 0;
         float yValue = 0;
@@ -81,38 +69,28 @@ public class FloatingMovement : MonoBehaviour
             leftController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
             rightController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
 
+            rightController.y -= 1; // this makes the controller be tracked more accurately as 0 was floor before.
+            leftController.y -= 1;
+
             xValue += leftController.x * 100;
             xValue += rightController.x * 100;
             xValue = xValue / 2;
 
             yValue = ((leftController.y + rightController.y) / 2) * 100;
-          //  yValue -= tempYOffset;
+            //yValue -= tempYOffset;
 
             zValue += leftController.z * 100;
             zValue += rightController.z * 100;
             zValue = (zValue / 2) - tempZOffset;
 
-            if (zValue < 0) zValue = 0;
+           // if (zValue < 0) zValue = 0;
 
-            if (xValue < deadZone) xValue = 0;
+            if (Mathf.Abs(xValue) < deadZone) xValue = 0;
 
-            if (yValue < deadZone) yValue = 0;
+            if (Mathf.Abs(yValue) < deadZone) yValue = 0;
 
-            if (zValue < deadZone) zValue = 0;
+            if (Mathf.Abs(zValue) < deadZone) zValue = 0;
         }
-        else
-        {
-           // XValue = activeCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue().normalized).x;
-        }   
-
-        float verticalInput = 0;
-        float horiInput = 0;
-        //if (inputDirection != Vector3.zero)
-        //{
-        //    verticalInput = horizontalInput.y;
-        //    horiInput = horizontalInput.x;
-        //    linVel.x = linVel.x / 1.5f;
-        //}
 
         Vector3 inputDirection = new Vector3(xValue, yValue, zValue).normalized;
 
@@ -122,12 +100,12 @@ public class FloatingMovement : MonoBehaviour
         linVel += RigManager.instance.currentRb.transform.up * Time.fixedDeltaTime * fixedSpeed * yValue;
         linVel += RigManager.instance.currentRb.transform.right * Time.fixedDeltaTime * fixedSpeed * xValue;
 
-        Debug.Log(" X: " + xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
+        if (leftController.z <= 0.1f && rightController.z > 0.3f)
+        {
+            linVel += RigManager.instance.currentRb.transform.forward * Time.fixedDeltaTime * fixedSpeed * zValue * 10;
+        }
 
-        //if (linVel.sqrMagnitude < maxSpeed * maxSpeed)
-        //{
-            
-        //}
+        Debug.Log(" X: " + xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
 
         //if (Vector3.Dot(linVel, activeCamera.transform.forward) < 0)
         //{
@@ -136,73 +114,8 @@ public class FloatingMovement : MonoBehaviour
         //}
     }
 
-    private void VerticalFlight()
-    {
-        float verticalInput = 0;
-        if (flyingUp)
-        {
-            verticalInput += 1;
-        }
-        if (flyingDown)
-        {
-            verticalInput -= 1;
-        }
-
-        if (Mathf.Abs(verticalSpeed) < maxVerticalVel)
-        {
-            verticalSpeed += verticalAcceleration * Time.fixedDeltaTime * verticalInput;
-        }
-        else
-        {
-            verticalSpeed = maxVerticalVel * verticalInput;
-        }
-
-        if (verticalInput == 0)
-        {
-            //Stabilize vertical speed when close to 0.
-            if (verticalSpeed > -0.5f && verticalSpeed < 0.5f)
-            {
-                verticalSpeed = 0;
-            }
-
-            if (verticalSpeed > 0)
-            {
-                verticalSpeed -= Time.fixedDeltaTime * verticalDecceleration;
-            }
-            else if (verticalSpeed < 0)
-            {
-                verticalSpeed += Time.fixedDeltaTime * verticalDecceleration;
-            }
-        }
-    }
-
-    public void FlyUp(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            flyingUp = true;
-        }
-        else
-        {
-            flyingUp = false;
-        }
-    }
-
-    public void FlyDown(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            flyingDown = true;
-        }
-        else
-        {
-            flyingDown = false;
-        }
-    }
-
     public void FlyingInput(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
-        horizontalInput = input;
     }
 }
