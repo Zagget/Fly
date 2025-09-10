@@ -11,6 +11,7 @@ public class BasePower : ScriptableObject
     protected float currentCharge;
     
     [SerializeField] protected int maximumCharge = 10;
+    public int MaximumCharge { get {  return maximumCharge; } }
     [SerializeField] protected float duration = 0;
 
     PowerManager powerManager;

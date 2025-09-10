@@ -11,12 +11,14 @@ public class InputManager : MonoBehaviour
     {
         inputActions.LeftHand.Enable();
         inputActions.RightHand.Enable();
+        inputActions.Desktop.Enable();
     }
 
     private void OnDisable()
     {
         inputActions.LeftHand.Disable();
         inputActions.RightHand.Disable();
+        inputActions.Desktop.Disable();
     }
 
     private void Awake()

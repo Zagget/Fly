@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
 
         // Left hand
         SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
+        inputActions.LeftHand.ActivatePower.started += ActivatePower;
+        inputActions.LeftHand.TogglePower.started += TogglePower;
+
+        // Desktop
+        inputActions.Desktop.LegRubbing.started += DesktopLegRubbing;
 
         // Look around with mouse
         if (!vr)
@@ -59,6 +64,11 @@ public class PlayerController : MonoBehaviour
 
         // Left hand
         UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
+        inputActions.LeftHand.ActivatePower.started -= ActivatePower;
+        inputActions.LeftHand.TogglePower.started -= TogglePower;
+
+        // Desktop
+        inputActions.Desktop.LegRubbing.started -= DesktopLegRubbing;
 
         // Look around with mouse
         if (!vr)
@@ -102,6 +112,21 @@ public class PlayerController : MonoBehaviour
         Vector2 lookDelta = context.ReadValue<Vector2>();
 
         lookingControls.OnLook(lookDelta);
+    }
+
+    private void ActivatePower(InputAction.CallbackContext context)
+    {
+        PowerManager.Instance.ActivatePower(context);
+    }
+
+    private void TogglePower(InputAction.CallbackContext context)
+    {
+        PowerProgression.Instance.NextPower(context);
+    }
+
+    private void DesktopLegRubbing(InputAction.CallbackContext contex)
+    {
+        LegRubbing.Instance.HandleDesktopRubbing(contex);
     }
 
     private void OnRotateVision(InputAction.CallbackContext context)

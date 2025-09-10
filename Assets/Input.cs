@@ -109,6 +109,24 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TogglePower"",
+                    ""type"": ""Button"",
+                    ""id"": ""6e7780f7-a018-4797-b84d-e77aac495876"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivatePower"",
+                    ""type"": ""Button"",
+                    ""id"": ""272aa526-85bb-4680-b811-532c9a008e78"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -164,6 +182,50 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8fba9ad-5e80-4323-ab16-b6d2965c4380"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5384ed45-eccd-4427-a260-2be7f0861257"",
+                    ""path"": ""<XRController>{LeftHand}/{PrimaryButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2722a6d9-e8d3-41e5-89aa-00ed14baf3a6"",
+                    ""path"": ""<XRController>{LeftHand}/{PrimaryTrigger}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivatePower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7243b15e-6c0f-427a-9f49-24ff7f085632"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivatePower"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -313,6 +375,45 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Desktop"",
+            ""id"": ""d4a3dec0-ae13-4eac-9e3f-1e6dc654025e"",
+            ""actions"": [
+                {
+                    ""name"": ""LegRubbing"",
+                    ""type"": ""Button"",
+                    ""id"": ""021130b6-8c10-49b7-b22d-1e8a9757f42c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""69c2f106-5ba1-4d1b-9c1b-903e12be8506"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LegRubbing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78649663-830c-4a45-9566-cca3634d9432"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LegRubbing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -321,17 +422,23 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_LeftHand = asset.FindActionMap("LeftHand", throwIfNotFound: true);
         m_LeftHand_Rotate = m_LeftHand.FindAction("Rotate", throwIfNotFound: true);
         m_LeftHand_MousePointer = m_LeftHand.FindAction("MousePointer", throwIfNotFound: true);
+        m_LeftHand_TogglePower = m_LeftHand.FindAction("TogglePower", throwIfNotFound: true);
+        m_LeftHand_ActivatePower = m_LeftHand.FindAction("ActivatePower", throwIfNotFound: true);
         // RightHand
         m_RightHand = asset.FindActionMap("RightHand", throwIfNotFound: true);
         m_RightHand_Movement = m_RightHand.FindAction("Movement", throwIfNotFound: true);
         m_RightHand_FlyUp = m_RightHand.FindAction("FlyUp", throwIfNotFound: true);
         m_RightHand_FlyDown = m_RightHand.FindAction("FlyDown", throwIfNotFound: true);
+        // Desktop
+        m_Desktop = asset.FindActionMap("Desktop", throwIfNotFound: true);
+        m_Desktop_LegRubbing = m_Desktop.FindAction("LegRubbing", throwIfNotFound: true);
     }
 
     ~@Input()
     {
         UnityEngine.Debug.Assert(!m_LeftHand.enabled, "This will cause a leak and performance issues, Input.LeftHand.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_RightHand.enabled, "This will cause a leak and performance issues, Input.RightHand.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Desktop.enabled, "This will cause a leak and performance issues, Input.Desktop.Disable() has not been called.");
     }
 
     /// <summary>
@@ -409,6 +516,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private List<ILeftHandActions> m_LeftHandActionsCallbackInterfaces = new List<ILeftHandActions>();
     private readonly InputAction m_LeftHand_Rotate;
     private readonly InputAction m_LeftHand_MousePointer;
+    private readonly InputAction m_LeftHand_TogglePower;
+    private readonly InputAction m_LeftHand_ActivatePower;
     /// <summary>
     /// Provides access to input actions defined in input action map "LeftHand".
     /// </summary>
@@ -428,6 +537,14 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "LeftHand/MousePointer".
         /// </summary>
         public InputAction @MousePointer => m_Wrapper.m_LeftHand_MousePointer;
+        /// <summary>
+        /// Provides access to the underlying input action "LeftHand/TogglePower".
+        /// </summary>
+        public InputAction @TogglePower => m_Wrapper.m_LeftHand_TogglePower;
+        /// <summary>
+        /// Provides access to the underlying input action "LeftHand/ActivatePower".
+        /// </summary>
+        public InputAction @ActivatePower => m_Wrapper.m_LeftHand_ActivatePower;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -460,6 +577,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MousePointer.started += instance.OnMousePointer;
             @MousePointer.performed += instance.OnMousePointer;
             @MousePointer.canceled += instance.OnMousePointer;
+            @TogglePower.started += instance.OnTogglePower;
+            @TogglePower.performed += instance.OnTogglePower;
+            @TogglePower.canceled += instance.OnTogglePower;
+            @ActivatePower.started += instance.OnActivatePower;
+            @ActivatePower.performed += instance.OnActivatePower;
+            @ActivatePower.canceled += instance.OnActivatePower;
         }
 
         /// <summary>
@@ -477,6 +600,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MousePointer.started -= instance.OnMousePointer;
             @MousePointer.performed -= instance.OnMousePointer;
             @MousePointer.canceled -= instance.OnMousePointer;
+            @TogglePower.started -= instance.OnTogglePower;
+            @TogglePower.performed -= instance.OnTogglePower;
+            @TogglePower.canceled -= instance.OnTogglePower;
+            @ActivatePower.started -= instance.OnActivatePower;
+            @ActivatePower.performed -= instance.OnActivatePower;
+            @ActivatePower.canceled -= instance.OnActivatePower;
         }
 
         /// <summary>
@@ -628,6 +757,102 @@ public partial class @Input: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="RightHandActions" /> instance referencing this action map.
     /// </summary>
     public RightHandActions @RightHand => new RightHandActions(this);
+
+    // Desktop
+    private readonly InputActionMap m_Desktop;
+    private List<IDesktopActions> m_DesktopActionsCallbackInterfaces = new List<IDesktopActions>();
+    private readonly InputAction m_Desktop_LegRubbing;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Desktop".
+    /// </summary>
+    public struct DesktopActions
+    {
+        private @Input m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public DesktopActions(@Input wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/LegRubbing".
+        /// </summary>
+        public InputAction @LegRubbing => m_Wrapper.m_Desktop_LegRubbing;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Desktop; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="DesktopActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(DesktopActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="DesktopActions" />
+        public void AddCallbacks(IDesktopActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DesktopActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DesktopActionsCallbackInterfaces.Add(instance);
+            @LegRubbing.started += instance.OnLegRubbing;
+            @LegRubbing.performed += instance.OnLegRubbing;
+            @LegRubbing.canceled += instance.OnLegRubbing;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="DesktopActions" />
+        private void UnregisterCallbacks(IDesktopActions instance)
+        {
+            @LegRubbing.started -= instance.OnLegRubbing;
+            @LegRubbing.performed -= instance.OnLegRubbing;
+            @LegRubbing.canceled -= instance.OnLegRubbing;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="DesktopActions.UnregisterCallbacks(IDesktopActions)" />.
+        /// </summary>
+        /// <seealso cref="DesktopActions.UnregisterCallbacks(IDesktopActions)" />
+        public void RemoveCallbacks(IDesktopActions instance)
+        {
+            if (m_Wrapper.m_DesktopActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="DesktopActions.AddCallbacks(IDesktopActions)" />
+        /// <seealso cref="DesktopActions.RemoveCallbacks(IDesktopActions)" />
+        /// <seealso cref="DesktopActions.UnregisterCallbacks(IDesktopActions)" />
+        public void SetCallbacks(IDesktopActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DesktopActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DesktopActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="DesktopActions" /> instance referencing this action map.
+    /// </summary>
+    public DesktopActions @Desktop => new DesktopActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "LeftHand" which allows adding and removing callbacks.
     /// </summary>
@@ -649,6 +874,20 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMousePointer(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TogglePower" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTogglePower(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ActivatePower" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnActivatePower(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RightHand" which allows adding and removing callbacks.
@@ -678,5 +917,20 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFlyDown(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Desktop" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="DesktopActions.AddCallbacks(IDesktopActions)" />
+    /// <seealso cref="DesktopActions.RemoveCallbacks(IDesktopActions)" />
+    public interface IDesktopActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "LegRubbing" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLegRubbing(InputAction.CallbackContext context);
     }
 }

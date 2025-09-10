@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.InputSystem;
 
-
+#region editor
 #if UNITY_EDITOR
 using UnityEditor;
 [CustomEditor(typeof(PowerProgression))]
@@ -26,6 +26,7 @@ public class PowerProgressionEditor : Editor
     }
 }
 #endif
+#endregion
 
 /// <summary>
 /// Handles the power selection and progression.
@@ -35,6 +36,7 @@ public class PowerProgression : MonoBehaviour
     private static PowerProgression _instance;
     public static PowerProgression Instance { get { return _instance; } }
     public Powers currentPower { private set; get; }
+    public Action<Powers> onPowerChange;
 
     private float energyLevel;
     private int powerLevel;
@@ -54,7 +56,7 @@ public class PowerProgression : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Start()
     {
        // InputManager.Instance.r_ButtonAAction.started += NextPower;
     }
@@ -107,6 +109,7 @@ public class PowerProgression : MonoBehaviour
         if (powerLevel >= sortedPowers.IndexOf(power))
         {
             currentPower = power;
+            onPowerChange?.Invoke(currentPower);
             return true;
         }
 
@@ -117,6 +120,7 @@ public class PowerProgression : MonoBehaviour
     {
         int indexOfPower = sortedPowers.IndexOf(currentPower);
         currentPower = sortedPowers[(indexOfPower + 1) % (powerLevel + 1)];
+        onPowerChange?.Invoke(currentPower);
     }
 
     /// <summary>

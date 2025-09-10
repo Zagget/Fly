@@ -23,6 +23,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "TogglePower",
+                    "type": "Button",
+                    "id": "6e7780f7-a018-4797-b84d-e77aac495876",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ActivatePower",
+                    "type": "Button",
+                    "id": "272aa526-85bb-4680-b811-532c9a008e78",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -78,6 +96,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8fba9ad-5e80-4323-ab16-b6d2965c4380",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TogglePower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5384ed45-eccd-4427-a260-2be7f0861257",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TogglePower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2722a6d9-e8d3-41e5-89aa-00ed14baf3a6",
+                    "path": "<XRController>{LeftHand}/{PrimaryTrigger}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivatePower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7243b15e-6c0f-427a-9f49-24ff7f085632",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivatePower",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -223,6 +285,45 @@
                     "processors": "",
                     "groups": "",
                     "action": "FlyDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Desktop",
+            "id": "d4a3dec0-ae13-4eac-9e3f-1e6dc654025e",
+            "actions": [
+                {
+                    "name": "LegRubbing",
+                    "type": "Button",
+                    "id": "021130b6-8c10-49b7-b22d-1e8a9757f42c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "69c2f106-5ba1-4d1b-9c1b-903e12be8506",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LegRubbing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78649663-830c-4a45-9566-cca3634d9432",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LegRubbing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
