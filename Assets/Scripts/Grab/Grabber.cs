@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Grabber : MonoBehaviour
 {
@@ -11,13 +12,23 @@ public class Grabber : MonoBehaviour
     private Vector3 currentAngularVelocity;
     private Vector3 prevPos;
     private Quaternion prevRot;
-    //temp
-    private int strength;
-
+    
 
     void Start()
     {
         reachCollider = GetComponent<SphereCollider>();
+    }
+
+    public void OnGrabInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Grab();
+        }
+        else if (context.canceled)
+        {
+            Release();
+        }
     }
 
     void Grab()
@@ -39,7 +50,6 @@ public class Grabber : MonoBehaviour
                 closestGrab = candidate;
             }
         }
-        if (closestGrab.weight > strength) return;
         currentGrabbed = closestGrab;
         closestGrab.OnGrab(transform);
     }

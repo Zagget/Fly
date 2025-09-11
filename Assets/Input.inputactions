@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GrabLeft",
+                    "type": "Button",
+                    "id": "8da5e6d8-a301-49c7-9fd1-20943e8a9f2c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -113,7 +122,7 @@
                 {
                     "name": "",
                     "id": "5384ed45-eccd-4427-a260-2be7f0861257",
-                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -140,6 +149,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ActivatePower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "250996a7-0f4b-4e5f-be47-31f6d7ada7ea",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GrabLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -171,6 +191,15 @@
                     "name": "FlyDown",
                     "type": "Button",
                     "id": "21575f4c-0f67-4b23-92ff-0948eea86c75",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GrabRight",
+                    "type": "Button",
+                    "id": "273197f9-6d02-4ba4-9a4d-a240be5262ca",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -285,6 +314,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "FlyDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03c3e370-33b4-4395-9156-ad5fd371fd8d",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GrabRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

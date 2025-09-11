@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [Header("Ref")]
     [SerializeField] private FloatingMovement flightControls; //TODO make sure this is correct class.
     [SerializeField] private LookingControls lookingControls;
+    [SerializeField] private Grabber leftGrabber;
+    [SerializeField] private Grabber rightGrabber;
 
     private MovementState currentMov = MovementState.Flying;
 
@@ -38,11 +40,13 @@ public class PlayerController : MonoBehaviour
         SubscribeToAction(inputActions.RightHand.Movement, OnMove);
         //SubscribeToAction(inputActions.RightHand.FlyUp, OnFlyUp);
         //SubscribeToAction(inputActions.RightHand.FlyDown, OnFlyDown);
+        SubscribeToAction(inputActions.RightHand.GrabRight, GrabRight);
 
         // Left hand
         SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
         SubscribeToAction(inputActions.LeftHand.ActivatePower, ActivatePower);
         inputActions.LeftHand.TogglePower.started += TogglePower;
+        SubscribeToAction(inputActions.LeftHand.GrabLeft, GrabLeft);
 
         // Desktop
         inputActions.Desktop.LegRubbing.started += DesktopLegRubbing;
@@ -61,11 +65,13 @@ public class PlayerController : MonoBehaviour
         UnsubscribeFromAction(inputActions.RightHand.Movement, OnMove);
         //UnsubscribeFromAction(inputActions.RightHand.FlyUp, OnFlyUp);
         //UnsubscribeFromAction(inputActions.RightHand.FlyDown, OnFlyDown);
+        UnsubscribeFromAction(inputActions.RightHand.GrabRight, GrabRight);
 
         // Left hand
         UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
         UnsubscribeFromAction(inputActions.LeftHand.ActivatePower, ActivatePower);
         inputActions.LeftHand.TogglePower.started -= TogglePower;
+        UnsubscribeFromAction(inputActions.LeftHand.GrabLeft, GrabLeft);
 
         // Desktop
         inputActions.Desktop.LegRubbing.started -= DesktopLegRubbing;
@@ -94,6 +100,16 @@ public class PlayerController : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         flightControls.FlyingInput(context);
+    }
+
+    private void GrabLeft(InputAction.CallbackContext context)
+    {
+        leftGrabber.OnGrabInput(context);
+    }
+
+    private void GrabRight(InputAction.CallbackContext context)
+    {
+        rightGrabber.OnGrabInput(context);
     }
 
 

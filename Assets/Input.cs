@@ -127,6 +127,15 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrabLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""8da5e6d8-a301-49c7-9fd1-20943e8a9f2c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -199,7 +208,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5384ed45-eccd-4427-a260-2be7f0861257"",
-                    ""path"": ""<XRController>{LeftHand}/{PrimaryButton}"",
+                    ""path"": ""<XRController>{LeftHand}/{SecondaryButton}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -226,6 +235,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ActivatePower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""250996a7-0f4b-4e5f-be47-31f6d7ada7ea"",
+                    ""path"": ""<XRController>{LeftHand}/{PrimaryButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -257,6 +277,15 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""name"": ""FlyDown"",
                     ""type"": ""Button"",
                     ""id"": ""21575f4c-0f67-4b23-92ff-0948eea86c75"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrabRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""273197f9-6d02-4ba4-9a4d-a240be5262ca"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -373,6 +402,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""FlyDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03c3e370-33b4-4395-9156-ad5fd371fd8d"",
+                    ""path"": ""<XRController>{RightHand}/{PrimaryButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -424,11 +464,13 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_LeftHand_MousePointer = m_LeftHand.FindAction("MousePointer", throwIfNotFound: true);
         m_LeftHand_TogglePower = m_LeftHand.FindAction("TogglePower", throwIfNotFound: true);
         m_LeftHand_ActivatePower = m_LeftHand.FindAction("ActivatePower", throwIfNotFound: true);
+        m_LeftHand_GrabLeft = m_LeftHand.FindAction("GrabLeft", throwIfNotFound: true);
         // RightHand
         m_RightHand = asset.FindActionMap("RightHand", throwIfNotFound: true);
         m_RightHand_Movement = m_RightHand.FindAction("Movement", throwIfNotFound: true);
         m_RightHand_FlyUp = m_RightHand.FindAction("FlyUp", throwIfNotFound: true);
         m_RightHand_FlyDown = m_RightHand.FindAction("FlyDown", throwIfNotFound: true);
+        m_RightHand_GrabRight = m_RightHand.FindAction("GrabRight", throwIfNotFound: true);
         // Desktop
         m_Desktop = asset.FindActionMap("Desktop", throwIfNotFound: true);
         m_Desktop_LegRubbing = m_Desktop.FindAction("LegRubbing", throwIfNotFound: true);
@@ -518,6 +560,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_LeftHand_MousePointer;
     private readonly InputAction m_LeftHand_TogglePower;
     private readonly InputAction m_LeftHand_ActivatePower;
+    private readonly InputAction m_LeftHand_GrabLeft;
     /// <summary>
     /// Provides access to input actions defined in input action map "LeftHand".
     /// </summary>
@@ -545,6 +588,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "LeftHand/ActivatePower".
         /// </summary>
         public InputAction @ActivatePower => m_Wrapper.m_LeftHand_ActivatePower;
+        /// <summary>
+        /// Provides access to the underlying input action "LeftHand/GrabLeft".
+        /// </summary>
+        public InputAction @GrabLeft => m_Wrapper.m_LeftHand_GrabLeft;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -583,6 +630,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @ActivatePower.started += instance.OnActivatePower;
             @ActivatePower.performed += instance.OnActivatePower;
             @ActivatePower.canceled += instance.OnActivatePower;
+            @GrabLeft.started += instance.OnGrabLeft;
+            @GrabLeft.performed += instance.OnGrabLeft;
+            @GrabLeft.canceled += instance.OnGrabLeft;
         }
 
         /// <summary>
@@ -606,6 +656,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @ActivatePower.started -= instance.OnActivatePower;
             @ActivatePower.performed -= instance.OnActivatePower;
             @ActivatePower.canceled -= instance.OnActivatePower;
+            @GrabLeft.started -= instance.OnGrabLeft;
+            @GrabLeft.performed -= instance.OnGrabLeft;
+            @GrabLeft.canceled -= instance.OnGrabLeft;
         }
 
         /// <summary>
@@ -646,6 +699,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_RightHand_Movement;
     private readonly InputAction m_RightHand_FlyUp;
     private readonly InputAction m_RightHand_FlyDown;
+    private readonly InputAction m_RightHand_GrabRight;
     /// <summary>
     /// Provides access to input actions defined in input action map "RightHand".
     /// </summary>
@@ -669,6 +723,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RightHand/FlyDown".
         /// </summary>
         public InputAction @FlyDown => m_Wrapper.m_RightHand_FlyDown;
+        /// <summary>
+        /// Provides access to the underlying input action "RightHand/GrabRight".
+        /// </summary>
+        public InputAction @GrabRight => m_Wrapper.m_RightHand_GrabRight;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -704,6 +762,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @FlyDown.started += instance.OnFlyDown;
             @FlyDown.performed += instance.OnFlyDown;
             @FlyDown.canceled += instance.OnFlyDown;
+            @GrabRight.started += instance.OnGrabRight;
+            @GrabRight.performed += instance.OnGrabRight;
+            @GrabRight.canceled += instance.OnGrabRight;
         }
 
         /// <summary>
@@ -724,6 +785,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @FlyDown.started -= instance.OnFlyDown;
             @FlyDown.performed -= instance.OnFlyDown;
             @FlyDown.canceled -= instance.OnFlyDown;
+            @GrabRight.started -= instance.OnGrabRight;
+            @GrabRight.performed -= instance.OnGrabRight;
+            @GrabRight.canceled -= instance.OnGrabRight;
         }
 
         /// <summary>
@@ -888,6 +952,13 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnActivatePower(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GrabLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGrabLeft(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RightHand" which allows adding and removing callbacks.
@@ -917,6 +988,13 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFlyDown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GrabRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGrabRight(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Desktop" which allows adding and removing callbacks.

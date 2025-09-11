@@ -9292,6 +9292,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerController
       objectReference: {fileID: 0}
+    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: grabber
+      value: 
+      objectReference: {fileID: 5025719895795340890}
+    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: leftGrabber
+      value: 
+      objectReference: {fileID: 5025719895795340890}
+    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: rightGrabber
+      value: 
+      objectReference: {fileID: 5025719895795340888}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
