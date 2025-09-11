@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class LegRubbing : MonoBehaviour
 {
-    public static LegRubbing Instance {  get; private set; }
+    public static LegRubbing Instance { get; private set; }
 
     [SerializeField] Transform leftHand;
     [SerializeField] Transform rightHand;
@@ -13,8 +14,9 @@ public class LegRubbing : MonoBehaviour
     [SerializeField] float desktopInterval = 0.2f;
 
     public float TotalRubbing { get; private set; }
+    public Action<float> chargeChange;
 
-    InputAction lastRubAction;
+    InputControl lastRubControl;
     float lastRubTime;
     float lastDifference;
     bool inVR;
@@ -34,15 +36,13 @@ public class LegRubbing : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
-
-        InputManager.Instance.leftArrowKey.performed += HandleDesktopRubbing;
-        InputManager.Instance.rightArrowKey.performed += HandleDesktopRubbing;
     }
 
-    public float ResetRubbing() 
+    public float ResetRubbing()
     {
         float temp = TotalRubbing;
         TotalRubbing = 0;
+        chargeChange?.Invoke(TotalRubbing);
         return temp;
     }
 
@@ -62,22 +62,21 @@ public class LegRubbing : MonoBehaviour
         float difference = Mathf.Abs(leftPoint.y - rightPoint.y);
         float differenceInDifference = Mathf.Abs(difference - lastDifference);
         lastDifference = difference;
-        if (Mathf.Pow(maxDistance, 2) > distance && differenceInDifference > minRubbingPerSecond * Time.deltaTime) TotalRubbing += differenceInDifference;
+        if (Mathf.Pow(maxDistance, 2) > distance && differenceInDifference > minRubbingPerSecond * Time.deltaTime)
+        {
+            TotalRubbing += differenceInDifference;
+            chargeChange?.Invoke(TotalRubbing);
+        }
     }
 
     public void HandleDesktopRubbing(InputAction.CallbackContext callbackContext)
     {
-        if (lastRubAction != callbackContext.action && Time.time - lastRubTime < desktopInterval)
+        if (lastRubControl != callbackContext.control && Time.time - lastRubTime < desktopInterval)
         {
             TotalRubbing++;
+            chargeChange(TotalRubbing);
         }
         lastRubTime = Time.time;
-        lastRubAction = callbackContext.action;
-    }
-
-    private void OnDisable()
-    {
-        InputManager.Instance.leftArrowKey.performed -= HandleDesktopRubbing;
-        InputManager.Instance.rightArrowKey.performed -= HandleDesktopRubbing;
+        lastRubControl = callbackContext.control;
     }
 }

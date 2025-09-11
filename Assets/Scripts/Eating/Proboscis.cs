@@ -105,10 +105,11 @@ public class Proboscis : MonoBehaviour
     private void FixedUpdate()
     {
         if (isProboscisActive) AttachProboscis();
-        else
+        else if (isProboscisVisible)
         {
             if (mouthAnchor.transform.localPosition.sqrMagnitude < Mathf.Pow(hideDistance, 2))
             {
+                PowerProgression.Instance.SetEnergyLevel(FoodValue);
                 mouthAnchor.SetActive(false);
                 isProboscisVisible = false;
             }

@@ -170,6 +170,8 @@ MonoBehaviour:
   mouthAnchor: {fileID: 4515048600714217370}
   proboscisSpeed: 3.55
   hideDistance: 1
+  distanceToEat: 1
+  EatingPower: 0.2
 --- !u!135 &5993363258769896789
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -4,39 +4,44 @@ using UnityEngine.InputSystem;
 
 public class PowerManager : MonoBehaviour
 {
+    public static PowerManager Instance { get; private set; }
+
     [SerializeField] powerPair[] powerMapping;
     Rigidbody currentRigidbody;
+    powerPair currentPower;
     public Action continues;
+    public static Action<powerPair> onChangePower;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(this);
+    }
 
     private void Start()
     {
         currentRigidbody = RigManager.instance.currentRb;
-        InputManager.Instance.activatePower.performed += ActivatePower;
+        PowerProgression.Instance.onPowerChange += FindPower;
     }
 
     public void ActivatePower(InputAction.CallbackContext context)
     {
-        Powers power = PowerProgression.Instance.currentPower;
-
-        if (FindPower(power, out int i))
-        {
-            if (powerMapping[i].basePower == null) return;
-            float charge = LegRubbing.Instance.ResetRubbing();
-            Debug.Log(charge);
-            powerMapping[i].basePower.Activate(currentRigidbody, charge, this);
-        }
-        else Debug.LogWarning("Power does not exist inside of power mapping: " + power);
+        if (currentPower == null || currentPower.basePower == null) return;
+        float charge = LegRubbing.Instance.ResetRubbing();
+        currentPower.basePower.Activate(currentRigidbody, charge, this);
     }
 
-    bool FindPower(Powers power, out int index)
+    void FindPower(Powers power)
     {
-        index = -1;
         for (int i = 0; i < powerMapping.Length; i++)
         {
-            index = i;
-            if (power == powerMapping[i].power) return true;
+            if (power == powerMapping[i].power)
+            {
+                currentPower = powerMapping[i];
+                onChangePower?.Invoke(currentPower);
+                return;
+            }
         }
-        return false;
     }
 
     private void Update()
@@ -46,12 +51,12 @@ public class PowerManager : MonoBehaviour
 
     private void OnDisable()
     {
-        InputManager.Instance.activatePower.performed -= ActivatePower;
+        PowerProgression.Instance.onPowerChange -= FindPower;
     }
 }
 
 [Serializable]
-struct powerPair
+public class powerPair
 {
     public Powers power;
     public BasePower basePower;

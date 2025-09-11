@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 public class FlightControls : MonoBehaviour
 {
     private Rigidbody rb;
@@ -30,8 +32,6 @@ public class FlightControls : MonoBehaviour
     {
         rb = RigManager.instance.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
-
-
     }
 
 
@@ -118,11 +118,10 @@ public class FlightControls : MonoBehaviour
         linVel = new Vector3(horizontalVel.x, verticalSpeed, horizontalVel.z);
     }
 
-    public void FlyUp(bool performed)
+    public void FlyUp(InputAction.CallbackContext context)
     {
-        if (performed)
+        if (context.performed)
         {
-            Debug.Log("FlyUp");
             flyingUp = true;
         }
         else
@@ -131,11 +130,10 @@ public class FlightControls : MonoBehaviour
         }
     }
 
-    public void FlyDown(bool performed)
+    public void FlyDown(InputAction.CallbackContext context)
     {
-        if (performed)
+        if (context.performed)
         {
-            Debug.Log("FlyDown");
             flyingDown = true;
         }
         else
@@ -144,8 +142,9 @@ public class FlightControls : MonoBehaviour
         }
     }
 
-    public void FlyingInput(Vector2 input)
+    public void FlyingInput(InputAction.CallbackContext context)
     {
+        Vector2 input = context.ReadValue<Vector2>();
         horizontalInput = input;
     }
 }

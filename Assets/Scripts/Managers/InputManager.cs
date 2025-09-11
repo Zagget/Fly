@@ -5,33 +5,20 @@ public class InputManager : MonoBehaviour
     private static InputManager _instance;
     public static InputManager Instance { get { return _instance; } }
 
-    public InputAction r_JoyStickAction;
-    public InputAction lookDirection;
-    public InputAction r_ButtonAAction;
-    public InputAction r_ButtonBAction;
-    public InputAction leftArrowKey;
-    public InputAction rightArrowKey;
-    public InputAction flyUpAction;
-    public InputAction flyDownAction;
-    public InputAction rotateVisionAction;
-    public InputAction activatePower;
+    public Input inputActions;
 
-    private PlayerInput playerInput;
     private void OnEnable()
     {
-        if (playerInput == null)
-            playerInput = GetComponent<PlayerInput>();
+        inputActions.LeftHand.Enable();
+        inputActions.RightHand.Enable();
+        inputActions.Desktop.Enable();
+    }
 
-        r_JoyStickAction = playerInput.actions["Move"];
-        lookDirection = playerInput.actions["Look"];
-        r_ButtonAAction = playerInput.actions["ButtonA"];
-        r_ButtonBAction = playerInput.actions["ButtonB"];
-        leftArrowKey = playerInput.actions["LeftArrowKey"];
-        rightArrowKey = playerInput.actions["RightArrowKey"];
-        flyUpAction = playerInput.actions["FlyUp"];
-        flyDownAction = playerInput.actions["FlyDown"];
-        rotateVisionAction = playerInput.actions["RotateVision"];
-        activatePower = playerInput.actions["ActivatePower"];
+    private void OnDisable()
+    {
+        inputActions.LeftHand.Disable();
+        inputActions.RightHand.Disable();
+        inputActions.Desktop.Disable();
     }
 
     private void Awake()
@@ -44,5 +31,7 @@ public class InputManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        inputActions = new Input();
     }
 }
