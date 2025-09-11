@@ -488,51 +488,51 @@ PrefabInstance:
       propertyPath: flightControls
       value: 
       objectReference: {fileID: 1242329549}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: flyDownSpeed
       value: 75
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: maxYVelocity
       value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: minYVelocity
       value: -150
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: maxVerticalVel
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: yDecceleration
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: horizontalMaxVel
       value: 1000
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: verticalAcceleration
       value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: verticalDecceleration
       value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: horizontalAcceleration
       value: 80
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: horizontalDecceleration
       value: 80
       objectReference: {fileID: 0}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+    - target: {fileID: 0}
       propertyPath: m_EditorClassIdentifier
       value: Assembly-CSharp::FlightControlls
       objectReference: {fileID: 0}
@@ -770,11 +770,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 22.11, y: -6.827, z: 12.819}
---- !u!20 &755198171 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 2813678862579869370, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-  m_PrefabInstance: {fileID: 1335520553}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &761709893
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,16 +1898,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450563f9cdb45b1409562da05608550d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingMovement
-  maxVerticalVel: 0
-  verticalDecceleration: 0
-  verticalAcceleration: 0
-  acceleration: 25
   fixedSpeed: 25
-  decceleration: 25
-  tempYOffset: 100
-  tempZOffset: 10
+  highSpeedMode: 100
+  controllerYOffset: 100
+  controllerZOffset: 0
   deadZone: 5
-  vrCam: {fileID: 755198171}
   maxSpeed: 50
 --- !u!1001 &1265756923
 PrefabInstance:
