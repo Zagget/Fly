@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+
 
 
 
@@ -66,13 +68,35 @@ public class ShatteredObject : MonoBehaviour
 
     public List<Rigidbody> rigidbodies = new();
 
+    [Header("Decay")]
+    [SerializeField] AnimationCurve decayCurve;
+    [SerializeField] float decayTime;
+
+    float decayStart;
+
     public void Explode(Vector3 point, Vector3 force)
     {
-        Debug.Log(rigidbodies.Count);
+        decayStart = Time.time;
         float magnitude = force.sqrMagnitude * forceMultiplier + forceBase;
         foreach (Rigidbody rigidbody in rigidbodies)
         {
             rigidbody.AddExplosionForce(magnitude, point, Mathf.Infinity, falseLift, ForceMode.Acceleration);
+            StartCoroutine(decay(rigidbody.transform));
         }
+        Destroy(gameObject, decayTime + 1);
+    }
+
+    IEnumerator decay(Transform decayObject)
+    {
+        float value;
+        Vector3 scale = decayObject.localScale;
+        while (true)
+        {
+            value = (Time.time - decayStart) / decayTime;
+            decayObject.localScale = scale * decayCurve.Evaluate(value);
+            if (value > 1) { break; }
+            yield return new WaitForEndOfFrame();
+        }
+        Destroy(decayObject.gameObject);
     }
 }
