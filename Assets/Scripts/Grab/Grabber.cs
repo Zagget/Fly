@@ -50,6 +50,7 @@ public class Grabber : MonoBehaviour
                 closestGrab = candidate;
             }
         }
+        if (PowerProgression.Instance.powerLevel < closestGrab.Weight) return;
         currentGrabbed = closestGrab;
         closestGrab.OnGrab(transform);
     }

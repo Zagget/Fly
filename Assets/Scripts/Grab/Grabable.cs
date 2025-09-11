@@ -3,7 +3,8 @@ using UnityEngine;
 public class Grabable : MonoBehaviour, IGrabbable
 {
     public Rigidbody rb => GetComponent<Rigidbody>();
-    public int weight => 0;
+    [SerializeField] int weight;
+    public int Weight => weight;
     public void OnGrab(Transform hand)
     {
         rb.isKinematic = true;

@@ -39,7 +39,8 @@ public class PowerProgression : MonoBehaviour
     public Action<Powers> onPowerChange;
 
     private float energyLevel;
-    private int powerLevel;
+    [HideInInspector]
+    public int powerLevel;
 
     [SerializeField] private List<Powers> sortedPowers;
     public Powers debugPower;
