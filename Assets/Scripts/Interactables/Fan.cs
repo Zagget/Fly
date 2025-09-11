@@ -3,7 +3,7 @@ using UnityEngine;
 public class Fan : MonoBehaviour
 {
     [Header("Fan settings")]
-    [Range(0, 100)][SerializeField] float blowForce = 10;
+    [Range(0, 10000)][SerializeField] float blowForce = 10;
 
     void OnTriggerStay(Collider other)
     {

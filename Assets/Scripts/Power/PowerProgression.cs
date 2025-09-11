@@ -58,12 +58,12 @@ public class PowerProgression : MonoBehaviour
 
     private void Start()
     {
-       // InputManager.Instance.r_ButtonAAction.started += NextPower;
+        // InputManager.Instance.r_ButtonAAction.started += NextPower;
     }
 
     private void OnDisable()
     {
-       // InputManager.Instance.r_ButtonAAction.started -= NextPower;
+        // InputManager.Instance.r_ButtonAAction.started -= NextPower;
     }
 
     /// <summary>
@@ -81,17 +81,12 @@ public class PowerProgression : MonoBehaviour
     /// </summary>
     private void CheckUnlockReqs()
     {
-        if (Mathf.FloorToInt(energyLevel) > powerLevel)
+        int newPowerLevel = Mathf.FloorToInt(energyLevel);
+        newPowerLevel = Mathf.Min(newPowerLevel, sortedPowers.Count - 1);
+        if (newPowerLevel > powerLevel)
         {
-            powerLevel++;
-            if (powerLevel > sortedPowers.Count - 1)
-            {
-                powerLevel = sortedPowers.Count - 1;
-            }
-            else
-            {
-                ChangePower(sortedPowers[powerLevel]);
-            }
+            powerLevel = newPowerLevel;
+            ChangePower(sortedPowers[powerLevel]);
         }
     }
 
