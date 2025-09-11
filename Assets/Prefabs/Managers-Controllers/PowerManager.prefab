@@ -50,6 +50,8 @@ MonoBehaviour:
     basePower: {fileID: 0}
   - power: 1
     basePower: {fileID: 11400000, guid: 1b002107092e37740918003cb14776ba, type: 2}
+  - power: 3
+    basePower: {fileID: 11400000, guid: 188bd920497af7e428d7cf5b08404d75, type: 2}
   - power: 2
     basePower: {fileID: 11400000, guid: 4fb760a8ab4039b45b6650a5debadcff, type: 2}
 --- !u!114 &4724376787826754076

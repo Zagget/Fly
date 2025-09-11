@@ -22,7 +22,7 @@ public class Eraser : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         if (erasePoints.Length > 0)
         {

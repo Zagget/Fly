@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4104068749865634198}
   - component: {fileID: 4655907038890342957}
-  - component: {fileID: 5134278582470079586}
   - component: {fileID: 5345857636603677002}
+  - component: {fileID: 5561808291904335753}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -46,26 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2765bb29eb02aff4fb7851b7c7b3a503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  flightControls: {fileID: 5134278582470079586}
+  flightControls: {fileID: 0}
   lookingControls: {fileID: 5345857636603677002}
---- !u!114 &5134278582470079586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4326761119930820967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed4cd01c379a384297d8cef08bf7d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FlightControlls
-  maxVerticalVel: 1
-  verticalDecceleration: 100
-  verticalAcceleration: 100
-  horizontalAcceleration: 100
-  horizontalMaxVel: 1000
-  horizontalDecceleration: 10
+  leftGrabber: {fileID: 0}
+  rightGrabber: {fileID: 0}
 --- !u!114 &5345857636603677002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,3 +64,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LookingControls
   rotationStep: 45
   rotateSmothness: 0
+--- !u!114 &5561808291904335753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326761119930820967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450563f9cdb45b1409562da05608550d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloatingMovement
+  fixedSpeed: 25
+  highSpeedMode: 100
+  controllerYOffset: 100
+  controllerZOffset: 10
+  deadZone: 5
+  maxSpeed: 50

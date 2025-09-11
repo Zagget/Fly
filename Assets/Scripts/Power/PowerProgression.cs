@@ -15,7 +15,6 @@ public class PowerProgressionEditor : Editor
         base.OnInspectorGUI();
         if (GUILayout.Button("Set debug as real power"))
         {
-            powerProgression.ChangePower(powerProgression.debugPower);
             powerProgression.SetDebugPower();
         }
 
@@ -130,7 +129,11 @@ public class PowerProgression : MonoBehaviour
     /// uses the debug power as the new power
     /// </summary>
     /// <param name="powers"></param>
-    public void SetDebugPower() { currentPower = debugPower; }
+    public void SetDebugPower() 
+    {
+        currentPower = debugPower;
+        onPowerChange?.Invoke(currentPower);
+    }
 }
 /// <summary>
 /// All the powers in the game, 0 is None. This is in PowerProgression Script.
@@ -142,5 +145,6 @@ public enum Powers
 {
     None,
     Dash,
-    EnergyBlast
+    EnergyBlast,
+    SpewMaggots
 }
