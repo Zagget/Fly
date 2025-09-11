@@ -7,6 +7,7 @@ public class PersonMovement : MonoBehaviour
     [SerializeField] Bounds movingArea;
     PersonStates personStates;
     Vector3 target;
+    Vector3 targetDirection;
     void Start()
     {
         target = transform.position;
@@ -16,11 +17,13 @@ public class PersonMovement : MonoBehaviour
     void OnEnable()
     {
         PersonStates.onPersonNeutral += CheckMovement;
+        PersonStates.onPersonAnnoyed += CheckMovement;
         PersonStates.onPersonChasing += CheckMovement;
     }
     void OnDisable()
     {
         PersonStates.onPersonNeutral -= CheckMovement;
+        PersonStates.onPersonAnnoyed += CheckMovement;
         PersonStates.onPersonChasing -= CheckMovement;
     }
 
@@ -32,7 +35,6 @@ public class PersonMovement : MonoBehaviour
             {
                 float step = moveSpeed * Time.fixedDeltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, target, step);
-                Vector3 targetDirection = target - transform.position;
                 transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetDirection, step, 0));
             }
         }
@@ -40,28 +42,37 @@ public class PersonMovement : MonoBehaviour
 
     void CheckMovement()
     {
+        Vector3 playerPos = RigManager.instance.pTransform.position;
+
         switch (personStates.currentState)
         {
             case BehaviourStates.Disabled:
 
                 break;
             case BehaviourStates.Neutral:
-                target = new Vector3(Random.Range(movingArea.min.x, movingArea.max.x), transform.position.y,
+                Vector3 newTarget = new Vector3(Random.Range(movingArea.min.x, movingArea.max.x), transform.position.y,
                                     Random.Range(movingArea.min.z, movingArea.max.z));
+                SetTarget(newTarget);
                 StartCoroutine(RecheckMovement(10));
                 break;
             case BehaviourStates.Annoyed:
-
+                SetTarget(new Vector3(playerPos.x * -1, transform.position.y, playerPos.z * -1)); //moves away from player
+                StartCoroutine(RecheckMovement(1));
                 break;
             case BehaviourStates.Chasing:
-                Vector3 playerPos = RigManager.instance.pTransform.position;
-                target = new Vector3(playerPos.x, transform.position.y, playerPos.z);
+                SetTarget(new Vector3(playerPos.x, transform.position.y, playerPos.z)); //moves towards player
                 StartCoroutine(RecheckMovement(1));
                 break;
             default:
 
                 break;
         }
+    }
+
+    void SetTarget(Vector3 moveTarget)
+    {
+        target = moveTarget;
+        targetDirection = moveTarget - transform.position;
     }
 
     IEnumerator RecheckMovement(float time)

@@ -346,6 +346,8 @@ GameObject:
   - component: {fileID: 7959577314854935106}
   - component: {fileID: 3327186024967982296}
   - component: {fileID: 7043585250266492040}
+  - component: {fileID: 6658427131446149489}
+  - component: {fileID: 6576476354032769069}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -400,3 +402,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PersonStates
   _CurrentState: 1
+--- !u!114 &6658427131446149489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013573715678995120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 357f6482fa98815419a33814738494f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersonAnnoyManager
+  annoyThreshold: 10
+  chaseDuration: 5
+--- !u!135 &6576476354032769069
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013573715678995120}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 8
+  m_Center: {x: 0, y: 19, z: 0}
