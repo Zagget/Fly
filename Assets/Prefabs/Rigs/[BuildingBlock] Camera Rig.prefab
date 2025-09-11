@@ -11476,6 +11476,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Proboscis
       objectReference: {fileID: 0}
+    - target: {fileID: 6849758333152354086, guid: bc1451c861547ba4db8924b2486fc851, type: 3}
+      propertyPath: mouthRig
+      value: 
+      objectReference: {fileID: 1539247033466674075}
     - target: {fileID: 7071975083944329182, guid: bc1451c861547ba4db8924b2486fc851, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11521,6 +11525,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc1451c861547ba4db8924b2486fc851, type: 3}
+--- !u!4 &5848301466714644429 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7917617971340785568, guid: bc1451c861547ba4db8924b2486fc851, type: 3}
+  m_PrefabInstance: {fileID: 4379839331912132717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6840092021642893235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7071975083944329182, guid: bc1451c861547ba4db8924b2486fc851, type: 3}
@@ -11619,7 +11628,7 @@ PrefabInstance:
     - target: {fileID: 926865307464165465, guid: 3b7b2c8428bd35748951f7168a4a8cb0, type: 3}
       propertyPath: m_Data.m_Target
       value: 
-      objectReference: {fileID: 583847716296951505}
+      objectReference: {fileID: 5848301466714644429}
     - target: {fileID: 2636016311941304105, guid: 3b7b2c8428bd35748951f7168a4a8cb0, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -11756,6 +11765,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MouthRig
       objectReference: {fileID: 0}
+    - target: {fileID: 8093067653538739613, guid: 3b7b2c8428bd35748951f7168a4a8cb0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8098543973657610844, guid: 3b7b2c8428bd35748951f7168a4a8cb0, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.99059135
@@ -11792,5 +11805,10 @@ PrefabInstance:
 --- !u!4 &296915629827987119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6994653250030090409, guid: 3b7b2c8428bd35748951f7168a4a8cb0, type: 3}
+  m_PrefabInstance: {fileID: 7281435642586443270}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1539247033466674075 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8093067653538739613, guid: 3b7b2c8428bd35748951f7168a4a8cb0, type: 3}
   m_PrefabInstance: {fileID: 7281435642586443270}
   m_PrefabAsset: {fileID: 0}

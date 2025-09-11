@@ -4,6 +4,7 @@ using UnityEngine;
 public class Proboscis : MonoBehaviour
 {
     [SerializeField] GameObject mouthAnchor;
+    [SerializeField] GameObject mouthRig;
     [SerializeField] float proboscisSpeed = 1;
     [SerializeField] float hideDistance = 1;
     [SerializeField] float distanceToEat = 1;
@@ -51,6 +52,7 @@ public class Proboscis : MonoBehaviour
         {
             mouthAnchor.transform.localPosition = default;
             mouthAnchor.SetActive(true);
+            mouthRig.SetActive(true);
             isProboscisVisible = true;
         }
         isProboscisActive = true;
@@ -118,6 +120,7 @@ public class Proboscis : MonoBehaviour
             if (mouthAnchor.transform.localPosition.sqrMagnitude < Mathf.Pow(hideDistance, 2))
             {
                 mouthAnchor.SetActive(false);
+                mouthRig.SetActive(false);
                 isProboscisVisible = false;
             }
             targetPosition = default;
