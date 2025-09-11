@@ -9,8 +9,6 @@ public class Proboscis : MonoBehaviour
     [SerializeField] float distanceToEat = 1;
     [SerializeField] float EatingPower = 1;
 
-    public float FoodValue { get; private set; }
-
     Dictionary<Collider, Food> foods = new();
     Vector3 targetPosition = Vector3.zero;
     Vector3 offset = default;
@@ -68,9 +66,14 @@ public class Proboscis : MonoBehaviour
         Vector3 finalPoint = default;
         float squareLength;
         float finalSquareLength = Mathf.Infinity;
+        List<Collider> collidersToRemove = new ();
         foreach (var kvp in foods)
         {
-            if (kvp.Key == null) continue;
+            if (kvp.Key == null)
+            {
+                collidersToRemove.Add(kvp.Key);
+                continue;
+            }
             point = kvp.Key.ClosestPoint(transform.position);
             squareLength = (point - transform.position).sqrMagnitude;
             if (squareLength < finalSquareLength)
@@ -83,7 +86,12 @@ public class Proboscis : MonoBehaviour
         }
         if (currentFood != null && (offset - targetPosition).sqrMagnitude < Mathf.Pow(distanceToEat, 2)) 
         {
-            FoodValue += currentFood.Eat(EatingPower * Time.deltaTime, this); 
+            PowerProgression.Instance.AddEnergy(currentFood.Eat(EatingPower * Time.deltaTime, this)); 
+        }
+
+        foreach (Collider collider in collidersToRemove)
+        {
+            RemoveFood(collider);
         }
     }
 
@@ -109,7 +117,6 @@ public class Proboscis : MonoBehaviour
         {
             if (mouthAnchor.transform.localPosition.sqrMagnitude < Mathf.Pow(hideDistance, 2))
             {
-                PowerProgression.Instance.SetEnergyLevel(FoodValue);
                 mouthAnchor.SetActive(false);
                 isProboscisVisible = false;
             }

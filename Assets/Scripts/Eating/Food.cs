@@ -16,14 +16,13 @@ public class Food : MonoBehaviour
         }
     }
 
-    public float Eat(float eatingAmount, Proboscis proboscis)
+    public float Eat(float eatingAmount, Proboscis proboscis = null)
     {
         foodValue -= eatingAmount;
         if (foodValue < 0)
         {
-            Debug.Log(foodValue + ", " + eatingAmount + ", " + (eatingAmount + foodValue));
             DestroySelf();
-            proboscis.RemoveFood(foodCollider);
+            if (proboscis != null) proboscis.RemoveFood(foodCollider);
             eatingAmount += foodValue;
         }
 
