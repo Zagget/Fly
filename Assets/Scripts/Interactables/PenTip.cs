@@ -18,7 +18,7 @@ public class PenTip : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         if (drawPoint)
         {
