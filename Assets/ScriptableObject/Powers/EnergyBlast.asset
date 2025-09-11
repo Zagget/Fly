@@ -40,6 +40,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxVelocity: 50
-  maxDamage: 10
+  maxDamage: 30
   maxFlightTime: 5
   shootOffset: 2
