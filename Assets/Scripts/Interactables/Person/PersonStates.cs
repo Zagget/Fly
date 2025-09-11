@@ -30,14 +30,14 @@ public class PersonStates : MonoBehaviour
         }
     }
     public delegate void StateChanged(BehaviourStates newState);
-    public StateChanged stateChanged;
+    public static StateChanged stateChanged;
 
     void Start()
     {
         OnStateChanged(currentState);
     }
 
-    public void OnStateChanged(BehaviourStates newState)
+    public static void OnStateChanged(BehaviourStates newState)
     {
         Debug.Log("State changed to: " + newState);
         stateChanged?.Invoke(newState);
