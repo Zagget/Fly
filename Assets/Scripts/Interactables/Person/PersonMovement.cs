@@ -56,7 +56,9 @@ public class PersonMovement : MonoBehaviour
                 StartCoroutine(RecheckMovement(10));
                 break;
             case BehaviourStates.Annoyed:
-                SetTarget(new Vector3(playerPos.x * -1, transform.position.y, playerPos.z * -1)); //moves away from player
+                Vector3 awayTarget = new Vector3(playerPos.x - transform.position.x, 0,
+                                                playerPos.z - transform.position.z) * -1;
+                SetTarget(transform.position + awayTarget); //moves away from player
                 StartCoroutine(RecheckMovement(1));
                 break;
             case BehaviourStates.Chasing:
@@ -85,5 +87,6 @@ public class PersonMovement : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(movingArea.center, movingArea.size);
+        Gizmos.DrawLine(transform.position, target);
     }
 }
