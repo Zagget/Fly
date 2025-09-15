@@ -32,7 +32,7 @@ public class PersonStates : MonoBehaviour
     public delegate void StateChanged(BehaviourStates newState);
     public static StateChanged stateChanged;
 
-    void Start()
+    void Awake()
     {
         OnStateChanged(currentState);
     }

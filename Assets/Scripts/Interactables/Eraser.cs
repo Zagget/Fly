@@ -16,7 +16,7 @@ public class Eraser : MonoBehaviour
                 Ray ray = new Ray(point.position, -transform.up);
                 if (Physics.Raycast(ray, out RaycastHit hit, rayLength))
                 {
-                    drawBoard.DrawAtPosition(hit.textureCoord, eraseColor, eraseSizePerPoint);
+                    drawBoard.DrawAtPosition(hit.textureCoord, drawBoard.BoardColor, eraseSizePerPoint);
                 }
             }
         }

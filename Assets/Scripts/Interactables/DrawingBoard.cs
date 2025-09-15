@@ -4,13 +4,25 @@ public class DrawingBoard : MonoBehaviour
 {
     [SerializeField] Texture2D texture;
     Renderer render;
+    [SerializeField] Color boardColor;
+    public Color BoardColor { get { return boardColor; } set { boardColor = value; } }
+    int width;
+    int height;
+    Color[] pixels;
 
     void Start()
     {
         render = GetComponent<Renderer>();
-        texture = new Texture2D(512, 512, TextureFormat.RGBA32, false);
+        pixels = new Color[texture.width * texture.height];
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = BoardColor;
+        }
+        //texture = new Texture2D(512, 512, TextureFormat.RGBA32, false);
+        ChangeTextureFormat(pixels, TextureFormat.RGBA32);
         texture.filterMode = FilterMode.Point;
-        ClearTexture();
+        //BoardColor = texture.GetPixel(0, 0);
+        //ClearTexture();
         render.material.mainTexture = texture;
     }
 
@@ -30,11 +42,30 @@ public class DrawingBoard : MonoBehaviour
         texture.Apply();
     }
 
-    void ClearTexture()
+    public void ClearTexture()
     {
         Color[] clearColors = new Color[texture.width * texture.height];
-        for (int i = 0; i < clearColors.Length; i++) clearColors[i] = Color.white;
+        for (int i = 0; i < clearColors.Length; i++) clearColors[i] = BoardColor; //Color.white;
         texture.SetPixels(clearColors);
         texture.Apply();
+    }
+
+    void ChangeTextureFormat(Color[] colors, TextureFormat newFormat)
+    {
+        //Texture2D newTex = new Texture2D(512, 512, newFormat, false);
+        texture = new Texture2D(texture.width, texture.height, newFormat, false);
+        //newTex.SetPixels(oldTexture.GetPixels());
+        //newTex.SetPixels(colors);
+        texture.SetPixels(colors);
+        //newTex.Apply();
+        texture.Apply();
+
+        //return newTex;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = boardColor;
+        Gizmos.DrawSphere(transform.position, transform.localScale.x * 0.25f);
     }
 }

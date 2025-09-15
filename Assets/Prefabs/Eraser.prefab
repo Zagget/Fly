@@ -285,7 +285,7 @@ MonoBehaviour:
   - {fileID: 3820675474336313586}
   - {fileID: 9168225863548874925}
   rayLength: 0.5
-  eraseColor: {r: 1, g: 1, b: 1, a: 0}
+  eraseColor: {r: 1, g: 1, b: 1, a: 1}
   eraseSizePerPoint: 20
 --- !u!65 &6635476897720632198
 BoxCollider:
