@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
         // Left hand
         SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
-        SubscribeToAction(inputActions.LeftHand.ActivatePower, ActivatePower);
+        inputActions.LeftHand.ActivatePower.started += ActivatePower;
         inputActions.LeftHand.TogglePower.started += TogglePower;
         SubscribeToAction(inputActions.LeftHand.GrabLeft, GrabLeft);
 
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
         // Left hand
         UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
-        UnsubscribeFromAction(inputActions.LeftHand.ActivatePower, ActivatePower);
+        inputActions.LeftHand.ActivatePower.started -= ActivatePower;
         inputActions.LeftHand.TogglePower.started -= TogglePower;
         UnsubscribeFromAction(inputActions.LeftHand.GrabLeft, GrabLeft);
 
