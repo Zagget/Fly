@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Controls")]
     [Header("Ref")]
-    [SerializeField] private FloatingMovement floatingMovement;
+    private FloatingMovement floatingMovement;
     private DesktopMovement desktopMovement;
 
     [SerializeField] private LookingControls lookingControls;
@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
         inputActions = InputManager.Instance.inputActions;
 
         if (!vr) desktopMovement = GetComponent<DesktopMovement>();
+
+        if (vr) floatingMovement = GetComponent<FloatingMovement>();
 
         SubscribeToInputs();
     }

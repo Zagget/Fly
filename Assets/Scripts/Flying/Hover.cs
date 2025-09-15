@@ -6,6 +6,8 @@ public class Hover : MonoBehaviour
 
     float groundRayLength;
 
+    float lowSpeedLimit;
+
     private void Start()
     {
         rb = RigManager.instance.currentRb;
@@ -16,5 +18,15 @@ public class Hover : MonoBehaviour
         Physics.Raycast(transform.position,-transform.up,groundRayLength);
     }
 
-
+    private bool CheckIfLowSpeed()
+    {
+        if (rb.linearVelocity.sqrMagnitude < lowSpeedLimit * lowSpeedLimit)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

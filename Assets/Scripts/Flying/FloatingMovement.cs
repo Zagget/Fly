@@ -44,6 +44,12 @@ public class FloatingMovement : MonoBehaviour
 
     private void Start()
     {
+        if (RigManager.instance.usingVr == false)
+        {
+            this.enabled = false;
+            return;
+        }
+
         rb = RigManager.instance.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
 
