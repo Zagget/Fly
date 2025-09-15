@@ -155,7 +155,7 @@
                 {
                     "name": "",
                     "id": "250996a7-0f4b-4e5f-be47-31f6d7ada7ea",
-                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "path": "<XRController>{LeftHand}/{GripButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -177,24 +177,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "FlyUp",
-                    "type": "Button",
-                    "id": "13b4de4c-8b8f-4923-889b-e1849962b39d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "FlyDown",
-                    "type": "Button",
-                    "id": "21575f4c-0f67-4b23-92ff-0948eea86c75",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "GrabRight",
@@ -275,52 +257,8 @@
                 },
                 {
                     "name": "",
-                    "id": "d9c392b5-d6c8-4cda-ab47-2206a50807f8",
-                    "path": "<XRController>{RightHand}/{TriggerButton}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FlyUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "05d637d1-3d9f-44bc-ba6d-d62c39a5e496",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FlyUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3a03f4f9-90ce-49ad-9f97-935d09fe090e",
                     "path": "<XRController>{RightHand}/{GripButton}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FlyDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f605d44d-2dc9-4a82-9328-a31a4c4e27fb",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FlyDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "03c3e370-33b4-4395-9156-ad5fd371fd8d",
-                    "path": "<XRController>{RightHand}/{PrimaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -338,6 +276,15 @@
                     "name": "LegRubbing",
                     "type": "Button",
                     "id": "021130b6-8c10-49b7-b22d-1e8a9757f42c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GrabDesktop",
+                    "type": "Button",
+                    "id": "8eea9b11-1019-4036-b7e2-e26b426fc720",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -364,6 +311,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LegRubbing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7927edae-caa1-4f39-8da9-f8c1b2955f59",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GrabDesktop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

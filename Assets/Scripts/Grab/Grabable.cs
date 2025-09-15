@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Grabable : MonoBehaviour, IGrabbable
@@ -8,7 +9,12 @@ public class Grabable : MonoBehaviour, IGrabbable
     {
         rb.isKinematic = true;
         rb.detectCollisions = false;
-        transform.SetParent(hand, false);
+
+        Vector3 offset = hand.InverseTransformPoint(transform.position);
+        Quaternion rotationOffset = Quaternion.Inverse(hand.rotation) * transform.rotation;
+        transform.SetParent(hand);
+        transform.localPosition = offset;
+        transform.localRotation = rotationOffset;
     }
 
     public void OnRelease(Vector3 velocity, Vector3 rotationSpeed)
@@ -17,6 +23,7 @@ public class Grabable : MonoBehaviour, IGrabbable
         rb.isKinematic = false;
         rb.detectCollisions = true;
         rb.linearVelocity = velocity;
-        rb.angularVelocity = rotationSpeed;
+
+        rb.angularVelocity = Vector3.ClampMagnitude(rotationSpeed, 10f);
     }
 }

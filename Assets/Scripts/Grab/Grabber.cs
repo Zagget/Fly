@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,16 +11,19 @@ public class Grabber : MonoBehaviour
     private Vector3 currentAngularVelocity;
     private Vector3 prevPos;
     private Quaternion prevRot;
-    
+
 
     void Start()
     {
         reachCollider = GetComponent<SphereCollider>();
+
+        prevPos = transform.position;
+        prevRot = transform.rotation;
     }
 
     public void OnGrabInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
             Grab();
         }
@@ -33,6 +35,8 @@ public class Grabber : MonoBehaviour
 
     void Grab()
     {
+        Debug.Log("blä Grabbing in grabber");
+
         if (grabCandidates.Count == 0) return;
         IGrabbable closestGrab = null;
         var origin = transform.position;
@@ -45,7 +49,7 @@ public class Grabber : MonoBehaviour
                 continue;
             }
             if ((candidate.rb.position - origin).sqrMagnitude <
-                (closestGrab.rb.position - origin).sqrMagnitude) 
+                (closestGrab.rb.position - origin).sqrMagnitude)
             {
                 closestGrab = candidate;
             }
@@ -55,8 +59,10 @@ public class Grabber : MonoBehaviour
     }
 
     void Release()
-    { 
+    {
         if (currentGrabbed == null) return;
+
+        Debug.Log("blä Released");
         currentGrabbed.OnRelease(currentLinearVelocity, currentAngularVelocity);
         currentGrabbed = null;
     }
@@ -78,8 +84,10 @@ public class Grabber : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IGrabbable grabbable = other.GetComponent<IGrabbable>();
+        Debug.Log($"blä Trigger enter other: {other.name}");
         if (grabbable != null && !grabCandidates.Contains(grabbable))
         {
+            Debug.Log($"blä Added other");
             grabCandidates.Add(grabbable);
         }
     }
@@ -87,10 +95,11 @@ public class Grabber : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         IGrabbable grabbable = other.GetComponent<IGrabbable>();
+        Debug.Log($"blä Trigger exit other: {other.name}");
         if (grabbable != null && grabCandidates.Contains(grabbable))
         {
+            Debug.Log($"blä Removed other");
             grabCandidates.Remove(grabbable);
         }
     }
-
 }

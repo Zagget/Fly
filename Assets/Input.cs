@@ -241,7 +241,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""250996a7-0f4b-4e5f-be47-31f6d7ada7ea"",
-                    ""path"": ""<XRController>{LeftHand}/{PrimaryButton}"",
+                    ""path"": ""<XRController>{LeftHand}/{GripButton}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -263,24 +263,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""FlyUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""13b4de4c-8b8f-4923-889b-e1849962b39d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""FlyDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""21575f4c-0f67-4b23-92ff-0948eea86c75"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""GrabRight"",
@@ -361,52 +343,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d9c392b5-d6c8-4cda-ab47-2206a50807f8"",
-                    ""path"": ""<XRController>{RightHand}/{TriggerButton}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FlyUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05d637d1-3d9f-44bc-ba6d-d62c39a5e496"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FlyUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""3a03f4f9-90ce-49ad-9f97-935d09fe090e"",
                     ""path"": ""<XRController>{RightHand}/{GripButton}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FlyDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f605d44d-2dc9-4a82-9328-a31a4c4e27fb"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FlyDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""03c3e370-33b4-4395-9156-ad5fd371fd8d"",
-                    ""path"": ""<XRController>{RightHand}/{PrimaryButton}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -424,6 +362,15 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""name"": ""LegRubbing"",
                     ""type"": ""Button"",
                     ""id"": ""021130b6-8c10-49b7-b22d-1e8a9757f42c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrabDesktop"",
+                    ""type"": ""Button"",
+                    ""id"": ""8eea9b11-1019-4036-b7e2-e26b426fc720"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -452,6 +399,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""LegRubbing"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7927edae-caa1-4f39-8da9-f8c1b2955f59"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabDesktop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -468,12 +426,11 @@ public partial class @Input: IInputActionCollection2, IDisposable
         // RightHand
         m_RightHand = asset.FindActionMap("RightHand", throwIfNotFound: true);
         m_RightHand_Movement = m_RightHand.FindAction("Movement", throwIfNotFound: true);
-        m_RightHand_FlyUp = m_RightHand.FindAction("FlyUp", throwIfNotFound: true);
-        m_RightHand_FlyDown = m_RightHand.FindAction("FlyDown", throwIfNotFound: true);
         m_RightHand_GrabRight = m_RightHand.FindAction("GrabRight", throwIfNotFound: true);
         // Desktop
         m_Desktop = asset.FindActionMap("Desktop", throwIfNotFound: true);
         m_Desktop_LegRubbing = m_Desktop.FindAction("LegRubbing", throwIfNotFound: true);
+        m_Desktop_GrabDesktop = m_Desktop.FindAction("GrabDesktop", throwIfNotFound: true);
     }
 
     ~@Input()
@@ -697,8 +654,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_RightHand;
     private List<IRightHandActions> m_RightHandActionsCallbackInterfaces = new List<IRightHandActions>();
     private readonly InputAction m_RightHand_Movement;
-    private readonly InputAction m_RightHand_FlyUp;
-    private readonly InputAction m_RightHand_FlyDown;
     private readonly InputAction m_RightHand_GrabRight;
     /// <summary>
     /// Provides access to input actions defined in input action map "RightHand".
@@ -715,14 +670,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RightHand/Movement".
         /// </summary>
         public InputAction @Movement => m_Wrapper.m_RightHand_Movement;
-        /// <summary>
-        /// Provides access to the underlying input action "RightHand/FlyUp".
-        /// </summary>
-        public InputAction @FlyUp => m_Wrapper.m_RightHand_FlyUp;
-        /// <summary>
-        /// Provides access to the underlying input action "RightHand/FlyDown".
-        /// </summary>
-        public InputAction @FlyDown => m_Wrapper.m_RightHand_FlyDown;
         /// <summary>
         /// Provides access to the underlying input action "RightHand/GrabRight".
         /// </summary>
@@ -756,12 +703,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @FlyUp.started += instance.OnFlyUp;
-            @FlyUp.performed += instance.OnFlyUp;
-            @FlyUp.canceled += instance.OnFlyUp;
-            @FlyDown.started += instance.OnFlyDown;
-            @FlyDown.performed += instance.OnFlyDown;
-            @FlyDown.canceled += instance.OnFlyDown;
             @GrabRight.started += instance.OnGrabRight;
             @GrabRight.performed += instance.OnGrabRight;
             @GrabRight.canceled += instance.OnGrabRight;
@@ -779,12 +720,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @FlyUp.started -= instance.OnFlyUp;
-            @FlyUp.performed -= instance.OnFlyUp;
-            @FlyUp.canceled -= instance.OnFlyUp;
-            @FlyDown.started -= instance.OnFlyDown;
-            @FlyDown.performed -= instance.OnFlyDown;
-            @FlyDown.canceled -= instance.OnFlyDown;
             @GrabRight.started -= instance.OnGrabRight;
             @GrabRight.performed -= instance.OnGrabRight;
             @GrabRight.canceled -= instance.OnGrabRight;
@@ -826,6 +761,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Desktop;
     private List<IDesktopActions> m_DesktopActionsCallbackInterfaces = new List<IDesktopActions>();
     private readonly InputAction m_Desktop_LegRubbing;
+    private readonly InputAction m_Desktop_GrabDesktop;
     /// <summary>
     /// Provides access to input actions defined in input action map "Desktop".
     /// </summary>
@@ -841,6 +777,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Desktop/LegRubbing".
         /// </summary>
         public InputAction @LegRubbing => m_Wrapper.m_Desktop_LegRubbing;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/GrabDesktop".
+        /// </summary>
+        public InputAction @GrabDesktop => m_Wrapper.m_Desktop_GrabDesktop;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -870,6 +810,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @LegRubbing.started += instance.OnLegRubbing;
             @LegRubbing.performed += instance.OnLegRubbing;
             @LegRubbing.canceled += instance.OnLegRubbing;
+            @GrabDesktop.started += instance.OnGrabDesktop;
+            @GrabDesktop.performed += instance.OnGrabDesktop;
+            @GrabDesktop.canceled += instance.OnGrabDesktop;
         }
 
         /// <summary>
@@ -884,6 +827,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @LegRubbing.started -= instance.OnLegRubbing;
             @LegRubbing.performed -= instance.OnLegRubbing;
             @LegRubbing.canceled -= instance.OnLegRubbing;
+            @GrabDesktop.started -= instance.OnGrabDesktop;
+            @GrabDesktop.performed -= instance.OnGrabDesktop;
+            @GrabDesktop.canceled -= instance.OnGrabDesktop;
         }
 
         /// <summary>
@@ -975,20 +921,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMovement(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "FlyUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFlyUp(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "FlyDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFlyDown(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "GrabRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -1010,5 +942,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLegRubbing(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GrabDesktop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGrabDesktop(InputAction.CallbackContext context);
     }
 }
