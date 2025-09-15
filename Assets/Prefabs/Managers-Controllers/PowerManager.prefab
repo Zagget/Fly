@@ -66,5 +66,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de79253806bcec24385273eefa36aa41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerProgression
-  sortedPowers: 000000000100000002000000
+  sortedPowers: 00000000010000000300000002000000
   debugPower: 2

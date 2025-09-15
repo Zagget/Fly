@@ -1,21 +1,25 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Damageable))]
 public class FallDamageable : MonoBehaviour
 {
-    Damageable damageable;
-    float lastHeight;
+    [SerializeField] float forceMultiplier = 0.5f;
+
+    Damageable[] damageables;
 
     private void Awake()
     {
-        damageable = GetComponent<Damageable>();
-        lastHeight = transform.position.y;
+        damageables = GetComponentsInChildren<Damageable>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        float currentHeight = transform.position.y;
-        if (currentHeight < lastHeight) { damageable.Damage(lastHeight - currentHeight, collision.contacts[0].point, collision.contacts[0].normal); }
-        lastHeight = currentHeight;
+        Vector3 modifiedVelocity = collision.relativeVelocity * forceMultiplier;
+        float force = modifiedVelocity.magnitude;
+        foreach (Damageable damageable in damageables)
+        {
+            damageable.Damage(force, collision.GetContact(0).point, modifiedVelocity);
+        }
+
+        Debug.Log(force);
     }
 }
