@@ -6,8 +6,6 @@ public class DrawingBoard : MonoBehaviour
     Renderer render;
     [SerializeField] Color boardColor;
     public Color BoardColor { get { return boardColor; } set { boardColor = value; } }
-    int width;
-    int height;
     Color[] pixels;
 
     void Start()
@@ -18,11 +16,9 @@ public class DrawingBoard : MonoBehaviour
         {
             pixels[i] = BoardColor;
         }
-        //texture = new Texture2D(512, 512, TextureFormat.RGBA32, false);
         ChangeTextureFormat(pixels, TextureFormat.RGBA32);
+
         texture.filterMode = FilterMode.Point;
-        //BoardColor = texture.GetPixel(0, 0);
-        //ClearTexture();
         render.material.mainTexture = texture;
     }
 
@@ -42,25 +38,19 @@ public class DrawingBoard : MonoBehaviour
         texture.Apply();
     }
 
-    public void ClearTexture()
+    void ClearTexture()
     {
         Color[] clearColors = new Color[texture.width * texture.height];
-        for (int i = 0; i < clearColors.Length; i++) clearColors[i] = BoardColor; //Color.white;
+        for (int i = 0; i < clearColors.Length; i++) clearColors[i] = BoardColor;
         texture.SetPixels(clearColors);
         texture.Apply();
     }
 
     void ChangeTextureFormat(Color[] colors, TextureFormat newFormat)
     {
-        //Texture2D newTex = new Texture2D(512, 512, newFormat, false);
         texture = new Texture2D(texture.width, texture.height, newFormat, false);
-        //newTex.SetPixels(oldTexture.GetPixels());
-        //newTex.SetPixels(colors);
         texture.SetPixels(colors);
-        //newTex.Apply();
         texture.Apply();
-
-        //return newTex;
     }
 
     void OnDrawGizmos()
