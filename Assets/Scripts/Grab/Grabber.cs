@@ -12,7 +12,6 @@ public class Grabber : MonoBehaviour
     private Vector3 prevPos;
     private Quaternion prevRot;
 
-
     void Start()
     {
         reachCollider = GetComponent<SphereCollider>();
@@ -35,8 +34,6 @@ public class Grabber : MonoBehaviour
 
     void Grab()
     {
-        Debug.Log("blä Grabbing in grabber");
-
         if (grabCandidates.Count == 0) return;
         IGrabbable closestGrab = null;
         var origin = transform.position;
@@ -83,22 +80,23 @@ public class Grabber : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Grabbable")) return;
+
         IGrabbable grabbable = other.GetComponent<IGrabbable>();
-        Debug.Log($"blä Trigger enter other: {other.name}");
+
         if (grabbable != null && !grabCandidates.Contains(grabbable))
         {
-            Debug.Log($"blä Added other");
             grabCandidates.Add(grabbable);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        if (!other.CompareTag("Grabbable")) return;
+
         IGrabbable grabbable = other.GetComponent<IGrabbable>();
-        Debug.Log($"blä Trigger exit other: {other.name}");
         if (grabbable != null && grabCandidates.Contains(grabbable))
         {
-            Debug.Log($"blä Removed other");
             grabCandidates.Remove(grabbable);
         }
     }
