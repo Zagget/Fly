@@ -13,7 +13,10 @@ public enum MovementState
 public class PlayerController : MonoBehaviour
 {
     [Header("Controls")]
-    [SerializeField] private FloatingMovement flightControls; //TODO make sure this is correct class.
+    [Header("Ref")]
+    [SerializeField] private FloatingMovement floatingMovement;
+    private DesktopMovement desktopMovement;
+
     [SerializeField] private LookingControls lookingControls;
 
     [Header("Grabbers")]
@@ -33,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
         inputActions = InputManager.Instance.inputActions;
 
+        if (!vr) desktopMovement = GetComponent<DesktopMovement>();
+
         SubscribeToInputs();
     }
 
@@ -40,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         // Right hand
         SubscribeToAction(inputActions.RightHand.Movement, OnMove);
+        SubscribeToAction(inputActions.RightHand.GrabRight, GrabRight);
 
         // Left hand
         SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
@@ -53,6 +59,12 @@ public class PlayerController : MonoBehaviour
         }
 
         // Desktop
+        inputActions.Desktop.LegRubbing.started += DesktopLegRubbing;
+        SubscribeToAction(inputActions.Desktop.FlyUp, OnFlyUp);
+        SubscribeToAction(inputActions.Desktop.FlyDown, OnFlyDown);
+        SubscribeToAction(inputActions.Desktop.WASD, DesktopFlight);
+
+        // Look around with mouse
         if (!vr)
         {
             SubscribeToAction(inputActions.Desktop.GrabDesktop, GrabDesktop);
@@ -65,6 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         // Right hand
         UnsubscribeFromAction(inputActions.RightHand.Movement, OnMove);
+        UnsubscribeFromAction(inputActions.RightHand.GrabRight, GrabRight);
 
         // Left hand
         UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
@@ -78,6 +91,12 @@ public class PlayerController : MonoBehaviour
         }
 
         // Desktop
+        inputActions.Desktop.LegRubbing.started -= DesktopLegRubbing;
+        UnsubscribeFromAction(inputActions.Desktop.FlyUp, OnFlyUp);
+        UnsubscribeFromAction(inputActions.Desktop.FlyDown, OnFlyDown);
+        UnsubscribeFromAction(inputActions.Desktop.WASD, DesktopFlight);
+
+        // Look around with mouse
         if (!vr)
         {
             inputActions.Desktop.LegRubbing.started -= DesktopLegRubbing;
@@ -102,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        flightControls.FlyingInput(context);
+        if (vr) floatingMovement.FlyingInput(context);
     }
 
     private void GrabLeft(InputAction.CallbackContext context)
@@ -118,6 +137,21 @@ public class PlayerController : MonoBehaviour
     private void GrabDesktop(InputAction.CallbackContext context)
     {
         desktopGrabber.OnGrabInput(context);
+    }
+
+    private void OnFlyUp(InputAction.CallbackContext context)
+    {
+        desktopMovement.FlyUp(context);
+    }
+
+    private void OnFlyDown(InputAction.CallbackContext context)
+    {
+        desktopMovement.FlyDown(context);
+    }
+
+    private void DesktopFlight(InputAction.CallbackContext context)
+    {
+        desktopMovement.FlyingInput(context);
     }
 
     private void OnLook(InputAction.CallbackContext context)

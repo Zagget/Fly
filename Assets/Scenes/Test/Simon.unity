@@ -190,6 +190,16 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 3068609467574053609, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
   m_PrefabInstance: {fileID: 95259}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &341538966 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
+  m_PrefabInstance: {fileID: 1335520553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &341538968 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2813678862579869370, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
+  m_PrefabInstance: {fileID: 1335520553}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,66 +497,30 @@ PrefabInstance:
     - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: flightControls
       value: 
-      objectReference: {fileID: 1242329549}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: flyDownSpeed
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: maxYVelocity
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: minYVelocity
-      value: -150
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: maxVerticalVel
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: yDecceleration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: horizontalMaxVel
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: verticalAcceleration
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: verticalDecceleration
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: horizontalAcceleration
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: horizontalDecceleration
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_EditorClassIdentifier
-      value: Assembly-CSharp::FlightControlls
-      objectReference: {fileID: 0}
+    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: desktopMovement
+      value: 
+      objectReference: {fileID: 787043543}
     - target: {fileID: 5345857636603677002, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: rotationStep
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: centerEyeTransform
+      value: 
+      objectReference: {fileID: 341538966}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1242329549}
+      addedObject: {fileID: 787043543}
   m_SourcePrefab: {fileID: 100100000, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
 --- !u!1 &460497357
 GameObject:
@@ -881,6 +855,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -24.095, y: -25.78, z: 45.031}
+--- !u!1 &787043538 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+  m_PrefabInstance: {fileID: 454736564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &787043543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787043538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9737bd7b0ba7b4aa75e7a49c30e7a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DesktopMovement
+  maxVerticalVel: 20
+  verticalDecceleration: 15
+  verticalAcceleration: 100
+  horizontalAcceleration: 50
+  horizontalMaxVel: 1000
+  horizontalDecceleration: 50
 --- !u!1 &792202845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,7 +1254,7 @@ Transform:
   m_GameObject: {fileID: 880347711}
   serializedVersion: 2
   m_LocalRotation: {x: 0.33438665, y: -0.61330765, z: 0.044644024, w: 0.7141752}
-  m_LocalPosition: {x: -3.7, y: 36.3, z: -21.42}
+  m_LocalPosition: {x: -3.7, y: 36.3, z: -56.3}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1881,29 +1878,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -30.309, y: 7.633, z: -10.029}
---- !u!1 &1242329544 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-  m_PrefabInstance: {fileID: 454736564}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1242329549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242329544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 450563f9cdb45b1409562da05608550d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FloatingMovement
-  fixedSpeed: 25
-  highSpeedMode: 100
-  controllerYOffset: 100
-  controllerZOffset: 0
-  deadZone: 5
-  maxSpeed: 50
 --- !u!1001 &1265756923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2246,6 +2220,10 @@ PrefabInstance:
       propertyPath: vrRig
       value: 
       objectReference: {fileID: 1335520554}
+    - target: {fileID: 6769649037328930072, guid: 2598131bcf737b544843da3973e4c923, type: 3}
+      propertyPath: VRCamera
+      value: 
+      objectReference: {fileID: 341538968}
     - target: {fileID: 6769649037328930072, guid: 2598131bcf737b544843da3973e4c923, type: 3}
       propertyPath: currentRb
       value: 

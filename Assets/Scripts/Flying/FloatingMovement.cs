@@ -8,10 +8,12 @@ public class FloatingMovement : MonoBehaviour
     [SerializeField] private float fixedSpeed;
     [SerializeField] private float highSpeedMode;
 
-    [SerializeField] private float controllerYOffset = 100; //Offset is aproxematly from ground, where ~0 is the floor.
+    [SerializeField] private float controllerYOffset = 100; //Offset is approximately from ground, where ~0 is the floor.
     [SerializeField] private float controllerZOffset; //offset is how close controllers have to be to the player to count as 0 or negative.
 
     [SerializeField] private float deadZone;
+    [SerializeField] private Transform centerEyeTransform;
+    [SerializeField] private float headsetYOffset = 1.15f;
 
     private Camera vrCam;
 
@@ -47,7 +49,7 @@ public class FloatingMovement : MonoBehaviour
 
         if (RigManager.instance.usingVr == true)
         {
-            activeCamera = vrCam;
+            activeCamera = RigManager.instance.VRCamera;
         }
         else
         {
@@ -62,16 +64,17 @@ public class FloatingMovement : MonoBehaviour
 
         controllerPositionInput = GetControllerPositions();
         currentMode = GetFlightMode();
-        switch (currentMode)
-        {
-            case FlightMode.Standard:
-                StandardControls();
-                break;
+        StandardControls();
+        //switch (currentMode)
+        //{
+        //    case FlightMode.Standard:
+        //        StandardControls();
+        //        break;
 
-            case FlightMode.Fast:
-                FastControls();
-                break;
-        }
+        //    case FlightMode.Fast:
+        //       // FastControls();
+        //        break;
+        //}
 
         rb.linearVelocity = linVel;
     }
@@ -109,12 +112,21 @@ public class FloatingMovement : MonoBehaviour
         rightController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
 
 
-        xValue = ((leftController.x + rightController.x) / 2) * 100;
+        Vector3 cPos = centerEyeTransform.localPosition;
+        //Debug.Log(((leftController + rightController) / 2) - new Vector3(cPos.x, cPos.y - headsetYOffset, cPos.z));
 
-        yValue = ((leftController.y + rightController.y) / 2) * 100;
+        //Debug.Log("Controllers " + (leftController + rightController) / 2);
+
+        Vector3 offsetTracking = ((leftController + rightController) / 2);
+
+
+
+        xValue = (((leftController + rightController).x / 2) - cPos.x) * 100;
+
+        yValue = (((leftController + rightController).y / 2) - (cPos.y - headsetYOffset)) * 100;
         yValue -= controllerYOffset;
 
-        zValue = ((leftController.z + rightController.z) / 2) * 100;
+        zValue = (((leftController + rightController).z / 2) - cPos.z) * 100;
         zValue -= controllerZOffset;
 
         // if (zValue < 0) zValue = 0;
@@ -126,22 +138,22 @@ public class FloatingMovement : MonoBehaviour
         if (Mathf.Abs(zValue) < deadZone) zValue = 0;
 
 
-        Debug.Log(" X: " + xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
+        Debug.Log(" X: " +  xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
 
         return new Vector3(xValue, yValue, zValue);
     }
 
-    private void FastControls()
-    {
-        Vector3 forward = RigManager.instance.currentRb.transform.forward;
-        Vector3 right = RigManager.instance.currentRb.transform.right;
+    //private void FastControls()
+    //{
+    //    Vector3 forward = RigManager.instance.currentRb.transform.forward;
+    //    Vector3 right = RigManager.instance.currentRb.transform.right;
 
         
 
-        Vector3 moveDirection = forward;
-        moveDirection = Vector3.Lerp(moveDirection, rightAxisInput.normalized * forward, Time.fixedDeltaTime * turnStrength);
-        linVel = moveDirection * highSpeedMode;
-    }
+    //    Vector3 moveDirection = forward;
+    //    moveDirection = Vector3.Lerp(moveDirection, rightAxisInput.normalized * forward, Time.fixedDeltaTime * turnStrength);
+    //    linVel = moveDirection * highSpeedMode;
+    //}
 
     public void FlyingInput(InputAction.CallbackContext context)
     {
