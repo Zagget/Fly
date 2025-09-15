@@ -19,7 +19,5 @@ public class FallDamageable : MonoBehaviour
         {
             damageable.Damage(force, collision.GetContact(0).point, modifiedVelocity);
         }
-
-        Debug.Log(force);
     }
 }

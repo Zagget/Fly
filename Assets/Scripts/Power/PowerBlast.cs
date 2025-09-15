@@ -28,7 +28,6 @@ public class PowerBlast : BasePower
         float value = powerCurve.Evaluate(currentCharge/maximumCharge);
         instantiatedProjectile.transform.rotation = playersRigidbody.rotation;
         rigidbody.linearVelocity = value * maxVelocity * instantiatedProjectile.transform.forward;
-        Debug.Log(value);
         projectileComponent.damage = value * maxDamage;
         Destroy(instantiatedProjectile, value * maxFlightTime);
     }
