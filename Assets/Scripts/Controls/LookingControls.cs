@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -119,8 +118,8 @@ public class LookingControls : MonoBehaviour
 
         yield return new WaitForSeconds(cooldown);
 
-        Debug.Log($"blä smoothtime: {smoothTime}");
-        Debug.Log($"blä cooldown:  {cooldown}");
+        // Debug.Log($"blä smoothtime: {smoothTime}");
+        // Debug.Log($"blä cooldown:  {cooldown}");
         isRotating = false;
     }
 }

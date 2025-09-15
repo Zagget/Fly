@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2765bb29eb02aff4fb7851b7c7b3a503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  floatingMovement: {fileID: 5561808291904335753}
+  desktopMovement: {fileID: 2926363178791186724}
   lookingControls: {fileID: 5345857636603677002}
   leftGrabber: {fileID: 0}
   rightGrabber: {fileID: 0}

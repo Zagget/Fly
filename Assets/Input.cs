@@ -102,15 +102,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""MousePointer"",
-                    ""type"": ""Value"",
-                    ""id"": ""204c1248-4f38-4e88-8ab1-7afd78074a07"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""TogglePower"",
                     ""type"": ""Button"",
                     ""id"": ""6e7780f7-a018-4797-b84d-e77aac495876"",
@@ -147,50 +138,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Q/E"",
-                    ""id"": ""5abf1561-5cdf-4ff2-8bf3-7668dd83f5ea"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Right"",
-                    ""id"": ""5179ef08-f99a-4ed3-8576-ee6cbeea7f57"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Left"",
-                    ""id"": ""f57674dc-2a7e-4515-908e-945568981a37"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""829203c4-e612-447c-82d0-7774969087d3"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MousePointer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -287,61 +234,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""WASD"",
-                    ""id"": ""c25e9c52-991a-4bf6-b244-ab134b01671c"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""003003af-3eb5-4c6b-b5b3-c67dc4a809db"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Right"",
-                    ""id"": ""e505ebc7-9797-458f-915e-23da8a092ad7"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Down"",
-                    ""id"": ""2af326df-8312-4950-8201-c5fb4da8f068"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Left"",
-                    ""id"": ""04c2c5b4-9902-4fd8-897d-7e9f98d45ed5"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""3a03f4f9-90ce-49ad-9f97-935d09fe090e"",
                     ""path"": ""<XRController>{RightHand}/{GripButton}"",
@@ -399,6 +291,24 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""c353ba81-ff9f-459c-8666-a5206479b46e"",
                     ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""44bc9cc4-bbe9-422e-99b5-5ecf6b1fe7d9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePointer"",
+                    ""type"": ""Value"",
+                    ""id"": ""e98da89e-6733-4d53-83d6-b652eb7d9903"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -514,6 +424,50 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""WASD"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Q/E"",
+                    ""id"": ""9b302b97-3185-4d15-aa20-927eceb59e4b"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""c099c6a9-821f-4351-b887-3eb443b3001e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""a8f256ed-7476-4beb-a193-c0c7692ba006"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85b36710-d95e-4daa-8974-e007dfcf1b85"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -523,7 +477,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         // LeftHand
         m_LeftHand = asset.FindActionMap("LeftHand", throwIfNotFound: true);
         m_LeftHand_Rotate = m_LeftHand.FindAction("Rotate", throwIfNotFound: true);
-        m_LeftHand_MousePointer = m_LeftHand.FindAction("MousePointer", throwIfNotFound: true);
         m_LeftHand_TogglePower = m_LeftHand.FindAction("TogglePower", throwIfNotFound: true);
         m_LeftHand_ActivatePower = m_LeftHand.FindAction("ActivatePower", throwIfNotFound: true);
         m_LeftHand_GrabLeft = m_LeftHand.FindAction("GrabLeft", throwIfNotFound: true);
@@ -538,6 +491,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_Desktop_FlyUp = m_Desktop.FindAction("FlyUp", throwIfNotFound: true);
         m_Desktop_FlyDown = m_Desktop.FindAction("FlyDown", throwIfNotFound: true);
         m_Desktop_WASD = m_Desktop.FindAction("WASD", throwIfNotFound: true);
+        m_Desktop_Rotate = m_Desktop.FindAction("Rotate", throwIfNotFound: true);
+        m_Desktop_MousePointer = m_Desktop.FindAction("MousePointer", throwIfNotFound: true);
     }
 
     ~@Input()
@@ -621,7 +576,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_LeftHand;
     private List<ILeftHandActions> m_LeftHandActionsCallbackInterfaces = new List<ILeftHandActions>();
     private readonly InputAction m_LeftHand_Rotate;
-    private readonly InputAction m_LeftHand_MousePointer;
     private readonly InputAction m_LeftHand_TogglePower;
     private readonly InputAction m_LeftHand_ActivatePower;
     private readonly InputAction m_LeftHand_GrabLeft;
@@ -640,10 +594,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "LeftHand/Rotate".
         /// </summary>
         public InputAction @Rotate => m_Wrapper.m_LeftHand_Rotate;
-        /// <summary>
-        /// Provides access to the underlying input action "LeftHand/MousePointer".
-        /// </summary>
-        public InputAction @MousePointer => m_Wrapper.m_LeftHand_MousePointer;
         /// <summary>
         /// Provides access to the underlying input action "LeftHand/TogglePower".
         /// </summary>
@@ -685,9 +635,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
-            @MousePointer.started += instance.OnMousePointer;
-            @MousePointer.performed += instance.OnMousePointer;
-            @MousePointer.canceled += instance.OnMousePointer;
             @TogglePower.started += instance.OnTogglePower;
             @TogglePower.performed += instance.OnTogglePower;
             @TogglePower.canceled += instance.OnTogglePower;
@@ -711,9 +658,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
-            @MousePointer.started -= instance.OnMousePointer;
-            @MousePointer.performed -= instance.OnMousePointer;
-            @MousePointer.canceled -= instance.OnMousePointer;
             @TogglePower.started -= instance.OnTogglePower;
             @TogglePower.performed -= instance.OnTogglePower;
             @TogglePower.canceled -= instance.OnTogglePower;
@@ -872,6 +816,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_Desktop_FlyUp;
     private readonly InputAction m_Desktop_FlyDown;
     private readonly InputAction m_Desktop_WASD;
+    private readonly InputAction m_Desktop_Rotate;
+    private readonly InputAction m_Desktop_MousePointer;
     /// <summary>
     /// Provides access to input actions defined in input action map "Desktop".
     /// </summary>
@@ -903,6 +849,14 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Desktop/WASD".
         /// </summary>
         public InputAction @WASD => m_Wrapper.m_Desktop_WASD;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/Rotate".
+        /// </summary>
+        public InputAction @Rotate => m_Wrapper.m_Desktop_Rotate;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/MousePointer".
+        /// </summary>
+        public InputAction @MousePointer => m_Wrapper.m_Desktop_MousePointer;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -944,6 +898,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @WASD.started += instance.OnWASD;
             @WASD.performed += instance.OnWASD;
             @WASD.canceled += instance.OnWASD;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+            @MousePointer.started += instance.OnMousePointer;
+            @MousePointer.performed += instance.OnMousePointer;
+            @MousePointer.canceled += instance.OnMousePointer;
         }
 
         /// <summary>
@@ -970,6 +930,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @WASD.started -= instance.OnWASD;
             @WASD.performed -= instance.OnWASD;
             @WASD.canceled -= instance.OnWASD;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+            @MousePointer.started -= instance.OnMousePointer;
+            @MousePointer.performed -= instance.OnMousePointer;
+            @MousePointer.canceled -= instance.OnMousePointer;
         }
 
         /// <summary>
@@ -1017,13 +983,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotate(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "MousePointer" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMousePointer(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "TogglePower" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -1110,5 +1069,19 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnWASD(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotate(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MousePointer" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMousePointer(InputAction.CallbackContext context);
     }
 }
