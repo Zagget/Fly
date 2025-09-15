@@ -490,26 +490,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerController
       objectReference: {fileID: 0}
-    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: vrRig
-      value: 
-      objectReference: {fileID: 1335520554}
-    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: flightControls
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: desktopMovement
-      value: 
-      objectReference: {fileID: 787043543}
-    - target: {fileID: 5345857636603677002, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: rotationStep
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: centerEyeTransform
       value: 
@@ -517,10 +497,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 787043543}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
 --- !u!1 &460497357
 GameObject:
@@ -855,29 +832,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -24.095, y: -25.78, z: 45.031}
---- !u!1 &787043538 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-  m_PrefabInstance: {fileID: 454736564}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &787043543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787043538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c9737bd7b0ba7b4aa75e7a49c30e7a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DesktopMovement
-  maxVerticalVel: 20
-  verticalDecceleration: 15
-  verticalAcceleration: 100
-  horizontalAcceleration: 50
-  horizontalMaxVel: 1000
-  horizontalDecceleration: 50
 --- !u!1 &792202845
 GameObject:
   m_ObjectHideFlags: 0
