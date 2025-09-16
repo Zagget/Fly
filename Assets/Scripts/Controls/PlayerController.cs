@@ -116,6 +116,11 @@ public class PlayerController : MonoBehaviour
         currentState?.Enter(this);
     }
 
+    public BasePlayerState GetState()
+    {
+        return currentState;
+    }
+
     private void OnMove(InputAction.CallbackContext context) => currentState?.HandleMovement(context, floatingMovement);
     private void GrabRight(InputAction.CallbackContext context) => currentState?.HandleGrabRight(context, rightGrabber);
     private void GrabLeft(InputAction.CallbackContext context) => currentState?.HandleGrabLeft(context, leftGrabber);

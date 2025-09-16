@@ -144,7 +144,7 @@ public class FloatingMovement : MonoBehaviour
         if (Mathf.Abs(zValue) < deadZone) zValue = 0;
 
 
-        Debug.Log(" X: " +  xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
+        //Debug.Log(" X: " +  xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
 
         return new Vector3(xValue, yValue, zValue);
     }
