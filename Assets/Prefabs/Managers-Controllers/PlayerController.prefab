@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1905ad5bb560dd45b4e3bbca1cb887c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LookingControls
-  rotationStep: 90
+  rotationStep: 20
   rotateSmothness: 0
 --- !u!114 &5561808291904335753
 MonoBehaviour:

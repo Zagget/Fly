@@ -5920,6 +5920,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
+--- !u!114 &1085859545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3211154673825147875, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
+  m_PrefabInstance: {fileID: 1085859544}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc8cb90ed3da6d4caa0ef890cd60a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Grabber
 --- !u!1 &1111844306
 GameObject:
   m_ObjectHideFlags: 0
@@ -7468,33 +7479,26 @@ PrefabInstance:
       value: PlayerController
       objectReference: {fileID: 0}
     - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: flightControls
+      propertyPath: leftGrabber
       value: 
-      objectReference: {fileID: 1286177345}
-    - target: {fileID: 5134278582470079586, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: maxVerticalVel
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5345857636603677002, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-      propertyPath: rotationStep
-      value: 20
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2059226510}
+    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: rightGrabber
+      value: 
+      objectReference: {fileID: 2059226511}
+    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: desktopGrabber
+      value: 
+      objectReference: {fileID: 1085859545}
+    - target: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: centerEyeTransform
+      value: 
+      objectReference: {fileID: 2059226509}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
---- !u!114 &1286177345 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
-  m_PrefabInstance: {fileID: 1286177344}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 450563f9cdb45b1409562da05608550d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FloatingMovement
 --- !u!4 &1286553759 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5472529099197097600, guid: af3d4f34e74dc1e478af5d8ed2754a38, type: 3}
@@ -10712,6 +10716,33 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
+--- !u!4 &2059226509 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
+  m_PrefabInstance: {fileID: 2059226508}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2059226510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2035986972883220719, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
+  m_PrefabInstance: {fileID: 2059226508}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc8cb90ed3da6d4caa0ef890cd60a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Grabber
+--- !u!114 &2059226511 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2618340616560025987, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
+  m_PrefabInstance: {fileID: 2059226508}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc8cb90ed3da6d4caa0ef890cd60a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Grabber
 --- !u!1001 &2059335686
 PrefabInstance:
   m_ObjectHideFlags: 0
