@@ -9,6 +9,7 @@ public class LegRubbing : MonoBehaviour
     [SerializeField] Transform leftHand;
     [SerializeField] Transform rightHand;
     [SerializeField] Transform center;
+    [SerializeField] Transform handRotation;
     [SerializeField] float maxDistance;
     [SerializeField] float minRubbingPerSecond = 0.1f;
     [SerializeField] float desktopInterval = 0.2f;
@@ -55,7 +56,7 @@ public class LegRubbing : MonoBehaviour
     {
         center.rotation = Quaternion.Slerp(Quaternion.identity, leftHand.rotation * rightHand.rotation, 0.5f);
         center.position = leftHand.position - (leftHand.position - rightHand.position) / 2;
-        Matrix4x4 centerMatrix = center.worldToLocalMatrix;
+        Matrix4x4 centerMatrix = center.worldToLocalMatrix * handRotation.worldToLocalMatrix;
         Vector3 leftPoint = centerMatrix * leftHand.position;
         Vector3 rightPoint = centerMatrix * rightHand.position;
         float distance = (new Vector3(leftPoint.x, 0, leftPoint.z) - new Vector3(rightPoint.x, 0, rightPoint.z)).sqrMagnitude;

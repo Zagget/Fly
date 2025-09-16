@@ -43,7 +43,12 @@ public class Proboscis : MonoBehaviour
 
     private void Start()
     {
-        if (mouthAnchor == null) gameObject.SetActive(false);
+        if (mouthAnchor == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        mouthAnchor.SetActive(false);
     }
 
     private void ShowProboscis()
@@ -51,7 +56,6 @@ public class Proboscis : MonoBehaviour
         if (!isProboscisVisible)
         {
             mouthAnchor.transform.localPosition = default;
-            mouthAnchor.SetActive(true);
             mouthRig.SetActive(true);
             isProboscisVisible = true;
         }
@@ -119,7 +123,6 @@ public class Proboscis : MonoBehaviour
         {
             if (mouthAnchor.transform.localPosition.sqrMagnitude < Mathf.Pow(hideDistance, 2))
             {
-                mouthAnchor.SetActive(false);
                 mouthRig.SetActive(false);
                 isProboscisVisible = false;
             }

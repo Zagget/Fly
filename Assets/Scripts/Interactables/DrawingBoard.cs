@@ -4,13 +4,21 @@ public class DrawingBoard : MonoBehaviour
 {
     [SerializeField] Texture2D texture;
     Renderer render;
+    [SerializeField] Color boardColor;
+    public Color BoardColor { get { return boardColor; } set { boardColor = value; } }
+    Color[] pixels;
 
     void Start()
     {
         render = GetComponent<Renderer>();
-        texture = new Texture2D(512, 512, TextureFormat.RGBA32, false);
+        pixels = new Color[texture.width * texture.height];
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = BoardColor;
+        }
+        ChangeTextureFormat(pixels, TextureFormat.RGBA32);
+
         texture.filterMode = FilterMode.Point;
-        ClearTexture();
         render.material.mainTexture = texture;
     }
 
@@ -33,8 +41,21 @@ public class DrawingBoard : MonoBehaviour
     void ClearTexture()
     {
         Color[] clearColors = new Color[texture.width * texture.height];
-        for (int i = 0; i < clearColors.Length; i++) clearColors[i] = Color.white;
+        for (int i = 0; i < clearColors.Length; i++) clearColors[i] = BoardColor;
         texture.SetPixels(clearColors);
         texture.Apply();
+    }
+
+    void ChangeTextureFormat(Color[] colors, TextureFormat newFormat)
+    {
+        texture = new Texture2D(texture.width, texture.height, newFormat, false);
+        texture.SetPixels(colors);
+        texture.Apply();
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = boardColor;
+        Gizmos.DrawSphere(transform.position, transform.localScale.x * 0.25f);
     }
 }

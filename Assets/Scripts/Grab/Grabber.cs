@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,16 +11,18 @@ public class Grabber : MonoBehaviour
     private Vector3 currentAngularVelocity;
     private Vector3 prevPos;
     private Quaternion prevRot;
-    
 
     void Start()
     {
         reachCollider = GetComponent<SphereCollider>();
+
+        prevPos = transform.position;
+        prevRot = transform.rotation;
     }
 
     public void OnGrabInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
             Grab();
         }
@@ -45,7 +46,7 @@ public class Grabber : MonoBehaviour
                 continue;
             }
             if ((candidate.rb.position - origin).sqrMagnitude <
-                (closestGrab.rb.position - origin).sqrMagnitude) 
+                (closestGrab.rb.position - origin).sqrMagnitude)
             {
                 closestGrab = candidate;
             }
@@ -56,8 +57,10 @@ public class Grabber : MonoBehaviour
     }
 
     void Release()
-    { 
+    {
         if (currentGrabbed == null) return;
+
+        Debug.Log("blä Released");
         currentGrabbed.OnRelease(currentLinearVelocity, currentAngularVelocity);
         currentGrabbed = null;
     }
@@ -78,7 +81,10 @@ public class Grabber : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Grabbable")) return;
+
         IGrabbable grabbable = other.GetComponent<IGrabbable>();
+
         if (grabbable != null && !grabCandidates.Contains(grabbable))
         {
             grabCandidates.Add(grabbable);
@@ -87,11 +93,12 @@ public class Grabber : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (!other.CompareTag("Grabbable")) return;
+
         IGrabbable grabbable = other.GetComponent<IGrabbable>();
         if (grabbable != null && grabCandidates.Contains(grabbable))
         {
             grabCandidates.Remove(grabbable);
         }
     }
-
 }

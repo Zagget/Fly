@@ -1,29 +1,22 @@
 using System;
-using Meta.XR.InputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum MovementState
-{
-    Flying,
-    Walking,
-    Dash,
-    None // Used for menu and testing
-}
-
 public class PlayerController : MonoBehaviour
 {
-    [Header("Ref")]
-    [SerializeField] private FloatingMovement flightControls; //TODO make sure this is correct class.
+    [Header("Movement")]
+    [SerializeField] private FloatingMovement floatingMovement;
+    [SerializeField] private DesktopMovement desktopMovement;
     [SerializeField] private LookingControls lookingControls;
+
+    [Header("Grabbers")]
     [SerializeField] private Grabber leftGrabber;
     [SerializeField] private Grabber rightGrabber;
-
-    private MovementState currentMov = MovementState.Flying;
+    [SerializeField] private Grabber desktopGrabber;
 
     private bool vr;
-
-    Input inputActions;
+    private Input inputActions;
+    private BasePlayerState currentState;
 
     private void Start()
     {
@@ -31,55 +24,73 @@ public class PlayerController : MonoBehaviour
 
         inputActions = InputManager.Instance.inputActions;
 
+        if (!vr) desktopMovement = GetComponent<DesktopMovement>();
+
+        if (vr) floatingMovement = GetComponent<FloatingMovement>();
+
+        if (lookingControls == null) lookingControls = GetComponent<LookingControls>();
+
+        if (leftGrabber == null) Debug.LogWarning("LeftGrabber is empty");
+        if (rightGrabber == null) Debug.LogWarning("RightGrabber is empty");
+        if (desktopGrabber == null) Debug.LogWarning("DesktopGrabber is empty");
+
         SubscribeToInputs();
+
+        SetState(new FlyingState());
     }
 
     private void SubscribeToInputs()
     {
-        // Right hand
-        SubscribeToAction(inputActions.RightHand.Movement, OnMove);
-        //SubscribeToAction(inputActions.RightHand.FlyUp, OnFlyUp);
-        //SubscribeToAction(inputActions.RightHand.FlyDown, OnFlyDown);
-        SubscribeToAction(inputActions.RightHand.GrabRight, GrabRight);
-
-        // Left hand
-        SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
-        SubscribeToAction(inputActions.LeftHand.ActivatePower, ActivatePower);
-        inputActions.LeftHand.TogglePower.started += TogglePower;
-        SubscribeToAction(inputActions.LeftHand.GrabLeft, GrabLeft);
-
-        // Desktop
-        inputActions.Desktop.LegRubbing.started += DesktopLegRubbing;
-
-        // Look around with mouse
-        if (!vr)
+        if (vr)
         {
-            inputActions.LeftHand.MousePointer.performed += OnLook;
+            // Right hand
+            SubscribeToAction(inputActions.RightHand.Movement, OnMove);
+            SubscribeToAction(inputActions.RightHand.GrabRight, GrabRight);
+
+            // Left hand
+            SubscribeToAction(inputActions.LeftHand.GrabLeft, GrabLeft);
+            SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
+
+            inputActions.LeftHand.ActivatePower.started += ActivatePower;
+            inputActions.LeftHand.TogglePower.started += TogglePower;
+        }
+        else
+        {
+            SubscribeToAction(inputActions.Desktop.WASD, DesktopFlight);
+            SubscribeToAction(inputActions.Desktop.Rotate, OnRotateVision);
+            SubscribeToAction(inputActions.Desktop.FlyUp, OnFlyUpDesktop);
+            SubscribeToAction(inputActions.Desktop.FlyDown, OnFlyDownDesktop);
+
+            SubscribeToAction(inputActions.Desktop.GrabDesktop, OnGrabDesktop);
+            inputActions.Desktop.LegRubbing.started += OnLegRubbingDesktop;
+            inputActions.Desktop.MousePointer.performed += OnLookDesktop;
         }
     }
 
-
     private void OnDisable()
     {
-        // Right hand
-        UnsubscribeFromAction(inputActions.RightHand.Movement, OnMove);
-        //UnsubscribeFromAction(inputActions.RightHand.FlyUp, OnFlyUp);
-        //UnsubscribeFromAction(inputActions.RightHand.FlyDown, OnFlyDown);
-        UnsubscribeFromAction(inputActions.RightHand.GrabRight, GrabRight);
-
-        // Left hand
-        UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
-        UnsubscribeFromAction(inputActions.LeftHand.ActivatePower, ActivatePower);
-        inputActions.LeftHand.TogglePower.started -= TogglePower;
-        UnsubscribeFromAction(inputActions.LeftHand.GrabLeft, GrabLeft);
-
-        // Desktop
-        inputActions.Desktop.LegRubbing.started -= DesktopLegRubbing;
-
-        // Look around with mouse
-        if (!vr)
+        if (vr)
         {
-            inputActions.LeftHand.MousePointer.performed -= OnLook;
+            // Right hand
+            UnsubscribeFromAction(inputActions.RightHand.Movement, OnMove);
+            UnsubscribeFromAction(inputActions.RightHand.GrabRight, GrabRight);
+
+            // Left hand
+            UnsubscribeFromAction(inputActions.LeftHand.GrabLeft, GrabLeft);
+            UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
+
+            inputActions.LeftHand.ActivatePower.started -= ActivatePower;
+            inputActions.LeftHand.TogglePower.started -= TogglePower;
+        }
+        else
+        {
+            UnsubscribeFromAction(inputActions.Desktop.WASD, DesktopFlight);
+            UnsubscribeFromAction(inputActions.Desktop.FlyUp, OnFlyUpDesktop);
+            UnsubscribeFromAction(inputActions.Desktop.FlyDown, OnFlyDownDesktop);
+
+            UnsubscribeFromAction(inputActions.Desktop.GrabDesktop, OnGrabDesktop);
+            inputActions.Desktop.LegRubbing.started -= OnLegRubbingDesktop;
+            inputActions.Desktop.MousePointer.performed -= OnLookDesktop;
         }
     }
 
@@ -91,72 +102,32 @@ public class PlayerController : MonoBehaviour
     }
 
     private void UnsubscribeFromAction(InputAction action, Action<InputAction.CallbackContext> callback)
+
     {
         action.started -= callback;
         action.performed -= callback;
         action.canceled -= callback;
     }
 
-    private void OnMove(InputAction.CallbackContext context)
+    public void SetState(BasePlayerState newState)
     {
-        flightControls.FlyingInput(context);
+        currentState?.Exit();
+        currentState = newState;
+        currentState?.Enter(this);
     }
 
-    private void GrabLeft(InputAction.CallbackContext context)
-    {
-        leftGrabber.OnGrabInput(context);
-    }
+    private void OnMove(InputAction.CallbackContext context) => currentState?.HandleMovement(context, floatingMovement);
+    private void GrabRight(InputAction.CallbackContext context) => currentState?.HandleGrabRight(context, rightGrabber);
+    private void GrabLeft(InputAction.CallbackContext context) => currentState?.HandleGrabLeft(context, leftGrabber);
+    private void OnRotateVision(InputAction.CallbackContext context) => currentState?.HandleRotateVision(context, lookingControls);
+    private void ActivatePower(InputAction.CallbackContext context) => currentState?.HandleActivatePower(context);
+    private void TogglePower(InputAction.CallbackContext context) => currentState?.HandleTogglePower(context);
 
-    private void GrabRight(InputAction.CallbackContext context)
-    {
-        rightGrabber.OnGrabInput(context);
-    }
-
-
-    //private void OnFlyUp(InputAction.CallbackContext context)
-    //{
-    //    flightControls.FlyUp(context);
-    //}
-
-    //private void OnFlyDown(InputAction.CallbackContext context)
-    //{
-    //    flightControls.FlyDown(context);
-    //}
-
-    private void OnLook(InputAction.CallbackContext context)
-    {
-        Vector2 lookDelta = context.ReadValue<Vector2>();
-
-        lookingControls.OnLook(lookDelta);
-    }
-
-    private void ActivatePower(InputAction.CallbackContext context)
-    {
-        PowerManager.Instance.ActivatePower(context);
-    }
-
-    private void TogglePower(InputAction.CallbackContext context)
-    {
-        PowerProgression.Instance.NextPower(context);
-    }
-
-    private void DesktopLegRubbing(InputAction.CallbackContext contex)
-    {
-        LegRubbing.Instance.HandleDesktopRubbing(contex);
-    }
-
-    private void OnRotateVision(InputAction.CallbackContext context)
-    {
-        lookingControls.OnRotate(context);
-    }
-
-    private void OnAPressed(InputAction.CallbackContext context)
-    {
-
-    }
-
-    private void OnBPressed(InputAction.CallbackContext context)
-    {
-
-    }
+    // Desktop
+    private void OnLookDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopLook(context, lookingControls);
+    private void DesktopFlight(InputAction.CallbackContext context) => currentState?.HandleDesktopFlight(context, desktopMovement);
+    private void OnFlyUpDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopFlyUp(context, desktopMovement);
+    private void OnFlyDownDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopFlyDown(context, desktopMovement);
+    private void OnGrabDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopGrab(context, desktopGrabber);
+    private void OnLegRubbingDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopLegRubbing(context);
 }

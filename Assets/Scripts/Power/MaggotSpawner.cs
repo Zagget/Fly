@@ -8,7 +8,7 @@ public class MaggotSpawner : BasePower
     [SerializeField] GameObject maggotPrefab;
     [SerializeField] AnimationCurve maggotCurve;
     [SerializeField] int maxMaggots;
-    [SerializeField] float maxSpeed;
+    [SerializeField] float speed;
     [SerializeField] float spawnOffset;
     [SerializeField, Range(0, 1)] float varianceAmount;
 
@@ -29,7 +29,7 @@ public class MaggotSpawner : BasePower
             maggot = Instantiate(maggotPrefab, playersRigidbody.transform.position + launchDirection * spawnOffset, Quaternion.LookRotation(launchDirection));
             if (maggot.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {
-                rigidbody.linearVelocity = value * variance * maxSpeed * launchDirection;
+                rigidbody.linearVelocity = variance * speed * launchDirection;
                 Destroy(maggot, duration);
             }
             else Destroy(maggot);

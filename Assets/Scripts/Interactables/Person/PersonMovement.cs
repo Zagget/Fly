@@ -8,10 +8,12 @@ public class PersonMovement : MonoBehaviour
     PersonStates personStates;
     Vector3 target;
     Vector3 targetDirection;
+    Coroutine movementCoroutine;
     void Start()
     {
         target = transform.position;
         personStates = GetComponent<PersonStates>();
+        StopCurrentMoveCoroutine();
         StartCoroutine(RecheckMovement(2));
     }
     void OnEnable()
@@ -19,12 +21,14 @@ public class PersonMovement : MonoBehaviour
         PersonStates.onPersonNeutral += CheckMovement;
         PersonStates.onPersonAnnoyed += CheckMovement;
         PersonStates.onPersonChasing += CheckMovement;
+        PersonStates.stateChanged += StopCurrentMoveCoroutine;
     }
     void OnDisable()
     {
         PersonStates.onPersonNeutral -= CheckMovement;
-        PersonStates.onPersonAnnoyed += CheckMovement;
+        PersonStates.onPersonAnnoyed -= CheckMovement;
         PersonStates.onPersonChasing -= CheckMovement;
+        PersonStates.stateChanged -= StopCurrentMoveCoroutine;
     }
 
     void FixedUpdate()
@@ -53,15 +57,17 @@ public class PersonMovement : MonoBehaviour
                 Vector3 newTarget = new Vector3(Random.Range(movingArea.min.x, movingArea.max.x), transform.position.y,
                                     Random.Range(movingArea.min.z, movingArea.max.z));
                 SetTarget(newTarget);
-                StartCoroutine(RecheckMovement(10));
+                movementCoroutine = StartCoroutine(RecheckMovement(10));
                 break;
             case BehaviourStates.Annoyed:
-                SetTarget(new Vector3(playerPos.x * -1, transform.position.y, playerPos.z * -1)); //moves away from player
-                StartCoroutine(RecheckMovement(1));
+                Vector3 awayTarget = new Vector3(playerPos.x - transform.position.x, 0,
+                                                playerPos.z - transform.position.z) * -1;
+                SetTarget(transform.position + awayTarget); //moves away from player
+                movementCoroutine = StartCoroutine(RecheckMovement(1));
                 break;
             case BehaviourStates.Chasing:
                 SetTarget(new Vector3(playerPos.x, transform.position.y, playerPos.z)); //moves towards player
-                StartCoroutine(RecheckMovement(1));
+                movementCoroutine = StartCoroutine(RecheckMovement(1));
                 break;
             default:
 
@@ -81,9 +87,19 @@ public class PersonMovement : MonoBehaviour
         CheckMovement();
     }
 
+    void StopCurrentMoveCoroutine(BehaviourStates behaviourStates = BehaviourStates.Neutral)
+    {
+        if (movementCoroutine != null)
+        {
+            StopCoroutine(movementCoroutine);
+            movementCoroutine = null;
+        }
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(movingArea.center, movingArea.size);
+        Gizmos.DrawLine(transform.position, target);
     }
 }

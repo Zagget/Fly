@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrawingBoard
   texture: {fileID: 2800000, guid: 1e5e5d8505eac614e8a208dd8be75f2a, type: 3}
+  boardColor: {r: 0.93962264, g: 0.92425674, b: 0.7073763, a: 1}
 --- !u!64 &8241563840698039323
 MeshCollider:
   m_ObjectHideFlags: 0

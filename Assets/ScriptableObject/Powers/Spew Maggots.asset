@@ -40,6 +40,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxMaggots: 10
-  maxSpeed: 10
+  speed: 2
   spawnOffset: 1.24
   varianceAmount: 0.318

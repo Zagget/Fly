@@ -37,7 +37,7 @@ public class PersonAnnoyManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") )//&& personState.currentState != BehaviourStates.Disabled)
+        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
         {
             annoyedAmount++;
             Debug.Log("Annoyed person to: " + annoyedAmount);
@@ -46,7 +46,7 @@ public class PersonAnnoyManager : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") )//&& personState.currentState != BehaviourStates.Disabled)
+        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
         {
             if (annoyedAmount > annoyThreshold)
                 StartChasing();

@@ -750,9 +750,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ac8f6aa5282db4aaa25eb1cc6d26ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShatteredObject
-  forceMultiplier: 20
+  forceMultiplier: 5
   forceBase: 200
-  falseLift: 40
+  falseLift: 0
   rigidbodies:
   - {fileID: 1138692972918354398}
   - {fileID: 5873239234806657752}

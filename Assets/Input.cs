@@ -102,15 +102,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""MousePointer"",
-                    ""type"": ""Value"",
-                    ""id"": ""204c1248-4f38-4e88-8ab1-7afd78074a07"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""TogglePower"",
                     ""type"": ""Button"",
                     ""id"": ""6e7780f7-a018-4797-b84d-e77aac495876"",
@@ -147,50 +138,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Q/E"",
-                    ""id"": ""5abf1561-5cdf-4ff2-8bf3-7668dd83f5ea"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Right"",
-                    ""id"": ""5179ef08-f99a-4ed3-8576-ee6cbeea7f57"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Left"",
-                    ""id"": ""f57674dc-2a7e-4515-908e-945568981a37"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""829203c4-e612-447c-82d0-7774969087d3"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MousePointer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -241,7 +188,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""250996a7-0f4b-4e5f-be47-31f6d7ada7ea"",
-                    ""path"": ""<XRController>{LeftHand}/{PrimaryButton}"",
+                    ""path"": ""<XRController>{LeftHand}/{GripButton}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -263,24 +210,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""FlyUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""13b4de4c-8b8f-4923-889b-e1849962b39d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""FlyDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""21575f4c-0f67-4b23-92ff-0948eea86c75"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""GrabRight"",
@@ -305,108 +234,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""WASD"",
-                    ""id"": ""c25e9c52-991a-4bf6-b244-ab134b01671c"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""003003af-3eb5-4c6b-b5b3-c67dc4a809db"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Right"",
-                    ""id"": ""e505ebc7-9797-458f-915e-23da8a092ad7"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Down"",
-                    ""id"": ""2af326df-8312-4950-8201-c5fb4da8f068"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Left"",
-                    ""id"": ""04c2c5b4-9902-4fd8-897d-7e9f98d45ed5"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d9c392b5-d6c8-4cda-ab47-2206a50807f8"",
-                    ""path"": ""<XRController>{RightHand}/{TriggerButton}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FlyUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05d637d1-3d9f-44bc-ba6d-d62c39a5e496"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FlyUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": """",
                     ""id"": ""3a03f4f9-90ce-49ad-9f97-935d09fe090e"",
                     ""path"": ""<XRController>{RightHand}/{GripButton}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FlyDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f605d44d-2dc9-4a82-9328-a31a4c4e27fb"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""FlyDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""03c3e370-33b4-4395-9156-ad5fd371fd8d"",
-                    ""path"": ""<XRController>{RightHand}/{PrimaryButton}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -428,6 +258,60 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrabDesktop"",
+                    ""type"": ""Button"",
+                    ""id"": ""8eea9b11-1019-4036-b7e2-e26b426fc720"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FlyUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""b29bf8e9-ba8d-42c8-a49f-ee51834bd95b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FlyDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6004a73-5376-46ec-9fff-3854bcff3735"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""type"": ""Value"",
+                    ""id"": ""c353ba81-ff9f-459c-8666-a5206479b46e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""44bc9cc4-bbe9-422e-99b5-5ecf6b1fe7d9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePointer"",
+                    ""type"": ""Value"",
+                    ""id"": ""e98da89e-6733-4d53-83d6-b652eb7d9903"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -452,6 +336,138 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""LegRubbing"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7927edae-caa1-4f39-8da9-f8c1b2955f59"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabDesktop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc00dfa2-9106-4d70-9811-564d7e40b6a5"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ce6a2f7-6054-4692-80fb-bcb1ed36e36f"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlyDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""1a3d5aaf-7172-4063-8d44-c7516c2cf40c"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WASD"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""22d3208a-dd05-476b-b4c7-93e0e8a0d05a"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WASD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""72a67ddc-b988-4012-9523-d22887341044"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WASD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""444dd8a7-d9ac-4bdd-b9b6-dca972172e00"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WASD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""fc07dd8e-aec8-4f45-8b45-98ba43358288"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WASD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Q/E"",
+                    ""id"": ""9b302b97-3185-4d15-aa20-927eceb59e4b"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""c099c6a9-821f-4351-b887-3eb443b3001e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""a8f256ed-7476-4beb-a193-c0c7692ba006"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85b36710-d95e-4daa-8974-e007dfcf1b85"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -461,19 +477,22 @@ public partial class @Input: IInputActionCollection2, IDisposable
         // LeftHand
         m_LeftHand = asset.FindActionMap("LeftHand", throwIfNotFound: true);
         m_LeftHand_Rotate = m_LeftHand.FindAction("Rotate", throwIfNotFound: true);
-        m_LeftHand_MousePointer = m_LeftHand.FindAction("MousePointer", throwIfNotFound: true);
         m_LeftHand_TogglePower = m_LeftHand.FindAction("TogglePower", throwIfNotFound: true);
         m_LeftHand_ActivatePower = m_LeftHand.FindAction("ActivatePower", throwIfNotFound: true);
         m_LeftHand_GrabLeft = m_LeftHand.FindAction("GrabLeft", throwIfNotFound: true);
         // RightHand
         m_RightHand = asset.FindActionMap("RightHand", throwIfNotFound: true);
         m_RightHand_Movement = m_RightHand.FindAction("Movement", throwIfNotFound: true);
-        m_RightHand_FlyUp = m_RightHand.FindAction("FlyUp", throwIfNotFound: true);
-        m_RightHand_FlyDown = m_RightHand.FindAction("FlyDown", throwIfNotFound: true);
         m_RightHand_GrabRight = m_RightHand.FindAction("GrabRight", throwIfNotFound: true);
         // Desktop
         m_Desktop = asset.FindActionMap("Desktop", throwIfNotFound: true);
         m_Desktop_LegRubbing = m_Desktop.FindAction("LegRubbing", throwIfNotFound: true);
+        m_Desktop_GrabDesktop = m_Desktop.FindAction("GrabDesktop", throwIfNotFound: true);
+        m_Desktop_FlyUp = m_Desktop.FindAction("FlyUp", throwIfNotFound: true);
+        m_Desktop_FlyDown = m_Desktop.FindAction("FlyDown", throwIfNotFound: true);
+        m_Desktop_WASD = m_Desktop.FindAction("WASD", throwIfNotFound: true);
+        m_Desktop_Rotate = m_Desktop.FindAction("Rotate", throwIfNotFound: true);
+        m_Desktop_MousePointer = m_Desktop.FindAction("MousePointer", throwIfNotFound: true);
     }
 
     ~@Input()
@@ -557,7 +576,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_LeftHand;
     private List<ILeftHandActions> m_LeftHandActionsCallbackInterfaces = new List<ILeftHandActions>();
     private readonly InputAction m_LeftHand_Rotate;
-    private readonly InputAction m_LeftHand_MousePointer;
     private readonly InputAction m_LeftHand_TogglePower;
     private readonly InputAction m_LeftHand_ActivatePower;
     private readonly InputAction m_LeftHand_GrabLeft;
@@ -576,10 +594,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "LeftHand/Rotate".
         /// </summary>
         public InputAction @Rotate => m_Wrapper.m_LeftHand_Rotate;
-        /// <summary>
-        /// Provides access to the underlying input action "LeftHand/MousePointer".
-        /// </summary>
-        public InputAction @MousePointer => m_Wrapper.m_LeftHand_MousePointer;
         /// <summary>
         /// Provides access to the underlying input action "LeftHand/TogglePower".
         /// </summary>
@@ -621,9 +635,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
-            @MousePointer.started += instance.OnMousePointer;
-            @MousePointer.performed += instance.OnMousePointer;
-            @MousePointer.canceled += instance.OnMousePointer;
             @TogglePower.started += instance.OnTogglePower;
             @TogglePower.performed += instance.OnTogglePower;
             @TogglePower.canceled += instance.OnTogglePower;
@@ -647,9 +658,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
-            @MousePointer.started -= instance.OnMousePointer;
-            @MousePointer.performed -= instance.OnMousePointer;
-            @MousePointer.canceled -= instance.OnMousePointer;
             @TogglePower.started -= instance.OnTogglePower;
             @TogglePower.performed -= instance.OnTogglePower;
             @TogglePower.canceled -= instance.OnTogglePower;
@@ -697,8 +705,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_RightHand;
     private List<IRightHandActions> m_RightHandActionsCallbackInterfaces = new List<IRightHandActions>();
     private readonly InputAction m_RightHand_Movement;
-    private readonly InputAction m_RightHand_FlyUp;
-    private readonly InputAction m_RightHand_FlyDown;
     private readonly InputAction m_RightHand_GrabRight;
     /// <summary>
     /// Provides access to input actions defined in input action map "RightHand".
@@ -715,14 +721,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RightHand/Movement".
         /// </summary>
         public InputAction @Movement => m_Wrapper.m_RightHand_Movement;
-        /// <summary>
-        /// Provides access to the underlying input action "RightHand/FlyUp".
-        /// </summary>
-        public InputAction @FlyUp => m_Wrapper.m_RightHand_FlyUp;
-        /// <summary>
-        /// Provides access to the underlying input action "RightHand/FlyDown".
-        /// </summary>
-        public InputAction @FlyDown => m_Wrapper.m_RightHand_FlyDown;
         /// <summary>
         /// Provides access to the underlying input action "RightHand/GrabRight".
         /// </summary>
@@ -756,12 +754,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @FlyUp.started += instance.OnFlyUp;
-            @FlyUp.performed += instance.OnFlyUp;
-            @FlyUp.canceled += instance.OnFlyUp;
-            @FlyDown.started += instance.OnFlyDown;
-            @FlyDown.performed += instance.OnFlyDown;
-            @FlyDown.canceled += instance.OnFlyDown;
             @GrabRight.started += instance.OnGrabRight;
             @GrabRight.performed += instance.OnGrabRight;
             @GrabRight.canceled += instance.OnGrabRight;
@@ -779,12 +771,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @FlyUp.started -= instance.OnFlyUp;
-            @FlyUp.performed -= instance.OnFlyUp;
-            @FlyUp.canceled -= instance.OnFlyUp;
-            @FlyDown.started -= instance.OnFlyDown;
-            @FlyDown.performed -= instance.OnFlyDown;
-            @FlyDown.canceled -= instance.OnFlyDown;
             @GrabRight.started -= instance.OnGrabRight;
             @GrabRight.performed -= instance.OnGrabRight;
             @GrabRight.canceled -= instance.OnGrabRight;
@@ -826,6 +812,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Desktop;
     private List<IDesktopActions> m_DesktopActionsCallbackInterfaces = new List<IDesktopActions>();
     private readonly InputAction m_Desktop_LegRubbing;
+    private readonly InputAction m_Desktop_GrabDesktop;
+    private readonly InputAction m_Desktop_FlyUp;
+    private readonly InputAction m_Desktop_FlyDown;
+    private readonly InputAction m_Desktop_WASD;
+    private readonly InputAction m_Desktop_Rotate;
+    private readonly InputAction m_Desktop_MousePointer;
     /// <summary>
     /// Provides access to input actions defined in input action map "Desktop".
     /// </summary>
@@ -841,6 +833,30 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Desktop/LegRubbing".
         /// </summary>
         public InputAction @LegRubbing => m_Wrapper.m_Desktop_LegRubbing;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/GrabDesktop".
+        /// </summary>
+        public InputAction @GrabDesktop => m_Wrapper.m_Desktop_GrabDesktop;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/FlyUp".
+        /// </summary>
+        public InputAction @FlyUp => m_Wrapper.m_Desktop_FlyUp;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/FlyDown".
+        /// </summary>
+        public InputAction @FlyDown => m_Wrapper.m_Desktop_FlyDown;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/WASD".
+        /// </summary>
+        public InputAction @WASD => m_Wrapper.m_Desktop_WASD;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/Rotate".
+        /// </summary>
+        public InputAction @Rotate => m_Wrapper.m_Desktop_Rotate;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/MousePointer".
+        /// </summary>
+        public InputAction @MousePointer => m_Wrapper.m_Desktop_MousePointer;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -870,6 +886,24 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @LegRubbing.started += instance.OnLegRubbing;
             @LegRubbing.performed += instance.OnLegRubbing;
             @LegRubbing.canceled += instance.OnLegRubbing;
+            @GrabDesktop.started += instance.OnGrabDesktop;
+            @GrabDesktop.performed += instance.OnGrabDesktop;
+            @GrabDesktop.canceled += instance.OnGrabDesktop;
+            @FlyUp.started += instance.OnFlyUp;
+            @FlyUp.performed += instance.OnFlyUp;
+            @FlyUp.canceled += instance.OnFlyUp;
+            @FlyDown.started += instance.OnFlyDown;
+            @FlyDown.performed += instance.OnFlyDown;
+            @FlyDown.canceled += instance.OnFlyDown;
+            @WASD.started += instance.OnWASD;
+            @WASD.performed += instance.OnWASD;
+            @WASD.canceled += instance.OnWASD;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+            @MousePointer.started += instance.OnMousePointer;
+            @MousePointer.performed += instance.OnMousePointer;
+            @MousePointer.canceled += instance.OnMousePointer;
         }
 
         /// <summary>
@@ -884,6 +918,24 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @LegRubbing.started -= instance.OnLegRubbing;
             @LegRubbing.performed -= instance.OnLegRubbing;
             @LegRubbing.canceled -= instance.OnLegRubbing;
+            @GrabDesktop.started -= instance.OnGrabDesktop;
+            @GrabDesktop.performed -= instance.OnGrabDesktop;
+            @GrabDesktop.canceled -= instance.OnGrabDesktop;
+            @FlyUp.started -= instance.OnFlyUp;
+            @FlyUp.performed -= instance.OnFlyUp;
+            @FlyUp.canceled -= instance.OnFlyUp;
+            @FlyDown.started -= instance.OnFlyDown;
+            @FlyDown.performed -= instance.OnFlyDown;
+            @FlyDown.canceled -= instance.OnFlyDown;
+            @WASD.started -= instance.OnWASD;
+            @WASD.performed -= instance.OnWASD;
+            @WASD.canceled -= instance.OnWASD;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+            @MousePointer.started -= instance.OnMousePointer;
+            @MousePointer.performed -= instance.OnMousePointer;
+            @MousePointer.canceled -= instance.OnMousePointer;
         }
 
         /// <summary>
@@ -932,13 +984,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotate(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "MousePointer" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMousePointer(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "TogglePower" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -975,20 +1020,6 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMovement(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "FlyUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFlyUp(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "FlyDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFlyDown(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "GrabRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -1010,5 +1041,47 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLegRubbing(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GrabDesktop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGrabDesktop(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FlyUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFlyUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FlyDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFlyDown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "WASD" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnWASD(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotate(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MousePointer" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMousePointer(InputAction.CallbackContext context);
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +8,7 @@ public enum RotationStep
     Deg180 = 179,
     Deg90 = 90,
     Deg45 = 45,
+    Deg30 = 30,
     Deg20 = 20,
     Deg1 = 1
 }
@@ -115,12 +115,12 @@ public class LookingControls : MonoBehaviour
             cooldown = 0.02f;
 
         else
-            cooldown = Mathf.Clamp(0.4f - smoothTime, 0f, 0.4f);
+            cooldown = Mathf.Clamp(0.2f - smoothTime, 0f, 0.2f);
 
         yield return new WaitForSeconds(cooldown);
 
-        Debug.Log($"blä smoothtime: {smoothTime}");
-        Debug.Log($"blä cooldown:  {cooldown}");
+        // Debug.Log($"blä smoothtime: {smoothTime}");
+        // Debug.Log($"blä cooldown:  {cooldown}");
         isRotating = false;
     }
 }
