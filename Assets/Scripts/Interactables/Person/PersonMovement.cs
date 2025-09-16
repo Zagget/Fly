@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class PersonMovement : MonoBehaviour
 {
+    [Header("Person Settings")]
     [SerializeField] float moveSpeed = 10;
+    [Range(0.1f, 50)][SerializeField] float passiveMovingFrequency = 10;
+    [Range(0.1f, 50)][SerializeField] float activeMovingFrequency = 1;
+    [Header("Movement Area")]
     [SerializeField] Bounds movingArea;
+
     PersonStates personStates;
     Vector3 target;
     Vector3 targetDirection;
@@ -51,23 +56,23 @@ public class PersonMovement : MonoBehaviour
         switch (personStates.currentState)
         {
             case BehaviourStates.Disabled:
-
+                // No movement
                 break;
             case BehaviourStates.Neutral:
                 Vector3 newTarget = new Vector3(Random.Range(movingArea.min.x, movingArea.max.x), transform.position.y,
                                     Random.Range(movingArea.min.z, movingArea.max.z));
-                SetTarget(newTarget);
-                movementCoroutine = StartCoroutine(RecheckMovement(10));
+                SetTarget(newTarget); //moves to random point inside movingArea
+                movementCoroutine = StartCoroutine(RecheckMovement(passiveMovingFrequency));
                 break;
             case BehaviourStates.Annoyed:
                 Vector3 awayTarget = new Vector3(playerPos.x - transform.position.x, 0,
                                                 playerPos.z - transform.position.z) * -1;
                 SetTarget(transform.position + awayTarget); //moves away from player
-                movementCoroutine = StartCoroutine(RecheckMovement(1));
+                movementCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
                 break;
             case BehaviourStates.Chasing:
                 SetTarget(new Vector3(playerPos.x, transform.position.y, playerPos.z)); //moves towards player
-                movementCoroutine = StartCoroutine(RecheckMovement(1));
+                movementCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
                 break;
             default:
 
