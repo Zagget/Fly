@@ -3882,6 +3882,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallDamageable
   forceMultiplier: 0.5
+--- !u!1001 &717717320
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 27.055004
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 17.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -32.9983
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182095615073053190, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8152210289773018155, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
+      propertyPath: m_Name
+      value: Newton swing
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 294373cba98587a4fba2a0622991adfd, type: 3}
 --- !u!1 &743318090
 GameObject:
   m_ObjectHideFlags: 0
@@ -11110,3 +11167,4 @@ SceneRoots:
   - {fileID: 1119980656}
   - {fileID: 148297621}
   - {fileID: 2016721710}
+  - {fileID: 717717320}
