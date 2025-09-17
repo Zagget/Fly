@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class SpeedBoost : MonoBehaviour
+public class SpeedBoost : BasePower
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        currentCharge = Mathf.Clamp(currentCharge, 0f, maximumCharge);
+        float boostSpeed = 20f * (currentCharge / maximumCharge);
+        playersRigidbody.AddForce(playersRigidbody.transform.forward * boostSpeed, ForceMode.VelocityChange);
+        Debug.Log($"Speed Boost activated with currentCharge: {currentCharge}, speed: {boostSpeed}");
     }
 }
