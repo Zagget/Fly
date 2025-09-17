@@ -3,6 +3,7 @@ using UnityEngine;
 public class Grabable : MonoBehaviour, IGrabbable
 {
     public Rigidbody rb => GetComponent<Rigidbody>();
+    public Collider grabcollider => GetComponent<Collider>();
     [SerializeField] int weight;
     public int Weight => weight;
     public void OnGrab(Transform hand)
