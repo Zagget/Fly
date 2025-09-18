@@ -24,8 +24,13 @@ public class LookingControls : MonoBehaviour
 
     private float rotationDegree => (float)rotationStep;
 
+    [SerializeField] private float maxCooldown = 0.4f;
+    [SerializeField] private float minCooldown = 0.02f;
+
     private bool holdingDown;
     private bool isRotating = false;
+
+    private Coroutine rotateCor;
 
     private Transform pTransform;
     private bool vr;
@@ -63,13 +68,21 @@ public class LookingControls : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        Debug.Log($"blä holdingDown: {holdingDown}");
+    }
+
     private IEnumerator RotateWhileHolding(Vector2 input)
     {
         while (holdingDown)
         {
             if (!isRotating)
             {
-                yield return RotateVision(input);
+                if (rotateCor != null)
+                    StopCoroutine(rotateCor);
+
+                rotateCor = StartCoroutine(RotateVision(input));
             }
             yield return null;
         }
@@ -109,14 +122,11 @@ public class LookingControls : MonoBehaviour
             yield return null;
         }
 
-        float cooldown;
+        float angleDelta = Mathf.Abs(rotationDegree);
+        float t = angleDelta / 180f;
+        float cooldown = Mathf.Lerp(minCooldown, maxCooldown, t);
 
-        if (rotationStep == RotationStep.Deg1)
-            cooldown = 0.02f;
-
-        else
-            cooldown = Mathf.Clamp(0.2f - smoothTime, 0f, 0.2f);
-
+        Debug.Log($"blä Cooldown {cooldown}");
         yield return new WaitForSeconds(cooldown);
 
         // Debug.Log($"blä smoothtime: {smoothTime}");
