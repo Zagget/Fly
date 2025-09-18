@@ -89,43 +89,47 @@ public class LookingControls : MonoBehaviour
         if (isRotating) yield break;
         isRotating = true;
 
-        Vector3 currentEuler = Vector3.zero;
+        float startY = pTransform.eulerAngles.y;
+        float targetY = startY + Mathf.Sign(rotateInput.x) * rotationDegree;
 
-        Vector3 forward = pTransform.forward;
-        forward.y = 0f;
-        forward.Normalize();
-        float referenceYaw = Quaternion.LookRotation(forward).eulerAngles.y;
+        Debug.Log($"blä startY {startY} targety {targetY}");
 
-        float targetY = referenceYaw + rotateInput.x * rotationDegree;
-
-        float smoothVelocity = 0f;
-        float smoothTime = Mathf.Max(0.001f, rotateSmothness);
-
-        while (true)
+        if (rotateSmothness <= 0f)
         {
-            float currentY = pTransform.eulerAngles.y;
+            // Snap instantly
+            Vector3 snapEuler = pTransform.eulerAngles;
+            snapEuler.y = targetY;
+            pTransform.eulerAngles = snapEuler;
+        }
+        else
+        {
+            // Smooth linear rotation
+            float duration = rotateSmothness; // total time in seconds
+            float elapsed = 0f;
 
-            float newY = Mathf.SmoothDampAngle(currentY, targetY, ref smoothVelocity, smoothTime);
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
 
-            Vector3 e = pTransform.eulerAngles;
-            e.y = newY;
-            pTransform.eulerAngles = e;
+                float newY = Mathf.LerpAngle(startY, targetY, t);
 
-            if (Mathf.Abs(Mathf.DeltaAngle(newY, targetY)) < 0.1f)
-                break;
+                Vector3 e = pTransform.eulerAngles;
+                e.y = newY;
+                pTransform.eulerAngles = e;
 
-            yield return null;
+                yield return null;
+            }
         }
 
+        // Cooldown based on angle
         float angleDelta = Mathf.Abs(rotationDegree);
-        float t = angleDelta / 180f;
-        float cooldown = Mathf.Lerp(minCooldown, maxCooldown, t);
+        float tCooldown = angleDelta / 180f;
+        float cooldown = Mathf.Lerp(minCooldown, maxCooldown, tCooldown);
 
-        Debug.Log($"blä Cooldown {cooldown}");
+        Debug.Log($"Cooldown {cooldown}");
         yield return new WaitForSeconds(cooldown);
 
-        // Debug.Log($"blä smoothtime: {smoothTime}");
-        // Debug.Log($"blä cooldown:  {cooldown}");
         isRotating = false;
     }
 }
