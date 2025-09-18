@@ -51,6 +51,14 @@ public class LegRubbing : MonoBehaviour
         return temp;
     }
 
+    public float RemoveRubbing(float amount)
+    {
+        TotalRubbing -= amount;
+        if (TotalRubbing < 0) { TotalRubbing = 0; }
+        chargeChange?.Invoke(TotalRubbing);
+        return TotalRubbing;
+    }
+
     private void Update()
     {
         if (inVR) HandleVRRubbing();
@@ -86,12 +94,11 @@ public class LegRubbing : MonoBehaviour
 
     public void HandleDesktopRubbing(InputAction.CallbackContext callbackContext)
     {
-        if (lastRubControl != callbackContext.control && Time.time - lastRubTime < rubInterval)
+        if (lastRubControl != callbackContext.control)
         {
             TotalRubbing++;
             chargeChange?.Invoke(TotalRubbing);
         }
-        lastRubTime = Time.time;
         lastRubControl = callbackContext.control;
     }
 }

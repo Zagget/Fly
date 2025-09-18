@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "new Dash", menuName = "Scriptable Objects/Powers/Dash Power")]
-public class DashPower : BasePower
+public class DashPower : BaseInstantPower
 {
     [SerializeField] float speedFactor = 10;
     public override void Start()

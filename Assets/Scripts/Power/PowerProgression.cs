@@ -145,5 +145,6 @@ public enum Powers
     None,
     Dash,
     EnergyBlast,
-    SpewMaggots
+    SpewMaggots,
+    ScaleObjects
 }

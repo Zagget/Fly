@@ -2,7 +2,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "new magot spawner", menuName = "Scriptable Objects/Powers/Magot spawner")]
-public class MaggotSpawner : BasePower
+public class MaggotSpawner : BaseInstantPower
 {
     [Header("Spawning")]
     [SerializeField] GameObject maggotPrefab;

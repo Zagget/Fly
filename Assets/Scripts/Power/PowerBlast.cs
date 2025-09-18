@@ -2,7 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "new Energy Blast", menuName = "Scriptable Objects/Powers/Energy Blast")]
 
-public class PowerBlast : BasePower
+public class PowerBlast : BaseInstantPower
 {
     [Header("Projectile")]
     [SerializeField] GameObject projectile;

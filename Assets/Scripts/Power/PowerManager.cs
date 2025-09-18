@@ -27,7 +27,7 @@ public class PowerManager : MonoBehaviour
     public void ActivatePower(InputAction.CallbackContext context)
     {
         if (currentPower == null || currentPower.basePower == null) return;
-        float charge = LegRubbing.Instance.ResetRubbing();
+        float charge = LegRubbing.Instance.TotalRubbing;
         currentPower.basePower.Activate(rigManager, charge, this);
     }
 
@@ -37,6 +37,7 @@ public class PowerManager : MonoBehaviour
         {
             if (power == powerMapping[i].power)
             {
+                if (currentPower != null && currentPower.basePower != null) currentPower.basePower.DeactivateToggle();
                 currentPower = powerMapping[i];
                 onChangePower?.Invoke(currentPower);
                 return;

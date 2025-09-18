@@ -1,22 +1,19 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
-public class BasePower : ScriptableObject
+public abstract class BasePower : ScriptableObject
 {
     public float Cooldown { get; protected set; }
+    protected float currentCharge;
+
+    [SerializeField] protected int maximumCharge = 10;
+    public int MaximumCharge { get { return maximumCharge; } }
+
 
     protected RigManager rigManager;
-    protected float currentCharge;
-    [SerializeField] protected float duration = 0;
-    
-    [SerializeField] protected int maximumCharge = 10;
-    public int MaximumCharge { get {  return maximumCharge; } }
-
-
-    PowerManager powerManager;
-    float timeStarted;
+    protected PowerManager powerManager;
+    protected float timeStarted;
 
     public virtual void Activate(RigManager rigManager, float currentCharge, PowerManager powerManager)
     {
@@ -24,24 +21,12 @@ public class BasePower : ScriptableObject
         if (this.rigManager == null) return;
         this.currentCharge = currentCharge;
         this.powerManager = powerManager;
-        powerManager.continues += Continues;
         timeStarted = Time.time;
-
-        Start();
     }
 
-    public void Continues()
-    {
-        if (Time.time - timeStarted >= duration)
-        {
-            End();
-            powerManager.continues -= Continues;
-        }
-        else
-        {
-            Update();
-        }
-    }
+    public virtual void DeactivateToggle() { }
+
+    public abstract void Continues();
 
     /// <summary>
     /// Gets called once when activating

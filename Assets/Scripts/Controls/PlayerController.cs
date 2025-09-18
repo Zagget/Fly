@@ -54,9 +54,6 @@ public class PlayerController : MonoBehaviour
             // Left hand
             SubscribeToAction(inputActions.LeftHand.GrabLeft, GrabLeft);
             SubscribeToAction(inputActions.LeftHand.Rotate, OnRotateVision);
-
-            inputActions.LeftHand.ActivatePower.started += ActivatePower;
-            inputActions.LeftHand.TogglePower.started += TogglePower;
         }
         else
         {
@@ -69,6 +66,9 @@ public class PlayerController : MonoBehaviour
             inputActions.Desktop.LegRubbing.started += OnLegRubbingDesktop;
             inputActions.Desktop.MousePointer.performed += OnLookDesktop;
         }
+
+        inputActions.LeftHand.ActivatePower.started += ActivatePower;
+        inputActions.LeftHand.TogglePower.started += TogglePower;
     }
 
     private void OnDisable()
@@ -82,9 +82,6 @@ public class PlayerController : MonoBehaviour
             // Left hand
             UnsubscribeFromAction(inputActions.LeftHand.GrabLeft, GrabLeft);
             UnsubscribeFromAction(inputActions.LeftHand.Rotate, OnRotateVision);
-
-            inputActions.LeftHand.ActivatePower.started -= ActivatePower;
-            inputActions.LeftHand.TogglePower.started -= TogglePower;
         }
         else
         {
@@ -96,6 +93,9 @@ public class PlayerController : MonoBehaviour
             inputActions.Desktop.LegRubbing.started -= OnLegRubbingDesktop;
             inputActions.Desktop.MousePointer.performed -= OnLookDesktop;
         }
+
+        inputActions.LeftHand.ActivatePower.started -= ActivatePower;
+        inputActions.LeftHand.TogglePower.started -= TogglePower;
     }
 
     private void SubscribeToAction(InputAction action, Action<InputAction.CallbackContext> callback)
