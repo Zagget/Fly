@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,11 +7,14 @@ public class Grabber : MonoBehaviour
 {
     SphereCollider reachCollider;
     private List<IGrabbable> grabCandidates = new List<IGrabbable>();
-    private IGrabbable currentGrabbed;
+    public IGrabbable currentGrabbed;
     private Vector3 currentLinearVelocity;
     private Vector3 currentAngularVelocity;
     private Vector3 prevPos;
     private Quaternion prevRot;
+
+    public static Action<IGrabbable> onGrab;
+    public static Action<IGrabbable> onRelease;
 
     void Start()
     {
@@ -53,6 +57,7 @@ public class Grabber : MonoBehaviour
         }
         currentGrabbed = closestGrab;
         closestGrab.OnGrab(transform);
+        onGrab?.Invoke(currentGrabbed);
     }
 
     void Release()
@@ -61,6 +66,7 @@ public class Grabber : MonoBehaviour
 
         Debug.Log("blä Released");
         currentGrabbed.OnRelease(currentLinearVelocity, currentAngularVelocity);
+        onRelease?.Invoke(currentGrabbed);
         currentGrabbed = null;
     }
 

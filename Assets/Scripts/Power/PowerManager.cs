@@ -24,11 +24,11 @@ public class PowerManager : MonoBehaviour
         PowerProgression.Instance.onPowerChange += FindPower;
     }
 
-    public void ActivatePower(InputAction.CallbackContext context)
+    public void ActivatePower(InputAction.CallbackContext context, PlayerController playerController)
     {
         if (currentPower == null || currentPower.basePower == null) return;
         float charge = LegRubbing.Instance.TotalRubbing;
-        currentPower.basePower.Activate(rigManager, charge, this);
+        currentPower.basePower.Activate(rigManager, charge, this, playerController);
     }
 
     void FindPower(Powers power)

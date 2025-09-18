@@ -10,15 +10,16 @@ public abstract class BasePower : ScriptableObject
     [SerializeField] protected int maximumCharge = 10;
     public int MaximumCharge { get { return maximumCharge; } }
 
-
+    protected PlayerController playerController;
     protected RigManager rigManager;
     protected PowerManager powerManager;
     protected float timeStarted;
 
-    public virtual void Activate(RigManager rigManager, float currentCharge, PowerManager powerManager)
+    public virtual void Activate(RigManager rigManager, float currentCharge, PowerManager powerManager, PlayerController playerController)
     {
         this.rigManager = rigManager;
         if (this.rigManager == null) return;
+        this.playerController = playerController;
         this.currentCharge = currentCharge;
         this.powerManager = powerManager;
         timeStarted = Time.time;

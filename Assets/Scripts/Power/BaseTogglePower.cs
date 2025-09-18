@@ -5,9 +5,9 @@ public class BaseTogglePower : BasePower
     [SerializeField] protected float chargeDrain;
     bool isOn;
 
-    public override void Activate(RigManager rigManager, float currentCharge, PowerManager powerManager)
+    public override void Activate(RigManager rigManager, float currentCharge, PowerManager powerManager, PlayerController playerController)
     {
-        base.Activate(rigManager, currentCharge, powerManager);
+        base.Activate(rigManager, currentCharge, powerManager, playerController);
         powerManager.continues -= Continues;
 
         isOn = !isOn;
@@ -16,13 +16,13 @@ public class BaseTogglePower : BasePower
             powerManager.continues += Continues;
             Start();
         }
+        else End();
     }
 
     public override void Continues()
     {
         if (LegRubbing.Instance.RemoveRubbing(chargeDrain * Time.deltaTime) <= 0)
         {
-            End();
             DeactivateToggle();
         }
         else
@@ -35,5 +35,6 @@ public class BaseTogglePower : BasePower
     {
         isOn = false;
         if (powerManager != null) powerManager.continues -= Continues; 
+        End();
     }
 }

@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LookingControls lookingControls;
 
     [Header("Grabbers")]
-    [SerializeField] private Grabber leftGrabber;
-    [SerializeField] private Grabber rightGrabber;
-    [SerializeField] private Grabber desktopGrabber;
+    [SerializeField] public Grabber leftGrabber;
+    [SerializeField] public Grabber rightGrabber;
+    [SerializeField] public Grabber desktopGrabber;
 
     public readonly BasePlayerState flyingState = new FlyingState();
     public readonly BasePlayerState hoverState = new HoverState();
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
     private void GrabRight(InputAction.CallbackContext context) => currentState?.HandleGrabRight(context, rightGrabber);
     private void GrabLeft(InputAction.CallbackContext context) => currentState?.HandleGrabLeft(context, leftGrabber);
     private void OnRotateVision(InputAction.CallbackContext context) => currentState?.HandleRotateVision(context, lookingControls);
-    private void ActivatePower(InputAction.CallbackContext context) => currentState?.HandleActivatePower(context);
+    private void ActivatePower(InputAction.CallbackContext context) => currentState?.HandleActivatePower(context, this);
     private void TogglePower(InputAction.CallbackContext context) => currentState?.HandleTogglePower(context);
 
     // Desktop

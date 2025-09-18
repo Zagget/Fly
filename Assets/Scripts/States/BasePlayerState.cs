@@ -33,9 +33,9 @@ public abstract class BasePlayerState
         rightGrabber.OnGrabInput(context);
     }
 
-    public virtual void HandleActivatePower(InputAction.CallbackContext context)
+    public virtual void HandleActivatePower(InputAction.CallbackContext context, PlayerController playerController)
     {
-        PowerManager.Instance.ActivatePower(context);
+        PowerManager.Instance.ActivatePower(context, playerController);
     }
 
     public virtual void HandleTogglePower(InputAction.CallbackContext context)

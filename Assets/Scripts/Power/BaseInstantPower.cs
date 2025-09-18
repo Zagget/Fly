@@ -4,9 +4,9 @@ public class BaseInstantPower : BasePower
 {
     [SerializeField] protected float duration = 0;
 
-    public override void Activate(RigManager rigManager, float currentCharge, PowerManager powerManager)
+    public override void Activate(RigManager rigManager, float currentCharge, PowerManager powerManager, PlayerController playerController)
     {
-        base.Activate(rigManager, currentCharge, powerManager);
+        base.Activate(rigManager, currentCharge, powerManager, playerController);
         powerManager.continues += Continues;
 
         LegRubbing.Instance.RemoveRubbing(maximumCharge);
