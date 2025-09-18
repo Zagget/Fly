@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Grabber rightGrabber;
     [SerializeField] private Grabber desktopGrabber;
 
+    public readonly BasePlayerState flyingState = new FlyingState();
+    public readonly BasePlayerState hoverState = new HoverState();
+    public readonly BasePlayerState walkingState = new WalkingState();
+
     private bool vr;
     private Input inputActions;
     private BasePlayerState currentState;
@@ -36,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
         SubscribeToInputs();
 
-        SetState(new FlyingState());
+        SetState(flyingState);
     }
 
     private void SubscribeToInputs()
@@ -119,6 +123,11 @@ public class PlayerController : MonoBehaviour
     public BasePlayerState GetState()
     {
         return currentState;
+    }
+
+    private void Update()
+    {
+        currentState?.Update();
     }
 
     private void OnMove(InputAction.CallbackContext context) => currentState?.HandleMovement(context, floatingMovement);
