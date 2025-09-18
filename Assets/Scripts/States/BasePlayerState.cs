@@ -4,14 +4,16 @@ using UnityEngine.InputSystem;
 public abstract class BasePlayerState
 {
     protected PlayerController player;
-
     public virtual void Enter(PlayerController player)
     {
         this.player = player;
     }
 
     public virtual void Exit() { }
-    public virtual void Update() { }
+    /// <summary>
+    /// Update but only gets triggered when current state is active.
+    /// </summary>
+    public virtual void StateUpdate() { }
 
     // Add walking script to param
     public virtual void HandleMovement(InputAction.CallbackContext context, FloatingMovement floatingMovement) { }
@@ -71,5 +73,10 @@ public abstract class BasePlayerState
     public virtual void HandleDesktopFlight(InputAction.CallbackContext context, DesktopMovement movement)
     {
         movement.FlyingInput(context);
+    }
+
+    public virtual void HandleDesktopHover(InputAction.CallbackContext context)
+    {
+
     }
 }

@@ -22,16 +22,10 @@ public class FloatingMovement : MonoBehaviour
 
     private Vector3 linVel; //rb.linearVelocity
 
-    private Camera activeCamera = null;
-
     [SerializeField] private float maxSpeed = 50;
-
-    private float SMLeftMinimum = 0.1f;
-    private float SMRightMinimum = 0.3f;
 
     Vector3 controllerPositionInput;
 
-    private float turnStrength;
     private Vector2 rightAxisInput;
 
     private FlightMode currentMode;
@@ -52,15 +46,6 @@ public class FloatingMovement : MonoBehaviour
 
         rb = RigManager.instance.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
-
-        if (RigManager.instance.usingVr == true)
-        {
-            activeCamera = RigManager.instance.VRCamera;
-        }
-        else
-        {
-            activeCamera = RigManager.instance.desktopCamera;
-        }
     }
 
 
@@ -71,16 +56,6 @@ public class FloatingMovement : MonoBehaviour
         controllerPositionInput = GetControllerPositions();
         currentMode = GetFlightMode();
         StandardControls();
-        //switch (currentMode)
-        //{
-        //    case FlightMode.Standard:
-        //        StandardControls();
-        //        break;
-
-        //    case FlightMode.Fast:
-        //       // FastControls();
-        //        break;
-        //}
 
         rb.linearVelocity = linVel;
     }
@@ -119,9 +94,6 @@ public class FloatingMovement : MonoBehaviour
 
 
         Vector3 cPos = centerEyeTransform.localPosition;
-        //Debug.Log(((leftController + rightController) / 2) - new Vector3(cPos.x, cPos.y - headsetYOffset, cPos.z));
-
-        //Debug.Log("Controllers " + (leftController + rightController) / 2);
 
         Vector3 offsetTracking = ((leftController + rightController) / 2);
 
@@ -135,8 +107,6 @@ public class FloatingMovement : MonoBehaviour
         zValue = (((leftController + rightController).z / 2) - cPos.z) * 100;
         zValue -= controllerZOffset;
 
-        // if (zValue < 0) zValue = 0;
-
         if (Mathf.Abs(xValue) < deadZone) xValue = 0;
 
         if (Mathf.Abs(yValue) < deadZone) yValue = 0;
@@ -148,18 +118,6 @@ public class FloatingMovement : MonoBehaviour
 
         return new Vector3(xValue, yValue, zValue);
     }
-
-    //private void FastControls()
-    //{
-    //    Vector3 forward = RigManager.instance.currentRb.transform.forward;
-    //    Vector3 right = RigManager.instance.currentRb.transform.right;
-
-        
-
-    //    Vector3 moveDirection = forward;
-    //    moveDirection = Vector3.Lerp(moveDirection, rightAxisInput.normalized * forward, Time.fixedDeltaTime * turnStrength);
-    //    linVel = moveDirection * highSpeedMode;
-    //}
 
     public void FlyingInput(InputAction.CallbackContext context)
     {

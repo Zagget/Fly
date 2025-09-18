@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
             SubscribeToAction(inputActions.Desktop.Rotate, OnRotateVision);
             SubscribeToAction(inputActions.Desktop.FlyUp, OnFlyUpDesktop);
             SubscribeToAction(inputActions.Desktop.FlyDown, OnFlyDownDesktop);
+            SubscribeToPressed(inputActions.Desktop.StopHover, OnHoverPressed);
 
             SubscribeToAction(inputActions.Desktop.GrabDesktop, OnGrabDesktop);
             inputActions.Desktop.LegRubbing.started += OnLegRubbingDesktop;
@@ -98,6 +99,11 @@ public class PlayerController : MonoBehaviour
         inputActions.LeftHand.TogglePower.started -= TogglePower;
     }
 
+    private void SubscribeToPressed(InputAction action, Action<InputAction.CallbackContext> callback)
+    {
+        action.started += callback;
+    }
+
     private void SubscribeToAction(InputAction action, Action<InputAction.CallbackContext> callback)
     {
         action.started += callback;
@@ -106,7 +112,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private void UnsubscribeFromAction(InputAction action, Action<InputAction.CallbackContext> callback)
-
     {
         action.started -= callback;
         action.performed -= callback;
@@ -118,6 +123,7 @@ public class PlayerController : MonoBehaviour
         currentState?.Exit();
         currentState = newState;
         currentState?.Enter(this);
+        Debug.Log(newState);
     }
 
     public BasePlayerState GetState()
@@ -127,7 +133,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        currentState?.Update();
+        currentState?.StateUpdate();
     }
 
     private void OnMove(InputAction.CallbackContext context) => currentState?.HandleMovement(context, floatingMovement);
@@ -144,4 +150,5 @@ public class PlayerController : MonoBehaviour
     private void OnFlyDownDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopFlyDown(context, desktopMovement);
     private void OnGrabDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopGrab(context, desktopGrabber);
     private void OnLegRubbingDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopLegRubbing(context);
+    private void OnHoverPressed(InputAction.CallbackContext context) => currentState?.HandleDesktopHover(context);
 }

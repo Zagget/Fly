@@ -226,6 +226,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "StopHover",
+                    "type": "Button",
+                    "id": "2b30074b-2bb6-41c7-8eb4-c1fcbbf9278f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -380,6 +389,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "542963e9-2ceb-49e1-a0a9-708920acaace",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StopHover",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

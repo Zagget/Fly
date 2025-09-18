@@ -312,6 +312,15 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""StopHover"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b30074b-2bb6-41c7-8eb4-c1fcbbf9278f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -468,6 +477,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""MousePointer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""542963e9-2ceb-49e1-a0a9-708920acaace"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StopHover"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -493,6 +513,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_Desktop_WASD = m_Desktop.FindAction("WASD", throwIfNotFound: true);
         m_Desktop_Rotate = m_Desktop.FindAction("Rotate", throwIfNotFound: true);
         m_Desktop_MousePointer = m_Desktop.FindAction("MousePointer", throwIfNotFound: true);
+        m_Desktop_StopHover = m_Desktop.FindAction("StopHover", throwIfNotFound: true);
     }
 
     ~@Input()
@@ -818,6 +839,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_Desktop_WASD;
     private readonly InputAction m_Desktop_Rotate;
     private readonly InputAction m_Desktop_MousePointer;
+    private readonly InputAction m_Desktop_StopHover;
     /// <summary>
     /// Provides access to input actions defined in input action map "Desktop".
     /// </summary>
@@ -857,6 +879,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Desktop/MousePointer".
         /// </summary>
         public InputAction @MousePointer => m_Wrapper.m_Desktop_MousePointer;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/StopHover".
+        /// </summary>
+        public InputAction @StopHover => m_Wrapper.m_Desktop_StopHover;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -904,6 +930,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MousePointer.started += instance.OnMousePointer;
             @MousePointer.performed += instance.OnMousePointer;
             @MousePointer.canceled += instance.OnMousePointer;
+            @StopHover.started += instance.OnStopHover;
+            @StopHover.performed += instance.OnStopHover;
+            @StopHover.canceled += instance.OnStopHover;
         }
 
         /// <summary>
@@ -936,6 +965,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MousePointer.started -= instance.OnMousePointer;
             @MousePointer.performed -= instance.OnMousePointer;
             @MousePointer.canceled -= instance.OnMousePointer;
+            @StopHover.started -= instance.OnStopHover;
+            @StopHover.performed -= instance.OnStopHover;
+            @StopHover.canceled -= instance.OnStopHover;
         }
 
         /// <summary>
@@ -1083,5 +1115,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMousePointer(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "StopHover" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnStopHover(InputAction.CallbackContext context);
     }
 }
