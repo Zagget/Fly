@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-
 public class FloatingMovement : MonoBehaviour
 {
     private Rigidbody rb;
@@ -15,8 +13,6 @@ public class FloatingMovement : MonoBehaviour
     [SerializeField] private Transform centerEyeTransform;
     [SerializeField] private float headsetYOffset = 1.15f;
 
-    private Camera vrCam;
-
     private Vector3 leftController;
     private Vector3 rightController;
 
@@ -25,19 +21,12 @@ public class FloatingMovement : MonoBehaviour
     [SerializeField] private float maxSpeed = 50;
 
     Vector3 controllerPositionInput;
-
-    private Vector2 rightAxisInput;
-
-    private FlightMode currentMode;
-    private enum FlightMode
-    {
-        Standard = 0,
-        Fast = 1,
-    }
-
+    PlayerController controller;
 
     private void Start()
     {
+        StateManager.Instance.OnStateChanged += OnSateChanged;
+
         if (RigManager.instance.usingVr == false)
         {
             this.enabled = false;
@@ -46,6 +35,9 @@ public class FloatingMovement : MonoBehaviour
 
         rb = RigManager.instance.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
+
+        controller = GetComponent<PlayerController>();
+        if (controller == null) Debug.LogError("Floating movement does not have access to player controller");
     }
 
 
@@ -54,21 +46,22 @@ public class FloatingMovement : MonoBehaviour
         linVel = rb.linearVelocity;
 
         controllerPositionInput = GetControllerPositions();
-        currentMode = GetFlightMode();
         StandardControls();
 
         rb.linearVelocity = linVel;
     }
 
-    private FlightMode GetFlightMode()
+    void OnSateChanged(BasePlayerState state)
     {
-        if (rightAxisInput != Vector2.zero) //Super man pose.
+        if (state == StateManager.Instance.flyingState)
         {
-            return FlightMode.Fast;
+            this.enabled = true;
         }
-        else
+        else if (this.enabled == true)
         {
-            return FlightMode.Standard;
+            rb.linearVelocity = Vector3.zero;
+            linVel = rb.linearVelocity;
+            this.enabled = false;
         }
     }
 
@@ -117,11 +110,5 @@ public class FloatingMovement : MonoBehaviour
         //Debug.Log(" X: " +  xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
 
         return new Vector3(xValue, yValue, zValue);
-    }
-
-    public void FlyingInput(InputAction.CallbackContext context)
-    {
-        Vector2 input = context.ReadValue<Vector2>();
-        rightAxisInput = input;
     }
 }

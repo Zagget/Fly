@@ -9,8 +9,6 @@ public class HoverState : BasePlayerState
 
     public override void HandleDesktopHover(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-
         base.HandleDesktopHover(context);
 
         player.SetState(StateManager.Instance.flyingState);

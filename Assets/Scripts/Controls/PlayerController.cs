@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
             // Right hand
             SubscribeToAction(inputActions.RightHand.Movement, OnMove);
             SubscribeToAction(inputActions.RightHand.GrabRight, GrabRight);
+            SubscribeToPressed(inputActions.RightHand.Hover, OnHoverPressed);
 
             // Left hand
             SubscribeToAction(inputActions.LeftHand.GrabLeft, GrabLeft);
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
             SubscribeToAction(inputActions.Desktop.Rotate, OnRotateVision);
             SubscribeToAction(inputActions.Desktop.FlyUp, OnFlyUpDesktop);
             SubscribeToAction(inputActions.Desktop.FlyDown, OnFlyDownDesktop);
-            SubscribeToPressed(inputActions.Desktop.StopHover, OnHoverPressed);
+            SubscribeToPressed(inputActions.Desktop.Hover, OnHoverPressed);
 
             SubscribeToAction(inputActions.Desktop.GrabDesktop, OnGrabDesktop);
             inputActions.Desktop.LegRubbing.started += OnLegRubbingDesktop;
@@ -123,6 +124,7 @@ public class PlayerController : MonoBehaviour
         currentState?.Exit();
         currentState = newState;
         currentState?.Enter(this);
+        StateManager.Instance.TriggerChangeStateEvent(newState);
         Debug.Log(newState);
     }
 

@@ -3,7 +3,7 @@ public class FlyingState : BasePlayerState
 {
     public override void HandleMovement(InputAction.CallbackContext context, FloatingMovement movement)
     {
-        movement.FlyingInput(context);
+        
     }
 
     // Grabbing when flying?

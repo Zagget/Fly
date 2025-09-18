@@ -92,7 +92,7 @@ public class LookingControls : MonoBehaviour
         float startY = pTransform.eulerAngles.y;
         float targetY = startY + Mathf.Sign(rotateInput.x) * rotationDegree;
 
-        Debug.Log($"blä startY {startY} targety {targetY}");
+       // Debug.Log($"blä startY {startY} targety {targetY}");
 
         if (rotateSmothness <= 0f)
         {
@@ -127,7 +127,7 @@ public class LookingControls : MonoBehaviour
         float tCooldown = angleDelta / 180f;
         float cooldown = Mathf.Lerp(minCooldown, maxCooldown, tCooldown);
 
-        Debug.Log($"Cooldown {cooldown}");
+        //Debug.Log($"Cooldown {cooldown}");
         yield return new WaitForSeconds(cooldown);
 
         isRotating = false;

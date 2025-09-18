@@ -133,6 +133,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Hover",
+                    "type": "Button",
+                    "id": "d4d34bcf-385d-47ac-aab7-31d6db08c376",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -155,6 +164,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "GrabRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5acf6221-0389-4517-bea2-c975dc9cdf0f",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hover",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -228,7 +248,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "StopHover",
+                    "name": "Hover",
                     "type": "Button",
                     "id": "2b30074b-2bb6-41c7-8eb4-c1fcbbf9278f",
                     "expectedControlType": "",
@@ -399,7 +419,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "StopHover",
+                    "action": "Hover",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

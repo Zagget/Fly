@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class StateManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class StateManager : MonoBehaviour
 
     private bool isWalkingState;
 
+    public event Action<BasePlayerState> OnStateChanged;
+
     private void Awake()
     {
         if (_instance == null)
@@ -39,6 +42,11 @@ public class StateManager : MonoBehaviour
     private void Start()
     {
         rb = RigManager.instance.currentRb;
+    }
+
+    public void TriggerChangeStateEvent(BasePlayerState newState)
+    {
+        OnStateChanged?.Invoke(newState);
     }
 
     public bool CheckFlyingState()
