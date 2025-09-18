@@ -68,11 +68,6 @@ public class LookingControls : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        Debug.Log($"blä holdingDown: {holdingDown}");
-    }
-
     private IEnumerator RotateWhileHolding(Vector2 input)
     {
         while (holdingDown)
