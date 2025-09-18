@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,14 +7,18 @@ public class PersonMovement : MonoBehaviour
     [Header("Person Settings")]
     [SerializeField] float moveSpeed = 10;
     [Range(0.1f, 50)][SerializeField] float passiveMovingFrequency = 10;
-    [Range(0.1f, 50)][SerializeField] float activeMovingFrequency = 1;
+    [Range(0.1f, 50)][SerializeField] float activeMovingFrequency = 0.1f;
     [Header("Movement Area")]
     [SerializeField] Bounds movingArea;
-
+    [SerializeField] Transform chairSeat;
+    float targetThreshold = 0.5f;
     PersonStates personStates;
     Vector3 target;
     Vector3 targetDirection;
     Coroutine movementCoroutine;
+    Coroutine movementCheckCoroutine;
+    static event Action OnTargetReached;
+    bool reachedTarget;
     void Start()
     {
         target = transform.position;
@@ -23,30 +28,37 @@ public class PersonMovement : MonoBehaviour
     }
     void OnEnable()
     {
+        PersonStates.onStateChanged += StopCurrentMoveCoroutine;
         PersonStates.onPersonNeutral += CheckMovement;
         PersonStates.onPersonAnnoyed += CheckMovement;
         PersonStates.onPersonChasing += CheckMovement;
-        PersonStates.stateChanged += StopCurrentMoveCoroutine;
+        PersonStates.OnPersonSitting += CheckMovement;
+        OnTargetReached += TargetReachedHandler;
     }
     void OnDisable()
     {
+        PersonStates.onStateChanged -= StopCurrentMoveCoroutine;
         PersonStates.onPersonNeutral -= CheckMovement;
         PersonStates.onPersonAnnoyed -= CheckMovement;
         PersonStates.onPersonChasing -= CheckMovement;
-        PersonStates.stateChanged -= StopCurrentMoveCoroutine;
+        PersonStates.OnPersonSitting -= CheckMovement;
+        OnTargetReached -= TargetReachedHandler;
     }
 
-    void FixedUpdate()
+    IEnumerator MoveToTarget(Vector3 moveTarget)
     {
-        if (personStates.currentState != BehaviourStates.Disabled)
+        targetDirection = moveTarget - transform.position;
+
+        while (Vector3.Distance(transform.position, moveTarget) > targetThreshold)
         {
-            if (!Mathf.Approximately(transform.position.x, target.x) || !Mathf.Approximately(transform.position.z, target.z))
-            {
-                float step = moveSpeed * Time.fixedDeltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, target, step);
-                transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetDirection, step, 0));
-            }
+            float step = moveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, moveTarget, step);
+            transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetDirection, step * 0.5f, 0));
+            yield return null;
         }
+        
+        if (!reachedTarget)
+            OnTargetReached?.Invoke();
     }
 
     void CheckMovement()
@@ -59,23 +71,26 @@ public class PersonMovement : MonoBehaviour
                 // No movement
                 break;
             case BehaviourStates.Neutral:
-                Vector3 newTarget = new Vector3(Random.Range(movingArea.min.x, movingArea.max.x), transform.position.y,
-                                    Random.Range(movingArea.min.z, movingArea.max.z));
+                Vector3 newTarget = new Vector3(UnityEngine.Random.Range(movingArea.min.x, movingArea.max.x), transform.position.y,
+                                    UnityEngine.Random.Range(movingArea.min.z, movingArea.max.z));
                 SetTarget(newTarget); //moves to random point inside movingArea
-                movementCoroutine = StartCoroutine(RecheckMovement(passiveMovingFrequency));
+                movementCheckCoroutine = StartCoroutine(RecheckMovement(passiveMovingFrequency));
                 break;
             case BehaviourStates.Annoyed:
                 Vector3 awayTarget = new Vector3(playerPos.x - transform.position.x, 0,
                                                 playerPos.z - transform.position.z) * -1;
                 SetTarget(transform.position + awayTarget); //moves away from player
-                movementCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
+                movementCheckCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
                 break;
             case BehaviourStates.Chasing:
                 SetTarget(new Vector3(playerPos.x, transform.position.y, playerPos.z)); //moves towards player
-                movementCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
+                movementCheckCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
+                break;
+            case BehaviourStates.Sitting:
+                SetTarget(chairSeat.position); //move to chair
                 break;
             default:
-
+                Debug.LogWarning("No movement tied to the state: " + personStates.currentState);
                 break;
         }
     }
@@ -83,7 +98,14 @@ public class PersonMovement : MonoBehaviour
     void SetTarget(Vector3 moveTarget)
     {
         target = moveTarget;
-        targetDirection = moveTarget - transform.position;
+        reachedTarget = false;
+        
+        if (movementCoroutine != null)
+        {
+            StopCoroutine(movementCoroutine);
+            movementCoroutine = null;
+        }
+        movementCoroutine = StartCoroutine(MoveToTarget(target));
     }
 
     IEnumerator RecheckMovement(float time)
@@ -94,11 +116,41 @@ public class PersonMovement : MonoBehaviour
 
     void StopCurrentMoveCoroutine(BehaviourStates behaviourStates = BehaviourStates.Neutral)
     {
-        if (movementCoroutine != null)
+        StopAllCoroutines();
+        movementCoroutine = null;
+        movementCheckCoroutine = null;
+    }
+
+    void TargetReachedHandler()
+    {
+        reachedTarget = true;
+        StopCoroutine(movementCoroutine);
+        movementCoroutine = null;
+
+        switch (personStates.currentState)
         {
-            StopCoroutine(movementCoroutine);
-            movementCoroutine = null;
+            case BehaviourStates.Neutral:
+                break;
+            case BehaviourStates.Annoyed:
+                break;
+            case BehaviourStates.Chasing:
+                //reached player
+                Debug.Log("Person reached player");
+                personStates.ChangeState(BehaviourStates.Neutral); //temp
+                break;
+            case BehaviourStates.Sitting:
+                PersonSit(chairSeat);
+                break;
+            default:
+                break;
         }
+    }
+
+    void PersonSit(Transform seat)
+    {
+        transform.position = new Vector3(seat.position.x, transform.position.y, seat.position.z);
+        transform.rotation = seat.rotation;
+        //Play sitting animation
     }
 
     void OnDrawGizmosSelected()

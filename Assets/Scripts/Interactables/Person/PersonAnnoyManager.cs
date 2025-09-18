@@ -16,10 +16,18 @@ public class PersonAnnoyManager : MonoBehaviour
         personState = GetComponent<PersonStates>();
     }
 
+    void OnEnable()
+    {
+        PersonStates.onPersonChasing += StartChasing;
+    }
+    void OnDisable()
+    {
+        PersonStates.onPersonChasing -= StartChasing;
+    }
+
     void StartChasing()
     {
         Debug.Log("start chasing");
-        PersonStates.OnStateChanged(BehaviourStates.Chasing);
         isChasing = true;
         triggerCollider.enabled = false;
         StartCoroutine(StopChasing(chaseDuration));
@@ -31,7 +39,7 @@ public class PersonAnnoyManager : MonoBehaviour
         Debug.Log("stop chasing");
         isChasing = false;
         annoyedAmount = 0;
-        PersonStates.OnStateChanged(BehaviourStates.Neutral);
+        personState.ChangeState(BehaviourStates.Sitting);
         triggerCollider.enabled = true;
     }
 
@@ -41,7 +49,7 @@ public class PersonAnnoyManager : MonoBehaviour
         {
             annoyedAmount++;
             Debug.Log("Annoyed person to: " + annoyedAmount);
-            PersonStates.OnStateChanged(BehaviourStates.Annoyed);
+            personState.ChangeState(BehaviourStates.Annoyed);
         }
     }
     void OnTriggerExit(Collider other)
@@ -49,9 +57,9 @@ public class PersonAnnoyManager : MonoBehaviour
         if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
         {
             if (annoyedAmount > annoyThreshold)
-                StartChasing();
+                personState.ChangeState(BehaviourStates.Chasing);
             else
-                PersonStates.OnStateChanged(BehaviourStates.Neutral);
+                personState.ChangeState(BehaviourStates.Neutral);
         }
     }
 }

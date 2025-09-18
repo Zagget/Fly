@@ -7,18 +7,20 @@ public enum BehaviourStates
     Disabled, //used to disable person behaviour
     Neutral,
     Annoyed,
-    Chasing
+    Chasing,
+    Sitting
 }
 public class PersonStates : MonoBehaviour
 {
     public delegate void OnPersonIgnore();
-    public static OnPersonIgnore onPersonDisabled;
+    public static event OnPersonIgnore onPersonDisabled;
     public delegate void OnPersonNeutral();
-    public static OnPersonNeutral onPersonNeutral;
+    public static event OnPersonNeutral onPersonNeutral;
     public delegate void OnPersonAnnoyed();
-    public static OnPersonAnnoyed onPersonAnnoyed;
+    public static event OnPersonAnnoyed onPersonAnnoyed;
     public delegate void OnPersonChasing();
-    public static OnPersonChasing onPersonChasing;
+    public static event OnPersonChasing onPersonChasing;
+    public static event Action OnPersonSitting;
     [SerializeField] private BehaviourStates _CurrentState;
     public BehaviourStates currentState
     {
@@ -26,34 +28,22 @@ public class PersonStates : MonoBehaviour
         set
         {
             if (_CurrentState != value)
-            { _CurrentState = value; OnStateChanged(_CurrentState); }
+            { _CurrentState = value; ChangeState(_CurrentState); }
         }
     }
     public delegate void StateChanged(BehaviourStates newState);
-    public static StateChanged stateChanged;
+    public static StateChanged onStateChanged;
 
     void Awake()
     {
-        OnStateChanged(currentState);
+        ChangeState(currentState);
     }
 
-    public static void OnStateChanged(BehaviourStates newState)
+    public void ChangeState(BehaviourStates newState)
     {
         Debug.Log("State changed to: " + newState);
-        stateChanged?.Invoke(newState);
-    }
+        onStateChanged?.Invoke(newState);
 
-    void OnEnable()
-    {
-        stateChanged += ChangeState;
-    }
-    void OnDisable()
-    {
-        stateChanged -= ChangeState;
-    }
-
-    private void ChangeState(BehaviourStates newState)
-    {
         _CurrentState = newState;
         switch (_CurrentState)
         {
@@ -69,7 +59,9 @@ public class PersonStates : MonoBehaviour
             case BehaviourStates.Chasing:
                 onPersonChasing?.Invoke();
                 break;
-
+            case BehaviourStates.Sitting:
+                OnPersonSitting?.Invoke();
+                break;
             default:
                 Debug.LogWarningFormat("Person Behaviour State not recognized!");
                 break;
