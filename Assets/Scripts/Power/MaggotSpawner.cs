@@ -16,7 +16,7 @@ public class MaggotSpawner : BasePower
     {
         float value = maggotCurve.Evaluate(currentCharge / maximumCharge);
         int maggotAmount = Mathf.RoundToInt(value * maxMaggots);
-        Vector3 centerVector = Vector3.Slerp(playersRigidbody.transform.forward, playersRigidbody.transform.up, 0.5f);
+        Vector3 centerVector = Vector3.Slerp(rigManager.currentRb.transform.forward, rigManager.currentRb.transform.up, 0.5f);
         Vector2 randomOffset;
         Vector3 launchDirection;
         GameObject maggot;
@@ -26,7 +26,7 @@ public class MaggotSpawner : BasePower
             variance = Random.Range(1 - varianceAmount, 1 + varianceAmount);
             randomOffset = Random.insideUnitCircle * 0.5f;
             launchDirection = new Vector3(randomOffset.x, 0, randomOffset.y) + centerVector;
-            maggot = Instantiate(maggotPrefab, playersRigidbody.transform.position + launchDirection * spawnOffset, Quaternion.LookRotation(launchDirection));
+            maggot = Instantiate(maggotPrefab, rigManager.currentRb.transform.position + launchDirection * spawnOffset, Quaternion.LookRotation(launchDirection));
             if (maggot.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {
                 rigidbody.linearVelocity = variance * speed * launchDirection;

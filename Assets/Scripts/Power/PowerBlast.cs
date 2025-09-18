@@ -16,8 +16,8 @@ public class PowerBlast : BasePower
     public override void Start()
     {
         GameObject instantiatedProjectile = Instantiate(projectile,
-            playersRigidbody.position + playersRigidbody.transform.forward * shootOffset,
-            playersRigidbody.rotation);
+            rigManager.eyeAnchor.position + rigManager.eyeAnchor.transform.forward * shootOffset,
+            rigManager.eyeAnchor.rotation);
         if (!instantiatedProjectile.TryGetComponent<Rigidbody>(out Rigidbody rigidbody) 
             || !instantiatedProjectile.TryGetComponent<Projectile>(out Projectile projectileComponent))
         {
@@ -26,7 +26,7 @@ public class PowerBlast : BasePower
         }
 
         float value = powerCurve.Evaluate(currentCharge/maximumCharge);
-        instantiatedProjectile.transform.rotation = playersRigidbody.rotation;
+        instantiatedProjectile.transform.rotation = rigManager.eyeAnchor.rotation;
         rigidbody.linearVelocity = value * maxVelocity * instantiatedProjectile.transform.forward;
         projectileComponent.damage = value * maxDamage;
         Destroy(instantiatedProjectile, value * maxFlightTime);

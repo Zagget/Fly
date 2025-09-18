@@ -11402,14 +11402,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4677609345386491769, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: maxDistance
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677609345386491769, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: rubInterval
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 6265669384132575880, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Camera Rig'
