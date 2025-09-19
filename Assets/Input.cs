@@ -276,7 +276,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""47d62a43-06a4-4b7d-a505-4dd498ca8fb4"",
-                    ""path"": ""<XRController>{RightHand}/{MenuButton}"",
+                    ""path"": ""<XRController>{LeftHand}/{MenuButton}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
