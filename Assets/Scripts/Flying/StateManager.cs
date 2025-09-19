@@ -22,6 +22,7 @@ public class StateManager : MonoBehaviour
     [HideInInspector] public HoverState hoverState = new();
     [HideInInspector] public FlyingState flyingState = new();
     [HideInInspector] public WalkingState walkingState = new();
+    [HideInInspector] public MenuState menuState = new();
 
     private bool isWalkingState;
 

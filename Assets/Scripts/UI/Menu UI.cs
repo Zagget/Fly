@@ -6,18 +6,31 @@ public class MenuUI : MonoBehaviour
     public GameObject menuPanel;
     public GameObject settingsPanel;
 
-    public BoxCollider rightArm;
-    public BoxCollider leftArm;
     [SerializeField] private SettingsData settings;
+
+    bool inMenu = false;
 
     private void Start()
     {
-        TogglePanels(true, true);
+        TogglePanels(false, false);
     }
 
     public void ToggleMenu(InputAction.CallbackContext context)
     {
-        Debug.Log("MENU");
+        if (context.started)
+        {
+            inMenu = !inMenu;
+
+            if (inMenu)
+            {
+                TogglePanels(true, false);
+            }
+            else
+            {
+                TogglePanels(false, false);
+            }
+
+        }
     }
 
     public void EnterMenu()
@@ -27,6 +40,7 @@ public class MenuUI : MonoBehaviour
 
     public void ClickResume()
     {
+        inMenu = false;
         TogglePanels(false, false);
     }
 
@@ -35,12 +49,7 @@ public class MenuUI : MonoBehaviour
         TogglePanels(false, true);
     }
 
-    public void ClickPreset()
-    {
-
-    }
-
-    public void ClickQuit()
+    public void ClickPreset(int preset)
     {
 
     }
@@ -50,4 +59,14 @@ public class MenuUI : MonoBehaviour
         menuPanel.SetActive(menu);
         settingsPanel.SetActive(settingsMenu);
     }
+
+    public void ClickQuit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+    }
+
 }

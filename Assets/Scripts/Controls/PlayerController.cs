@@ -14,11 +14,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Grabber leftGrabber;
     [SerializeField] public Grabber rightGrabber;
     [SerializeField] public Grabber desktopGrabber;
+    [SerializeField] public UIPointer leftPointer;
+    [SerializeField] public UIPointer rightPointer;
     [SerializeField] public MenuUI menu;
-
-    public readonly BasePlayerState flyingState = new FlyingState();
-    public readonly BasePlayerState hoverState = new HoverState();
-    public readonly BasePlayerState walkingState = new WalkingState();
 
     private bool vr;
     private Input inputActions;
@@ -44,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
         SubscribeToInputs();
 
-        SetState(flyingState);
+        SetState(StateManager.Instance.walkingState);
     }
 
     private void SubscribeToInputs()
