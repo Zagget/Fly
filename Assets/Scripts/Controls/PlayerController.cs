@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Grabber leftGrabber;
     [SerializeField] public Grabber rightGrabber;
     [SerializeField] public Grabber desktopGrabber;
+    [SerializeField] public MenuUI menu;
 
     public readonly BasePlayerState flyingState = new FlyingState();
     public readonly BasePlayerState hoverState = new HoverState();
@@ -71,6 +72,8 @@ public class PlayerController : MonoBehaviour
 
         inputActions.LeftHand.ActivatePower.started += ActivatePower;
         inputActions.LeftHand.TogglePower.started += TogglePower;
+
+        SubscribeToAction(inputActions.RightHand.Menu, ToggleMenu);
     }
 
     private void OnDisable()
@@ -98,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
         inputActions.LeftHand.ActivatePower.started -= ActivatePower;
         inputActions.LeftHand.TogglePower.started -= TogglePower;
+        UnsubscribeFromAction(inputActions.RightHand.Menu, ToggleMenu);
     }
 
     private void SubscribeToPressed(InputAction action, Action<InputAction.CallbackContext> callback)
@@ -144,6 +148,7 @@ public class PlayerController : MonoBehaviour
     private void OnRotateVision(InputAction.CallbackContext context) => currentState?.HandleRotateVision(context, lookingControls);
     private void ActivatePower(InputAction.CallbackContext context) => currentState?.HandleActivatePower(context, this);
     private void TogglePower(InputAction.CallbackContext context) => currentState?.HandleTogglePower(context);
+    private void ToggleMenu(InputAction.CallbackContext context) => currentState?.HandleToggleMenu(context);
 
     // Desktop
     private void OnLookDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopLook(context, lookingControls);

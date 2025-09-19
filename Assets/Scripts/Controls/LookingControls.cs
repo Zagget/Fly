@@ -13,6 +13,19 @@ public enum RotationStep
     Deg1 = 1
 }
 
+[System.Serializable]
+public class RotationSetting
+{
+    [SerializeField] private RotationStep rotationStep = RotationStep.Deg30;
+    [Range(0f, 0.5f)][SerializeField] private float rotateSmoothness = 0.25f;
+
+    public void SetCustomValues(RotationStep step, float smoothness)
+    {
+        rotationStep = step;
+        rotateSmoothness = Mathf.Clamp(smoothness, 0f, 0.5f);
+    }
+}
+
 public class LookingControls : MonoBehaviour
 {
     [Header("Mouse Settings")]
@@ -21,6 +34,8 @@ public class LookingControls : MonoBehaviour
     [Header("Rotation Settings")]
     [SerializeField] private RotationStep rotationStep = RotationStep.Deg90;
     [Range(0, 0.5f)][SerializeField] private float rotateSmothness = 0.5f;
+
+    [SerializeField] private SettingsData settingsData;
 
     private float rotationDegree => (float)rotationStep;
 

@@ -43,6 +43,11 @@ public abstract class BasePlayerState
         PowerProgression.Instance.NextPower(context);
     }
 
+    public virtual void HandleToggleMenu(InputAction.CallbackContext context)
+    {
+        player.menu.ToggleMenu(context);
+    }
+
     // Desktop Inputs
     public virtual void HandleDesktopGrab(InputAction.CallbackContext context, Grabber desktopGrabber)
     {
