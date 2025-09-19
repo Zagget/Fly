@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 public class FloatingMovement : MonoBehaviour
 {
@@ -20,8 +21,11 @@ public class FloatingMovement : MonoBehaviour
 
     [SerializeField] private float maxSpeed = 50;
 
-    Vector3 controllerPositionInput;
-    PlayerController controller;
+    private Vector3 controllerPositionInput;
+    private PlayerController controller;
+
+    private float timeToSlowInput = 1;
+    private float controllerInputMultiplier = 1;
 
     private void Start()
     {
@@ -40,7 +44,6 @@ public class FloatingMovement : MonoBehaviour
         if (controller == null) Debug.LogError("Floating movement does not have access to player controller");
     }
 
-
     private void FixedUpdate()
     {
         linVel = rb.linearVelocity;
@@ -56,6 +59,11 @@ public class FloatingMovement : MonoBehaviour
         if (state == StateManager.Instance.flyingState)
         {
             this.enabled = true;
+            if (lastState == StateManager.Instance.hoverState)
+            {
+                StartCoroutine(nameof(SlowControllerInput));
+            }
+
         }
         else if (this.enabled == true)
         {
@@ -71,9 +79,28 @@ public class FloatingMovement : MonoBehaviour
 
         linVel = Vector3.zero;
 
-        linVel += RigManager.instance.currentRb.transform.forward * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.z;
-        linVel += RigManager.instance.currentRb.transform.up * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.y;
-        linVel += RigManager.instance.currentRb.transform.right * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.x;
+        linVel += RigManager.instance.currentRb.transform.forward
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.z * controllerInputMultiplier;
+
+        linVel += RigManager.instance.currentRb.transform.up
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.y * controllerInputMultiplier;
+
+        linVel += RigManager.instance.currentRb.transform.right
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.x * controllerInputMultiplier;
+    }
+
+    IEnumerator SlowControllerInput()
+    {
+        float timer = 0;
+
+        while (timer < timeToSlowInput) 
+        {
+            controllerInputMultiplier = timer / timeToSlowInput;
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        controllerInputMultiplier = 1;
     }
 
     private Vector3 GetControllerPositions()

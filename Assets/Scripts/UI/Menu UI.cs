@@ -54,6 +54,11 @@ public class MenuUI : MonoBehaviour
 
     }
 
+    public void ChangeControllerMaxHeight()
+    {
+        Debug.Log("Change Height Button Pressed");
+    }
+
     public void TogglePanels(bool menu, bool settingsMenu)
     {
         menuPanel.SetActive(menu);

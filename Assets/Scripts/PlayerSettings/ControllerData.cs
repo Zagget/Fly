@@ -47,7 +47,6 @@ public class ControllerData : MonoBehaviour
         PlayerPrefs.SetFloat(maxControllerHeightKey, maxControllerHeight);
     }
 
-
     public void SetDeadZoneSize(float size)
     {
         PlayerPrefs.SetFloat(deadZoneSizeKey, size);

@@ -11,10 +11,6 @@ public class FlyingState : BasePlayerState
 
     private float maximumControllerHeightToLand; // sets automatically on Entry
     private float lessThanMaxHeightPercentage = 0.8f; //20% less then max arm height of players.
-    public override void HandleMovement(InputAction.CallbackContext context, FloatingMovement movement)
-    {
-        
-    }
 
     // Grabbing when flying?
     public override void HandleGrabLeft(InputAction.CallbackContext context, Grabber leftGrabber)
