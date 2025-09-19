@@ -51,7 +51,7 @@ public class FloatingMovement : MonoBehaviour
         rb.linearVelocity = linVel;
     }
 
-    void OnSateChanged(BasePlayerState state)
+    void OnSateChanged(BasePlayerState state, BasePlayerState lastState)
     {
         if (state == StateManager.Instance.flyingState)
         {

@@ -7781,7 +7781,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1930945123}
   m_SourcePrefab: {fileID: 100100000, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
 --- !u!4 &1286553759 stripped
 Transform:
@@ -10556,6 +10559,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1930945117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+  m_PrefabInstance: {fileID: 1286177344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1930945123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930945117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40495666562027444b15e7b79a8aa12a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkingMovement
+  acceleration: 50
+  maxVel: 250
 --- !u!1 &1973893785
 GameObject:
   m_ObjectHideFlags: 0
@@ -11373,14 +11395,6 @@ PrefabInstance:
     - target: {fileID: 1388064432731622709, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677609345386491769, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: maxDistance
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677609345386491769, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: rubInterval
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6265669384132575880, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
       propertyPath: m_Name

@@ -18,6 +18,9 @@ public abstract class BasePlayerState
     // Add walking script to param
     public virtual void HandleMovement(InputAction.CallbackContext context, FloatingMovement floatingMovement) { }
 
+    public virtual void HandleWalkingMovement(InputAction.CallbackContext context, WalkingMovement walkingMovement) { }
+
+    public virtual void HandlePrimaryButton(InputAction.CallbackContext context) { }
     public virtual void HandleRotateVision(InputAction.CallbackContext context, LookingControls looking)
     {
         looking.OnRotate(context);

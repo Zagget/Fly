@@ -25,7 +25,10 @@ public class StateManager : MonoBehaviour
 
     private bool isWalkingState;
 
-    public event Action<BasePlayerState> OnStateChanged;
+    /// <summary>
+    /// Triggers when a state is changed, arg1 is new state, arg2 is last state.
+    /// </summary>
+    public event Action<BasePlayerState, BasePlayerState> OnStateChanged;
 
     private void Awake()
     {
@@ -44,9 +47,9 @@ public class StateManager : MonoBehaviour
         rb = RigManager.instance.currentRb;
     }
 
-    public void TriggerChangeStateEvent(BasePlayerState newState)
+    public void TriggerChangeStateEvent(BasePlayerState newState, BasePlayerState lastState)
     {
-        OnStateChanged?.Invoke(newState);
+        OnStateChanged?.Invoke(newState, lastState);
     }
 
     public bool CheckFlyingState()
