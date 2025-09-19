@@ -22,33 +22,43 @@ public class PersonStates : MonoBehaviour
     public static event OnPersonChasing onPersonChasing;
     public static event Action OnPersonSitting;
     [SerializeField] private BehaviourStates _CurrentState;
+    private BehaviourStates preBehaviour;
     public BehaviourStates currentState
     {
         get => _CurrentState;
         set
         {
             if (_CurrentState != value)
-            { _CurrentState = value; ChangeState(_CurrentState); }
+            { _CurrentState = value; }
         }
     }
     public delegate void StateChanged(BehaviourStates newState);
     public static StateChanged onStateChanged;
+    Animator animator;
 
     void Awake()
     {
         ChangeState(currentState);
     }
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
 
     public void ChangeState(BehaviourStates newState)
     {
-        if (currentState == BehaviourStates.Sitting && newState != BehaviourStates.Sitting)
+        Debug.Log($"old state: {preBehaviour}, new state: {newState}");
+        if (preBehaviour == BehaviourStates.Sitting &&
+            newState != BehaviourStates.Sitting &&
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Sitting_Idle_Loop"))
         {
-            GetComponentInChildren<Animator>().SetTrigger("StopSit");
+            animator.SetTrigger("StopSit");
         }
-        Debug.Log("State changed to: " + newState);
+        
         onStateChanged?.Invoke(newState);
 
         _CurrentState = newState;
+        preBehaviour = newState;
         switch (_CurrentState)
         {
             case BehaviourStates.Disabled:
