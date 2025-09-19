@@ -11,6 +11,12 @@ public class MenuState : BasePlayerState
         StateManager.Instance.OnStateChanged += HandleStateChanged;
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+        StateManager.Instance.OnStateChanged -= HandleStateChanged;
+    }
+
     public override void HandleMovement(InputAction.CallbackContext context, FloatingMovement movement)
     {
         //ToDO Select in menu as well
