@@ -296,10 +296,17 @@ PrefabInstance:
       propertyPath: m_EditorClassIdentifier
       value: Assembly-CSharp::FlightControlls
       objectReference: {fileID: 0}
+    - target: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: centerEyeTransform
+      value: 
+      objectReference: {fileID: 182433806}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1278072277}
   m_SourcePrefab: {fileID: 100100000, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
 --- !u!1 &75212573
 GameObject:
@@ -1077,7 +1084,7 @@ Transform:
   m_GameObject: {fileID: 612525018}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.36997694, z: -0, w: 0.92904097}
-  m_LocalPosition: {x: 105.3, y: 5, z: -4.36924}
+  m_LocalPosition: {x: 105.3, y: 3.28, z: -4.36924}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2370,6 +2377,31 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 739e910edf65ad440a2e1ad32c65618a, type: 3}
+--- !u!1 &1278072276 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4326761119930820967, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+  m_PrefabInstance: {fileID: 72290546}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1278072277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278072276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98480e3d9105c02489c74a7c54e59f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StateManager
+  groundRayLength: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  walkingStateMinSpeed: 0
+  hoverReqTime: 1
+  hoverMaxSpeed: 5
+  hoverDecayRate: 3
 --- !u!1 &1332592140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,7 +2748,8 @@ MonoBehaviour:
   handRotation: {fileID: 0}
   maxDistance: 0
   minRubbingPerSecond: 0.1
-  desktopInterval: 0.2
+  rubInterval: 0.2
+  timeToGainCharge: 0.5
 --- !u!4 &1782070754
 Transform:
   m_ObjectHideFlags: 0
@@ -2769,7 +2802,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.2, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 260777118}
@@ -3194,17 +3227,13 @@ PrefabInstance:
       propertyPath: chairSeat
       value: 
       objectReference: {fileID: 260777118}
-    - target: {fileID: 6576476354032769069, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
-      propertyPath: m_Radius
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 7959577314854935106, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.8
       objectReference: {fileID: 0}
     - target: {fileID: 7959577314854935106, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7959577314854935106, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: m_LocalPosition.z

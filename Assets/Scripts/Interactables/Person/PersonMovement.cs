@@ -19,10 +19,12 @@ public class PersonMovement : MonoBehaviour
     Coroutine movementCheckCoroutine;
     static event Action OnTargetReached;
     bool reachedTarget;
+    Animator animator;
     void Start()
     {
         target = transform.position;
         personStates = GetComponent<PersonStates>();
+        animator = GetComponentInChildren<Animator>();
         StopCurrentMoveCoroutine();
         StartCoroutine(RecheckMovement(2));
     }
@@ -87,7 +89,7 @@ public class PersonMovement : MonoBehaviour
                 movementCheckCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
                 break;
             case BehaviourStates.Sitting:
-                SetTarget(chairSeat.position); //move to chair
+                SetTarget(new Vector3(chairSeat.position.x, transform.position.y, chairSeat.position.z)); //move to chair
                 break;
             default:
                 Debug.LogWarning("No movement tied to the state: " + personStates.currentState);
@@ -105,6 +107,7 @@ public class PersonMovement : MonoBehaviour
             StopCoroutine(movementCoroutine);
             movementCoroutine = null;
         }
+        animator.SetBool("IsWalking", !reachedTarget);
         movementCoroutine = StartCoroutine(MoveToTarget(target));
     }
 
@@ -124,6 +127,7 @@ public class PersonMovement : MonoBehaviour
     void TargetReachedHandler()
     {
         reachedTarget = true;
+        animator.SetBool("IsWalking", !reachedTarget);
         StopCoroutine(movementCoroutine);
         movementCoroutine = null;
 
@@ -151,6 +155,7 @@ public class PersonMovement : MonoBehaviour
         transform.position = new Vector3(seat.position.x, transform.position.y, seat.position.z);
         transform.rotation = seat.rotation;
         //Play sitting animation
+        animator.SetTrigger("StartSit");
     }
 
     void OnDrawGizmosSelected()

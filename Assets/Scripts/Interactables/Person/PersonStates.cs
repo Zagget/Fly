@@ -41,6 +41,10 @@ public class PersonStates : MonoBehaviour
 
     public void ChangeState(BehaviourStates newState)
     {
+        if (currentState == BehaviourStates.Sitting && newState != BehaviourStates.Sitting)
+        {
+            GetComponentInChildren<Animator>().SetTrigger("StopSit");
+        }
         Debug.Log("State changed to: " + newState);
         onStateChanged?.Invoke(newState);
 
