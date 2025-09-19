@@ -4,7 +4,7 @@ public class WalkingState : BasePlayerState
 {
     private Vector3 leftControllerPosition;
     private Vector3 rightControllerPosition;
-    private float minimumHeightToTakeOff = 0.8f;
+    private float minimumHeightToTakeOff;
 
     public override void HandleWalkingMovement(InputAction.CallbackContext context, WalkingMovement walkingMovement)
     {
@@ -14,6 +14,12 @@ public class WalkingState : BasePlayerState
     public override void HandlePrimaryButton(InputAction.CallbackContext context)
     {
         player.SetState(StateManager.Instance.flyingState);
+    }
+
+    public override void Enter(PlayerController player)
+    {
+        base.Enter(player);
+        minimumHeightToTakeOff = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey);
     }
 
     public override void StateUpdate()

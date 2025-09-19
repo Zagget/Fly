@@ -5,4 +5,6 @@ using UnityEngine;
 public class SettingsData : ScriptableObject
 {
     [SerializeField] RotationSetting currentRotation;
+
+    private float playerArmLength;
 }
