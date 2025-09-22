@@ -39,10 +39,10 @@ public class PersonStates : MonoBehaviour
     void Awake()
     {
         ChangeState(currentState);
+        animator = GetComponentInChildren<Animator>();
     }
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
     }
 
     public void ChangeState(BehaviourStates newState)
