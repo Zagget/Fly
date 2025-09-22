@@ -9,8 +9,9 @@ public class FlyingState : BasePlayerState
     private Vector3 leftControllerPosition;
     private Vector3 rightControllerPosition;
 
-    private float maximumControllerHeightToLand; // sets automatically on Entry
-    private float lessThanMaxHeightPercentage = 0.3f; //30% of arm length up.
+    private float maximumControllerHeight; // sets automatically on Entry
+    private float controllerLandingHeight;
+    private float heightMultiplier = 0.7f;
 
     // Grabbing when flying?
     public override void HandleGrabLeft(InputAction.CallbackContext context, Grabber leftGrabber)
@@ -35,10 +36,10 @@ public class FlyingState : BasePlayerState
         base.Enter(player);
         stateActiveTime = 0;
 
-        maximumControllerHeightToLand = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey)
-            * lessThanMaxHeightPercentage;
-    }
+        maximumControllerHeight = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey);
 
+        controllerLandingHeight = 2 - maximumControllerHeight;
+    }
 
     public override void StateUpdate()
     {
@@ -54,8 +55,8 @@ public class FlyingState : BasePlayerState
         {
             player.SetState(StateManager.Instance.hoverState);
         }
-        else if (stateActiveTime > timeUntilCanLand && leftControllerPosition.y < maximumControllerHeightToLand && 
-            rightControllerPosition.y < maximumControllerHeightToLand && StateManager.Instance.CheckWalkingState())
+        else if (stateActiveTime > timeUntilCanLand && leftControllerPosition.y < controllerLandingHeight && 
+            rightControllerPosition.y < controllerLandingHeight && StateManager.Instance.CheckWalkingState())
         {
             player.SetState(StateManager.Instance.walkingState);
         }

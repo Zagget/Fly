@@ -10,7 +10,7 @@ public class FloatingMovement : MonoBehaviour
     [SerializeField] private float controllerYOffset = 100; //Offset is approximately from ground, where ~0 is the floor.
     [SerializeField] private float controllerZOffset; //offset is how close controllers have to be to the player to count as 0 or negative.
 
-    [SerializeField] private float deadZone;
+    private float deadZone = 0.3f;
     [SerializeField] private Transform centerEyeTransform;
     [SerializeField] private float headsetYOffset = 1.15f;
 
@@ -77,6 +77,11 @@ public class FloatingMovement : MonoBehaviour
             rb.linearVelocity = Vector3.zero;
             linVel = rb.linearVelocity;
             this.enabled = false;
+        }
+
+        if (lastState == StateManager.Instance.menuState)
+        {
+            deadZone = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
         }
     }
 

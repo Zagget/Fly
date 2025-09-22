@@ -44,7 +44,6 @@ public class VRButton : MonoBehaviour
 
     public void Hover(bool hovering)
     {
-        Debug.Log($"Hovering {hovering}");
         if (hovering)
         {
             image.color = Color.yellow;

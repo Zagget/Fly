@@ -7,12 +7,6 @@ public class ControllerData : MonoBehaviour
     private Vector3 rightControllerPosition;
 
     /// <summary>
-    /// The center will be returned as a String, needs to be converted to a Vector3. <br></br>
-    /// Needs to be used with PlayerPrefs.
-    /// </summary>
-    public static readonly string deadZoneCenterKey;
-
-    /// <summary>
     /// Returns a Float with the size of the controller dead zone. <br></br>
     /// Needs to be used with PlayerPrefs.
     /// </summary> 
@@ -37,6 +31,14 @@ public class ControllerData : MonoBehaviour
             return;
         }
 
+        StartCoroutine(nameof(SetControllerHeight));
+    }
+
+    IEnumerator SetControllerHeight()
+    {
+        float timeTillSet = 2;
+        yield return new WaitForSeconds(timeTillSet);
+
         leftControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
         rightControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
 
@@ -44,6 +46,7 @@ public class ControllerData : MonoBehaviour
 
         float maxControllerHeight = (leftControllerPosition.y + rightControllerPosition.y) / 2;
         PlayerPrefs.SetFloat(maxControllerHeightKey, maxControllerHeight);
+        Debug.Log("Controller height set to " + maxControllerHeight);
     }
 
     /// <summary>
@@ -65,36 +68,5 @@ public class ControllerData : MonoBehaviour
     public void SetDeadZoneSize(float size)
     {
         PlayerPrefs.SetFloat(deadZoneSizeKey, size);
-    }
-
-    public void SetDeadZoneCenter()
-    {
-        if (RigManager.instance.usingVr == false)
-        {
-            Debug.LogWarning("Not in VR, cant calibrate DeadZone " + name);
-            return;
-        }
-
-        StartCoroutine(nameof(DeadZoneCalibrator));
-    }
-    IEnumerator DeadZoneCalibrator()
-    {
-        float timer = 0;
-        Vector3 deadZoneAverages = new();
-        int amountOfChecks = 0;
-
-        while (timer < deadZoneCalibrationTime)
-        {
-            leftControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
-            rightControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
-
-            deadZoneAverages += (leftControllerPosition + rightControllerPosition) / 2;
-            amountOfChecks++;
-            timer += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-
-        deadZoneAverages = deadZoneAverages / amountOfChecks;
-        PlayerPrefs.SetString(deadZoneCenterKey, deadZoneAverages.ToString());
     }
 }

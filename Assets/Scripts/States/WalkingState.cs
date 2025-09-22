@@ -19,7 +19,7 @@ public class WalkingState : BasePlayerState
     public override void Enter(PlayerController player)
     {
         base.Enter(player);
-        minimumHeightToTakeOff = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey);
+        minimumHeightToTakeOff = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey) * 0.8f;
     }
 
     public override void StateUpdate()

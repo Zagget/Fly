@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class MenuUI : MonoBehaviour
 {
@@ -12,9 +11,11 @@ public class MenuUI : MonoBehaviour
     public event Action InMenu;
     public event Action InSettings;
 
+    private ControllerData controllerData;
     private void Start()
     {
         TogglePanels(false, false);
+        controllerData = GetComponent<ControllerData>();
     }
 
     public void EnterMenu()
@@ -41,7 +42,12 @@ public class MenuUI : MonoBehaviour
 
     public void ChangeControllerMaxHeight()
     {
-        Debug.Log("Change Height Button Pressed");
+        controllerData.SetMaxControllerHeight();
+    }
+
+    public void SetDeadZoneSize(float size)
+    {
+        controllerData.SetDeadZoneSize(size);
     }
 
     public void TogglePanels(bool menu, bool settingsMenu)
