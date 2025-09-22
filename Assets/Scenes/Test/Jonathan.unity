@@ -3867,6 +3867,17 @@ Transform:
   - {fileID: 1769552890}
   m_Father: {fileID: 1636186485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &755007538 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5304988138802136144, guid: 537bfd396259d8541a932866155e6d1c, type: 3}
+  m_PrefabInstance: {fileID: 2070325760}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d0eafd4ab5f0e4a92e86ebc64f25f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DesktopMenu
 --- !u!1 &758173762
 GameObject:
   m_ObjectHideFlags: 0
@@ -11546,6 +11557,10 @@ PrefabInstance:
       propertyPath: menu
       value: 
       objectReference: {fileID: 470018149}
+    - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: desktopMenu
+      value: 
+      objectReference: {fileID: 755007538}
     - target: {fileID: 4655907038890342957, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: leftGrabber
       value: 

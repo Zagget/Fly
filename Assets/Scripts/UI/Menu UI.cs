@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,31 +6,24 @@ public class MenuUI : MonoBehaviour
 {
     public GameObject menuPanel;
     public GameObject settingsPanel;
+
     [SerializeField] private SettingsData settings;
 
     bool inMenu = false;
+
+    public event Action InMenu;
+    public event Action InSettinga;
+
 
     private void Start()
     {
         TogglePanels(false, false);
     }
 
-    public void ToggleMenu(InputAction.CallbackContext context)
+    public void EnterMenu()
     {
-        if (context.started)
-        {
-            inMenu = !inMenu;
-
-            if (inMenu)
-            {
-                TogglePanels(true, false);
-            }
-            else
-            {
-                TogglePanels(false, false);
-            }
-
-        }
+        TogglePanels(true, false);
+        InMenu?.Invoke();
     }
 
     public void ExitMenu()
@@ -43,11 +37,13 @@ public class MenuUI : MonoBehaviour
     public void GoBackToMenu()
     {
         TogglePanels(true, false);
+        InMenu?.Invoke();
     }
 
     public void ClickSettings()
     {
         TogglePanels(false, true);
+        InSettinga?.Invoke();
     }
 
     public void ClickPreset(int preset)

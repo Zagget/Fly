@@ -48,7 +48,11 @@ public abstract class BasePlayerState
 
     public virtual void HandleToggleMenu(InputAction.CallbackContext context)
     {
-        player.menu.ToggleMenu(context);
+        if (context.started)
+        {
+            player.SetState(StateManager.Instance.menuState);
+            Debug.Log("State started");
+        }
     }
 
     // Desktop Inputs

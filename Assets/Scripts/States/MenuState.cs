@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using UnityEngine.InputSystem;
+using UnityEngine;
 
 public class MenuState : BasePlayerState
 {
@@ -9,16 +11,26 @@ public class MenuState : BasePlayerState
         base.Enter(player);
         StateManager.Instance.OnStateChanged += HandleStateChanged;
 
-        player.leftPointer.SetVisible(true);
-        player.rightPointer.SetVisible(true);
+        player.menu.EnterMenu();
+
+        if (RigManager.instance.usingVr)
+        {
+            player.leftPointer.SetVisible(true);
+            player.rightPointer.SetVisible(true);
+        }
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        player.leftPointer.SetVisible(false);
-        player.rightPointer.SetVisible(false);
+        player.menu.EnterMenu();
+
+        if (RigManager.instance.usingVr)
+        {
+            player.leftPointer.SetVisible(false);
+            player.rightPointer.SetVisible(false);
+        }
 
         StateManager.Instance.OnStateChanged -= HandleStateChanged;
     }
@@ -26,6 +38,16 @@ public class MenuState : BasePlayerState
     public override void HandleMovement(InputAction.CallbackContext context, FloatingMovement movement)
     {
         //ToDO Select in menu as well
+    }
+
+    public override void HandleActivatePower(InputAction.CallbackContext context, PlayerController playerController)
+    {
+        player.desktopMenu.Press(context);
+    }
+
+    public override void HandleDesktopFlight(InputAction.CallbackContext context, DesktopMovement movement)
+    {
+        player.desktopMenu.Navigate(context);
     }
 
     public override void HandleGrabLeft(InputAction.CallbackContext context, Grabber leftGrabber)
@@ -41,6 +63,7 @@ public class MenuState : BasePlayerState
     private void HandleStateChanged(BasePlayerState oldState, BasePlayerState newState)
     {
         this.oldState = oldState;
+        UnityEngine.Debug.Log($"Menu oldState: {oldState}");
     }
 
     public override void HandleToggleMenu(InputAction.CallbackContext context)

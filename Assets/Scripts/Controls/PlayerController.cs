@@ -14,9 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Grabber leftGrabber;
     [SerializeField] public Grabber rightGrabber;
     [SerializeField] public Grabber desktopGrabber;
+
+    [Header("Menu")]
+    [SerializeField] public MenuUI menu;
+    [SerializeField] public DesktopMenu desktopMenu;
     [SerializeField] public UIPointer leftPointer;
     [SerializeField] public UIPointer rightPointer;
-    [SerializeField] public MenuUI menu;
 
     private bool vr;
     private Input inputActions;
@@ -142,7 +145,7 @@ public class PlayerController : MonoBehaviour
         currentState = newState;
         currentState?.Enter(this);
         StateManager.Instance.TriggerChangeStateEvent(newState, lastState);
-        Debug.Log(newState);
+        Debug.Log($"new state {newState} old state {lastState}");
     }
 
     public BasePlayerState GetState()
