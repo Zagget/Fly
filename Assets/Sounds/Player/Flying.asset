@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dff9e4e4a08a01488eb476975deaed6, type: 3}
+  m_Name: Flying
+  m_EditorClassIdentifier: Assembly-CSharp::SoundData
+  sounds:
+  - name: flying1
+    clip: {fileID: 8300000, guid: a5ab7253762801345a7bc9d6cba737ef, type: 3}
+    volume: 0.5
+    minPitch: 0.95
+    maxPitch: 1.1
+    mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
+  - name: flying2
+    clip: {fileID: 8300000, guid: 7ae4a0e10c45afa43837325b1b4ddf52, type: 3}
+    volume: 0.5
+    minPitch: 1
+    maxPitch: 1.1
+    mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
