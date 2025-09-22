@@ -35,8 +35,8 @@ public class FlyingState : BasePlayerState
         base.Enter(player);
         stateActiveTime = 0;
 
-        maximumControllerHeightToLand = (float.Parse(PlayerPrefs.GetString(ControllerData.maxControllerHeightKey))
-            * lessThanMaxHeightPercentage);
+        maximumControllerHeightToLand = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey)
+            * lessThanMaxHeightPercentage;
     }
 
 
