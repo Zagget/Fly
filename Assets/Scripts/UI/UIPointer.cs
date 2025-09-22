@@ -48,14 +48,16 @@ public class UIPointer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((uiLayer.value & (1 << other.transform.gameObject.layer)) == 0)
+        if ((uiLayer.value & (1 << other.gameObject.layer)) == 0)
             return;
 
         VRButton button = other.GetComponent<VRButton>();
         if (button != null)
         {
+            if (currentButton != null && currentButton != button)
+                currentButton.Hover(false);
 
-            Debug.Log("MENU Hover true" + other.name);
+            Debug.Log("MENU Hover true " + other.name);
             button.Hover(true);
             currentButton = button;
         }
@@ -63,7 +65,7 @@ public class UIPointer : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if ((uiLayer.value & (1 << other.transform.gameObject.layer)) == 0)
+        if ((uiLayer.value & (1 << other.gameObject.layer)) == 0)
             return;
 
         VRButton button = other.GetComponent<VRButton>();

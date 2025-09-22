@@ -1,7 +1,8 @@
 // This file is auto-generated. Do not edit manually.
 
-public enum Test123
+public enum Flying
 {
      Random,
-     CoinDropping
+     flying1,
+     flying2
 }
