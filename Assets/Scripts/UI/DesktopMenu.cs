@@ -63,7 +63,6 @@ public class DesktopMenu : MonoBehaviour
             currentSelection = currentButtons.Length - 1;
 
         currentButtons[currentSelection].Hover(true);
-        Debug.Log($"Menu navigate {currentSelection}");
     }
 
     public void Navigate(InputAction.CallbackContext context)
