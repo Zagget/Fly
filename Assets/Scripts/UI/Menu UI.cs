@@ -10,7 +10,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] private SettingsData settings;
 
     public event Action InMenu;
-    public event Action InSettinga;
+    public event Action InSettings;
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class MenuUI : MonoBehaviour
     public void ClickSettings()
     {
         TogglePanels(false, true);
-        InSettinga?.Invoke();
+        InSettings?.Invoke();
     }
 
     public void ClickPreset(int preset)

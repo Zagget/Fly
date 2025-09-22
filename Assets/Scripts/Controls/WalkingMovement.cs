@@ -9,17 +9,23 @@ public class WalkingMovement : MonoBehaviour
     private float currentSpeed;
     private float targetSpeed;
     private float speed;
-    private float verticalSpeed;
 
     Vector2 input;
 
     Vector3 linVel;
     Rigidbody rb;
 
+    StateManager stateManager;
+    RigManager rigManager;
+
     void Start()
     {
-        rb = RigManager.instance.currentRb;
+        stateManager = StateManager.Instance;
+        rigManager = RigManager.instance;
+        rb = rigManager.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
+
+        stateManager.OnStateChanged += OnChangeState;
     }
 
     void FixedUpdate()
@@ -27,6 +33,20 @@ public class WalkingMovement : MonoBehaviour
         linVel = rb.linearVelocity;
         HorizontalControlls();
         rb.linearVelocity = linVel;
+    }
+
+    private void OnChangeState(BasePlayerState newState, BasePlayerState oldState)
+    {
+        if (newState == stateManager.walkingState)
+        {
+            this.enabled = true;
+        }
+        else if (oldState == stateManager.walkingState)
+        {
+            this.enabled = false;
+            rb.linearVelocity = Vector3.zero;
+            linVel = Vector3.zero;
+        }
     }
 
     private void HorizontalControlls()
@@ -44,8 +64,8 @@ public class WalkingMovement : MonoBehaviour
 
         float inputMagnitude = input.magnitude;
 
-        Vector3 inputDirection = RigManager.instance.pTransform.right * input.x
-            + RigManager.instance.pTransform.forward * input.y;
+        Vector3 inputDirection = rigManager.pTransform.right * input.x
+            + rigManager.pTransform.forward * input.y;
 
         if (currentSpeed < maxVel || currentSpeed > maxVel)
         {
@@ -60,7 +80,7 @@ public class WalkingMovement : MonoBehaviour
         }
 
         Vector3 horizontalVel = inputDirection.normalized * (speed * Time.fixedDeltaTime);
-        linVel = new Vector3(horizontalVel.x, verticalSpeed, horizontalVel.z);
+        linVel = new Vector3(horizontalVel.x, rb.linearVelocity.y, horizontalVel.z);
     }
 
     public void WalkingInput(InputAction.CallbackContext context)

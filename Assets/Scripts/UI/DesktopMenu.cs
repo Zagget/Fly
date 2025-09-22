@@ -28,7 +28,7 @@ public class DesktopMenu : MonoBehaviour
         if (menuUI == null) Debug.LogError("menuUI is null");
 
         menuUI.InMenu += ChangeToMenu;
-        menuUI.InSettinga += ChangeToSetting;
+        menuUI.InSettings += ChangeToSetting;
 
         menuButtons = GetAndSortButtons(menu);
         settingButtons = GetAndSortButtons(settings);
