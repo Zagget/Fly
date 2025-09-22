@@ -5,15 +5,22 @@ public class PersonAnnoyManager : MonoBehaviour
 {
     int annoyedAmount = 0;
     [SerializeField] int annoyThreshold = 10;
-    [Range(0, 20)][SerializeField] float chaseDuration = 5f;
+    [Range(0, 50)][SerializeField] float chaseDuration = 5f;
+    [SerializeField] float chaseSpeed = 13;
+    float normalSpeed;
     Collider triggerCollider;
     bool isChasing;
+    PersonMovement personMovement;
     PersonStates personState;
+    Animator animator;
 
     void Start()
     {
         triggerCollider = GetComponent<Collider>();
         personState = GetComponent<PersonStates>();
+        animator = GetComponentInChildren<Animator>();
+        personMovement = GetComponent<PersonMovement>();
+        normalSpeed = personMovement.moveSpeed;
     }
 
     void OnEnable()
@@ -28,8 +35,9 @@ public class PersonAnnoyManager : MonoBehaviour
     void StartChasing()
     {
         Debug.Log("start chasing");
+        personMovement.moveSpeed = chaseSpeed;
         isChasing = true;
-        triggerCollider.enabled = false;
+        animator.SetBool("IsChasing", isChasing);
         StartCoroutine(StopChasing(chaseDuration));
     }
 
@@ -37,24 +45,32 @@ public class PersonAnnoyManager : MonoBehaviour
     {
         yield return new WaitForSeconds(chaseTime);
         Debug.Log("stop chasing");
+        personMovement.moveSpeed = normalSpeed;
         isChasing = false;
+        animator.SetBool("IsChasing", isChasing);
         annoyedAmount = 0;
         personState.ChangeState(BehaviourStates.Sitting);
-        triggerCollider.enabled = true;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
         {
-            annoyedAmount++;
-            Debug.Log("Annoyed person to: " + annoyedAmount);
-            personState.ChangeState(BehaviourStates.Annoyed);
+            if (personState.currentState == BehaviourStates.Chasing)
+            {
+                animator.SetTrigger("Attack");
+            }
+            else
+            {
+                annoyedAmount++;
+                Debug.Log("Annoyed person to: " + annoyedAmount);
+                personState.ChangeState(BehaviourStates.Annoyed);
+            }
         }
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
+        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled && personState.currentState != BehaviourStates.Chasing)
         {
             if (annoyedAmount > annoyThreshold)
                 personState.ChangeState(BehaviourStates.Chasing);

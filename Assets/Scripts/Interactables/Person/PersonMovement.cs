@@ -5,7 +5,7 @@ using UnityEngine;
 public class PersonMovement : MonoBehaviour
 {
     [Header("Person Settings")]
-    [SerializeField] float moveSpeed = 10;
+    public float moveSpeed = 10;
     [Range(0.1f, 50)][SerializeField] float passiveMovingFrequency = 10;
     [Range(0.1f, 50)][SerializeField] float activeMovingFrequency = 0.1f;
     [Header("Movement Area")]
