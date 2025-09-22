@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,9 +7,9 @@ public class UIPointer : MonoBehaviour
 
     public BoxCollider boxCollider;
     public Rigidbody rb;
-    private GameObject debugCube;
-    public Color color = new Color(1f, 0f, 0f, 0.25f);
 
+    private GameObject pointerCube;
+    public Color color = new Color(1f, 0f, 0f, 0.25f);
     private VRButton currentButton;
 
     void Awake()
@@ -21,22 +20,28 @@ public class UIPointer : MonoBehaviour
 
     void Start()
     {
-
         rb.isKinematic = true;
         rb.useGravity = false;
 
-        debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        pointerCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-        Destroy(debugCube.GetComponent<Collider>());
+        Destroy(pointerCube.GetComponent<Collider>());
 
-        debugCube.transform.SetParent(transform, false);
+        pointerCube.transform.SetParent(transform, false);
 
-        debugCube.transform.localPosition = boxCollider.center;
-        debugCube.transform.localScale = boxCollider.size;
+        pointerCube.transform.localPosition = boxCollider.center;
+        pointerCube.transform.localScale = boxCollider.size;
 
-        var renderer = debugCube.GetComponent<Renderer>();
+        var renderer = pointerCube.GetComponent<Renderer>();
         renderer.material = new Material(Shader.Find("Standard"));
         renderer.material.color = color;
+
+        SetVisible(false);
+    }
+
+    public void SetVisible(bool visible)
+    {
+        pointerCube.SetActive(visible);
     }
 
     private void OnTriggerEnter(Collider other)

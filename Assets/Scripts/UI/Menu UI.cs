@@ -5,7 +5,6 @@ public class MenuUI : MonoBehaviour
 {
     public GameObject menuPanel;
     public GameObject settingsPanel;
-
     [SerializeField] private SettingsData settings;
 
     bool inMenu = false;
@@ -33,15 +32,17 @@ public class MenuUI : MonoBehaviour
         }
     }
 
-    public void EnterMenu()
-    {
-        TogglePanels(true, false);
-    }
-
-    public void ClickResume()
+    public void ExitMenu()
     {
         inMenu = false;
         TogglePanels(false, false);
+
+        StateManager.Instance.menuState.ExitMenu();
+    }
+
+    public void GoBackToMenu()
+    {
+        TogglePanels(true, false);
     }
 
     public void ClickSettings()

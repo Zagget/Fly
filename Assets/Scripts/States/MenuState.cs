@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MenuState : BasePlayerState
@@ -9,11 +8,18 @@ public class MenuState : BasePlayerState
     {
         base.Enter(player);
         StateManager.Instance.OnStateChanged += HandleStateChanged;
+
+        player.leftPointer.SetVisible(true);
+        player.rightPointer.SetVisible(true);
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        player.leftPointer.SetVisible(false);
+        player.rightPointer.SetVisible(false);
+
         StateManager.Instance.OnStateChanged -= HandleStateChanged;
     }
 
@@ -38,6 +44,11 @@ public class MenuState : BasePlayerState
     }
 
     public override void HandleToggleMenu(InputAction.CallbackContext context)
+    {
+        ExitMenu();
+    }
+
+    public void ExitMenu()
     {
         player.SetState(oldState);
     }

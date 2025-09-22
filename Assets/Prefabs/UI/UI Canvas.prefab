@@ -931,7 +931,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VRButton
   onPress:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2909981313637556158}
+        m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
+        m_MethodName: GoBackToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4187695592996346766 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7265669872806702122, guid: 57e21f06103ac07429d153e8465f319c, type: 3}
@@ -1016,7 +1028,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2909981313637556158}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
-        m_MethodName: ClickResume
+        m_MethodName: ExitMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1066,7 +1078,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VRButton
   onPress:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2909981313637556158}
+        m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
+        m_MethodName: ExitMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5808603142645850078 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1032797098572851322, guid: 57e21f06103ac07429d153e8465f319c, type: 3}
