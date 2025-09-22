@@ -40,7 +40,8 @@ public class MenuState : BasePlayerState
 
     public override void HandleActivatePower(InputAction.CallbackContext context, PlayerController playerController)
     {
-        player.desktopMenu.Press(context);
+        if (!RigManager.instance.usingVr)
+            player.desktopMenu.Press(context);
     }
 
     public override void HandleDesktopFlight(InputAction.CallbackContext context, DesktopMovement movement)

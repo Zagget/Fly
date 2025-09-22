@@ -37,11 +37,13 @@ public class UIPointer : MonoBehaviour
         renderer.material.color = color;
 
         SetVisible(false);
+        boxCollider.enabled = false;
     }
 
     public void SetVisible(bool visible)
     {
         pointerCube.SetActive(visible);
+        boxCollider.enabled = visible;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,10 +51,11 @@ public class UIPointer : MonoBehaviour
         if ((uiLayer.value & (1 << other.transform.gameObject.layer)) == 0)
             return;
 
-        Debug.Log("MENU Enter trigger" + other.name);
         VRButton button = other.GetComponent<VRButton>();
         if (button != null)
         {
+
+            Debug.Log("MENU Hover true" + other.name);
             button.Hover(true);
             currentButton = button;
         }
@@ -60,13 +63,13 @@ public class UIPointer : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (((1 << other.gameObject.layer) & uiLayer) == 0)
+        if ((uiLayer.value & (1 << other.transform.gameObject.layer)) == 0)
             return;
 
-        Debug.Log("MENU Exit trigger" + other.name);
         VRButton button = other.GetComponent<VRButton>();
         if (button != null)
         {
+            Debug.Log("MENU Hover false" + other.name);
             button.Hover(false);
             currentButton = null;
         }
@@ -75,12 +78,6 @@ public class UIPointer : MonoBehaviour
     public void OnPress(InputAction.CallbackContext context)
     {
         if (context.started && currentButton != null)
-        {
-            Debug.Log("MENU: Pressed on " + currentButton.name);
-            currentButton.Press();
-        }
-
-        if (context.performed && currentButton != null)
         {
             Debug.Log("MENU: Pressed on " + currentButton.name);
             currentButton.Press();

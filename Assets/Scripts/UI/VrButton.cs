@@ -9,7 +9,7 @@ public class VRButton : MonoBehaviour
     private RectTransform rectTransform;
     private Image image;
 
-    private bool isHighlighted;
+    private int hoverCount = 0;
 
     void Awake()
     {
@@ -17,10 +17,6 @@ public class VRButton : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
 
         image = GetComponent<Image>();
-        if (image == null)
-        {
-            image = GetComponent<Image>();
-        }
 
         if (image == null) Debug.LogWarning("VRButton: No Image found on this object or its children.");
 
@@ -48,7 +44,7 @@ public class VRButton : MonoBehaviour
 
     public void Hover(bool hovering)
     {
-        isHighlighted = hovering;
+        Debug.Log($"Hovering {hovering}");
         if (hovering)
         {
             image.color = Color.yellow;
