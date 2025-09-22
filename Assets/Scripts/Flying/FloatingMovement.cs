@@ -63,7 +63,7 @@ public class FloatingMovement : MonoBehaviour
 
     void OnSateChanged(BasePlayerState state, BasePlayerState lastState)
     {
-        if (state == StateManager.Instance.flyingState)
+        if (state == StateManager.Instance.flyingState && usingVR)
         {
             this.enabled = true;
             if (lastState == StateManager.Instance.hoverState)
@@ -72,7 +72,7 @@ public class FloatingMovement : MonoBehaviour
             }
 
         }
-        else if (this.enabled == true)
+        else if (this.enabled == true && usingVR)
         {
             rb.linearVelocity = Vector3.zero;
             linVel = rb.linearVelocity;
