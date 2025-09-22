@@ -36,9 +36,21 @@ public class DesktopMenu : MonoBehaviour
 
     private VRButton[] GetAndSortButtons(GameObject go)
     {
-        return go.GetComponentsInChildren<VRButton>()
-            .OrderBy(b => b.transform.GetSiblingIndex())
+        return go.GetComponentsInChildren<VRButton>(true) // true = include inactive
+            .OrderBy(b => GetFullHierarchyIndex(b.transform))
             .ToArray();
+    }
+
+    private string GetFullHierarchyIndex(Transform t)
+    {
+        string path = "";
+        Transform current = t;
+        while (current != null)
+        {
+            path = $"{current.GetSiblingIndex():D2}/{path}";
+            current = current.parent;
+        }
+        return path;
     }
 
     public void Press(InputAction.CallbackContext context)

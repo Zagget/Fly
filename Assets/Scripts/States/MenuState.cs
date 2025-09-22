@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MenuState : BasePlayerState
 {
-    private BasePlayerState oldState;
+    private BasePlayerState previousState;
 
     public override void Enter(PlayerController player)
     {
@@ -23,8 +23,6 @@ public class MenuState : BasePlayerState
     public override void Exit()
     {
         base.Exit();
-
-        player.menu.EnterMenu();
 
         if (RigManager.instance.usingVr)
         {
@@ -60,19 +58,22 @@ public class MenuState : BasePlayerState
         player.rightPointer.OnPress(context);
     }
 
-    private void HandleStateChanged(BasePlayerState oldState, BasePlayerState newState)
+    private void HandleStateChanged(BasePlayerState newState, BasePlayerState oldState)
     {
-        this.oldState = oldState;
-        UnityEngine.Debug.Log($"Menu oldState: {oldState}");
+        previousState = oldState;
     }
 
     public override void HandleToggleMenu(InputAction.CallbackContext context)
     {
-        ExitMenu();
+        if (context.started)
+        {
+            ExitMenu();
+        }
     }
 
     public void ExitMenu()
     {
-        player.SetState(oldState);
+        player.menu.TogglePanels(false, false);
+        player.SetState(previousState);
     }
 }

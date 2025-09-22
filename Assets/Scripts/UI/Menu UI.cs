@@ -9,11 +9,8 @@ public class MenuUI : MonoBehaviour
 
     [SerializeField] private SettingsData settings;
 
-    bool inMenu = false;
-
     public event Action InMenu;
     public event Action InSettinga;
-
 
     private void Start()
     {
@@ -26,18 +23,9 @@ public class MenuUI : MonoBehaviour
         InMenu?.Invoke();
     }
 
-    public void ExitMenu()
+    public void ClickResume()
     {
-        inMenu = false;
-        TogglePanels(false, false);
-
         StateManager.Instance.menuState.ExitMenu();
-    }
-
-    public void GoBackToMenu()
-    {
-        TogglePanels(true, false);
-        InMenu?.Invoke();
     }
 
     public void ClickSettings()
