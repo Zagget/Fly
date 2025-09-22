@@ -10,7 +10,7 @@ public class FlyingState : BasePlayerState
     private Vector3 rightControllerPosition;
 
     private float maximumControllerHeightToLand; // sets automatically on Entry
-    private float lessThanMaxHeightPercentage = 0.8f; //20% less then max arm height of players.
+    private float lessThanMaxHeightPercentage = 0.3f; //30% of arm length up.
 
     // Grabbing when flying?
     public override void HandleGrabLeft(InputAction.CallbackContext context, Grabber leftGrabber)
@@ -35,15 +35,18 @@ public class FlyingState : BasePlayerState
         base.Enter(player);
         stateActiveTime = 0;
 
-        maximumControllerHeightToLand = float.Parse(PlayerPrefs.GetString(ControllerData.deadZoneCenterKey))
-            / lessThanMaxHeightPercentage;
+        maximumControllerHeightToLand = (float.Parse(PlayerPrefs.GetString(ControllerData.maxControllerHeightKey))
+            * lessThanMaxHeightPercentage);
     }
 
 
     public override void StateUpdate()
     {
-        leftControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
-        rightControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
+        if (RigManager.instance.usingVr)
+        {
+            leftControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
+            rightControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
+        }
 
         stateActiveTime += Time.deltaTime; 
 

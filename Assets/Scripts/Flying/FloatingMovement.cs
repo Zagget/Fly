@@ -27,17 +27,24 @@ public class FloatingMovement : MonoBehaviour
     private float timeToSlowInput = 1;
     private float controllerInputMultiplier = 1;
 
+    private bool usingVR;
+
     private void Start()
     {
         StateManager.Instance.OnStateChanged += OnSateChanged;
 
         if (RigManager.instance.usingVr == false)
         {
+            usingVR = false;
             this.enabled = false;
             return;
         }
+        else
+        {
+            usingVR = true;
+        }
 
-        rb = RigManager.instance.currentRb;
+            rb = RigManager.instance.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
 
         controller = GetComponent<PlayerController>();
@@ -109,8 +116,11 @@ public class FloatingMovement : MonoBehaviour
         float yValue = 0;
         float zValue = 0;
 
-        leftController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
-        rightController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
+        if (usingVR)
+        {
+            leftController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
+            rightController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
+        }
 
 
         Vector3 cPos = centerEyeTransform.localPosition;

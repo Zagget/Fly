@@ -30,8 +30,17 @@ public class ControllerData : MonoBehaviour
     /// </summary>
     public void SetMaxControllerHeight()
     {
+
+        if (!RigManager.instance.usingVr)
+        {
+            Debug.LogWarning("Not in VR, cant set Max Controller Height " + name);
+            return;
+        }
+
         leftControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
         rightControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
+
+
 
         float maxControllerHeight = (leftControllerPosition.y + rightControllerPosition.y) / 2;
         PlayerPrefs.SetFloat(maxControllerHeightKey, maxControllerHeight);
@@ -43,6 +52,12 @@ public class ControllerData : MonoBehaviour
     /// <param name="controllerType"></param>
     public void SetIndividualMaxControllerHeight(OVRInput.Controller controllerType)
     {
+        if (!RigManager.instance.usingVr)
+        {
+            Debug.LogWarning("Not in VR, cant set individual Max Controller Height " + name);
+            return;
+        }
+
         float maxControllerHeight = OVRInput.GetLocalControllerPosition(controllerType).y;
         PlayerPrefs.SetFloat(maxControllerHeightKey, maxControllerHeight);
     }
@@ -54,6 +69,12 @@ public class ControllerData : MonoBehaviour
 
     public void SetDeadZoneCenter()
     {
+        if (RigManager.instance.usingVr == false)
+        {
+            Debug.LogWarning("Not in VR, cant calibrate DeadZone " + name);
+            return;
+        }
+
         StartCoroutine(nameof(DeadZoneCalibrator));
     }
     IEnumerator DeadZoneCalibrator()

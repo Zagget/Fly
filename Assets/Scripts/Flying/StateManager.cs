@@ -28,6 +28,7 @@ public class StateManager : MonoBehaviour
 
     /// <summary>
     /// Triggers when a state is changed, arg1 is new state, arg2 is last state.
+    /// <para> New State, Old State</para>
     /// </summary>
     public event Action<BasePlayerState, BasePlayerState> OnStateChanged;
 
