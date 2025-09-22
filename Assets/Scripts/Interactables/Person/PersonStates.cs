@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -41,9 +42,6 @@ public class PersonStates : MonoBehaviour
         ChangeState(currentState);
         animator = GetComponentInChildren<Animator>();
     }
-    void Start()
-    {
-    }
 
     public void ChangeState(BehaviourStates newState)
     {
@@ -52,9 +50,30 @@ public class PersonStates : MonoBehaviour
             newState != BehaviourStates.Sitting &&
             animator.GetCurrentAnimatorStateInfo(0).IsName("Sitting_Idle_Loop"))
         {
-            animator.SetTrigger("StopSit");
+            StartCoroutine(InvokeAfterAnimation(newState, "StopSit", "Sitting_Exit"));
         }
+        else
+        {
+            InvokeChangeState(newState);
+        }
+    }
+
+    IEnumerator InvokeAfterAnimation(BehaviourStates newstate, string triggerName, string animStateName)
+    {
+        if (AnimationManager.Instance == null)
+        {
+            Debug.LogError("AnimationManager.Instance is null!");
+            yield break;
+        }
+        Debug.Log("waiting to invoke states until " + animStateName + " is finished");
+        animator.SetTrigger(triggerName);
+        yield return AnimationManager.Instance.WaitForAnimation(animator, animStateName);
+        InvokeChangeState(newstate);
         
+    }
+
+    void InvokeChangeState(BehaviourStates newState)
+    {
         onStateChanged?.Invoke(newState);
 
         _CurrentState = newState;
@@ -81,6 +100,7 @@ public class PersonStates : MonoBehaviour
                 break;
         }
     }
+
 #if UNITY_EDITOR
     private void OnValidate() //Triggers the event when it's changed in the editor
     {
