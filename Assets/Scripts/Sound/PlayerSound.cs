@@ -1,11 +1,24 @@
 using UnityEngine;
+
 public class PlayerSound : MonoBehaviour
 {
-    Rigidbody rb;
-    AudioSource playerSource;
+    [Header("Smooth Settings")]
+    [SerializeField] private float maxSpeed = 30;
+    [SerializeField] private float pitchSmooth = 0.9f;
+    [SerializeField] private float volumeSmooth = 0.2f;
+    [SerializeField] private float smoothSpeed = 10f;
+
+    [Header("Volume/Pitch")]
+    [SerializeField] private float minVolume = 0.2f;
+    [SerializeField] private float maxVolume = 0.7f;
+    [SerializeField] private float minPitch = 0.9f;
+    [SerializeField] private float maxPitch = 1.1f;
+
+    private Rigidbody rb;
+    private AudioSource buzzingSource;
+    private AudioSource miscSource;
 
     private BasePlayerState currentState;
-
     private HoverState hover;
     private FlyingState flying;
     private WalkingState walking;
@@ -22,9 +35,11 @@ public class PlayerSound : MonoBehaviour
 
         StateManager.Instance.OnStateChanged += OnChangedState;
 
-        playerSource = gameObject.AddComponent<AudioSource>();
+        buzzingSource = gameObject.AddComponent<AudioSource>();
+        miscSource = gameObject.AddComponent<AudioSource>();
 
-        playerSource.spatialBlend = 0f;
+        buzzingSource.spatialBlend = 0f;
+        miscSource.spatialBlend = 0f;
     }
 
     private void OnChangedState(BasePlayerState newState, BasePlayerState oldState)
@@ -36,19 +51,23 @@ public class PlayerSound : MonoBehaviour
 
         if (IsState(hover))
         {
-            SoundManager.instance.PlaySound(Stopping.Random, playerSource);
+            SoundManager.instance.PlaySound(Stopping.Random, miscSource);
         }
 
         if (IsState(flying))
         {
-            SoundManager.instance.PlaySound(Flying.Random, playerSource, true);
+            if (!buzzingSource.isPlaying)
+            {
+                SoundManager.instance.PlaySound(Flying.Random, buzzingSource, true);
+            }
         }
 
         if (IsState(menu) && oldState == flying)
         {
             Debug.Log("Sound ISSTATE MEnu");
-            //playerSource.Stop();
-            SoundManager.instance.PlaySound(Stopping.Random, playerSource);
+
+            buzzingSource.volume = minVolume;
+            SoundManager.instance.PlaySound(Stopping.Random, miscSource);
         }
     }
 
@@ -65,16 +84,20 @@ public class PlayerSound : MonoBehaviour
         }
     }
 
-    private float maxSpeed = 30;
     private void PlaySoundSpeed()
     {
         float speed = rb.linearVelocity.magnitude;
-
         float t = Mathf.Clamp01(speed / maxSpeed);
 
-        playerSource.pitch = Mathf.Lerp(0.9f, 1.1f, t);
-        playerSource.volume = Mathf.Lerp(0.2f, 0.8f, t);
+        float targetPitch = Mathf.Lerp(minPitch, maxPitch, t);
+        float targetVolume = Mathf.Lerp(minVolume, maxVolume, t);
 
-        Debug.Log($"SOUND speed: {speed} t: {t} pitch: {playerSource.pitch} volume: {playerSource.volume} State {currentState}");
+        pitchSmooth = Mathf.Lerp(pitchSmooth, targetPitch, Time.deltaTime * smoothSpeed);
+        volumeSmooth = Mathf.Lerp(volumeSmooth, targetVolume, Time.deltaTime * smoothSpeed);
+
+        buzzingSource.pitch = pitchSmooth;
+        buzzingSource.volume = volumeSmooth;
+
+        Debug.Log($"SOUND speed: {speed:F2} t: {t:F2} pitch: {pitchSmooth:F2} volume: {volumeSmooth:F2}");
     }
 }

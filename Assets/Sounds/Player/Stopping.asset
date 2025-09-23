@@ -15,7 +15,7 @@ MonoBehaviour:
   sounds:
   - name: flying_stop
     clip: {fileID: 8300000, guid: 59a4b80e234d575468eb7202a7d803e6, type: 3}
-    volume: 1
-    minPitch: 1
+    volume: 0.693
+    minPitch: 0.91
     maxPitch: 1
     mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}

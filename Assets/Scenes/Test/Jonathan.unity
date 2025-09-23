@@ -10203,6 +10203,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a325d10862e4df4f818b51aebf4fe22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSound
+  maxSpeed: 30
+  pitchSmooth: 0.9
+  volumeSmooth: 0.2
+  smoothSpeed: 10
+  minVolume: 0.1
+  maxVolume: 0.7
+  minPitch: 0.9
+  maxPitch: 1.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
