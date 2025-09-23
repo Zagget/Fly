@@ -11,6 +11,7 @@ public class PersonMovement : MonoBehaviour
     [Header("Movement Area")]
     [SerializeField] Bounds movingArea;
     [SerializeField] Transform chairSeat;
+    [SerializeField] Door door;
     float targetThreshold = 0.5f;
     PersonStates personStates;
     Vector3 target;
@@ -35,6 +36,7 @@ public class PersonMovement : MonoBehaviour
         PersonStates.onPersonAnnoyed += CheckMovement;
         PersonStates.onPersonChasing += CheckMovement;
         PersonStates.OnPersonSitting += CheckMovement;
+        PersonStates.OnPersonOpenDoor += CheckMovement;
         OnTargetReached += TargetReachedHandler;
     }
     void OnDisable()
@@ -44,6 +46,7 @@ public class PersonMovement : MonoBehaviour
         PersonStates.onPersonAnnoyed -= CheckMovement;
         PersonStates.onPersonChasing -= CheckMovement;
         PersonStates.OnPersonSitting -= CheckMovement;
+        PersonStates.OnPersonOpenDoor -= CheckMovement;
         OnTargetReached -= TargetReachedHandler;
     }
 
@@ -90,6 +93,9 @@ public class PersonMovement : MonoBehaviour
                 break;
             case BehaviourStates.Sitting:
                 SetTarget(new Vector3(chairSeat.position.x, transform.position.y, chairSeat.position.z)); //move to chair
+                break;
+            case BehaviourStates.OpenDoor:
+                SetTarget(new Vector3(door.transform.GetChild(0).position.x, transform.position.y, door.transform.GetChild(0).position.z));
                 break;
             default:
                 Debug.LogWarning("No movement tied to the state: " + personStates.currentState);
@@ -145,6 +151,9 @@ public class PersonMovement : MonoBehaviour
             case BehaviourStates.Sitting:
                 PersonSit(chairSeat);
                 break;
+            case BehaviourStates.OpenDoor:
+                StartCoroutine(PersonInteract(door.transform.GetChild(0))); //Get the interact position of the door
+                break;
             default:
                 break;
         }
@@ -154,8 +163,15 @@ public class PersonMovement : MonoBehaviour
     {
         transform.position = new Vector3(seat.position.x, transform.position.y, seat.position.z);
         transform.rotation = seat.rotation;
-        //Play sitting animation
-        animator.SetTrigger("StartSit");
+        animator.SetTrigger("StartSit"); //Play sitting animation
+    }
+    IEnumerator PersonInteract(Transform interactPosition)
+    {
+        transform.position = new Vector3(interactPosition.position.x, transform.position.y, interactPosition.position.z);
+        transform.rotation = interactPosition.rotation;
+        animator.SetTrigger("Interact"); //Play interact animation. Interact event is triggered by animation clip
+        yield return AnimationManager.Instance.WaitForAnimation(animator, "Interact");
+        personStates.ChangeState(BehaviourStates.Neutral);
     }
 
     void OnDrawGizmosSelected()

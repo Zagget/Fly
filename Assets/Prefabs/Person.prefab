@@ -55,6 +55,7 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 100, y: 0, z: 100}
   chairSeat: {fileID: 0}
+  door: {fileID: 0}
 --- !u!114 &7043585250266492040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +188,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af2185a00d15fcd41aa1d0478fa361f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7877165168986066712}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af2185a00d15fcd41aa1d0478fa361f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4424918365017638898}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af2185a00d15fcd41aa1d0478fa361f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 257746764098653595}
   m_SourcePrefab: {fileID: 100100000, guid: af2185a00d15fcd41aa1d0478fa361f9, type: 3}
 --- !u!4 &8363474600755323777 stripped
 Transform:
@@ -221,3 +228,36 @@ CapsuleCollider:
   m_Height: 1.9
   m_Direction: 1
   m_Center: {x: 0, y: 0.86, z: 0}
+--- !u!114 &4424918365017638898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9176884113476794683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d82e4b16a2ab0b4b82b54ecd75d5b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersonInteract
+--- !u!135 &257746764098653595
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9176884113476794683}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 1, z: 0}
