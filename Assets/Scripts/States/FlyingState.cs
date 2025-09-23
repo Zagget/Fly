@@ -13,6 +13,8 @@ public class FlyingState : BasePlayerState
     private float controllerLandingHeight;
     private float heightMultiplier = 0.7f;
 
+    RigManager rig;
+
     // Grabbing when flying?
     public override void HandleGrabLeft(InputAction.CallbackContext context, Grabber leftGrabber)
     {
@@ -39,10 +41,14 @@ public class FlyingState : BasePlayerState
         maximumControllerHeight = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey);
 
         controllerLandingHeight = 2 - maximumControllerHeight;
+
+        rig = RigManager.instance;
     }
 
     public override void StateUpdate()
     {
+        if (!rig.usingVr) return;
+
         if (RigManager.instance.usingVr)
         {
             leftControllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
