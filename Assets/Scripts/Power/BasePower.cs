@@ -1,52 +1,38 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
-public class BasePower : ScriptableObject
+public abstract class BasePower : ScriptableObject
 {
     public float Cooldown { get; protected set; }
-
-    protected Rigidbody playersRigidbody;
     protected float currentCharge;
-    
+
     [SerializeField] protected int maximumCharge = 10;
-    public int MaximumCharge { get {  return maximumCharge; } }
-    [SerializeField] protected float duration = 0;
+    public int MaximumCharge { get { return maximumCharge; } }
 
-    PowerManager powerManager;
+    protected PlayerController playerController;
+    protected RigManager rigManager;
+    protected PowerManager powerManager;
+    protected float timeStarted;
 
-    float timeStarted;
-
-    public virtual void Activate(Rigidbody player, float currentCharge, PowerManager powerManager)
+    public virtual void Activate(RigManager rigManager, float currentCharge, PowerManager powerManager, PlayerController playerController)
     {
-        playersRigidbody = player;
-        if (playersRigidbody == null) return;
+        this.rigManager = rigManager;
+        if (this.rigManager == null) return;
+        this.playerController = playerController;
         this.currentCharge = currentCharge;
         this.powerManager = powerManager;
-        powerManager.continues += Continues;
         timeStarted = Time.time;
-
-        Start();
     }
+
+    public virtual void DeactivateToggle() { }
+
+    public abstract void Continues();
 
     /// <summary>
     /// Gets called once when activating
     /// </summary>
     public virtual void Start() { }
-
-    public void Continues()
-    {
-        if (Time.time - timeStarted >= duration)
-        {
-            End();
-            powerManager.continues -= Continues;
-        }
-        else
-        {
-            Update();
-        }
-    }
 
     /// <summary>
     ///  Gets called once every frame as long as the duration has not run out

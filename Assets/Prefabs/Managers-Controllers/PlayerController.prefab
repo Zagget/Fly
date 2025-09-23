@@ -67,6 +67,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LookingControls
   rotationStep: 30
   rotateSmothness: 0
+  maxCooldown: 0.4
+  minCooldown: 0.01
 --- !u!114 &5561808291904335753
 MonoBehaviour:
   m_ObjectHideFlags: 0

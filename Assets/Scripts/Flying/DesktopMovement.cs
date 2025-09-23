@@ -28,14 +28,18 @@ public class DesktopMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    StateManager stateManager;
+
     private void Start()
     {
+        stateManager = StateManager.Instance;
         if (RigManager.instance.usingVr == true)
         {
             this.enabled = false;
             return;
         }
 
+        stateManager.OnStateChanged += OnChangeState;
         rb = RigManager.instance.currentRb;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -49,6 +53,20 @@ public class DesktopMovement : MonoBehaviour
         rb.linearVelocity = linVel;
     }
 
+    private void OnChangeState(BasePlayerState newState, BasePlayerState oldState)
+    {
+        if (newState == stateManager.flyingState)
+        {
+            this.enabled = true;
+        }
+        else if (oldState == stateManager.flyingState)
+        {
+            this.enabled = false;
+            rb.linearVelocity = Vector3.zero;
+            linVel = Vector3.zero;
+        }
+    }
+
     private void VerticalFlight()
     {
         float verticalInput = 0;
@@ -59,15 +77,6 @@ public class DesktopMovement : MonoBehaviour
         if (flyingDown)
         {
             verticalInput -= 1;
-        }
-
-        if (Mathf.Abs(verticalSpeed) < maxVerticalVel)
-        {
-            verticalSpeed += verticalAcceleration * Time.fixedDeltaTime * verticalInput;
-        }
-        else
-        {
-            verticalSpeed = maxVerticalVel * verticalInput;
         }
 
         if (verticalInput == 0)
@@ -86,7 +95,20 @@ public class DesktopMovement : MonoBehaviour
             {
                 verticalSpeed += Time.fixedDeltaTime * verticalDecceleration;
             }
+
+            return;
         }
+
+        if (Mathf.Abs(verticalSpeed) < maxVerticalVel)
+        {
+            verticalSpeed += verticalAcceleration * Time.fixedDeltaTime * verticalInput;
+        }
+        else
+        {
+            verticalSpeed = maxVerticalVel * verticalInput;
+        }
+
+        
     }
 
     private void HorizontalControlls()
@@ -131,11 +153,11 @@ public class DesktopMovement : MonoBehaviour
 
     public void FlyUp(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
             flyingUp = true;
         }
-        else
+        else if (context.canceled)
         {
             flyingUp = false;
         }
@@ -143,11 +165,11 @@ public class DesktopMovement : MonoBehaviour
 
     public void FlyDown(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
             flyingDown = true;
         }
-        else
+        else if (context.canceled)
         {
             flyingDown = false;
         }

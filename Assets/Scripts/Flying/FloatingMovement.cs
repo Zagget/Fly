@@ -1,6 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
-
 public class FloatingMovement : MonoBehaviour
 {
     private Rigidbody rb;
@@ -11,89 +10,78 @@ public class FloatingMovement : MonoBehaviour
     [SerializeField] private float controllerYOffset = 100; //Offset is approximately from ground, where ~0 is the floor.
     [SerializeField] private float controllerZOffset; //offset is how close controllers have to be to the player to count as 0 or negative.
 
-    [SerializeField] private float deadZone;
+    private float deadZone = 0.3f;
     [SerializeField] private Transform centerEyeTransform;
     [SerializeField] private float headsetYOffset = 1.15f;
-
-    private Camera vrCam;
 
     private Vector3 leftController;
     private Vector3 rightController;
 
     private Vector3 linVel; //rb.linearVelocity
 
-    private Camera activeCamera = null;
-
     [SerializeField] private float maxSpeed = 50;
 
-    private float SMLeftMinimum = 0.1f;
-    private float SMRightMinimum = 0.3f;
+    private Vector3 controllerPositionInput;
+    private PlayerController controller;
 
-    Vector3 controllerPositionInput;
+    private float timeToSlowInput = 1;
+    private float controllerInputMultiplier = 1;
 
-    private float turnStrength;
-    private Vector2 rightAxisInput;
-
-    private FlightMode currentMode;
-    private enum FlightMode
-    {
-        Standard = 0,
-        Fast = 1,
-    }
-
+    private bool usingVR;
 
     private void Start()
     {
+        StateManager.Instance.OnStateChanged += OnSateChanged;
+
         if (RigManager.instance.usingVr == false)
         {
+            usingVR = false;
             this.enabled = false;
             return;
         }
-
-        rb = RigManager.instance.currentRb;
-        if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
-
-        if (RigManager.instance.usingVr == true)
-        {
-            activeCamera = RigManager.instance.VRCamera;
-        }
         else
         {
-            activeCamera = RigManager.instance.desktopCamera;
+            usingVR = true;
         }
-    }
 
+            rb = RigManager.instance.currentRb;
+        if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
+
+        controller = GetComponent<PlayerController>();
+        if (controller == null) Debug.LogError("Floating movement does not have access to player controller");
+    }
 
     private void FixedUpdate()
     {
         linVel = rb.linearVelocity;
 
         controllerPositionInput = GetControllerPositions();
-        currentMode = GetFlightMode();
         StandardControls();
-        //switch (currentMode)
-        //{
-        //    case FlightMode.Standard:
-        //        StandardControls();
-        //        break;
-
-        //    case FlightMode.Fast:
-        //       // FastControls();
-        //        break;
-        //}
 
         rb.linearVelocity = linVel;
     }
 
-    private FlightMode GetFlightMode()
+    void OnSateChanged(BasePlayerState state, BasePlayerState lastState)
     {
-        if (rightAxisInput != Vector2.zero) //Super man pose.
+        if (state == StateManager.Instance.flyingState && usingVR)
         {
-            return FlightMode.Fast;
+            this.enabled = true;
+            if (lastState == StateManager.Instance.hoverState)
+            {
+                StartCoroutine(nameof(SlowControllerInput));
+            }
+
         }
-        else
+        else if (this.enabled == true && usingVR)
         {
-            return FlightMode.Standard;
+            rb.linearVelocity = Vector3.zero;
+            linVel = rb.linearVelocity;
+            this.enabled = false;
+        }
+
+        if (lastState == StateManager.Instance.menuState)
+        {
+            deadZone = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
         }
     }
 
@@ -103,9 +91,28 @@ public class FloatingMovement : MonoBehaviour
 
         linVel = Vector3.zero;
 
-        linVel += RigManager.instance.currentRb.transform.forward * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.z;
-        linVel += RigManager.instance.currentRb.transform.up * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.y;
-        linVel += RigManager.instance.currentRb.transform.right * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.x;
+        linVel += RigManager.instance.currentRb.transform.forward
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.z * controllerInputMultiplier;
+
+        linVel += RigManager.instance.currentRb.transform.up
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.y * controllerInputMultiplier;
+
+        linVel += RigManager.instance.currentRb.transform.right
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.x * controllerInputMultiplier;
+    }
+
+    IEnumerator SlowControllerInput()
+    {
+        float timer = 0;
+
+        while (timer < timeToSlowInput) 
+        {
+            controllerInputMultiplier = timer / timeToSlowInput;
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        controllerInputMultiplier = 1;
     }
 
     private Vector3 GetControllerPositions()
@@ -114,14 +121,14 @@ public class FloatingMovement : MonoBehaviour
         float yValue = 0;
         float zValue = 0;
 
-        leftController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
-        rightController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
+        if (usingVR)
+        {
+            leftController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
+            rightController = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
+        }
 
 
         Vector3 cPos = centerEyeTransform.localPosition;
-        //Debug.Log(((leftController + rightController) / 2) - new Vector3(cPos.x, cPos.y - headsetYOffset, cPos.z));
-
-        //Debug.Log("Controllers " + (leftController + rightController) / 2);
 
         Vector3 offsetTracking = ((leftController + rightController) / 2);
 
@@ -135,8 +142,6 @@ public class FloatingMovement : MonoBehaviour
         zValue = (((leftController + rightController).z / 2) - cPos.z) * 100;
         zValue -= controllerZOffset;
 
-        // if (zValue < 0) zValue = 0;
-
         if (Mathf.Abs(xValue) < deadZone) xValue = 0;
 
         if (Mathf.Abs(yValue) < deadZone) yValue = 0;
@@ -144,26 +149,8 @@ public class FloatingMovement : MonoBehaviour
         if (Mathf.Abs(zValue) < deadZone) zValue = 0;
 
 
-        Debug.Log(" X: " +  xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
+        //Debug.Log(" X: " +  xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
 
         return new Vector3(xValue, yValue, zValue);
-    }
-
-    //private void FastControls()
-    //{
-    //    Vector3 forward = RigManager.instance.currentRb.transform.forward;
-    //    Vector3 right = RigManager.instance.currentRb.transform.right;
-
-        
-
-    //    Vector3 moveDirection = forward;
-    //    moveDirection = Vector3.Lerp(moveDirection, rightAxisInput.normalized * forward, Time.fixedDeltaTime * turnStrength);
-    //    linVel = moveDirection * highSpeedMode;
-    //}
-
-    public void FlyingInput(InputAction.CallbackContext context)
-    {
-        Vector2 input = context.ReadValue<Vector2>();
-        rightAxisInput = input;
     }
 }

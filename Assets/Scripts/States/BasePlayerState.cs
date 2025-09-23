@@ -4,18 +4,23 @@ using UnityEngine.InputSystem;
 public abstract class BasePlayerState
 {
     protected PlayerController player;
-
     public virtual void Enter(PlayerController player)
     {
         this.player = player;
     }
 
     public virtual void Exit() { }
-    public virtual void Update() { }
+    /// <summary>
+    /// Update but only gets triggered when current state is active.
+    /// </summary>
+    public virtual void StateUpdate() { }
 
     // Add walking script to param
     public virtual void HandleMovement(InputAction.CallbackContext context, FloatingMovement floatingMovement) { }
 
+    public virtual void HandleWalkingMovement(InputAction.CallbackContext context, WalkingMovement walkingMovement) { }
+
+    public virtual void HandlePrimaryButton(InputAction.CallbackContext context) { }
     public virtual void HandleRotateVision(InputAction.CallbackContext context, LookingControls looking)
     {
         looking.OnRotate(context);
@@ -31,14 +36,23 @@ public abstract class BasePlayerState
         rightGrabber.OnGrabInput(context);
     }
 
-    public virtual void HandleActivatePower(InputAction.CallbackContext context)
+    public virtual void HandleActivatePower(InputAction.CallbackContext context, PlayerController playerController)
     {
-        PowerManager.Instance.ActivatePower(context);
+        PowerManager.Instance.ActivatePower(context, playerController);
     }
 
     public virtual void HandleTogglePower(InputAction.CallbackContext context)
     {
         PowerProgression.Instance.NextPower(context);
+    }
+
+    public virtual void HandleToggleMenu(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            player.SetState(StateManager.Instance.menuState);
+            Debug.Log("State started");
+        }
     }
 
     // Desktop Inputs
@@ -71,5 +85,10 @@ public abstract class BasePlayerState
     public virtual void HandleDesktopFlight(InputAction.CallbackContext context, DesktopMovement movement)
     {
         movement.FlyingInput(context);
+    }
+
+    public virtual void HandleDesktopHover(InputAction.CallbackContext context)
+    {
+
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,54 +8,76 @@ public enum BehaviourStates
     Disabled, //used to disable person behaviour
     Neutral,
     Annoyed,
-    Chasing
+    Chasing,
+    Sitting
 }
 public class PersonStates : MonoBehaviour
 {
     public delegate void OnPersonIgnore();
-    public static OnPersonIgnore onPersonDisabled;
+    public static event OnPersonIgnore onPersonDisabled;
     public delegate void OnPersonNeutral();
-    public static OnPersonNeutral onPersonNeutral;
+    public static event OnPersonNeutral onPersonNeutral;
     public delegate void OnPersonAnnoyed();
-    public static OnPersonAnnoyed onPersonAnnoyed;
+    public static event OnPersonAnnoyed onPersonAnnoyed;
     public delegate void OnPersonChasing();
-    public static OnPersonChasing onPersonChasing;
+    public static event OnPersonChasing onPersonChasing;
+    public static event Action OnPersonSitting;
     [SerializeField] private BehaviourStates _CurrentState;
+    private BehaviourStates preBehaviour;
     public BehaviourStates currentState
     {
         get => _CurrentState;
         set
         {
             if (_CurrentState != value)
-            { _CurrentState = value; OnStateChanged(_CurrentState); }
+            { _CurrentState = value; }
         }
     }
     public delegate void StateChanged(BehaviourStates newState);
-    public static StateChanged stateChanged;
+    public static StateChanged onStateChanged;
+    Animator animator;
 
     void Awake()
     {
-        OnStateChanged(currentState);
+        ChangeState(currentState);
+        animator = GetComponentInChildren<Animator>();
     }
 
-    public static void OnStateChanged(BehaviourStates newState)
+    public void ChangeState(BehaviourStates newState)
     {
-        Debug.Log("State changed to: " + newState);
-        stateChanged?.Invoke(newState);
+        Debug.Log($"old state: {preBehaviour}, new state: {newState}");
+        if (preBehaviour == BehaviourStates.Sitting &&
+            newState != BehaviourStates.Sitting &&
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Sitting_Idle_Loop"))
+        {
+            StartCoroutine(InvokeAfterAnimation(newState, "StopSit", "Sitting_Exit"));
+        }
+        else
+        {
+            InvokeChangeState(newState);
+        }
     }
 
-    void OnEnable()
+    IEnumerator InvokeAfterAnimation(BehaviourStates newstate, string triggerName, string animStateName)
     {
-        stateChanged += ChangeState;
-    }
-    void OnDisable()
-    {
-        stateChanged -= ChangeState;
+        if (AnimationManager.Instance == null)
+        {
+            Debug.LogError("AnimationManager.Instance is null!");
+            yield break;
+        }
+        Debug.Log("waiting to invoke states until " + animStateName + " is finished");
+        animator.SetTrigger(triggerName);
+        yield return AnimationManager.Instance.WaitForAnimation(animator, animStateName);
+        InvokeChangeState(newstate);
+        
     }
 
-    private void ChangeState(BehaviourStates newState)
+    void InvokeChangeState(BehaviourStates newState)
     {
+        onStateChanged?.Invoke(newState);
+
         _CurrentState = newState;
+        preBehaviour = newState;
         switch (_CurrentState)
         {
             case BehaviourStates.Disabled:
@@ -69,12 +92,15 @@ public class PersonStates : MonoBehaviour
             case BehaviourStates.Chasing:
                 onPersonChasing?.Invoke();
                 break;
-
+            case BehaviourStates.Sitting:
+                OnPersonSitting?.Invoke();
+                break;
             default:
                 Debug.LogWarningFormat("Person Behaviour State not recognized!");
                 break;
         }
     }
+
 #if UNITY_EDITOR
     private void OnValidate() //Triggers the event when it's changed in the editor
     {

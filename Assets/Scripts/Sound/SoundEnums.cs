@@ -1,7 +1,21 @@
 // This file is auto-generated. Do not edit manually.
 
-public enum Test123
+public enum Colliding
 {
      Random,
-     CoinDropping
+     collision1,
+     collision2,
+     collision3,
+     collision4
+}
+public enum Flying
+{
+     Random,
+     flying1,
+     flying2
+}
+public enum Stopping
+{
+     Random,
+     flying_stop
 }

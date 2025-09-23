@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a60066f6e74f342920717c14c470b3, type: 3}
   m_Name: Spew Maggots
   m_EditorClassIdentifier: Assembly-CSharp::MaggotSpawner
-  maximumCharge: 10
+  maximumCharge: 5
   duration: 20
   maggotPrefab: {fileID: 4747137131297215053, guid: b29378f4aba5c3a49a2f42ec0f237b4a, type: 3}
   maggotCurve:
@@ -27,6 +27,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.4958858
+      value: 0.17067733
+      inSlope: 1.0873296
+      outSlope: 1.0873296
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15559632
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1

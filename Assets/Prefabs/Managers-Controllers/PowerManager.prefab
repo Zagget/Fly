@@ -54,6 +54,8 @@ MonoBehaviour:
     basePower: {fileID: 11400000, guid: 188bd920497af7e428d7cf5b08404d75, type: 2}
   - power: 2
     basePower: {fileID: 11400000, guid: 4fb760a8ab4039b45b6650a5debadcff, type: 2}
+  - power: 4
+    basePower: {fileID: 11400000, guid: c43189d0f40c82b4683d7513b71d6dc0, type: 2}
 --- !u!114 &4724376787826754076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,5 +68,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de79253806bcec24385273eefa36aa41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerProgression
-  sortedPowers: 00000000010000000300000002000000
-  debugPower: 2
+  sortedPowers: 0000000001000000030000000400000002000000
+  debugPower: 4

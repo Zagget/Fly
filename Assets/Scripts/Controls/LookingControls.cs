@@ -13,6 +13,19 @@ public enum RotationStep
     Deg1 = 1
 }
 
+[System.Serializable]
+public class RotationSetting
+{
+    [SerializeField] private RotationStep rotationStep = RotationStep.Deg30;
+    [Range(0f, 0.5f)][SerializeField] private float rotateSmoothness = 0.25f;
+
+    public void SetCustomValues(RotationStep step, float smoothness)
+    {
+        rotationStep = step;
+        rotateSmoothness = Mathf.Clamp(smoothness, 0f, 0.5f);
+    }
+}
+
 public class LookingControls : MonoBehaviour
 {
     [Header("Mouse Settings")]
@@ -22,19 +35,22 @@ public class LookingControls : MonoBehaviour
     [SerializeField] private RotationStep rotationStep = RotationStep.Deg90;
     [Range(0, 0.5f)][SerializeField] private float rotateSmothness = 0.5f;
 
+    [SerializeField] private SettingsData settingsData;
+
     private float rotationDegree => (float)rotationStep;
+
+    [SerializeField] private float maxCooldown = 0.4f;
+    [SerializeField] private float minCooldown = 0.02f;
 
     private bool holdingDown;
     private bool isRotating = false;
 
+    private Coroutine rotateCor;
     private Transform pTransform;
-    private bool vr;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         pTransform = RigManager.instance.pTransform;
-        vr = RigManager.instance.usingVr;
     }
 
     public void OnLook(Vector2 mouseInput)
@@ -69,7 +85,10 @@ public class LookingControls : MonoBehaviour
         {
             if (!isRotating)
             {
-                yield return RotateVision(input);
+                if (rotateCor != null)
+                    StopCoroutine(rotateCor);
+
+                rotateCor = StartCoroutine(RotateVision(input));
             }
             yield return null;
         }
@@ -81,46 +100,47 @@ public class LookingControls : MonoBehaviour
         if (isRotating) yield break;
         isRotating = true;
 
-        Vector3 currentEuler = Vector3.zero;
+        float startY = pTransform.eulerAngles.y;
+        float targetY = startY + Mathf.Sign(rotateInput.x) * rotationDegree;
 
-        Vector3 forward = pTransform.forward;
-        forward.y = 0f;
-        forward.Normalize();
-        float referenceYaw = Quaternion.LookRotation(forward).eulerAngles.y;
+       // Debug.Log($"blä startY {startY} targety {targetY}");
 
-        float targetY = referenceYaw + rotateInput.x * rotationDegree;
-
-        float smoothVelocity = 0f;
-        float smoothTime = Mathf.Max(0.001f, rotateSmothness);
-
-        while (true)
+        if (rotateSmothness <= 0f)
         {
-            float currentY = pTransform.eulerAngles.y;
+            // Snap instantly
+            Vector3 snapEuler = pTransform.eulerAngles;
+            snapEuler.y = targetY;
+            pTransform.eulerAngles = snapEuler;
+        }
+        else
+        {
+            // Smooth linear rotation
+            float duration = rotateSmothness; // total time in seconds
+            float elapsed = 0f;
 
-            float newY = Mathf.SmoothDampAngle(currentY, targetY, ref smoothVelocity, smoothTime);
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
 
-            Vector3 e = pTransform.eulerAngles;
-            e.y = newY;
-            pTransform.eulerAngles = e;
+                float newY = Mathf.LerpAngle(startY, targetY, t);
 
-            if (Mathf.Abs(Mathf.DeltaAngle(newY, targetY)) < 0.1f)
-                break;
+                Vector3 e = pTransform.eulerAngles;
+                e.y = newY;
+                pTransform.eulerAngles = e;
 
-            yield return null;
+                yield return null;
+            }
         }
 
-        float cooldown;
+        // Cooldown based on angle
+        float angleDelta = Mathf.Abs(rotationDegree);
+        float tCooldown = angleDelta / 180f;
+        float cooldown = Mathf.Lerp(minCooldown, maxCooldown, tCooldown);
 
-        if (rotationStep == RotationStep.Deg1)
-            cooldown = 0.02f;
-
-        else
-            cooldown = Mathf.Clamp(0.2f - smoothTime, 0f, 0.2f);
-
+        //Debug.Log($"Cooldown {cooldown}");
         yield return new WaitForSeconds(cooldown);
 
-        // Debug.Log($"blä smoothtime: {smoothTime}");
-        // Debug.Log($"blä cooldown:  {cooldown}");
         isRotating = false;
     }
 }

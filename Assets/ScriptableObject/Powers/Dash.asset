@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2549c8063504c4095085a67284cb81, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: Assembly-CSharp::DashPower
-  time: 0
+  maximumCharge: 4
+  duration: 0
   speedFactor: 10

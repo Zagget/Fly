@@ -7,7 +7,7 @@ public class PowerManager : MonoBehaviour
     public static PowerManager Instance { get; private set; }
 
     [SerializeField] powerPair[] powerMapping;
-    Rigidbody currentRigidbody;
+    RigManager rigManager;
     powerPair currentPower;
     public Action continues;
     public static Action<powerPair> onChangePower;
@@ -20,15 +20,15 @@ public class PowerManager : MonoBehaviour
 
     private void Start()
     {
-        currentRigidbody = RigManager.instance.currentRb;
+        rigManager = RigManager.instance;
         PowerProgression.Instance.onPowerChange += FindPower;
     }
 
-    public void ActivatePower(InputAction.CallbackContext context)
+    public void ActivatePower(InputAction.CallbackContext context, PlayerController playerController)
     {
         if (currentPower == null || currentPower.basePower == null) return;
-        float charge = LegRubbing.Instance.ResetRubbing();
-        currentPower.basePower.Activate(currentRigidbody, charge, this);
+        float charge = LegRubbing.Instance.TotalRubbing;
+        currentPower.basePower.Activate(rigManager, charge, this, playerController);
     }
 
     void FindPower(Powers power)
@@ -37,6 +37,7 @@ public class PowerManager : MonoBehaviour
         {
             if (power == powerMapping[i].power)
             {
+                if (currentPower != null && currentPower.basePower != null) currentPower.basePower.DeactivateToggle();
                 currentPower = powerMapping[i];
                 onChangePower?.Invoke(currentPower);
                 return;

@@ -15,8 +15,20 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: d3444ddf75fa2734abea3c3394809643
   m_SerializeEntries:
-  - m_GUID: 92935de1e16400e4f936c557e3ae2902
-    m_Address: Assets/Sounds/Test123.asset
+  - m_GUID: 4223f2d1d544aa64192ee194175a0969
+    m_Address: Assets/Sounds/Player/Flying.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74bd54de4a7d5d24abbce5f848dbb279
+    m_Address: Assets/Sounds/Player/Colliding.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa14e553be7e3c946951097acfd3b534
+    m_Address: Assets/Sounds/Player/Stopping.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sound

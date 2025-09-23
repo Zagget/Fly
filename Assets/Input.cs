@@ -219,6 +219,24 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hover"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4d34bcf-385d-47ac-aab7-31d6db08c376"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""f1bf4961-bc27-4e09-8dd4-1edd7ea4cbe1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -241,6 +259,39 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""GrabRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5acf6221-0389-4517-bea2-c975dc9cdf0f"",
+                    ""path"": ""<XRController>{RightHand}/{PrimaryButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hover"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47d62a43-06a4-4b7d-a505-4dd498ca8fb4"",
+                    ""path"": ""<XRController>{LeftHand}/{MenuButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcf52f34-13be-4017-a60b-574d23aa1b0a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -312,6 +363,15 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Hover"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b30074b-2bb6-41c7-8eb4-c1fcbbf9278f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -468,6 +528,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""MousePointer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""542963e9-2ceb-49e1-a0a9-708920acaace"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hover"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -484,6 +555,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_RightHand = asset.FindActionMap("RightHand", throwIfNotFound: true);
         m_RightHand_Movement = m_RightHand.FindAction("Movement", throwIfNotFound: true);
         m_RightHand_GrabRight = m_RightHand.FindAction("GrabRight", throwIfNotFound: true);
+        m_RightHand_Hover = m_RightHand.FindAction("Hover", throwIfNotFound: true);
+        m_RightHand_Menu = m_RightHand.FindAction("Menu", throwIfNotFound: true);
         // Desktop
         m_Desktop = asset.FindActionMap("Desktop", throwIfNotFound: true);
         m_Desktop_LegRubbing = m_Desktop.FindAction("LegRubbing", throwIfNotFound: true);
@@ -493,6 +566,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_Desktop_WASD = m_Desktop.FindAction("WASD", throwIfNotFound: true);
         m_Desktop_Rotate = m_Desktop.FindAction("Rotate", throwIfNotFound: true);
         m_Desktop_MousePointer = m_Desktop.FindAction("MousePointer", throwIfNotFound: true);
+        m_Desktop_Hover = m_Desktop.FindAction("Hover", throwIfNotFound: true);
     }
 
     ~@Input()
@@ -706,6 +780,8 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private List<IRightHandActions> m_RightHandActionsCallbackInterfaces = new List<IRightHandActions>();
     private readonly InputAction m_RightHand_Movement;
     private readonly InputAction m_RightHand_GrabRight;
+    private readonly InputAction m_RightHand_Hover;
+    private readonly InputAction m_RightHand_Menu;
     /// <summary>
     /// Provides access to input actions defined in input action map "RightHand".
     /// </summary>
@@ -725,6 +801,14 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RightHand/GrabRight".
         /// </summary>
         public InputAction @GrabRight => m_Wrapper.m_RightHand_GrabRight;
+        /// <summary>
+        /// Provides access to the underlying input action "RightHand/Hover".
+        /// </summary>
+        public InputAction @Hover => m_Wrapper.m_RightHand_Hover;
+        /// <summary>
+        /// Provides access to the underlying input action "RightHand/Menu".
+        /// </summary>
+        public InputAction @Menu => m_Wrapper.m_RightHand_Menu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -757,6 +841,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @GrabRight.started += instance.OnGrabRight;
             @GrabRight.performed += instance.OnGrabRight;
             @GrabRight.canceled += instance.OnGrabRight;
+            @Hover.started += instance.OnHover;
+            @Hover.performed += instance.OnHover;
+            @Hover.canceled += instance.OnHover;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
         }
 
         /// <summary>
@@ -774,6 +864,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @GrabRight.started -= instance.OnGrabRight;
             @GrabRight.performed -= instance.OnGrabRight;
             @GrabRight.canceled -= instance.OnGrabRight;
+            @Hover.started -= instance.OnHover;
+            @Hover.performed -= instance.OnHover;
+            @Hover.canceled -= instance.OnHover;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
         }
 
         /// <summary>
@@ -818,6 +914,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_Desktop_WASD;
     private readonly InputAction m_Desktop_Rotate;
     private readonly InputAction m_Desktop_MousePointer;
+    private readonly InputAction m_Desktop_Hover;
     /// <summary>
     /// Provides access to input actions defined in input action map "Desktop".
     /// </summary>
@@ -857,6 +954,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Desktop/MousePointer".
         /// </summary>
         public InputAction @MousePointer => m_Wrapper.m_Desktop_MousePointer;
+        /// <summary>
+        /// Provides access to the underlying input action "Desktop/Hover".
+        /// </summary>
+        public InputAction @Hover => m_Wrapper.m_Desktop_Hover;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -904,6 +1005,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MousePointer.started += instance.OnMousePointer;
             @MousePointer.performed += instance.OnMousePointer;
             @MousePointer.canceled += instance.OnMousePointer;
+            @Hover.started += instance.OnHover;
+            @Hover.performed += instance.OnHover;
+            @Hover.canceled += instance.OnHover;
         }
 
         /// <summary>
@@ -936,6 +1040,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @MousePointer.started -= instance.OnMousePointer;
             @MousePointer.performed -= instance.OnMousePointer;
             @MousePointer.canceled -= instance.OnMousePointer;
+            @Hover.started -= instance.OnHover;
+            @Hover.performed -= instance.OnHover;
+            @Hover.canceled -= instance.OnHover;
         }
 
         /// <summary>
@@ -1026,6 +1133,20 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnGrabRight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Hover" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHover(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMenu(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Desktop" which allows adding and removing callbacks.
@@ -1083,5 +1204,12 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMousePointer(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Hover" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHover(InputAction.CallbackContext context);
     }
 }
