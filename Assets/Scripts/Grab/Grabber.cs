@@ -108,22 +108,13 @@ public class Grabber : MonoBehaviour
 
                     if (Physics.CapsuleCast(pointA, pointB, radius, direction, out RaycastHit hit, distance, LayerMask.GetMask("Default", "Grabbable"), QueryTriggerInteraction.Ignore))
                     {
-                        targetPos = currentPos + direction * Mathf.Max(0, hit.distance);
+                        targetPos = currentPos + direction * Mathf.Max(0, hit.distance - 0.001f);
                     }
                 }
             }
             currentGrabbed.rb.MovePosition(targetPos);
 
             currentGrabbed.rb.MoveRotation(targetRot);
-
-
-
-
-
-
-
-
-
         }
     }
 
