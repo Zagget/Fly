@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
   sounds:
   - name: flying_stop
-    clip: {fileID: 8300000, guid: 9f8a098ce24d8e343823b77ee7505b1c, type: 3}
+    clip: {fileID: 8300000, guid: 59a4b80e234d575468eb7202a7d803e6, type: 3}
     volume: 1
     minPitch: 1
     maxPitch: 1

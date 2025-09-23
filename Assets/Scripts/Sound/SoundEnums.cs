@@ -1,5 +1,13 @@
 // This file is auto-generated. Do not edit manually.
 
+public enum Colliding
+{
+     Random,
+     collision1,
+     collision2,
+     collision3,
+     collision4
+}
 public enum Flying
 {
      Random,
