@@ -8,7 +8,7 @@ public class VirtualComputerMouse : MonoBehaviour
     public void Move(Vector3 movement)
     {
         Vector2 newPosition = transform.localPosition;
-        newPosition += new Vector2(movement.x, -movement.z);
+        newPosition += new Vector2(movement.x, movement.z);
         newPosition.x = Mathf.Clamp(newPosition.x, -screen.Size.x, screen.Size.x);
         newPosition.y = Mathf.Clamp(newPosition.y, -screen.Size.y, screen.Size.y);
         transform.localPosition = newPosition;
