@@ -1,16 +1,34 @@
+using TMPro;
 using UnityEngine;
 
-public class TextBox : MonoBehaviour
+public class TextBox : ComputerElement, IOnPress, IBackSpace
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    TextMeshPro textMeshPro;
+
+    private void Awake()
     {
-        
+        textMeshPro = GetComponent<TextMeshPro>();
+        if (textMeshPro== null)
+        {
+            Debug.LogWarning("Computer TextBox does not have textmeshpro text");
+            Destroy(this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Selected()
     {
-        
+
+    }
+
+    public void OnPress(char key)
+    {
+        textMeshPro.text += key;
+    }
+
+    public void BackSpace()
+    {
+        string text = textMeshPro.text;
+        if (text.Length < 1) { return; }
+        textMeshPro.text = text[..(text.Length - 2)];
     }
 }

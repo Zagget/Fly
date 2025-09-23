@@ -25,6 +25,7 @@ public class VirtualComputerMouse : MonoBehaviour
         foreach (Collider2D collider in colliders)
         {
             currentElement = collider.GetComponent<ComputerElement>();
+            Debug.Log(collider.GetComponent<ComputerElement>(), collider);
             if (currentElement == null) continue;
 
             layers = currentElement.GetSortingLayer();
