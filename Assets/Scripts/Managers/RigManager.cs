@@ -55,6 +55,8 @@ public class RigManager : MonoBehaviour
             desktopCamera = desktopRig.GetComponent<Camera>();
             pTransform = desktopCamera.transform;
             eyeAnchor = desktopCamera.transform;
+
+            desktopRig.AddComponent<AudioListener>();
         }
     }
 

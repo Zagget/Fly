@@ -46,15 +46,11 @@ public class LookingControls : MonoBehaviour
     private bool isRotating = false;
 
     private Coroutine rotateCor;
-
     private Transform pTransform;
-    private bool vr;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         pTransform = RigManager.instance.pTransform;
-        vr = RigManager.instance.usingVr;
     }
 
     public void OnLook(Vector2 mouseInput)

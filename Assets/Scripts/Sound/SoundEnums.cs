@@ -6,3 +6,8 @@ public enum Flying
      flying1,
      flying2
 }
+public enum Stopping
+{
+     Random,
+     flying_stop
+}
