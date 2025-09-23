@@ -11,8 +11,8 @@ public class StateManager : MonoBehaviour
     [SerializeField] private float walkingStateMinSpeed;
 
     [Header("Hover State")]
-    [SerializeField] private float hoverReqTime = 1;
-    [SerializeField] private float hoverMaxSpeed = 5;
+    [SerializeField] private float hoverReqTime = 3;
+    [SerializeField] private float hoverMaxSpeed = 3;
     [SerializeField] private float hoverDecayRate = 3;
 
     private float hoverTimer;
