@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FakeComputerMouse : MonoBehaviour
+public class ComputerMouse : MonoBehaviour
 {
     [SerializeField] Transform laserOrigin;
     [SerializeField] ComputerInputManager inputManager;
