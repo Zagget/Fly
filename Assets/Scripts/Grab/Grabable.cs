@@ -13,7 +13,7 @@ public class Grabable : MonoBehaviour, IGrabbable
         // Grabbing at objects current pos, rot.
         Vector3 offset = hand.InverseTransformPoint(transform.position);
         Quaternion rotationOffset = Quaternion.Inverse(hand.rotation) * transform.rotation;
-        transform.SetParent(hand);
+        //transform.SetParent(hand);
         transform.localPosition = offset;
         transform.localRotation = rotationOffset;
     }
