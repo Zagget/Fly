@@ -10,7 +10,8 @@ public enum BehaviourStates
     Annoyed,
     Chasing,
     Sitting,
-    OpenDoor
+    OpenDoor,
+    SwitchLight
 }
 public class PersonStates : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class PersonStates : MonoBehaviour
     public static event OnPersonChasing onPersonChasing;
     public static event Action OnPersonSitting;
     public static event Action OnPersonOpenDoor;
+    public static event Action OnPersonSwitchLight;
     [SerializeField] private BehaviourStates _CurrentState;
     private BehaviourStates preBehaviour;
     public BehaviourStates currentState
@@ -99,6 +101,9 @@ public class PersonStates : MonoBehaviour
                 break;
             case BehaviourStates.OpenDoor:
                 OnPersonOpenDoor?.Invoke();
+                break;
+            case BehaviourStates.SwitchLight:
+                OnPersonSwitchLight?.Invoke();
                 break;
             default:
                 Debug.LogWarningFormat("Person Behaviour State not recognized!");

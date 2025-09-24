@@ -12,6 +12,7 @@ public class PersonMovement : MonoBehaviour
     [SerializeField] Bounds movingArea;
     [SerializeField] Transform chairSeat;
     [SerializeField] Door door;
+    [SerializeField] LightSwitch lightSwitch;
     float targetThreshold = 0.5f;
     PersonStates personStates;
     Vector3 target;
@@ -37,6 +38,7 @@ public class PersonMovement : MonoBehaviour
         PersonStates.onPersonChasing += CheckMovement;
         PersonStates.OnPersonSitting += CheckMovement;
         PersonStates.OnPersonOpenDoor += CheckMovement;
+        PersonStates.OnPersonSwitchLight += CheckMovement;
         OnTargetReached += TargetReachedHandler;
     }
     void OnDisable()
@@ -47,6 +49,7 @@ public class PersonMovement : MonoBehaviour
         PersonStates.onPersonChasing -= CheckMovement;
         PersonStates.OnPersonSitting -= CheckMovement;
         PersonStates.OnPersonOpenDoor -= CheckMovement;
+        PersonStates.OnPersonSwitchLight -= CheckMovement;
         OnTargetReached -= TargetReachedHandler;
     }
 
@@ -95,7 +98,12 @@ public class PersonMovement : MonoBehaviour
                 SetTarget(new Vector3(chairSeat.position.x, transform.position.y, chairSeat.position.z)); //move to chair
                 break;
             case BehaviourStates.OpenDoor:
-                SetTarget(new Vector3(door.transform.GetChild(0).position.x, transform.position.y, door.transform.GetChild(0).position.z));
+                Vector3 doorInteractPos = door.transform.GetChild(0).position;
+                SetTarget(new Vector3(doorInteractPos.x, transform.position.y, doorInteractPos.z));
+                break;
+            case BehaviourStates.SwitchLight:
+                Vector3 lightInteractPos = lightSwitch.transform.GetChild(0).position;
+                SetTarget(new Vector3(lightInteractPos.x, transform.position.y, lightInteractPos.z));
                 break;
             default:
                 Debug.LogWarning("No movement tied to the state: " + personStates.currentState);
@@ -153,6 +161,9 @@ public class PersonMovement : MonoBehaviour
                 break;
             case BehaviourStates.OpenDoor:
                 StartCoroutine(PersonInteract(door.transform.GetChild(0))); //Get the interact position of the door
+                break;
+            case BehaviourStates.SwitchLight:
+                StartCoroutine(PersonInteract(lightSwitch.transform.GetChild(0)));
                 break;
             default:
                 break;
