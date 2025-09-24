@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,10 +13,14 @@ public class UIPointer : MonoBehaviour
     public Color color = new Color(1f, 0f, 0f, 0.25f);
     private VRButton currentButton;
 
+    private VRButton[] allButtons;
+
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
+
+        allButtons = Object.FindObjectsByType<VRButton>(FindObjectsSortMode.None);
     }
 
     void Start()
@@ -44,6 +49,11 @@ public class UIPointer : MonoBehaviour
     {
         pointerCube.SetActive(visible);
         boxCollider.enabled = visible;
+
+        for (int i = 0; i < allButtons.Length; i++)
+        {
+            allButtons[i].Hover(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

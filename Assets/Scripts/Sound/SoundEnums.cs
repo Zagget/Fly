@@ -17,5 +17,5 @@ public enum Flying
 public enum Stopping
 {
      Random,
-     flying_stop
+     wosh
 }
