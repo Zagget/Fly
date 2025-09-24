@@ -79,7 +79,7 @@ public class UIPointer : MonoBehaviour
             return;
 
         VRButton button = other.GetComponent<VRButton>();
-        if (button != null)
+        if (button != null && button == currentButton)
         {
             Debug.Log("MENU Hover false" + other.name);
             button.Hover(false);
@@ -89,6 +89,7 @@ public class UIPointer : MonoBehaviour
 
     public void OnPress(InputAction.CallbackContext context)
     {
+        Debug.Log($"MENU: ONPRESS currentbutton active: {currentButton != null}");
         if (context.started && currentButton != null)
         {
             Debug.Log("MENU: Pressed on " + currentButton.name);

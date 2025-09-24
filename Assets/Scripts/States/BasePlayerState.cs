@@ -55,6 +55,10 @@ public abstract class BasePlayerState
         }
     }
 
+    public virtual void HandleTriggerRight(InputAction.CallbackContext context)
+    {
+    }
+
     // Desktop Inputs
     public virtual void HandleDesktopGrab(InputAction.CallbackContext context, Grabber desktopGrabber)
     {
