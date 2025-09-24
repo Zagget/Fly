@@ -19,3 +19,9 @@ public enum Stopping
      Random,
      wosh
 }
+public enum UI
+{
+     Random,
+     menubuttonclick,
+     MenuHover
+}

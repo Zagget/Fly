@@ -10,12 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dff9e4e4a08a01488eb476975deaed6, type: 3}
-  m_Name: Stopping
+  m_Name: UI
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
   sounds:
-  - name: wosh
-    clip: {fileID: 8300000, guid: 164fcceb4474ef843a5371b80cc4810a, type: 3}
-    volume: 0.693
-    minPitch: 0.91
-    maxPitch: 1
+  - name: MenuHover
+    clip: {fileID: 8300000, guid: 5a1644e786ac6a34ebbc18eb07c309e0, type: 3}
+    volume: 1
+    minPitch: 0.9
+    maxPitch: 1.1
+    mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
+  - name: menubuttonclick
+    clip: {fileID: 8300000, guid: 1d80c32868ef1bf49b9e6cbb3b027a66, type: 3}
+    volume: 1
+    minPitch: 0.9
+    maxPitch: 1.1
     mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}

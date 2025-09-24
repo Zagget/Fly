@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Sound
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8053aea7d29d85c4d81d18e23ed1d1f5
+    m_Address: Assets/Sounds/UI/UI.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa14e553be7e3c946951097acfd3b534
     m_Address: Assets/Sounds/Player/Stopping.asset
     m_ReadOnly: 0
