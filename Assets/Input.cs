@@ -237,6 +237,15 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TriggerButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""16979a32-0c1c-42e3-8ed8-303d0f976afe"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -292,6 +301,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aef2488a-0382-4db3-86f0-f92a32273afa"",
+                    ""path"": ""<XRController>{RightHand}/{TriggerButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TriggerButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -557,6 +577,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
         m_RightHand_GrabRight = m_RightHand.FindAction("GrabRight", throwIfNotFound: true);
         m_RightHand_Hover = m_RightHand.FindAction("Hover", throwIfNotFound: true);
         m_RightHand_Menu = m_RightHand.FindAction("Menu", throwIfNotFound: true);
+        m_RightHand_TriggerButton = m_RightHand.FindAction("TriggerButton", throwIfNotFound: true);
         // Desktop
         m_Desktop = asset.FindActionMap("Desktop", throwIfNotFound: true);
         m_Desktop_LegRubbing = m_Desktop.FindAction("LegRubbing", throwIfNotFound: true);
@@ -782,6 +803,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputAction m_RightHand_GrabRight;
     private readonly InputAction m_RightHand_Hover;
     private readonly InputAction m_RightHand_Menu;
+    private readonly InputAction m_RightHand_TriggerButton;
     /// <summary>
     /// Provides access to input actions defined in input action map "RightHand".
     /// </summary>
@@ -809,6 +831,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RightHand/Menu".
         /// </summary>
         public InputAction @Menu => m_Wrapper.m_RightHand_Menu;
+        /// <summary>
+        /// Provides access to the underlying input action "RightHand/TriggerButton".
+        /// </summary>
+        public InputAction @TriggerButton => m_Wrapper.m_RightHand_TriggerButton;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -847,6 +873,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Menu.started += instance.OnMenu;
             @Menu.performed += instance.OnMenu;
             @Menu.canceled += instance.OnMenu;
+            @TriggerButton.started += instance.OnTriggerButton;
+            @TriggerButton.performed += instance.OnTriggerButton;
+            @TriggerButton.canceled += instance.OnTriggerButton;
         }
 
         /// <summary>
@@ -870,6 +899,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Menu.started -= instance.OnMenu;
             @Menu.performed -= instance.OnMenu;
             @Menu.canceled -= instance.OnMenu;
+            @TriggerButton.started -= instance.OnTriggerButton;
+            @TriggerButton.performed -= instance.OnTriggerButton;
+            @TriggerButton.canceled -= instance.OnTriggerButton;
         }
 
         /// <summary>
@@ -1147,6 +1179,13 @@ public partial class @Input: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TriggerButton" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTriggerButton(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Desktop" which allows adding and removing callbacks.

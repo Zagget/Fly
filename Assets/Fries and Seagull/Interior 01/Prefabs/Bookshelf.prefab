@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 559026891974823545}
   - component: {fileID: 8754809865738826920}
-  - component: {fileID: 3284846305994474062}
+  - component: {fileID: 87710230424410796}
   m_Layer: 0
   m_Name: Bookshelf
   m_TagString: Untagged
@@ -41,10 +41,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6352702322069357167}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -61,8 +61,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &3284846305994474062
-BoxCollider:
+--- !u!64 &87710230424410796
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -79,9 +79,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 9.004946, y: 15.745771, z: 3.0903976}
-  m_Center: {x: 0.0032262802, y: 2.1827881, z: -0.8767427}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &7463207977729296698
 PrefabInstance:
   m_ObjectHideFlags: 0

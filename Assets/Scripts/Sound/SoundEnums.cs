@@ -17,5 +17,11 @@ public enum Flying
 public enum Stopping
 {
      Random,
-     flying_stop
+     wosh
+}
+public enum UI
+{
+     Random,
+     menubuttonclick,
+     MenuHover
 }

@@ -7,6 +7,8 @@ public class ComputerMouse : MonoBehaviour
 
     [SerializeField] float laserLength;
 
+    [SerializeField] Vector3 temp;
+
     Vector3 lastPoint;
     bool hitLastTime = false;
 
@@ -14,8 +16,9 @@ public class ComputerMouse : MonoBehaviour
     {
         if (Physics.Raycast(laserOrigin.transform.position, laserOrigin.transform.up, out RaycastHit hitInfo, laserLength))
         {
-            if (hitLastTime && inputManager != null) inputManager.MoveMouse(hitInfo.point - lastPoint);
-            lastPoint = hitInfo.point;
+            Vector3 relativePoint = transform.InverseTransformDirection(hitInfo.point);
+            if (hitLastTime && inputManager != null) inputManager.MoveMouse(relativePoint - lastPoint);
+            lastPoint = relativePoint;
             hitLastTime = true;
         }
         else hitLastTime = false;

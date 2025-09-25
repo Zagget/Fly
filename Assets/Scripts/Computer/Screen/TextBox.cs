@@ -1,14 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TextBox : ComputerElement, IOnPress, IBackSpace
 {
+    [SerializeField] Image image;
+    [SerializeField] Color normal;
+    [SerializeField] Color selected;
     TextMeshPro textMeshPro;
 
     private void Awake()
     {
         textMeshPro = GetComponent<TextMeshPro>();
-        if (textMeshPro== null)
+        if (textMeshPro == null)
         {
             Debug.LogWarning("Computer TextBox does not have textmeshpro text");
             Destroy(this);
@@ -17,7 +21,12 @@ public class TextBox : ComputerElement, IOnPress, IBackSpace
 
     public override void Selected()
     {
+        image.color = selected;
+    }
 
+    public override void Deselected()
+    {
+        image.color = normal;
     }
 
     public void OnPress(char key)
@@ -29,6 +38,6 @@ public class TextBox : ComputerElement, IOnPress, IBackSpace
     {
         string text = textMeshPro.text;
         if (text.Length < 1) { return; }
-        textMeshPro.text = text[..(text.Length - 2)];
+        textMeshPro.text = text[..(text.Length - 1)];
     }
 }

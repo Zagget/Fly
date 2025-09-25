@@ -11,9 +11,8 @@ public class StateManager : MonoBehaviour
     [SerializeField] private float walkingStateMinSpeed;
 
     [Header("Hover State")]
-    [SerializeField] private float hoverReqTime = 3;
-    [SerializeField] private float hoverMaxSpeed = 3;
-    [SerializeField] private float hoverDecayRate = 3;
+    private float hoverReqTime = 3;
+    private float hoverMaxSpeed = 3;
 
     private float hoverTimer;
 
@@ -25,6 +24,8 @@ public class StateManager : MonoBehaviour
     [HideInInspector] public MenuState menuState = new();
 
     private bool isWalkingState;
+
+    private float deadZoneSize;
 
     /// <summary>
     /// Triggers when a state is changed, arg1 is new state, arg2 is last state.
@@ -47,11 +48,19 @@ public class StateManager : MonoBehaviour
     private void Start()
     {
         rb = RigManager.instance.currentRb;
+        deadZoneSize = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
+        if (deadZoneSize == 0) deadZoneSize = 0.3f;
     }
 
     public void TriggerChangeStateEvent(BasePlayerState newState, BasePlayerState lastState)
     {
         OnStateChanged?.Invoke(newState, lastState);
+        if (lastState == menuState)
+        {
+            deadZoneSize = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
+        }
+
+        if (lastState == hoverState) hoverTimer = 0;
     }
 
     public bool CheckFlyingState()
@@ -94,14 +103,15 @@ public class StateManager : MonoBehaviour
     {
         if (IsGrounded()) return false;
 
+        if (!CheckIfControllersAreInDeadZone()) return false;
+
         if (GetSpeedSquared() < hoverMaxSpeed * hoverMaxSpeed)
         {
             hoverTimer += Time.deltaTime;
         }
         else
         {
-            hoverTimer -= Time.deltaTime * hoverDecayRate;
-            if (hoverTimer < 0) hoverTimer = 0;
+            hoverTimer = 0;
         }
 
         if (hoverTimer >= hoverReqTime)
@@ -109,6 +119,30 @@ public class StateManager : MonoBehaviour
             return true;
         }
 
+        return false;
+    }
+
+    private bool CheckIfControllersAreInDeadZone()
+    {
+        if (!RigManager.instance.usingVr) return false;
+
+
+
+        Vector3 lControllerPos = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
+        Vector3 rControllerPos = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand);
+
+        Vector3 deadZone = new Vector3(0, 1, 0);
+        Vector3 average = (lControllerPos + rControllerPos) / 2;
+
+        float xValue = Mathf.Abs(average.x);
+        float yValue = Mathf.Abs(average.y);
+        float zValue = Mathf.Abs(average.z);
+
+        if (xValue < deadZoneSize && yValue < deadZoneSize + 1 && zValue < deadZoneSize)
+        {
+            return true;
+        }
+        
         return false;
     }
 

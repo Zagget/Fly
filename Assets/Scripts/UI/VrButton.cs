@@ -40,12 +40,14 @@ public class VRButton : MonoBehaviour
     public void Press()
     {
         onPress.Invoke();
+        SoundManager.instance.PlaySound(UI.menubuttonclick);
     }
 
     public void Hover(bool hovering)
     {
         if (hovering)
         {
+            SoundManager.instance.PlaySound(UI.MenuHover);
             image.color = Color.yellow;
         }
         else

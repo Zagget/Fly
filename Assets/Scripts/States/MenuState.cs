@@ -33,15 +33,22 @@ public class MenuState : BasePlayerState
         StateManager.Instance.OnStateChanged -= HandleStateChanged;
     }
 
-    public override void HandleMovement(InputAction.CallbackContext context, FloatingMovement movement)
-    {
-        //ToDO Select in menu as well
-    }
 
     public override void HandleActivatePower(InputAction.CallbackContext context, PlayerController playerController)
     {
-        if (!RigManager.instance.usingVr)
+        if (RigManager.instance.usingVr)
+        {
+            player.leftPointer.OnPress(context);
+        }
+        else
+        {
             player.desktopMenu.Press(context);
+        }
+    }
+
+    public override void HandleTriggerRight(InputAction.CallbackContext context)
+    {
+        player.rightPointer.OnPress(context);
     }
 
     public override void HandleDesktopFlight(InputAction.CallbackContext context, DesktopMovement movement)
@@ -49,15 +56,6 @@ public class MenuState : BasePlayerState
         player.desktopMenu.Navigate(context);
     }
 
-    public override void HandleGrabLeft(InputAction.CallbackContext context, Grabber leftGrabber)
-    {
-        player.leftPointer.OnPress(context);
-    }
-
-    public override void HandleGrabRight(InputAction.CallbackContext context, Grabber leftGrabber)
-    {
-        player.rightPointer.OnPress(context);
-    }
 
     private void HandleStateChanged(BasePlayerState newState, BasePlayerState oldState)
     {
@@ -77,4 +75,8 @@ public class MenuState : BasePlayerState
         player.menu.TogglePanels(false, false);
         player.SetState(previousState);
     }
+
+    public override void HandleMovement(InputAction.CallbackContext context, FloatingMovement movement) { }
+    public override void HandleGrabLeft(InputAction.CallbackContext context, Grabber leftGrabber) { }
+    public override void HandleGrabRight(InputAction.CallbackContext context, Grabber leftGrabber) { }
 }

@@ -47,7 +47,7 @@ public class LookingControls : MonoBehaviour
 
     private Coroutine rotateCor;
     private Transform pTransform;
-    
+
     void Start()
     {
         pTransform = RigManager.instance.pTransform;
@@ -101,9 +101,15 @@ public class LookingControls : MonoBehaviour
         isRotating = true;
 
         float startY = pTransform.eulerAngles.y;
-        float targetY = startY + Mathf.Sign(rotateInput.x) * rotationDegree;
+        float targetY = startY;
+        // +Mathf.Sign(rotateInput.x) * rotationDegree;
 
-       // Debug.Log($"blä startY {startY} targety {targetY}");
+        if (rotateInput.x > 0f)
+            targetY += rotationDegree;
+        else if (rotateInput.x < 0f)
+            targetY -= rotationDegree;
+
+        // Debug.Log($"blä startY {startY} targety {targetY}");
 
         if (rotateSmothness <= 0f)
         {
@@ -114,8 +120,7 @@ public class LookingControls : MonoBehaviour
         }
         else
         {
-            // Smooth linear rotation
-            float duration = rotateSmothness; // total time in seconds
+            float duration = rotateSmothness;
             float elapsed = 0f;
 
             while (elapsed < duration)

@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 1228832015155513358}
   - component: {fileID: 8030144702771039849}
   - component: {fileID: 5624226891473107864}
+  - component: {fileID: 8516743867127685552}
   m_Layer: 0
   m_Name: DesktopRig
   m_TagString: Player
@@ -250,6 +251,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8516743867127685552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669970260420095825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81321ec0a811b444f9c379e095977fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionSoundPlayer
 --- !u!1 &9214180018869659436
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Stopping
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
   sounds:
-  - name: flying_stop
-    clip: {fileID: 8300000, guid: 59a4b80e234d575468eb7202a7d803e6, type: 3}
+  - name: wosh
+    clip: {fileID: 8300000, guid: 164fcceb4474ef843a5371b80cc4810a, type: 3}
     volume: 0.693
     minPitch: 0.91
     maxPitch: 1

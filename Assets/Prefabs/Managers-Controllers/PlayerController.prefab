@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5345857636603677002}
   - component: {fileID: 5561808291904335753}
   - component: {fileID: 2926363178791186724}
+  - component: {fileID: 56864035076277310}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -53,6 +54,10 @@ MonoBehaviour:
   leftGrabber: {fileID: 0}
   rightGrabber: {fileID: 0}
   desktopGrabber: {fileID: 0}
+  menu: {fileID: 0}
+  desktopMenu: {fileID: 0}
+  leftPointer: {fileID: 0}
+  rightPointer: {fileID: 0}
 --- !u!114 &5345857636603677002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LookingControls
   rotationStep: 30
   rotateSmothness: 0
+  settingsData: {fileID: 0}
   maxCooldown: 0.4
   minCooldown: 0.01
 --- !u!114 &5561808291904335753
@@ -85,7 +91,6 @@ MonoBehaviour:
   highSpeedMode: 100
   controllerYOffset: 100
   controllerZOffset: 10
-  deadZone: 5
   centerEyeTransform: {fileID: 0}
   headsetYOffset: 1.15
   maxSpeed: 50
@@ -107,3 +112,17 @@ MonoBehaviour:
   horizontalAcceleration: 50
   horizontalMaxVel: 1000
   horizontalDecceleration: 50
+--- !u!114 &56864035076277310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326761119930820967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40495666562027444b15e7b79a8aa12a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkingMovement
+  acceleration: 50
+  maxVel: 250

@@ -85,10 +85,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7051997540589421732}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -124,8 +124,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.95623076, y: 2.2264853, z: 1.999462}
-  m_Center: {x: -0.02188462, y: -0.01584512, z: 0.29783863}
+  m_Size: {x: 0.95623076, y: 2.0160155, z: 1.999462}
+  m_Center: {x: -0.02188462, y: -0.12107989, z: 0.29783863}
 --- !u!1001 &5639947977593175893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -147,7 +147,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3869083404181394870, guid: 5e8e80b1bde285c46946700da02dadc7, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7c699751e2777ab4ca443dec3af16cbb, type: 2}
     - target: {fileID: 919132149155446097, guid: 5e8e80b1bde285c46946700da02dadc7, type: 3}

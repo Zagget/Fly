@@ -14,6 +14,7 @@ public class RigManager : MonoBehaviour
     [Header("Shared References")]
     public bool usingVr;
     public Rigidbody currentRb;
+    public CapsuleCollider currentCollider;
     public Transform pTransform;
     public Transform eyeAnchor;
     public Camera desktopCamera;
@@ -42,6 +43,8 @@ public class RigManager : MonoBehaviour
             SetRigsActive(true, false);
 
             currentRb = vrRig.GetComponent<Rigidbody>();
+            currentCollider = vrRig.GetComponent<CapsuleCollider>();
+
             pTransform = vrRig.transform;
             eyeAnchor = pTransform.GetComponentInChildren<AudioListener>().transform;
         }
@@ -52,6 +55,8 @@ public class RigManager : MonoBehaviour
             SetRigsActive(false, true);
 
             currentRb = desktopRig.GetComponent<Rigidbody>();
+            currentCollider = desktopRig.GetComponent<CapsuleCollider>();
+
             desktopCamera = desktopRig.GetComponent<Camera>();
             pTransform = desktopCamera.transform;
             eyeAnchor = desktopCamera.transform;

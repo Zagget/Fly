@@ -15,6 +15,7 @@ public class PlayerSound : MonoBehaviour
     [SerializeField] private float maxPitch = 1.1f;
 
     private Rigidbody rb;
+    private CapsuleCollider capCollider;
     private AudioSource buzzingSource;
     private AudioSource miscSource;
 
@@ -27,6 +28,7 @@ public class PlayerSound : MonoBehaviour
     void Start()
     {
         rb = RigManager.instance.currentRb;
+        capCollider = RigManager.instance.currentCollider;
 
         hover = StateManager.Instance.hoverState;
         flying = StateManager.Instance.flyingState;
@@ -64,8 +66,6 @@ public class PlayerSound : MonoBehaviour
 
         if (IsState(menu) && oldState == flying)
         {
-            Debug.Log("Sound ISSTATE MEnu");
-
             buzzingSource.volume = minVolume;
             SoundManager.instance.PlaySound(Stopping.Random, miscSource);
         }
@@ -98,6 +98,15 @@ public class PlayerSound : MonoBehaviour
         buzzingSource.pitch = pitchSmooth;
         buzzingSource.volume = volumeSmooth;
 
-        Debug.Log($"SOUND speed: {speed:F2} t: {t:F2} pitch: {pitchSmooth:F2} volume: {volumeSmooth:F2}");
+        //Debug.Log($"SOUND speed: {speed:F2} t: {t:F2} pitch: {pitchSmooth:F2} volume: {volumeSmooth:F2}");
+    }
+
+    public void PlayCollisionSound()
+    {
+        Debug.Log("Sound Colliding");
+        if (!IsState(flying)) return;
+
+        SoundManager.instance.PlaySound(Colliding.Random, miscSource);
+        miscSource.volume = buzzingSource.volume;
     }
 }
