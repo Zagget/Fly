@@ -1,4 +1,6 @@
+using Oculus.Interaction;
 using Oculus.Interaction.Input;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +11,21 @@ public class Grabber : MonoBehaviour
     GameObject player;
 
     SphereCollider reachCollider;
-    private List<IGrabbable> grabCandidates = new List<IGrabbable>();
-    private IGrabbable currentGrabbed;
+
+    private List<Grabable> grabCandidates = new List<Grabable>();
+    public Grabable currentGrabbed;
+
     private Vector3 currentLinearVelocity;
     private Vector3 currentAngularVelocity;
+
     private Vector3 prevPos;
     private Quaternion prevRot;
+
+    private Vector3 targetPos;
+    private Quaternion targetRot;
+
+    public static Action<Grabable> onGrab;
+    public static Action<Grabable> onRelease;
 
     void Start()
     {
@@ -40,7 +51,7 @@ public class Grabber : MonoBehaviour
     void Grab()
     {
         if (grabCandidates.Count == 0) return;
-        IGrabbable closestGrab = null;
+        Grabable closestGrab = null;
         var origin = transform.position;
 
         foreach (var candidate in grabCandidates)
@@ -56,10 +67,12 @@ public class Grabber : MonoBehaviour
                 closestGrab = candidate;
             }
         }
-        if (PowerProgression.Instance.powerLevel < closestGrab.Weight) return;
+        if (PowerProgression.Instance.powerLevel < closestGrab.weight) return;
+
         currentGrabbed = closestGrab;
         closestGrab.OnGrab(transform);
         IgnoreCollisions(currentGrabbed.grabcollider, player.GetComponent<Collider>());
+        onGrab?.Invoke(currentGrabbed);
     }
 
     void Release()
@@ -70,6 +83,7 @@ public class Grabber : MonoBehaviour
         currentGrabbed.OnRelease(currentLinearVelocity, currentAngularVelocity);
         StartCoroutine(RestoreCollisionsLater(currentGrabbed.grabcollider, player.GetComponent<Collider>()));
         currentGrabbed = null;
+        onRelease?.Invoke(currentGrabbed);
     }
 
     private void Update()
@@ -90,31 +104,12 @@ public class Grabber : MonoBehaviour
     {
         if (currentGrabbed != null)
         {
-            Vector3 targetPos = transform.position;
-            Quaternion targetRot = transform.rotation;
-            Collider collider = currentGrabbed.grabcollider;
+            targetPos = transform.position;
+            targetRot = transform.rotation;
+            
+            //currentGrabbed.rb.MovePosition(targetPos);
 
-            Vector3 currentPos = currentGrabbed.rb.position;
-            Quaternion currentRot = currentGrabbed.rb.rotation;
-
-            Vector3 delta = targetPos - currentPos;
-            float distance = delta.magnitude;
-            if (distance > 0.0001f)
-            {
-                Vector3 direction = delta.normalized;
-                if (collider is CapsuleCollider)
-                {
-                    GetCapsuleShape(collider as CapsuleCollider, out Vector3 pointA, out Vector3 pointB, out float radius);
-
-                    if (Physics.CapsuleCast(pointA, pointB, radius, direction, out RaycastHit hit, distance, LayerMask.GetMask("Default", "Grabbable"), QueryTriggerInteraction.Ignore))
-                    {
-                        targetPos = currentPos + direction * Mathf.Max(0, hit.distance - 0.001f);
-                    }
-                }
-            }
-            currentGrabbed.rb.MovePosition(targetPos);
-
-            currentGrabbed.rb.MoveRotation(targetRot);
+            //currentGrabbed.rb.MoveRotation(targetRot);
         }
     }
 
@@ -123,11 +118,11 @@ public class Grabber : MonoBehaviour
     {
         if (!other.CompareTag("Grabbable")) return;
 
-        IGrabbable grabbable = other.GetComponent<IGrabbable>();
+        Grabable grabable = other.GetComponent<Grabable>();
 
-        if (grabbable != null && !grabCandidates.Contains(grabbable))
+        if (grabable != null && !grabCandidates.Contains(grabable))
         {
-            grabCandidates.Add(grabbable);
+            grabCandidates.Add(grabable);
         }
     }
 
@@ -135,10 +130,10 @@ public class Grabber : MonoBehaviour
     {
         if (!other.CompareTag("Grabbable")) return;
 
-        IGrabbable grabbable = other.GetComponent<IGrabbable>();
-        if (grabbable != null && grabCandidates.Contains(grabbable))
+        Grabable grabable = other.GetComponent<Grabable>();
+        if (grabable != null && grabCandidates.Contains(grabable))
         {
-            grabCandidates.Remove(grabbable);
+            grabCandidates.Remove(grabable);
         }
     }
 
@@ -153,16 +148,5 @@ public class Grabber : MonoBehaviour
         Physics.IgnoreCollision(collider1, collider2, false);
     }
 
-    void GetCapsuleShape(CapsuleCollider collider, out Vector3 pointA, out Vector3 pointB, out float radius)
-    {
-        radius = collider.radius;
-        Vector3 center = collider.transform.TransformPoint(collider.center);
-        Vector3 axis = (collider.direction == 0) ? collider.transform.right :
-                   (collider.direction == 1) ? collider.transform.up :
-                                         collider.transform.forward;
-
-        float half = Mathf.Max(0, 0.5f * collider.height - radius);
-        pointA = center + axis * half;
-        pointB = center - axis * half;
-    }
+   
 }

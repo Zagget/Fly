@@ -6,7 +6,7 @@ using UnityEngine;
 public class ScaleObject : BaseTogglePower
 {
     [SerializeField] float minScale;
-    Dictionary<IGrabbable, Vector3> grabbables = new();
+    Dictionary<Grabable, Vector3> grabbables = new();
     
     float firstDistance;
     float difference;
@@ -49,13 +49,13 @@ public class ScaleObject : BaseTogglePower
         grabbables.Clear();
     }
 
-    public void AddGrabbable(IGrabbable grabbable)
+    public void AddGrabbable(Grabable grabbable)
     {
         if (grabbable == null  || grabbables.ContainsKey(grabbable)) return;
         grabbables.Add(grabbable, grabbable.rb.transform.localScale);
     }
 
-    public void RemoveGrabbable(IGrabbable grabbable)
+    public void RemoveGrabbable(Grabable grabbable)
     {
         if (grabbables.ContainsKey(grabbable)) grabbables.Remove(grabbable);
     }

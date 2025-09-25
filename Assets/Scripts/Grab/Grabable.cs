@@ -1,11 +1,16 @@
 using UnityEngine;
 
-public class Grabable : MonoBehaviour, IGrabbable
+public class Grabable : MonoBehaviour
 {
-    public Rigidbody rb => GetComponent<Rigidbody>();
-    public Collider grabcollider => GetComponent<Collider>();
-    [SerializeField] int weight;
-    public int Weight => weight;
+    public Rigidbody rb { get; }
+
+    public Collider grabCollider;
+    public SphereCollider triggerCollider;
+
+    public int weight;
+    
+
+
     public void OnGrab(Transform hand)
     {
         rb.isKinematic = true;
@@ -13,7 +18,10 @@ public class Grabable : MonoBehaviour, IGrabbable
         // Grabbing at objects current pos, rot.
         Vector3 offset = hand.InverseTransformPoint(transform.position);
         Quaternion rotationOffset = Quaternion.Inverse(hand.rotation) * transform.rotation;
-        //transform.SetParent(hand);
+        transform.SetParent(hand);
+
+        //Vector3 offset = transform.position;
+        //Quaternion rotationOffset = transform.rotation;
         transform.localPosition = offset;
         transform.localRotation = rotationOffset;
     }
@@ -25,5 +33,15 @@ public class Grabable : MonoBehaviour, IGrabbable
         rb.linearVelocity = velocity;
 
         rb.angularVelocity = Vector3.ClampMagnitude(rotationSpeed, 10f);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+
     }
 }
