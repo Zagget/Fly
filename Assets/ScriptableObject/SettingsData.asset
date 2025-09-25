@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb8e353cd4becd4283b82cfef6b96d4, type: 3}
   m_Name: SettingsData
   m_EditorClassIdentifier: Assembly-CSharp::SettingsData
+  currentRotation:
+    degrees: 30
+    smoothness: 0.25

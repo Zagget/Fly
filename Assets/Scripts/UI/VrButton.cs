@@ -5,11 +5,10 @@ using UnityEngine.UI;
 public class VRButton : MonoBehaviour
 {
     public UnityEvent onPress;
+
     private BoxCollider boxCollider;
     private RectTransform rectTransform;
     private Image image;
-
-    private int hoverCount = 0;
 
     void Awake()
     {
