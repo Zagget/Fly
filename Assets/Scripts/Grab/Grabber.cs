@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 
 public class Grabber : MonoBehaviour
 {
-    GameObject player;
 
     SphereCollider reachCollider;
 
@@ -21,15 +20,14 @@ public class Grabber : MonoBehaviour
     private Vector3 prevPos;
     private Quaternion prevRot;
 
-    private Vector3 targetPos;
-    private Quaternion targetRot;
+    private Vector3 desiredPos;
+    private Quaternion desiredRot;
 
     public static Action<Grabable> onGrab;
     public static Action<Grabable> onRelease;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         reachCollider = GetComponent<SphereCollider>();
 
         prevPos = transform.position;
@@ -71,7 +69,7 @@ public class Grabber : MonoBehaviour
 
         currentGrabbed = closestGrab;
         closestGrab.OnGrab(transform);
-        IgnoreCollisions(currentGrabbed.grabcollider, player.GetComponent<Collider>());
+        IgnoreCollisions(currentGrabbed.grabCollider, RigManager.instance.currentCollider);
         onGrab?.Invoke(currentGrabbed);
     }
 
@@ -81,7 +79,7 @@ public class Grabber : MonoBehaviour
 
         Debug.Log("blä Released");
         currentGrabbed.OnRelease(currentLinearVelocity, currentAngularVelocity);
-        StartCoroutine(RestoreCollisionsLater(currentGrabbed.grabcollider, player.GetComponent<Collider>()));
+        StartCoroutine(RestoreCollisionsLater(currentGrabbed.grabCollider, RigManager.instance.currentCollider));
         currentGrabbed = null;
         onRelease?.Invoke(currentGrabbed);
     }
@@ -98,18 +96,46 @@ public class Grabber : MonoBehaviour
 
         prevPos = transform.position;
         prevRot = transform.rotation;
+
+
+        //Move 
+        MoveGrabbedItem();
+
     }
 
-    private void FixedUpdate()
+    private void MoveGrabbedItem()
     {
+        desiredPos = transform.position;
+        desiredRot = transform.rotation;
         if (currentGrabbed != null)
         {
-            targetPos = transform.position;
-            targetRot = transform.rotation;
-            
-            //currentGrabbed.rb.MovePosition(targetPos);
+            Constraint();
+            currentGrabbed.transform.position = desiredPos;
 
-            //currentGrabbed.rb.MoveRotation(targetRot);
+            currentGrabbed.transform.rotation = desiredRot;
+        }
+    }
+
+    private void Constraint()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            bool moved = false;
+            foreach (var c in currentGrabbed.blockers)
+            {
+                if (c == null) continue;
+
+
+                if (Physics.ComputePenetration(
+                    currentGrabbed.triggerCollider, desiredPos, desiredRot,
+                    c, c.transform.position, c.transform.rotation,
+                    out Vector3 direction, out float distance))
+                {
+                    desiredPos += direction * distance;
+                    moved = true;
+                }
+            }
+            if (!moved) break;
         }
     }
 

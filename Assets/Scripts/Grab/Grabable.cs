@@ -1,14 +1,30 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Grabable : MonoBehaviour
 {
-    public Rigidbody rb { get; }
-
+    [HideInInspector]
+    public Rigidbody rb;
+    [HideInInspector]
     public Collider grabCollider;
+
     public SphereCollider triggerCollider;
+    [HideInInspector]
+    public HashSet<Collider> blockers = new HashSet<Collider>();
 
     public int weight;
     
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        grabCollider = GetComponent<Collider>();
+        if (triggerCollider == null)
+        {
+            Debug.Log("Asign trigger collider to " + gameObject);
+        }
+        
+    }
 
 
     public void OnGrab(Transform hand)
@@ -18,7 +34,7 @@ public class Grabable : MonoBehaviour
         // Grabbing at objects current pos, rot.
         Vector3 offset = hand.InverseTransformPoint(transform.position);
         Quaternion rotationOffset = Quaternion.Inverse(hand.rotation) * transform.rotation;
-        transform.SetParent(hand);
+        //transform.SetParent(hand);
 
         //Vector3 offset = transform.position;
         //Quaternion rotationOffset = transform.rotation;
@@ -35,13 +51,7 @@ public class Grabable : MonoBehaviour
         rb.angularVelocity = Vector3.ClampMagnitude(rotationSpeed, 10f);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
 
-    }
+    
 }

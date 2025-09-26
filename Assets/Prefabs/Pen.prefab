@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 6162038157241615301}
   - component: {fileID: 6047727939683454118}
   - component: {fileID: 2119006075980272783}
+  - component: {fileID: 4110456666689853077}
   m_Layer: 0
   m_Name: Pen
   m_TagString: Untagged
@@ -65,6 +66,7 @@ Transform:
   m_Children:
   - {fileID: 7611965682916300130}
   - {fileID: 7509841170300833296}
+  - {fileID: 8959652210273199244}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!54 &6162038157241615301
@@ -133,6 +135,23 @@ MonoBehaviour:
   rayLength: 0.2
   drawColor: {r: 0, g: 0, b: 0, a: 1}
   brushSize: 5
+--- !u!114 &4110456666689853077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305558944350508741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d575c64f0b95041b0c6296351b2b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Grabable
+  rb: {fileID: 0}
+  grabCollider: {fileID: 0}
+  sphereTriggerChild: {fileID: 0}
+  triggerCollider: {fileID: 7049281741444406964}
+  weight: 0
 --- !u!1 &3325371237908202075
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,3 +353,69 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8658307009353988922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8959652210273199244}
+  - component: {fileID: 7049281741444406964}
+  - component: {fileID: 4740741365024454210}
+  m_Layer: 0
+  m_Name: TriggerChild
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8959652210273199244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8658307009353988922}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7421205283056592625}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7049281741444406964
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8658307009353988922}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.28
+  m_Center: {x: 0, y: 0.27, z: 0}
+--- !u!114 &4740741365024454210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8658307009353988922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f02f10a08555c4428d205cff19aa783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlockTrigger
