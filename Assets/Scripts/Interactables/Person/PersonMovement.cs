@@ -102,7 +102,7 @@ public class PersonMovement : MonoBehaviour
                 SetTarget(new Vector3(doorInteractPos.x, transform.position.y, doorInteractPos.z));
                 break;
             case BehaviourStates.SwitchLight:
-                Vector3 lightInteractPos = lightSwitch.transform.GetChild(0).position;
+                Vector3 lightInteractPos = lightSwitch.transform.parent.GetChild(0).position;
                 SetTarget(new Vector3(lightInteractPos.x, transform.position.y, lightInteractPos.z));
                 break;
             default:
@@ -163,7 +163,7 @@ public class PersonMovement : MonoBehaviour
                 StartCoroutine(PersonInteract(door.transform.GetChild(0))); //Get the interact position of the door
                 break;
             case BehaviourStates.SwitchLight:
-                StartCoroutine(PersonInteract(lightSwitch.transform.GetChild(0)));
+                StartCoroutine(PersonInteract(lightSwitch.transform.parent.GetChild(0)));
                 break;
             default:
                 break;
