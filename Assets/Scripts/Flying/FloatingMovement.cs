@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 public class FloatingMovement : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class FloatingMovement : MonoBehaviour
     private float controllerInputMultiplier = 1;
 
     private bool usingVR;
+    private float maxControllerHeight;
 
     private void Start()
     {
@@ -42,9 +44,11 @@ public class FloatingMovement : MonoBehaviour
         else
         {
             usingVR = true;
+            deadZone = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
+            maxControllerHeight = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey);
         }
 
-            rb = RigManager.instance.currentRb;
+        rb = RigManager.instance.currentRb;
         if (rb == null) Debug.LogError("Rigidbody not found from RigManager!");
 
         controller = GetComponent<PlayerController>();
@@ -82,6 +86,7 @@ public class FloatingMovement : MonoBehaviour
         if (lastState == StateManager.Instance.menuState)
         {
             deadZone = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
+            maxControllerHeight = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey);
         }
     }
 
@@ -90,22 +95,26 @@ public class FloatingMovement : MonoBehaviour
         Vector3 inputDirection = controllerPositionInput.normalized;
 
         linVel = Vector3.zero;
+        float controllerEffect = 0.5f;
 
         linVel += RigManager.instance.currentRb.transform.forward
-            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.z * controllerInputMultiplier;
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.z * controllerInputMultiplier
+            * (2 - maxControllerHeight);
 
         linVel += RigManager.instance.currentRb.transform.up
-            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.y * controllerInputMultiplier;
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.y * controllerInputMultiplier
+            * (2 - maxControllerHeight);
 
         linVel += RigManager.instance.currentRb.transform.right
-            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.x * controllerInputMultiplier;
+            * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.x * controllerInputMultiplier
+            * (2 - maxControllerHeight);
     }
 
     IEnumerator SlowControllerInput()
     {
         float timer = 0;
 
-        while (timer < timeToSlowInput) 
+        while (timer < timeToSlowInput)
         {
             controllerInputMultiplier = timer / timeToSlowInput;
             timer += Time.deltaTime;

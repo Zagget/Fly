@@ -11,7 +11,7 @@ public class StateManager : MonoBehaviour
     [SerializeField] private float walkingStateMinSpeed;
 
     [Header("Hover State")]
-    private float hoverReqTime = 3;
+    private float hoverReqTime = 999999; //prevents user from entering hover without pressing button
     private float hoverMaxSpeed = 3;
 
     private float hoverTimer;

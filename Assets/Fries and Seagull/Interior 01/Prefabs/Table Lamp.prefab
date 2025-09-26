@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 1841591265439633252}
   - component: {fileID: 1477279525172107456}
   - component: {fileID: 6854116449487406320}
-  - component: {fileID: 757433651114453292}
+  - component: {fileID: 6101181388201115898}
   m_Layer: 0
   m_Name: Table Lamp
   m_TagString: Untagged
@@ -275,8 +275,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &757433651114453292
-BoxCollider:
+--- !u!64 &6101181388201115898
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -293,9 +293,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.028170666, y: 0.004510537, z: 0.033864822}
-  m_Center: {x: -0.0039175116, y: 0.0016781812, z: 0.0012749779}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5621878023496371592, guid: bb4b727003dcaeb4699c4c46ef41ec8e, type: 3}
 --- !u!1 &8935652529696847005
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +306,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2129519982851998163}
-  - component: {fileID: 8000898636474137027}
   m_Layer: 0
   m_Name: Table Lamp
   m_TagString: Untagged
@@ -323,31 +323,9 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 427195671489252996}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &8000898636474137027
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8935652529696847005}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
