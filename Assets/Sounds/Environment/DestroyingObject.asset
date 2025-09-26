@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DestroyingObject
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
   sounds:
-  - name: meaty thud
-    clip: {fileID: 8300000, guid: 36b7e2efe6a51a248ac3acc44beeca8f, type: 3}
-    volume: 1
-    minPitch: 1
-    maxPitch: 1
-    mixer: {fileID: 0}
+  - name: DestroyingObj
+    clip: {fileID: 8300000, guid: 0a393d46d6aba4d4ab6a4591bf09ba3c, type: 3}
+    volume: 0.665
+    minPitch: 0.89
+    maxPitch: 1.08
+    mixer: {fileID: 24300002, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}

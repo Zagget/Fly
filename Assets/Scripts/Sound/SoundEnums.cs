@@ -11,7 +11,7 @@ public enum Colliding
 public enum DestroyingObject
 {
      Random,
-     meaty_thud
+     DestroyingObj
 }
 public enum Flying
 {
@@ -29,4 +29,11 @@ public enum UI
      Random,
      menuClickAlt,
      menuHoverAlt
+}
+public enum Walking
+{
+     Random,
+     footstep1,
+     footstep2,
+     footstep3
 }
