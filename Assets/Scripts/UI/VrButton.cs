@@ -47,7 +47,7 @@ public class VRButton : MonoBehaviour
         if (hovering)
         {
             SoundManager.instance.PlaySound(UI.MenuHover);
-            image.color = Color.yellow;
+            image.color = Color.black;
         }
         else
         {
