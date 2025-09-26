@@ -95,7 +95,6 @@ public class FloatingMovement : MonoBehaviour
         Vector3 inputDirection = controllerPositionInput.normalized;
 
         linVel = Vector3.zero;
-        float controllerEffect = 0.5f;
 
         linVel += RigManager.instance.currentRb.transform.forward
             * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.z * controllerInputMultiplier
@@ -107,7 +106,7 @@ public class FloatingMovement : MonoBehaviour
 
         linVel += RigManager.instance.currentRb.transform.right
             * Time.fixedDeltaTime * fixedSpeed * controllerPositionInput.x * controllerInputMultiplier
-            * (2 - maxControllerHeight);
+            * Mathf.Clamp((2 - maxControllerHeight),1,2);
     }
 
     IEnumerator SlowControllerInput()
