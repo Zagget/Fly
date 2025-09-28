@@ -32,14 +32,14 @@ public class Grabable : MonoBehaviour
         rb.isKinematic = true;
 
         // Grabbing at objects current pos, rot.
-        Vector3 offset = hand.InverseTransformPoint(transform.position);
-        Quaternion rotationOffset = Quaternion.Inverse(hand.rotation) * transform.rotation;
+        //Vector3 offset = hand.InverseTransformPoint(transform.position);
+        //Quaternion rotationOffset = Quaternion.Inverse(hand.rotation) * transform.rotation;
         //transform.SetParent(hand);
 
         //Vector3 offset = transform.position;
         //Quaternion rotationOffset = transform.rotation;
-        transform.localPosition = offset;
-        transform.localRotation = rotationOffset;
+        //transform.localPosition = offset;
+        //transform.localRotation = rotationOffset;
     }
 
     public void OnRelease(Vector3 velocity, Vector3 rotationSpeed)

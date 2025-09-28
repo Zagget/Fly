@@ -12,7 +12,7 @@ public class BlockTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.isTrigger != true)
+        if (other.gameObject.tag != "Player" && other.providesContacts == true)
         {
             grabable.blockers.Add(other);
         }
@@ -20,7 +20,7 @@ public class BlockTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.isTrigger != true)
+        if (other.gameObject.tag != "Player" && other.providesContacts == true)
         {
             grabable.blockers.Remove(other);
         }

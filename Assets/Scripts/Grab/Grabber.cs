@@ -26,6 +26,8 @@ public class Grabber : MonoBehaviour
     public static Action<Grabable> onGrab;
     public static Action<Grabable> onRelease;
 
+    static readonly Collider[] buf = new Collider[32];
+
     void Start()
     {
         reachCollider = GetComponent<SphereCollider>();
@@ -97,32 +99,53 @@ public class Grabber : MonoBehaviour
         prevPos = transform.position;
         prevRot = transform.rotation;
 
+        
 
-        //Move 
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (currentGrabbed != null)
+        {
+            desiredPos = transform.position;
+            desiredRot = transform.rotation;
+            Transform probe = currentGrabbed.triggerCollider.transform;
+            probe.SetPositionAndRotation(desiredPos, desiredRot);
+
+            int n = Physics.OverlapSphereNonAlloc(
+            probe.position, currentGrabbed.triggerCollider.radius, buf, solidMask, QueryTriggerInteraction.Ignore);
+
+            currentGrabbed.rb.MovePosition(desiredPos);
+            currentGrabbed.rb.MoveRotation(desiredRot);
+        }
+
+
+
+
+
+
+
+
         //MoveGrabbedItem();
-
     }
 
     private void MoveGrabbedItem()
     {
-        desiredPos = transform.position;
-        desiredRot = transform.rotation;
-        if (currentGrabbed != null)
-        {
-            Constraint();
-            currentGrabbed.transform.position = desiredPos;
-
-            currentGrabbed.transform.rotation = desiredRot;
-        }
+        
+        
     }
 
     private void Constraint()
     {
+        
+
         for (int i = 0; i < 3; i++)
         {
             bool moved = false;
             foreach (var c in currentGrabbed.blockers)
             {
+                Debug.Log(currentGrabbed.blockers.Count + "inside loop");
                 if (c == null) continue;
 
 
@@ -131,7 +154,7 @@ public class Grabber : MonoBehaviour
                     c, c.transform.position, c.transform.rotation,
                     out Vector3 direction, out float distance))
                 {
-                    desiredPos += direction * distance;
+                    desiredPos += direction * (distance + 0.1f);
                     moved = true;
                 }
             }
