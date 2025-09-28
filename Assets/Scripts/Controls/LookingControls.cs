@@ -1,46 +1,18 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-public enum RotationStep
-{
-    Deg180 = 179,
-    Deg90 = 90,
-    Deg45 = 45,
-    Deg30 = 30,
-    Deg20 = 20,
-    Deg1 = 1
-}
-
-[System.Serializable]
-public class RotationSetting
-{
-    [SerializeField] private RotationStep rotationStep = RotationStep.Deg30;
-    [Range(0f, 0.5f)][SerializeField] private float rotateSmoothness = 0.25f;
-
-    public void SetCustomValues(RotationStep step, float smoothness)
-    {
-        rotationStep = step;
-        rotateSmoothness = Mathf.Clamp(smoothness, 0f, 0.5f);
-    }
-}
 
 public class LookingControls : MonoBehaviour
 {
     [Header("Mouse Settings")]
     float lookSensitivity = 0.2f;
 
-    [Header("Rotation Settings")]
-    [SerializeField] private RotationStep rotationStep = RotationStep.Deg90;
-    [Range(0, 0.5f)][SerializeField] private float rotateSmothness = 0.5f;
+    [SerializeField] private SettingsData rotSetting;
+    private float rotationDegree = 30;
+    private float rotateSmothness = 0.5f;
 
-    [SerializeField] private SettingsData settingsData;
-
-    private float rotationDegree => (float)rotationStep;
-
-    [SerializeField] private float maxCooldown = 0.4f;
-    [SerializeField] private float minCooldown = 0.02f;
+    private float maxCooldown = 0.4f;
+    private float minCooldown = 0.01f;
 
     private bool holdingDown;
     private bool isRotating = false;
@@ -51,6 +23,16 @@ public class LookingControls : MonoBehaviour
     void Start()
     {
         pTransform = RigManager.instance.pTransform;
+
+        rotSetting.currentRotation.OnRotationChanged += UpdateData;
+
+        rotSetting.currentRotation.Init();
+    }
+
+    private void UpdateData(float degree, float smoothness)
+    {
+        rotateSmothness = smoothness;
+        rotationDegree = degree;
     }
 
     public void OnLook(Vector2 mouseInput)
@@ -102,7 +84,6 @@ public class LookingControls : MonoBehaviour
 
         float startY = pTransform.eulerAngles.y;
         float targetY = startY;
-        // +Mathf.Sign(rotateInput.x) * rotationDegree;
 
         if (rotateInput.x > 0f)
             targetY += rotationDegree;

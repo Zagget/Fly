@@ -1,20 +1,22 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 public class VRButton : MonoBehaviour
 {
     public UnityEvent onPress;
+
     private BoxCollider boxCollider;
     private RectTransform rectTransform;
     private Image image;
-
-    private int hoverCount = 0;
+    private TextMeshProUGUI text;
 
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider>();
         rectTransform = GetComponent<RectTransform>();
+        text = GetComponentInChildren<TextMeshProUGUI>();
 
         image = GetComponent<Image>();
 
@@ -40,19 +42,21 @@ public class VRButton : MonoBehaviour
     public void Press()
     {
         onPress.Invoke();
-        SoundManager.instance.PlaySound(UI.menubuttonclick);
+        SoundManager.instance.PlaySound(UI.menuClickAlt);
     }
 
     public void Hover(bool hovering)
     {
         if (hovering)
         {
-            SoundManager.instance.PlaySound(UI.MenuHover);
+            SoundManager.instance.PlaySound(UI.menuHoverAlt);
             image.color = Color.yellow;
+            text.color = Color.yellow;
         }
         else
         {
             image.color = Color.white;
+            text.color = Color.white;
         }
     }
 }

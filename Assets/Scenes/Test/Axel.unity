@@ -3044,9 +3044,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   walkingStateMinSpeed: 0
-  hoverReqTime: 1
-  hoverMaxSpeed: 5
-  hoverDecayRate: 3
 --- !u!1 &1332592140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3950,6 +3947,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4445642933776370112, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
+      propertyPath: 'connectedLights.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1093552430}
+    - target: {fileID: 4445642933776370112, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
+      propertyPath: 'connectedLights.Array.data[1]'
+      value: 
+      objectReference: {fileID: 958438877}
     - target: {fileID: 4809695544453534404, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
       propertyPath: m_Name
       value: LightSwitch
@@ -3968,7 +3973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8799251688878818803, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8799251688878818803, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3976,7 +3981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8799251688878818803, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8799251688878818803, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
       propertyPath: m_LocalRotation.z
@@ -3988,7 +3993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8799251688878818803, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8799251688878818803, guid: ec5ed01daff7f1846ab32ee0e6c4670b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

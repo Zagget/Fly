@@ -59,6 +59,8 @@ public class DesktopMenu : MonoBehaviour
         {
             currentButtons[currentSelection].Press();
             currentSelection = 0;
+
+            ResetSelection();
         }
     }
 

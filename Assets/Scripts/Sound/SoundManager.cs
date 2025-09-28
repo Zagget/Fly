@@ -103,7 +103,7 @@ public class SoundManager : MonoBehaviour
 
         if (entry == null)
         {
-            Debug.Log($"{name} {sid.songName} not found in {sid.dataName}");
+            //  Debug.Log($"{name} {sid.songName} not found in {sid.dataName}");
             return;
         }
 
@@ -112,7 +112,7 @@ public class SoundManager : MonoBehaviour
 
     private void PlayClip(SoundData.SoundEntry entry, AudioSource source, bool loop)
     {
-        Debug.Log($"{name} in playclip");
+        //        Debug.Log($"{name} in playclip");
 
         if (source == null)
         {
@@ -120,7 +120,7 @@ public class SoundManager : MonoBehaviour
             {
                 source = _loopPool2D.GetAvailable();
                 _loopPool2D.AddInLookUp(source, entry.name);
-                Debug.Log($"{name} {entry.name} added to loop");
+                //  Debug.Log($"{name} {entry.name} added to loop");
             }
             else
             {
@@ -138,7 +138,7 @@ public class SoundManager : MonoBehaviour
         source.outputAudioMixerGroup = entry.mixer;
         source.Play();
 
-        Debug.Log($"{name} Played {entry.name} on {entry.mixer} on AudioSource: {source} looping: {loop}");
+        // Debug.Log($"{name} Played {entry.name} on {entry.mixer} on AudioSource: {source} looping: {loop}");
     }
 
     /// <summary>

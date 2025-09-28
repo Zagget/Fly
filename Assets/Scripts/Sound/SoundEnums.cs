@@ -8,6 +8,11 @@ public enum Colliding
      collision3,
      collision4
 }
+public enum DestroyingObject
+{
+     Random,
+     DestroyingObj
+}
 public enum Flying
 {
      Random,
@@ -22,6 +27,13 @@ public enum Stopping
 public enum UI
 {
      Random,
-     menubuttonclick,
-     MenuHover
+     menuClickAlt,
+     menuHoverAlt
+}
+public enum Walking
+{
+     Random,
+     footstep1,
+     footstep2,
+     footstep3
 }

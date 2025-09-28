@@ -70,11 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1905ad5bb560dd45b4e3bbca1cb887c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LookingControls
-  rotationStep: 30
-  rotateSmothness: 0
-  settingsData: {fileID: 0}
-  maxCooldown: 0.4
-  minCooldown: 0.01
+  rotSetting: {fileID: 11400000, guid: 6b3a7784fb18b4648945280314971a77, type: 2}
 --- !u!114 &5561808291904335753
 MonoBehaviour:
   m_ObjectHideFlags: 0

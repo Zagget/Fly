@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dff9e4e4a08a01488eb476975deaed6, type: 3}
+  m_Name: Walking
+  m_EditorClassIdentifier: Assembly-CSharp::SoundData
+  sounds:
+  - name: footstep1
+    clip: {fileID: 8300000, guid: 39006f102cda565458000028d1a403e0, type: 3}
+    volume: 1
+    minPitch: 0.9
+    maxPitch: 1.2
+    mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
+  - name: footstep2
+    clip: {fileID: 8300000, guid: d03062f9ba0661a4b9912ac734bd33bb, type: 3}
+    volume: 1
+    minPitch: 0.9
+    maxPitch: 1.2
+    mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
+  - name: footstep3
+    clip: {fileID: 8300000, guid: a4ffb8280e7bc3544aa0a715aee7ff4a, type: 3}
+    volume: 1
+    minPitch: 0.9
+    maxPitch: 1.2
+    mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}

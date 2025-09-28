@@ -14,9 +14,13 @@ public class PlayerSound : MonoBehaviour
     [SerializeField] private float minPitch = 0.9f;
     [SerializeField] private float maxPitch = 1.1f;
 
+    [Header("Walking")]
+    [SerializeField] private float distance;
+    [SerializeField] private float stepDistance;
+
     private Rigidbody rb;
     private CapsuleCollider capCollider;
-    private AudioSource buzzingSource;
+    private AudioSource loopingSource;
     private AudioSource miscSource;
 
     private BasePlayerState currentState;
@@ -37,10 +41,10 @@ public class PlayerSound : MonoBehaviour
 
         StateManager.Instance.OnStateChanged += OnChangedState;
 
-        buzzingSource = gameObject.AddComponent<AudioSource>();
+        loopingSource = gameObject.AddComponent<AudioSource>();
         miscSource = gameObject.AddComponent<AudioSource>();
 
-        buzzingSource.spatialBlend = 0f;
+        loopingSource.spatialBlend = 0f;
         miscSource.spatialBlend = 0f;
     }
 
@@ -58,15 +62,23 @@ public class PlayerSound : MonoBehaviour
 
         if (IsState(flying))
         {
-            if (!buzzingSource.isPlaying)
+            if (!loopingSource.isPlaying)
             {
-                SoundManager.instance.PlaySound(Flying.Random, buzzingSource, true);
+                SoundManager.instance.PlaySound(Flying.Random, loopingSource, true);
+            }
+        }
+
+        if (IsState(walking))
+        {
+            if (loopingSource.isPlaying)
+            {
+                loopingSource.Stop();
             }
         }
 
         if (IsState(menu) && oldState == flying)
         {
-            buzzingSource.volume = minVolume;
+            loopingSource.volume = minVolume;
             SoundManager.instance.PlaySound(Stopping.Random, miscSource);
         }
     }
@@ -78,13 +90,19 @@ public class PlayerSound : MonoBehaviour
 
     void Update()
     {
-        if (IsState(flying))
+        if (IsState(flying) || IsState(walking))
         {
-            PlaySoundSpeed();
+            VolumeBasedOnSpeed();
         }
+
+        if (IsState(walking))
+        {
+            PlayWalkingBasedOnDistance();
+        }
+
     }
 
-    private void PlaySoundSpeed()
+    private void VolumeBasedOnSpeed()
     {
         float speed = rb.linearVelocity.magnitude;
         float t = Mathf.Clamp01(speed / maxSpeed);
@@ -95,10 +113,24 @@ public class PlayerSound : MonoBehaviour
         pitchSmooth = Mathf.Lerp(pitchSmooth, targetPitch, Time.deltaTime * smoothSpeed);
         volumeSmooth = Mathf.Lerp(volumeSmooth, targetVolume, Time.deltaTime * smoothSpeed);
 
-        buzzingSource.pitch = pitchSmooth;
-        buzzingSource.volume = volumeSmooth;
+        loopingSource.pitch = pitchSmooth;
+        loopingSource.volume = volumeSmooth;
 
         //Debug.Log($"SOUND speed: {speed:F2} t: {t:F2} pitch: {pitchSmooth:F2} volume: {volumeSmooth:F2}");
+    }
+
+    private void PlayWalkingBasedOnDistance()
+    {
+        float frameDistance = rb.linearVelocity.magnitude * Time.deltaTime;
+        distance += frameDistance;
+
+        if (distance >= stepDistance && rb.linearVelocity.magnitude > 0.1f)
+        {
+            SoundManager.instance.PlaySound(Walking.Random);
+            distance = 0f;
+        }
+
+        Debug.Log($"SOUND frameDistance: {frameDistance:F2} distance: {distance:F2}");
     }
 
     public void PlayCollisionSound()
@@ -107,6 +139,6 @@ public class PlayerSound : MonoBehaviour
         if (!IsState(flying)) return;
 
         SoundManager.instance.PlaySound(Colliding.Random, miscSource);
-        miscSource.volume = buzzingSource.volume;
+        miscSource.volume = loopingSource.volume;
     }
 }
