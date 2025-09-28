@@ -99,7 +99,7 @@ public class Grabber : MonoBehaviour
 
 
         //Move 
-        MoveGrabbedItem();
+        //MoveGrabbedItem();
 
     }
 
