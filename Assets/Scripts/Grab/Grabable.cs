@@ -13,6 +13,8 @@ public class Grabable : MonoBehaviour
     [HideInInspector]
     public HashSet<Collider> blockers = new HashSet<Collider>();
 
+    readonly List<(Transform t, int layer)> savedLayer = new();
+
     public int weight;
     
     private void Awake()
@@ -30,7 +32,8 @@ public class Grabable : MonoBehaviour
     public void OnGrab(Transform hand)
     {
         rb.isKinematic = true;
-
+        savedLayer.Clear();
+        SetAndSaveLayer(transform, 0);
         // Grabbing at objects current pos, rot.
         //Vector3 offset = hand.InverseTransformPoint(transform.position);
         //Quaternion rotationOffset = Quaternion.Inverse(hand.rotation) * transform.rotation;
@@ -45,13 +48,31 @@ public class Grabable : MonoBehaviour
     public void OnRelease(Vector3 velocity, Vector3 rotationSpeed)
     {
         rb.isKinematic = false;
+        RestoreLayer();
         transform.SetParent(null, true);
         rb.linearVelocity = velocity;
 
         rb.angularVelocity = Vector3.ClampMagnitude(rotationSpeed, 10f);
     }
 
+    private void SetAndSaveLayer(Transform t, int layer)
+    {
+        if (t == null) return;
+        savedLayer.Add((t, t.gameObject.layer));
+        t.gameObject.layer = layer;
+        foreach (Transform child in t)
+        {
+            SetAndSaveLayer(child, layer);
+        }
+    }
+    private void RestoreLayer()
+    {
+        foreach (var (t, layer) in savedLayer)
+        {
+            if (t == null) continue;
+            t.gameObject.layer = layer;
+        }
+    }
 
 
-    
 }
