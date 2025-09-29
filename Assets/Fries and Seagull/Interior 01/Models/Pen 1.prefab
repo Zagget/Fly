@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 609499061690154561}
   m_Layer: 0
   m_Name: Pen 1
-  m_TagString: Untagged
+  m_TagString: Grabbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,9 +81,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6064750012443663867}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.8028802, y: -0.25208256, z: -0.19455685, w: 0.50396967}
+  m_LocalRotation: {x: -0.8028801, y: -0.2520792, z: -0.19455382, w: 0.50397265}
   m_LocalPosition: {x: -0.06705332, y: 1.1850004, z: 0.8119551}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 204.42961, y: 204.42961, z: 204.4296}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8315738038273035316}
