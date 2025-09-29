@@ -902,7 +902,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6352219890138674677, guid: e957031badb353f44884ce0bb321c2a2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2097,7 +2098,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Office Chair
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2175420066817623974, guid: 4343c522f48efe0438dca65d10544789, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2292,10 +2294,6 @@ PrefabInstance:
     - target: {fileID: 980452345341558616, guid: 960a60ca9359e3f43bced7b072f55890, type: 3}
       propertyPath: m_Name
       value: Pens
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149888688059989661, guid: 960a60ca9359e3f43bced7b072f55890, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 13.39
       objectReference: {fileID: 0}
     - target: {fileID: 4607131742430281666, guid: 960a60ca9359e3f43bced7b072f55890, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2975,7 +2973,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Computer Case
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2974154713606232295, guid: 04f08f292eba51c42b3221947ffc83bb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3878,7 +3877,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2193937744688902610, guid: d7dce48e404868c46a862ca531fddf3d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4493,7 +4493,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Computer
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8104981739230558471, guid: 0cfb98e1488cb9948a9dc462f0771e9e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5120,7 +5121,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ceilling Light
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1536505067836444305, guid: 943bb5fa6ac782143b7561037a737f5c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5684,7 +5686,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table Lamp
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1477279525172107456, guid: c38536f0af05de541bcd30236afe6d72, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
