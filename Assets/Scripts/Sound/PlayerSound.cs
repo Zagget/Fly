@@ -95,10 +95,9 @@ public class PlayerSound : MonoBehaviour
             VolumeBasedOnSpeed();
         }
 
-        PlayWalkingBasedOnDistance();
-
         if (IsState(walking))
         {
+            PlayWalkingBasedOnDistance();
         }
 
     }
@@ -131,7 +130,7 @@ public class PlayerSound : MonoBehaviour
             distance = 0f;
         }
 
-       // Debug.Log($"SOUND frameDistance: {frameDistance:F2} distance: {distance:F2}");
+        // Debug.Log($"SOUND frameDistance: {frameDistance:F2} distance: {distance:F2}");
     }
 
     public void PlayCollisionSound()
