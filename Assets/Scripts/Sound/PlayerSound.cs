@@ -95,9 +95,10 @@ public class PlayerSound : MonoBehaviour
             VolumeBasedOnSpeed();
         }
 
+        PlayWalkingBasedOnDistance();
+
         if (IsState(walking))
         {
-            PlayWalkingBasedOnDistance();
         }
 
     }
