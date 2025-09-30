@@ -104,7 +104,6 @@ public class DesktopMenu : MonoBehaviour
     public void ChangeToMenu()
     {
         currentButtons = menuButtons;
-        currentSelection = 0;
 
         ResetSelection();
     }
