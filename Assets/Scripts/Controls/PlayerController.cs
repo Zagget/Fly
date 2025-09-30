@@ -14,12 +14,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Grabber leftGrabber;
     [SerializeField] public Grabber rightGrabber;
     [SerializeField] public Grabber desktopGrabber;
-
-    [Header("Menu")]
-    [SerializeField] public MenuUI menu;
-    [SerializeField] public DesktopMenu desktopMenu;
     [SerializeField] public UIPointer leftPointer;
     [SerializeField] public UIPointer rightPointer;
+
+    [Header("Menu")]
+    [SerializeField] public TutorialUI tutorial;
+    [SerializeField] public MenuUI menu;
+    [SerializeField] public DesktopMenu desktopMenu;
 
     private bool vr;
     private Input inputActions;

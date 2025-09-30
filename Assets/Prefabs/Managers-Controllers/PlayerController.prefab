@@ -54,10 +54,11 @@ MonoBehaviour:
   leftGrabber: {fileID: 0}
   rightGrabber: {fileID: 0}
   desktopGrabber: {fileID: 0}
-  menu: {fileID: 0}
-  desktopMenu: {fileID: 0}
   leftPointer: {fileID: 0}
   rightPointer: {fileID: 0}
+  tutorial: {fileID: 0}
+  menu: {fileID: 0}
+  desktopMenu: {fileID: 0}
 --- !u!114 &5345857636603677002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,13 +84,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450563f9cdb45b1409562da05608550d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingMovement
-  fixedSpeed: 25
+  fixedSpeed: 62.5
   highSpeedMode: 100
   controllerYOffset: 100
   controllerZOffset: 10
   centerEyeTransform: {fileID: 0}
   headsetYOffset: 1.15
-  maxSpeed: 50
+  maxSpeed: 125
 --- !u!114 &2926363178791186724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,12 +103,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c9737bd7b0ba7b4aa75e7a49c30e7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DesktopMovement
-  maxVerticalVel: 20
-  verticalDecceleration: 15
-  verticalAcceleration: 100
-  horizontalAcceleration: 50
-  horizontalMaxVel: 1000
-  horizontalDecceleration: 50
+  maxVerticalVel: 50
+  verticalDecceleration: 37.5
+  verticalAcceleration: 250
+  horizontalAcceleration: 125
+  horizontalMaxVel: 2500
+  horizontalDecceleration: 125
 --- !u!114 &56864035076277310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,5 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40495666562027444b15e7b79a8aa12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkingMovement
-  acceleration: 50
-  maxVel: 250
+  acceleration: 250
+  maxVel: 1250
