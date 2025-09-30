@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+
 public class StateManager : MonoBehaviour
 {
     private static StateManager _instance;
@@ -22,6 +23,7 @@ public class StateManager : MonoBehaviour
     [HideInInspector] public FlyingState flyingState = new();
     [HideInInspector] public WalkingState walkingState = new();
     [HideInInspector] public MenuState menuState = new();
+    [HideInInspector] public TutorialState tutorialState = new();
 
     private bool isWalkingState;
 
@@ -142,7 +144,7 @@ public class StateManager : MonoBehaviour
         {
             return true;
         }
-        
+
         return false;
     }
 

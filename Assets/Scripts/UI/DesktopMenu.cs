@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,11 +7,13 @@ public class DesktopMenu : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject settings;
+    [SerializeField] private GameObject tutorial;
 
     private MenuUI menuUI;
 
     private VRButton[] menuButtons;
     private VRButton[] settingButtons;
+    private VRButton[] tutorialButtons;
 
     private VRButton[] currentButtons;
 
@@ -29,9 +32,11 @@ public class DesktopMenu : MonoBehaviour
 
         menuUI.InMenu += ChangeToMenu;
         menuUI.InSettings += ChangeToSetting;
+        TutorialManager.instance.InTutorial += ChangeToTutorial;
 
         menuButtons = GetAndSortButtons(menu);
         settingButtons = GetAndSortButtons(settings);
+        tutorialButtons = GetAndSortButtons(tutorial);
     }
 
     private VRButton[] GetAndSortButtons(GameObject go)
@@ -99,7 +104,6 @@ public class DesktopMenu : MonoBehaviour
     public void ChangeToMenu()
     {
         currentButtons = menuButtons;
-        currentSelection = 0;
 
         ResetSelection();
     }
@@ -107,6 +111,13 @@ public class DesktopMenu : MonoBehaviour
     public void ChangeToSetting()
     {
         currentButtons = settingButtons;
+
+        ResetSelection();
+    }
+
+    public void ChangeToTutorial(TutorialData data)
+    {
+        currentButtons = tutorialButtons;
 
         ResetSelection();
     }
