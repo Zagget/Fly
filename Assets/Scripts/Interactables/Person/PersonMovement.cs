@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static OVRPlugin;
 
 public class PersonMovement : MonoBehaviour
 {
@@ -73,6 +74,19 @@ public class PersonMovement : MonoBehaviour
             OnTargetReached?.Invoke();
     }
 
+    IEnumerator RotateTowardsTarget(Vector3 targetPos, float duration)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+
+            transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetDirection, Time.deltaTime * moveSpeed, 0));
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         Vector3 newTarget = new Vector3(UnityEngine.Random.Range(movingAreas[currentBounds].min.x, movingAreas[currentBounds].max.x), transform.position.y,
@@ -114,6 +128,9 @@ public class PersonMovement : MonoBehaviour
             case BehaviourStates.SwitchLight:
                 Vector3 lightInteractPos = lightSwitch.transform.parent.GetChild(0).position;
                 SetTarget(new Vector3(lightInteractPos.x, transform.position.y, lightInteractPos.z));
+                break;
+            case BehaviourStates.bazooka:
+                StartCoroutine(RotateTowardsTarget(RigManager.instance.pTransform.position, 16f));
                 break;
             default:
                 Debug.LogWarning("No movement tied to the state: " + personStates.currentState);

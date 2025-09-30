@@ -14,6 +14,10 @@ public class PersonAnnoyManager : MonoBehaviour
     PersonStates personState;
     Animator animator;
 
+    int totalTimesAnnoyed;
+    [SerializeField] float timeToShootBazooka;
+    [SerializeField] int reqTimesAnnoyedForBazooka;
+    [SerializeField] GameObject bazookaHolder;
     void Start()
     {
         triggerCollider = GetComponent<Collider>();
@@ -39,6 +43,7 @@ public class PersonAnnoyManager : MonoBehaviour
         isChasing = true;
         animator.SetBool("IsChasing", isChasing);
         StartCoroutine(StopChasing(chaseDuration));
+        totalTimesAnnoyed++;
     }
 
     IEnumerator StopChasing(float chaseTime)
@@ -72,10 +77,40 @@ public class PersonAnnoyManager : MonoBehaviour
     {
         if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled && personState.currentState != BehaviourStates.Chasing)
         {
+            if (totalTimesAnnoyed >= reqTimesAnnoyedForBazooka)
+            {
+                if (personState.currentState != BehaviourStates.bazooka)
+                {
+                    StartCoroutine(ShootBazooka(timeToShootBazooka));
+                }
+                personState.ChangeState(BehaviourStates.bazooka);
+
+                return;
+            }
+
             if (annoyedAmount > annoyThreshold)
+            {
                 personState.ChangeState(BehaviourStates.Chasing);
+            }
             else
+            {
                 personState.ChangeState(BehaviourStates.Neutral);
+            }
         }
+    }
+
+    IEnumerator ShootBazooka(float duration)
+    {
+        float time = 0;
+        bazookaHolder.SetActive(true);
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        bazookaHolder.SetActive(false);
+        personState.ChangeState(BehaviourStates.Neutral);
     }
 }
