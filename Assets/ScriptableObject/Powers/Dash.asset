@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: Assembly-CSharp::DashPower
   maximumCharge: 4
-  duration: 0
-  speedFactor: 10
+  duration: 0.125
+  speedFactor: 800

@@ -4,16 +4,28 @@ using UnityEngine;
 public class DashPower : BaseInstantPower
 {
     [SerializeField] float speedFactor = 10;
+
+    BasePlayerState lastState;
+
     public override void Start()
     {
-        rigManager.currentRb.linearVelocity = Vector3.zero;
+        StateManager.Instance.OnStateChanged -= OnStateChange;
+        StateManager.Instance.OnStateChanged += OnStateChange;
+        playerController.SetState(StateManager.Instance.dashState);
 
         currentCharge = Mathf.Clamp(currentCharge, 0f, maximumCharge);
-
         float dashSpeed = speedFactor * (currentCharge / maximumCharge);
+        rigManager.currentRb.linearVelocity = rigManager.eyeAnchor.transform.forward * dashSpeed;
+    }
 
-        rigManager.currentRb.AddForce(rigManager.transform.forward * dashSpeed, ForceMode.VelocityChange);
+    public override void End()
+    {
+        StateManager.Instance.OnStateChanged -= OnStateChange;
+        playerController.SetState(lastState);
+    }
 
-        Debug.Log($"Dashed forward with, currentCharge: {currentCharge}, speed: {dashSpeed}");
+    public void OnStateChange(BasePlayerState newState, BasePlayerState lastState)
+    {
+        if (!(lastState is DashState)) this.lastState = lastState;
     }
 }

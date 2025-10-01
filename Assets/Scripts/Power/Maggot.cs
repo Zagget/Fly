@@ -46,7 +46,7 @@ public class Maggot : MonoBehaviour
 
     private void HandleCrawling()
     {
-        if (target == null || checkForFood)
+        if (target == null || checkForFood || targetCollider == null)
         {
             checkForFood = true;
             FindFood();
