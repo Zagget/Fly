@@ -10,7 +10,7 @@ public class SortingManager : MonoBehaviour
 
     bool isQuitting = false;
 
-    public static SortingManager Instance {  get; private set; }
+    public static SortingManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -30,6 +30,7 @@ public class SortingManager : MonoBehaviour
 
     public void NewElement(SortingElement element)
     {
+        if (element == null) return; 
         if (indexDictionary.ContainsKey(element)) RemoveFromLists(element);
         AddToLists(element);
 

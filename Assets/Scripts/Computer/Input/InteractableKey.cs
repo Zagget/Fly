@@ -26,9 +26,9 @@ public abstract class InteractableKey : MonoBehaviour
     private void Update()
     {
         rb.rotation = parent.rotation;
-        Vector3 newPos = startPos + parent.linearVelocity;
-        newPos.y = Mathf.Clamp(transform.localPosition.y + pushback * Time.deltaTime, startPos.y - distance, startPos.y);
-        rb.position = transform.parent.TransformPoint(newPos);
+        Vector3 newPos = startPos;
+        newPos.y = Mathf.Clamp(transform.localPosition.y, startPos.y - distance, startPos.y);
+        rb.position = parent.transform.TransformPoint(newPos);
 
         if (transform.localPosition.y < startPos.y - tolerance) 
         {
@@ -41,7 +41,9 @@ public abstract class InteractableKey : MonoBehaviour
     private void FixedUpdate()
     {
         rb.angularVelocity = Vector3.zero;
-        rb.linearVelocity = Vector3.zero;
+
+        rb.linearVelocity += transform.parent.TransformVector(Vector3.up) * pushback;
+        rb.linearVelocity *= deceleration;
     }
 
     protected abstract void OnPress();

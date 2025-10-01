@@ -7,14 +7,14 @@ public class TextBox : ComputerElement, IOnPress, IBackSpace
     [SerializeField] Image image;
     [SerializeField] Color normal;
     [SerializeField] Color selected;
-    TextMeshPro textMeshPro;
+    protected TextMeshProUGUI textMeshPro;
 
     private void Awake()
     {
-        textMeshPro = GetComponent<TextMeshPro>();
+        textMeshPro = GetComponent<TextMeshProUGUI>();
         if (textMeshPro == null)
         {
-            Debug.LogWarning("Computer TextBox does not have textmeshpro text");
+            Debug.LogWarning("Computer TextBox does not have TextMeshProUGUI text");
             Destroy(this);
         }
     }

@@ -40,6 +40,7 @@ public class ComputerInputManager : MonoBehaviour
     {
         ComputerElement element = mouse.Click();
         NewElement(element);
+        Debug.Log("Clicked on: " + selectedElement, selectedElement);
         if (selectedElement != null && selectedElement is ILeftClick leftClick) leftClick.LeftClick();
     }
     public void RightClick() 
