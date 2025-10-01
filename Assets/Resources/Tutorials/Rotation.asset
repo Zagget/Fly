@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Rotation
   m_EditorClassIdentifier: Assembly-CSharp::TutorialData
   id: 0
-  clip: {fileID: 0}
+  clip: {fileID: 32900000, guid: f5299add8ffe55045b32cf3543cba986, type: 3}
   header: Rotation
   description: Left joystick to rotate<br><br> (rotation settings in menu)

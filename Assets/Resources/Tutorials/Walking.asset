@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Walking
   m_EditorClassIdentifier: Assembly-CSharp::TutorialData
   id: 3
-  clip: {fileID: 0}
+  clip: {fileID: 32900000, guid: c8b4eb92f969bb848a3962faf6461188, type: 3}
   header: Walking
-  description: Joystick to move. <br> Use hands to start flying.
+  description: Joystick to move. <br><br> Use hands to start flying.

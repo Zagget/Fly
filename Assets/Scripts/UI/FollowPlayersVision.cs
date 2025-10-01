@@ -9,6 +9,7 @@ public class FollowPlayersVision : MonoBehaviour
     Vector3 currentDirection = Vector3.up;
 
     private BasePlayerState menu;
+    private BasePlayerState tutorial;
     private bool followPlayer = true;
 
     private void Start()
@@ -17,6 +18,7 @@ public class FollowPlayersVision : MonoBehaviour
         currentDirection = cameraTransform.forward;
 
         menu = StateManager.Instance.menuState;
+        tutorial = StateManager.Instance.tutorialState;
 
         StateManager.Instance.OnStateChanged += CheckForMenuState;
     }
@@ -28,7 +30,7 @@ public class FollowPlayersVision : MonoBehaviour
 
     private void CheckForMenuState(BasePlayerState newState, BasePlayerState oldState)
     {
-        if (newState == menu)
+        if (newState == menu || newState == tutorial)
         {
             followPlayer = false;
             return;
