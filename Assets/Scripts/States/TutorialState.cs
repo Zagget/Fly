@@ -1,12 +1,14 @@
 using UnityEngine.InputSystem;
+using UnityEngine;
 
 public class TutorialState : BasePlayerState
 {
     private BasePlayerState previousState;
-
+    private RigManager rig;
     public override void Enter(PlayerController player)
     {
         base.Enter(player);
+        rig = RigManager.instance;
         StateManager.Instance.OnStateChanged += HandleStateChanged;
 
         if (RigManager.instance.usingVr)
@@ -61,6 +63,11 @@ public class TutorialState : BasePlayerState
     public void ExitMenu()
     {
         player.SetState(previousState);
+    }
+
+    public override void StateUpdate()
+    {
+        rig.currentRb.linearVelocity = Vector3.zero;
     }
 
     public override void HandleToggleMenu(InputAction.CallbackContext context) { }
