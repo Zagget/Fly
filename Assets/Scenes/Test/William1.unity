@@ -1694,7 +1694,9 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4740741365024454210, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
+    - {fileID: 7049281741444406964, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5487276923341093368, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
     m_AddedGameObjects:
@@ -1704,7 +1706,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7421205283056592625, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1597862833}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8658307009353988922, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 692123991}
   m_SourcePrefab: {fileID: 100100000, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
 --- !u!1001 &314356039
 PrefabInstance:
@@ -3749,6 +3754,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallDamageable
   forceMultiplier: 0.5
+--- !u!1 &692123989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8658307009353988922, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
+  m_PrefabInstance: {fileID: 307648532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &692123991
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692123989}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &717717320
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class Grabber : MonoBehaviour
     public static Action<Grabable> onGrab;
     public static Action<Grabable> onRelease;
 
-    static readonly Collider[] buf = new Collider[32];
+    static readonly Collider[] blockColliders = new Collider[32];
 
     void Start()
     {
@@ -109,11 +109,7 @@ public class Grabber : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        
-        
-    }
+
 
     private void MoveGrabbedItem()
     {
@@ -128,14 +124,14 @@ public class Grabber : MonoBehaviour
             {
                 probe.SetPositionAndRotation(desiredPos, desiredRot);
 
-                int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, buf,
+                int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, blockColliders,
                                                         solidMask, QueryTriggerInteraction.Ignore);
-                Debug.Log(n);
+                
                 bool moved = false;
                 for (int j = 0; j < n; j++)
                 {
-                    var collider = buf[j];
-                    Debug.Log(collider.transform.parent);
+                    var collider = blockColliders[j];
+                    
                     if (Physics.ComputePenetration(
                         currentGrabbed.triggerCollider, desiredPos, desiredRot,
                         collider, collider.transform.position, collider.transform.rotation,
@@ -152,13 +148,6 @@ public class Grabber : MonoBehaviour
             currentGrabbed.transform.rotation = desiredRot;
 
         }
-    }
-
-    private void Constraint()
-    {
-        
-
-        
     }
 
 
