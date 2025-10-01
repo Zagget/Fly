@@ -11,7 +11,8 @@ public enum BehaviourStates
     Sitting,
     OpenDoor,
     SwitchLight,
-    bazooka
+    bazooka,
+    Ragdoll
 }
 public class PersonStates : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class PersonStates : MonoBehaviour
     public static event Action OnPersonSitting;
     public static event Action OnPersonOpenDoor;
     public static event Action OnPersonSwitchLight;
+    public static event Action OnPersonRagdoll;
+    public static event Action OnRagdollReset;
     [SerializeField] private BehaviourStates _CurrentState;
     private BehaviourStates preBehaviour;
     public BehaviourStates currentState
@@ -56,13 +59,23 @@ public class PersonStates : MonoBehaviour
         {
             StartCoroutine(InvokeAfterAnimation(newState, "StopSit", "Sitting_Exit"));
         }
+        else if (preBehaviour == BehaviourStates.Ragdoll &&
+                 newState != BehaviourStates.Ragdoll)
+        {
+            //Recover from ragdoll and invoke after done recovering
+            Debug.Log("Recovering from ragdoll...");
+            OnRagdollReset?.Invoke(); //InvokeAfterAnimation is triggered during OnRagDollReset
+                                      //TODO: Fix so that the state isn't lost when you change it. Maybe add a timer for how long person is ragdolled
+                                      //TODO: Cleanup
+            StartCoroutine(InvokeAfterRagdollRecovery(newState));
+        }
         else
         {
             InvokeChangeState(newState);
         }
     }
 
-    IEnumerator InvokeAfterAnimation(BehaviourStates newstate, string triggerName, string animStateName)
+    public IEnumerator InvokeAfterAnimation(BehaviourStates newstate, string triggerName, string animStateName)
     {
         if (AnimationManager.Instance == null)
         {
@@ -74,6 +87,12 @@ public class PersonStates : MonoBehaviour
         yield return AnimationManager.Instance.WaitForAnimation(animator, animStateName);
         InvokeChangeState(newstate);
         
+    }
+    IEnumerator InvokeAfterRagdollRecovery(BehaviourStates newState)
+    {
+        PersonMovement pm = GetComponent<PersonMovement>();
+        yield return pm.PersonResetFromRagdoll();
+        StartCoroutine(InvokeAfterAnimation(newState, "AfterRagdoll", "Crouch"));
     }
 
     void InvokeChangeState(BehaviourStates newState)
@@ -104,6 +123,9 @@ public class PersonStates : MonoBehaviour
                 break;
             case BehaviourStates.SwitchLight:
                 OnPersonSwitchLight?.Invoke();
+                break;
+            case BehaviourStates.Ragdoll:
+                OnPersonRagdoll?.Invoke();
                 break;
             default:
                 Debug.LogWarningFormat("Person Behaviour State not recognized!");

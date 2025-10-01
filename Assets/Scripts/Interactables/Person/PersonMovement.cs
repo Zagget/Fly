@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static OVRPlugin;
 
@@ -9,6 +11,7 @@ public class PersonMovement : MonoBehaviour
     public float moveSpeed = 10;
     [Range(0.1f, 50)][SerializeField] float passiveMovingFrequency = 10;
     [Range(0.1f, 50)][SerializeField] float activeMovingFrequency = 0.1f;
+    [SerializeField] Collider[] triggerColliders;
     [Header("Movement Area")]
     [SerializeField] Bounds[] movingAreas;
     private int currentBounds;
@@ -25,14 +28,21 @@ public class PersonMovement : MonoBehaviour
     bool reachedTarget;
     Animator animator;
     Rigidbody rb;
+    Rigidbody[] ragdollRB;
+    Dictionary<Transform, Pose> ragdollPose = new();
+    Dictionary<Transform, Pose> targetPose = new();
     void Start()
     {
+        var rigidbodies = new HashSet<Rigidbody>(GetComponentsInChildren<Rigidbody>());
         target = transform.position;
         personStates = GetComponent<PersonStates>();
         animator = GetComponentInChildren<Animator>();
         StopCurrentMoveCoroutine();
         StartCoroutine(RecheckMovement(2));
         rb = GetComponent<Rigidbody>();
+        
+        rigidbodies.Remove(rb);
+        ragdollRB = rigidbodies.ToArray();
     }
     void OnEnable()
     {
@@ -43,6 +53,7 @@ public class PersonMovement : MonoBehaviour
         PersonStates.OnPersonSitting += CheckMovement;
         PersonStates.OnPersonOpenDoor += CheckMovement;
         PersonStates.OnPersonSwitchLight += CheckMovement;
+        PersonStates.OnPersonRagdoll += PersonRagdoll;
         OnTargetReached += TargetReachedHandler;
     }
     void OnDisable()
@@ -54,6 +65,7 @@ public class PersonMovement : MonoBehaviour
         PersonStates.OnPersonSitting -= CheckMovement;
         PersonStates.OnPersonOpenDoor -= CheckMovement;
         PersonStates.OnPersonSwitchLight -= CheckMovement;
+        PersonStates.OnPersonRagdoll -= PersonRagdoll;
         OnTargetReached -= TargetReachedHandler;
     }
 
@@ -238,6 +250,73 @@ public class PersonMovement : MonoBehaviour
         animator.SetTrigger("Interact"); //Play interact animation. Interact event is triggered by animation clip
         yield return AnimationManager.Instance.WaitForAnimation(animator, "Interact");
         personStates.ChangeState(BehaviourStates.Neutral);
+    }
+    void PersonRagdoll()
+    {
+        foreach (Collider trigger in triggerColliders)
+        {
+            trigger.enabled = false;
+        }
+
+        animator.enabled = false;
+        foreach (Rigidbody rb in ragdollRB)
+        {
+            rb.isKinematic = false;
+        }
+    }
+    public IEnumerator PersonResetFromRagdoll()
+    {
+        //TODO: Change parent position without changing child positions
+        foreach (Rigidbody rb in ragdollRB)
+        {
+            ragdollPose[rb.transform] = new Pose(rb.transform.localPosition, rb.transform.localRotation);
+        }
+        foreach (Rigidbody rb in ragdollRB)
+        {
+            rb.isKinematic = true;
+        }
+        CacheTargetPose();
+        //StartCoroutine(BlendRagdollAnimation());
+        float blendDuration = 1.5f;
+        float elapsed = 0f;
+        while (elapsed < blendDuration)
+        {
+            float t = elapsed / blendDuration;
+
+            foreach (Rigidbody rb in ragdollRB)
+            {
+                Pose from = ragdollPose[rb.transform];
+                Pose to = targetPose[rb.transform];
+
+                rb.transform.localPosition = Vector3.Lerp(from.position, to.position, t);
+                rb.transform.localRotation = Quaternion.Slerp(from.rotation, to.rotation, t);
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        animator.enabled = true;
+        animator.CrossFade("Crouch", 0.2f);
+        
+        foreach (Collider trigger in triggerColliders)
+        {
+            trigger.enabled = true;
+        }
+    }
+
+    void CacheTargetPose()
+    {
+        Debug.Log("Caching crouch pose");
+        animator.enabled = true;
+        animator.Play("Crouch", 0, 0); // Sample first frame of crouch
+        animator.Update(0);          
+
+        foreach (Rigidbody rb in ragdollRB)
+        {
+            targetPose[rb.transform] = new Pose(rb.transform.localPosition, rb.transform.localRotation);
+        }
+        animator.enabled = false;
     }
 
     void OnDrawGizmosSelected()
