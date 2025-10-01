@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialData
   id: 6
   clip: {fileID: 0}
-  header: Use Powers
-  description: Rub hands together to fill your power meter<br> Press "" To use power
+  header: Powers
+  description: Rub hands together to fill your power meter<br><br> Press Y to use

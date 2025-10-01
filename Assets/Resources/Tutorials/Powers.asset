@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Powers
   m_EditorClassIdentifier: Assembly-CSharp::TutorialData
   id: 5
-  clip: {fileID: 0}
+  clip: {fileID: 32900000, guid: 6677195db83d3974bb6b64bb2af68bc7, type: 3}
   header: Power
-  description: Toggle powers with ""
+  description: Toggle powers with X

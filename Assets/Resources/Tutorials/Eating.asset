@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Eating
   m_EditorClassIdentifier: Assembly-CSharp::TutorialData
   id: 4
-  clip: {fileID: 0}
+  clip: {fileID: 32900000, guid: b31b3f9e4adc36444b6d5419bfd45036, type: 3}
   header: Eating
-  description: Be close to food to eat it. <br> Eat to gain more powers!
+  description: Be close to food to eat it. <br><br> Eat to gain more powers!
