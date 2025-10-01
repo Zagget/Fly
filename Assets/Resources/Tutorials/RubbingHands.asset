@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afa3fbf6dfb14cf4ab41add2216a92ae, type: 3}
-  m_Name: Welcome
+  m_Name: RubbingHands
   m_EditorClassIdentifier: Assembly-CSharp::TutorialData
+  id: 6
   clip: {fileID: 0}
-  header: Welcome!
-  description: Thanks for playtesting, Tutorials will popup you can at anytime select
-    skip tutorial.
+  header: Use Powers
+  description: Rub hands together to fill your power meter<br> Press "" To use power

@@ -3,12 +3,13 @@ using UnityEngine.Video;
 
 public enum TutorialID
 {
-    Welcome,
     Rotation,
     Flying,
     Hover,
     Walking,
-    Eating
+    Eating,
+    Power,
+    RubbingHands
 
 }
 

@@ -29,6 +29,8 @@ public class TutorialUI : MonoBehaviour
         if (data.description != null)
             tutorialDescription.text = data.description;
 
+        Debug.Log($"TutorialManager SetTutorial: header: {data.header}");
+
         tutorialPanel.SetActive(true);
     }
 

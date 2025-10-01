@@ -7207,7 +7207,7 @@ PrefabInstance:
     - target: {fileID: 6056120392132150508, guid: 44e5d1837a504784d82d60e57d2adac1, type: 3}
       propertyPath: tutorialHeader
       value: 
-      objectReference: {fileID: 4137722599837501582}
+      objectReference: {fileID: 4922427913772867881}
     - target: {fileID: 6056120392132150508, guid: 44e5d1837a504784d82d60e57d2adac1, type: 3}
       propertyPath: tutorialDescription
       value: 

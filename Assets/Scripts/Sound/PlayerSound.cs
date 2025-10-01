@@ -53,7 +53,7 @@ public class PlayerSound : MonoBehaviour
         if (newState == currentState) return;
 
         currentState = newState;
-        Debug.Log($"Sound To {newState} From {oldState}");
+        //Debug.Log($"Sound To {newState} From {oldState}");
 
         if (IsState(hover))
         {
