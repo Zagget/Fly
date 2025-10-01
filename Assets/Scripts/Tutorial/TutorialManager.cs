@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Internal.Commands;
 using Oculus.Voice.Windows;
 using UnityEngine;
 
@@ -63,16 +64,21 @@ public class TutorialManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"Duplicate TutorialID: {tutorial.id}");
+                Debug.LogWarning($"TutorialManager Duplicate TutorialID: {tutorial.id}");
             }
         }
     }
 
     public void ActivateTutorial(TutorialID id)
     {
+        if (!useTutorial)
+        {
+            Debug.Log("TutorialManager Tutorial is skipped not activating");
+            return;
+        }
         if (!tutorialsById.ContainsKey(id))
         {
-            Debug.LogWarning($"Tutorial {id} not found!");
+            Debug.LogWarning($"TutorialManager Tutorial {id} not found!");
             return;
         }
 
@@ -106,5 +112,10 @@ public class TutorialManager : MonoBehaviour
         controller.SetState(StateManager.Instance.tutorialState);
 
         Debug.Log($"TutorialManager Activated tutorial: {tutorial.header}");
+    }
+
+    public void SkipTutorials()
+    {
+        useTutorial = false;
     }
 }

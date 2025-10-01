@@ -37,4 +37,11 @@ public class TutorialUI : MonoBehaviour
         tutorialPanel.SetActive(false);
         StateManager.Instance.tutorialState.ExitMenu();
     }
+
+    public void PressSkip()
+    {
+        tutorialPanel.SetActive(false);
+        TutorialManager.instance.SkipTutorials();
+        StateManager.Instance.tutorialState.ExitMenu();
+    }
 }
