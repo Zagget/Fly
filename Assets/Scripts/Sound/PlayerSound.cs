@@ -135,7 +135,7 @@ public class PlayerSound : MonoBehaviour
 
     public void PlayCollisionSound()
     {
-        Debug.Log("Sound Colliding");
+        //Debug.Log("Sound Colliding");
         if (!IsState(flying)) return;
 
         SoundManager.instance.PlaySound(Colliding.Random, miscSource);

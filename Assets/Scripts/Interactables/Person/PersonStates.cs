@@ -53,7 +53,7 @@ public class PersonStates : MonoBehaviour
 
     public void ChangeState(BehaviourStates newState)
     {
-        Debug.Log($"old state: {preBehaviour}, new state: {newState}");
+        //Debug.Log($"old state: {preBehaviour}, new state: {newState}");
         if (preBehaviour == BehaviourStates.Sitting &&
             newState != BehaviourStates.Sitting &&
             animator.GetCurrentAnimatorStateInfo(0).IsName("Sitting_Idle_Loop"))
