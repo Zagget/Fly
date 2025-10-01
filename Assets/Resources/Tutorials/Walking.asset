@@ -15,4 +15,4 @@ MonoBehaviour:
   id: 3
   clip: {fileID: 32900000, guid: c8b4eb92f969bb848a3962faf6461188, type: 3}
   header: Walking
-  description: Joystick to move. <br><br> Use hands to start flying.
+  description: Right Joystick to move. <br><br> Press A Use hands to start flying.

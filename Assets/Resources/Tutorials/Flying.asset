@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Flying
   m_EditorClassIdentifier: Assembly-CSharp::TutorialData
   id: 1
-  clip: {fileID: 32900000, guid: a587dc814f71153478394668d8c6cc57, type: 3}
+  clip: {fileID: 32900000, guid: 832e71bf23de00c4fa5532a0c80f7f46, type: 3}
   header: Flying
   description: Use your hands

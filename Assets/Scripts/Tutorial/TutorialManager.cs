@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework.Internal.Commands;
-using Oculus.Voice.Windows;
 using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
@@ -45,7 +43,7 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator FirstTutorial(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        ActivateTutorial(TutorialID.Rotation);
+        ActivateTutorial(TutorialID.Flying);
     }
 
     private void LoadAllTutorials()
