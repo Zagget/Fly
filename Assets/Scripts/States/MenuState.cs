@@ -5,15 +5,16 @@ using UnityEngine;
 public class MenuState : BasePlayerState
 {
     private BasePlayerState previousState;
-
+    private RigManager rig;
     public override void Enter(PlayerController player)
     {
         base.Enter(player);
+        rig = RigManager.instance;
         StateManager.Instance.OnStateChanged += HandleStateChanged;
 
         player.menu.EnterMenu();
 
-        if (RigManager.instance.usingVr)
+        if (rig.usingVr)
         {
             player.leftPointer.SetVisible(true);
             player.rightPointer.SetVisible(true);
@@ -24,7 +25,7 @@ public class MenuState : BasePlayerState
     {
         base.Exit();
 
-        if (RigManager.instance.usingVr)
+        if (rig.usingVr)
         {
             player.leftPointer.SetVisible(false);
             player.rightPointer.SetVisible(false);
@@ -36,7 +37,7 @@ public class MenuState : BasePlayerState
 
     public override void HandleActivatePower(InputAction.CallbackContext context, PlayerController playerController)
     {
-        if (RigManager.instance.usingVr)
+        if (rig.usingVr)
         {
             player.leftPointer.OnPress(context);
         }
@@ -76,6 +77,11 @@ public class MenuState : BasePlayerState
         player.SetState(previousState);
     }
 
+    public override void StateUpdate()
+    {
+        base.StateUpdate();
+        rig.currentRb.linearVelocity = Vector3.zero;
+    }
     public override void HandleMovement(InputAction.CallbackContext context, FloatingMovement movement) { }
     public override void HandleGrabLeft(InputAction.CallbackContext context, Grabber leftGrabber) { }
     public override void HandleGrabRight(InputAction.CallbackContext context, Grabber leftGrabber) { }
