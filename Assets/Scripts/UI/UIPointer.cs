@@ -37,6 +37,8 @@ public class UIPointer : MonoBehaviour
         pointerCube.transform.localPosition = boxCollider.center;
         pointerCube.transform.localScale = boxCollider.size;
 
+        pointerCube.layer = LayerMask.NameToLayer("Overlay UI");
+
         var renderer = pointerCube.GetComponent<Renderer>();
         renderer.material = new Material(Shader.Find("Standard"));
         renderer.material.color = color;
