@@ -127,6 +127,7 @@ public class PersonStates : MonoBehaviour
                 break;
             case BehaviourStates.Ragdoll:
                 OnPersonRagdoll?.Invoke();
+                break;
             case BehaviourStates.bazooka:
                 OnPersonStartBazooka?.Invoke();
                 break;
