@@ -18,6 +18,7 @@ public class PersonAnnoyManager : MonoBehaviour
     [SerializeField] float timeToShootBazooka;
     [SerializeField] int reqTimesAnnoyedForBazooka;
     [SerializeField] GameObject bazookaHolder;
+    bool isBazookaCoroutineRunning;
     void Start()
     {
         triggerCollider = GetComponent<Collider>();
@@ -59,7 +60,8 @@ public class PersonAnnoyManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
+        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled &&
+            personState.currentState != BehaviourStates.bazooka)
         {
             if (personState.currentState == BehaviourStates.Chasing)
             {
@@ -75,20 +77,21 @@ public class PersonAnnoyManager : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled && personState.currentState != BehaviourStates.Chasing)
+        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
         {
             if (totalTimesAnnoyed >= reqTimesAnnoyedForBazooka)
             {
-                if (personState.currentState != BehaviourStates.bazooka)
+                if (personState.currentState != BehaviourStates.bazooka && !isBazookaCoroutineRunning)
                 {
                     StartCoroutine(ShootBazooka(timeToShootBazooka));
-                }
-                personState.ChangeState(BehaviourStates.bazooka);
-
+                    personState.ChangeState(BehaviourStates.bazooka);
+                }        
                 return;
             }
 
-            if (annoyedAmount > annoyThreshold)
+            if (personState.currentState == BehaviourStates.Chasing) return;
+
+            if (annoyedAmount > annoyThreshold )
             {
                 personState.ChangeState(BehaviourStates.Chasing);
             }
@@ -102,15 +105,23 @@ public class PersonAnnoyManager : MonoBehaviour
     IEnumerator ShootBazooka(float duration)
     {
         float time = 0;
+        var rm = RigManager.instance;
         bazookaHolder.SetActive(true);
+        animator.Play("Idle_Loop");
+        isBazookaCoroutineRunning = true;
         while (time < duration)
         {
             time += Time.deltaTime;
+            Vector3 targetDirection = rm.pTransform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
+                new Vector3(targetDirection.x, transform.position.y, targetDirection.z), Time.deltaTime, 0));
+            transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
 
             yield return new WaitForEndOfFrame();
         }
 
         bazookaHolder.SetActive(false);
         personState.ChangeState(BehaviourStates.Neutral);
+        isBazookaCoroutineRunning = false;
     }
 }

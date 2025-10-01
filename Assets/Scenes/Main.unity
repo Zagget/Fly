@@ -6233,7 +6233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6658427131446149489, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: chaseSpeed
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6658427131446149489, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: bazookaHolder
@@ -6245,7 +6245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6658427131446149489, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: annoyThreshold
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6658427131446149489, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: timeToShootBazooka
@@ -6253,7 +6253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6658427131446149489, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: reqTimesAnnoyedForBazooka
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7959577314854935106, guid: 5cd1bbd56c2199d4b8683dc8b4fa774e, type: 3}
       propertyPath: m_LocalScale.x

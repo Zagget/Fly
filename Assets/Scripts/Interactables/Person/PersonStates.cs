@@ -29,6 +29,7 @@ public class PersonStates : MonoBehaviour
     public static event Action OnPersonSwitchLight;
     public static event Action OnPersonRagdoll;
     public static event Action OnRagdollReset;
+    public static event Action OnPersonStartBazooka;
     [SerializeField] private BehaviourStates _CurrentState;
     private BehaviourStates preBehaviour;
     public BehaviourStates currentState
@@ -86,7 +87,7 @@ public class PersonStates : MonoBehaviour
         animator.SetTrigger(triggerName);
         yield return AnimationManager.Instance.WaitForAnimation(animator, animStateName);
         InvokeChangeState(newstate);
-        
+
     }
     IEnumerator InvokeAfterRagdollRecovery(BehaviourStates newState)
     {
@@ -126,6 +127,8 @@ public class PersonStates : MonoBehaviour
                 break;
             case BehaviourStates.Ragdoll:
                 OnPersonRagdoll?.Invoke();
+            case BehaviourStates.bazooka:
+                OnPersonStartBazooka?.Invoke();
                 break;
             default:
                 Debug.LogWarningFormat("Person Behaviour State not recognized!");

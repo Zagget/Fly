@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static OVRPlugin;
 
 public class PersonMovement : MonoBehaviour
 {
@@ -54,6 +53,7 @@ public class PersonMovement : MonoBehaviour
         PersonStates.OnPersonOpenDoor += CheckMovement;
         PersonStates.OnPersonSwitchLight += CheckMovement;
         PersonStates.OnPersonRagdoll += PersonRagdoll;
+        PersonStates.OnPersonStartBazooka += CheckMovement;
         OnTargetReached += TargetReachedHandler;
     }
     void OnDisable()
@@ -66,6 +66,7 @@ public class PersonMovement : MonoBehaviour
         PersonStates.OnPersonOpenDoor -= CheckMovement;
         PersonStates.OnPersonSwitchLight -= CheckMovement;
         PersonStates.OnPersonRagdoll -= PersonRagdoll;
+        PersonStates.OnPersonStartBazooka -= CheckMovement;
         OnTargetReached -= TargetReachedHandler;
     }
 
@@ -84,19 +85,6 @@ public class PersonMovement : MonoBehaviour
 
         if (!reachedTarget)
             OnTargetReached?.Invoke();
-    }
-
-    IEnumerator RotateTowardsTarget(Vector3 targetPos, float duration)
-    {
-        float time = 0;
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-
-            transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetDirection, Time.deltaTime * moveSpeed, 0));
-            yield return new WaitForEndOfFrame();
-        }
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -142,7 +130,6 @@ public class PersonMovement : MonoBehaviour
                 SetTarget(new Vector3(lightInteractPos.x, transform.position.y, lightInteractPos.z));
                 break;
             case BehaviourStates.bazooka:
-                StartCoroutine(RotateTowardsTarget(RigManager.instance.pTransform.position, 16f));
                 break;
             default:
                 Debug.LogWarning("No movement tied to the state: " + personStates.currentState);
@@ -231,6 +218,8 @@ public class PersonMovement : MonoBehaviour
                 break;
             case BehaviourStates.SwitchLight:
                 StartCoroutine(PersonInteract(lightSwitch.transform.parent.GetChild(0)));
+                break;
+            case BehaviourStates.bazooka:
                 break;
             default:
                 break;
