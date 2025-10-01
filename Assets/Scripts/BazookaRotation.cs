@@ -3,7 +3,7 @@ public class BazookaRotation : MonoBehaviour
 {
     Rigidbody playerRB;
     Transform playerTransform;
-    [SerializeField] float rotationDelta;
+    [SerializeField] private float rotationSpeed;
     void Start()
     {
         playerRB = RigManager.instance.currentRb;
@@ -19,6 +19,9 @@ public class BazookaRotation : MonoBehaviour
     {
         Vector3 targetPos = new Vector3(transform.position.x, target.position.y, transform.position.z);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation,target.rotation, rotationDelta * Time.deltaTime);
+        Vector3 _direction = (target.position - transform.position).normalized;
+        Quaternion _lookRotation = Quaternion.LookRotation(_direction * -1);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
     }
 }

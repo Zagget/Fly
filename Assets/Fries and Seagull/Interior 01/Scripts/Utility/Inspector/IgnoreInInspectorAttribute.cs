@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Seagull.Interior_01.Utility {
+namespace Seagull.Bar_02.Inspector {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
     public class IgnoreInInspectorAttribute : Attribute {
         

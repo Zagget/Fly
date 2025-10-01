@@ -12,17 +12,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4008610799542497148, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
+      propertyPath: m_TagString
+      value: Food
+      objectReference: {fileID: 0}
     - target: {fileID: 4389499887083206086, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.166155
+      value: 32.145634
       objectReference: {fileID: 0}
     - target: {fileID: 4389499887083206086, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.99
+      value: 13.800001
       objectReference: {fileID: 0}
     - target: {fileID: 4389499887083206086, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -50.975723
+      value: -50.796474
       objectReference: {fileID: 0}
     - target: {fileID: 4389499887083206086, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4389499887083206086, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4389499887083206086, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
       propertyPath: m_LocalRotation.y
@@ -51,6 +55,22 @@ PrefabInstance:
     - target: {fileID: 4389499887083206086, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088936243273337580, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
+      propertyPath: m_Radius
+      value: 0.88081515
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088936243273337580, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
+      propertyPath: m_Center.x
+      value: -0.02481537
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088936243273337580, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
+      propertyPath: m_Center.y
+      value: 0.11000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088936243273337580, guid: 54545446ea7bb1d49a60e927b5cc5fe6, type: 3}
+      propertyPath: m_Center.z
+      value: -0.000000667572
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

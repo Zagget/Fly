@@ -16,7 +16,6 @@ public class MenuUI : MonoBehaviour
     [SerializeField] private SettingsData settings;
     private ControllerData controllerData;
 
-
     private void Start()
     {
         TogglePanels(false, false);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public enum BehaviourStates
 {
@@ -11,7 +10,8 @@ public enum BehaviourStates
     Chasing,
     Sitting,
     OpenDoor,
-    SwitchLight
+    SwitchLight,
+    bazooka
 }
 public class PersonStates : MonoBehaviour
 {

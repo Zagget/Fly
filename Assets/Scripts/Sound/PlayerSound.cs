@@ -53,7 +53,7 @@ public class PlayerSound : MonoBehaviour
         if (newState == currentState) return;
 
         currentState = newState;
-        Debug.Log($"Sound To {newState} From {oldState}");
+        //Debug.Log($"Sound To {newState} From {oldState}");
 
         if (IsState(hover))
         {
@@ -130,7 +130,7 @@ public class PlayerSound : MonoBehaviour
             distance = 0f;
         }
 
-        Debug.Log($"SOUND frameDistance: {frameDistance:F2} distance: {distance:F2}");
+        // Debug.Log($"SOUND frameDistance: {frameDistance:F2} distance: {distance:F2}");
     }
 
     public void PlayCollisionSound()

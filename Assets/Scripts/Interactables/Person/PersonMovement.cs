@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static OVRPlugin;
 
 public class PersonMovement : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class PersonMovement : MonoBehaviour
     [Range(0.1f, 50)][SerializeField] float passiveMovingFrequency = 10;
     [Range(0.1f, 50)][SerializeField] float activeMovingFrequency = 0.1f;
     [Header("Movement Area")]
-    [SerializeField] Bounds movingArea;
+    [SerializeField] Bounds[] movingAreas;
+    private int currentBounds;
     [SerializeField] Transform chairSeat;
     [SerializeField] Door door;
     [SerializeField] LightSwitch lightSwitch;
@@ -22,6 +24,7 @@ public class PersonMovement : MonoBehaviour
     static event Action OnTargetReached;
     bool reachedTarget;
     Animator animator;
+    Rigidbody rb;
     void Start()
     {
         target = transform.position;
@@ -29,6 +32,7 @@ public class PersonMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         StopCurrentMoveCoroutine();
         StartCoroutine(RecheckMovement(2));
+        rb = GetComponent<Rigidbody>();
     }
     void OnEnable()
     {
@@ -60,27 +64,47 @@ public class PersonMovement : MonoBehaviour
         while (Vector3.Distance(transform.position, moveTarget) > targetThreshold)
         {
             float step = moveSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, moveTarget, step);
+
+            rb.position = Vector3.MoveTowards(transform.position, moveTarget, step);
             transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetDirection, step * 0.5f, 0));
             yield return null;
         }
-        
+
         if (!reachedTarget)
             OnTargetReached?.Invoke();
+    }
+
+    IEnumerator RotateTowardsTarget(Vector3 targetPos, float duration)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+
+            transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetDirection, Time.deltaTime * moveSpeed, 0));
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Vector3 newTarget = new Vector3(UnityEngine.Random.Range(movingAreas[currentBounds].min.x, movingAreas[currentBounds].max.x), transform.position.y,
+                                    UnityEngine.Random.Range(movingAreas[currentBounds].min.z, movingAreas[currentBounds].max.z));
     }
 
     void CheckMovement()
     {
         Vector3 playerPos = RigManager.instance.pTransform.position;
-
+        GetAllowedBounds();
         switch (personStates.currentState)
         {
             case BehaviourStates.Disabled:
                 // No movement
                 break;
             case BehaviourStates.Neutral:
-                Vector3 newTarget = new Vector3(UnityEngine.Random.Range(movingArea.min.x, movingArea.max.x), transform.position.y,
-                                    UnityEngine.Random.Range(movingArea.min.z, movingArea.max.z));
+                Vector3 newTarget = new Vector3(UnityEngine.Random.Range(movingAreas[currentBounds].min.x, movingAreas[currentBounds].max.x), transform.position.y,
+                                    UnityEngine.Random.Range(movingAreas[currentBounds].min.z, movingAreas[currentBounds].max.z));
                 SetTarget(newTarget); //moves to random point inside movingArea
                 movementCheckCoroutine = StartCoroutine(RecheckMovement(passiveMovingFrequency));
                 break;
@@ -105,9 +129,40 @@ public class PersonMovement : MonoBehaviour
                 Vector3 lightInteractPos = lightSwitch.transform.parent.GetChild(0).position;
                 SetTarget(new Vector3(lightInteractPos.x, transform.position.y, lightInteractPos.z));
                 break;
+            case BehaviourStates.bazooka:
+                StartCoroutine(RotateTowardsTarget(RigManager.instance.pTransform.position, 16f));
+                break;
             default:
                 Debug.LogWarning("No movement tied to the state: " + personStates.currentState);
                 break;
+        }
+    }
+
+    int GetAllowedBounds()
+    {
+        //this function is currently hardcoded :)
+
+        int random = UnityEngine.Random.Range(0, 3);
+        if (random == 0) return currentBounds;
+
+        switch (currentBounds)
+        {
+            case 0:
+                currentBounds = 1;
+                return currentBounds;
+
+            case 1:
+                int rnd = UnityEngine.Random.Range(0, 2);
+                if (rnd == 0) currentBounds = 0;
+                else currentBounds = 2;
+                return currentBounds;
+
+            case 2:
+                currentBounds = 1;
+                return currentBounds;
+
+            default:
+                return currentBounds = 2;
         }
     }
 
@@ -115,7 +170,7 @@ public class PersonMovement : MonoBehaviour
     {
         target = moveTarget;
         reachedTarget = false;
-        
+
         if (movementCoroutine != null)
         {
             StopCoroutine(movementCoroutine);
@@ -188,7 +243,11 @@ public class PersonMovement : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(movingArea.center, movingArea.size);
+        for (int i = 0; i < movingAreas.Length; i++)
+        {
+            Gizmos.DrawWireCube(movingAreas[i].center, movingAreas[i].size);
+        }
+        //Gizmos.DrawWireCube(movingAreas[0].center, movingAreas[0].size);
         Gizmos.DrawLine(transform.position, target);
     }
 }
