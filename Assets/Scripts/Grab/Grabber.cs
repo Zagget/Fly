@@ -103,8 +103,8 @@ public class Grabber : MonoBehaviour
 
         desiredPos = transform.position;
         desiredRot = transform.rotation;
-        
-        
+
+
         MoveGrabbedItem();
 
     }
@@ -115,29 +115,42 @@ public class Grabber : MonoBehaviour
     {
         if (currentGrabbed != null)
         {
-            desiredPos = transform.position;
-            desiredRot = transform.rotation;
+            
 
             Transform probe = currentGrabbed.triggerCollider.transform;
 
             for (int i = 0; i < 3; i++)
             {
                 probe.SetPositionAndRotation(desiredPos, desiredRot);
-
-                int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, blockColliders,
+                int n = 0;   
+                if (currentGrabbed.triggerCollider is SphereCollider sphere)
+                {
+                    n = Physics.OverlapSphereNonAlloc(probe.position, sphere.radius, blockColliders,
                                                         solidMask, QueryTriggerInteraction.Ignore);
-                
+                }
+                if (currentGrabbed.triggerCollider is CapsuleCollider capsule)
+                {
+                    
+                    GetCapsulePoints(capsule, out Vector3 point0, out Vector3 point1);
+                    n = Physics.OverlapCapsuleNonAlloc(point0, point1, capsule.radius, blockColliders,
+                                                        solidMask, QueryTriggerInteraction.Ignore);
+                }
+
+                //int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, blockColliders,
+                //solidMask, QueryTriggerInteraction.Ignore);
+
                 bool moved = false;
                 for (int j = 0; j < n; j++)
                 {
                     var collider = blockColliders[j];
-                    
+                    Debug.Log(blockColliders[j].gameObject);
                     if (Physics.ComputePenetration(
                         currentGrabbed.triggerCollider, desiredPos, desiredRot,
                         collider, collider.transform.position, collider.transform.rotation,
                         out Vector3 direction, out float distance))
                     {
-                        desiredPos += direction * (distance + 0.001f);
+                        Debug.Log(distance);
+                        desiredPos += direction * distance;
                         moved = true;
                     }
                 }
@@ -185,5 +198,15 @@ public class Grabber : MonoBehaviour
         Physics.IgnoreCollision(collider1, collider2, false);
     }
 
-   
+    void GetCapsulePoints(CapsuleCollider capsule, out Vector3 point0, out Vector3 point1)
+    {
+        Vector3 center = capsule.transform.TransformPoint(capsule.center);
+        Vector3 axis = capsule.direction == 0 ? Vector3.right : (capsule.direction == 1 ? Vector3.up : Vector3.forward);
+        
+        float halfHeight = Mathf.Max(0, (capsule.height / 2) - capsule.radius);
+        point0 = center + axis * halfHeight;
+        point1 = center - axis * halfHeight;
+    }
+
+
 }

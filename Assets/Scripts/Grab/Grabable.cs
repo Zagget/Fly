@@ -9,7 +9,7 @@ public class Grabable : MonoBehaviour
     [HideInInspector]
     public Collider grabCollider;
 
-    public SphereCollider triggerCollider;
+    public Collider triggerCollider;
     [HideInInspector]
     public HashSet<Collider> blockers = new HashSet<Collider>();
 
@@ -34,6 +34,7 @@ public class Grabable : MonoBehaviour
         rb.isKinematic = true;
         savedLayer.Clear();
         SetAndSaveLayer(transform, 0);
+        Debug.Log("Grabbed " + gameObject.name);
         // Grabbing at objects current pos, rot.
         //Vector3 offset = hand.InverseTransformPoint(transform.position);
         //Quaternion rotationOffset = Quaternion.Inverse(hand.rotation) * transform.rotation;
