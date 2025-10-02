@@ -1625,7 +1625,7 @@ PrefabInstance:
     - target: {fileID: 4110456666689853077, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
       propertyPath: triggerCollider
       value: 
-      objectReference: {fileID: 510402790}
+      objectReference: {fileID: 1183877304}
     - target: {fileID: 6162038157241615301, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
       propertyPath: m_Interpolate
       value: 0
@@ -1693,6 +1693,10 @@ PrefabInstance:
     - target: {fileID: 7509841170300833296, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611965682916300130, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 8658307009353988922, guid: 2aea24bd1b579784abc91a5a4b16e64f, type: 3}
       propertyPath: m_Layer
@@ -6184,8 +6188,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 118538646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1183877304
-SphereCollider:
+--- !u!136 &1183877304
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6199,11 +6203,13 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.65
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1184072372
 PrefabInstance:

@@ -25,6 +25,12 @@ public class Grabber : MonoBehaviour
     private Vector3 desiredPos;
     private Quaternion desiredRot;
 
+    private Vector3 lastSafePos;
+    private Vector3 delta;
+    private Vector3 dir;
+    private Vector3 entryNormal;
+    
+
     public static Action<Grabable> onGrab;
     public static Action<Grabable> onRelease;
 
@@ -130,26 +136,44 @@ public class Grabber : MonoBehaviour
                 }
                 if (currentGrabbed.triggerCollider is CapsuleCollider capsule)
                 {
-                    
                     GetCapsulePoints(capsule, out Vector3 point0, out Vector3 point1);
                     n = Physics.OverlapCapsuleNonAlloc(point0, point1, capsule.radius, blockColliders,
                                                         solidMask, QueryTriggerInteraction.Ignore);
+                    if (n == 0)
+                    {
+                        lastSafePos = probe.position;
+                    }
+                    delta = transform.position - lastSafePos;
+                    dir = delta.normalized;
+                    if (Physics.CapsuleCast(point0, point1, capsule.radius, dir, out RaycastHit hit, delta.magnitude, solidMask, QueryTriggerInteraction.Ignore))
+                    {
+                        entryNormal = hit.normal;
+                    }
                 }
 
                 //int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, blockColliders,
                 //solidMask, QueryTriggerInteraction.Ignore);
-
+                
+                
+                
+                Debug.Log(lastSafePos);
                 bool moved = false;
                 for (int j = 0; j < n; j++)
                 {
                     var collider = blockColliders[j];
-                    Debug.Log(blockColliders[j].gameObject);
+                    //Debug.Log(blockColliders[j].gameObject);
                     if (Physics.ComputePenetration(
                         currentGrabbed.triggerCollider, desiredPos, desiredRot,
                         collider, collider.transform.position, collider.transform.rotation,
                         out Vector3 direction, out float distance))
                     {
-                        Debug.Log(distance);
+                        //bool suspicious = 
+                        //Vector3.Dot
+
+
+
+
+                        //Debug.Log(distance);
                         desiredPos += direction * distance;
                         moved = true;
                     }
