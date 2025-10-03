@@ -15,7 +15,7 @@ public class Destructible : Damageable
         if (ShatteredVersionPrefab != null)
         {
             GameObject shatteredVersion = Instantiate(ShatteredVersionPrefab, transform.position, transform.rotation);
-            shatteredVersion.transform.localScale = transform.localScale;
+            shatteredVersion.transform.localScale = transform.lossyScale;
             if (shatteredVersion.TryGetComponent<ShatteredObject>(out ShatteredObject shatteredObject)) shatteredObject.Explode(point, force);
             else Destroy(shatteredVersion);
         }
