@@ -1,10 +1,13 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.Video;
-using Unity.VisualScripting;
+using System.Collections;
 
 public class TutorialUI : MonoBehaviour
 {
+    [SerializeField] private float duration = 2f;
+
+    [SerializeField] private CanvasGroup group;
     [SerializeField] private GameObject tutorialPanel;
 
     [SerializeField] private VideoPlayer videoPlayer;
@@ -31,7 +34,22 @@ public class TutorialUI : MonoBehaviour
 
         Debug.Log($"TutorialManager SetTutorial: header: {data.header}");
 
+        group.alpha = 0;
         tutorialPanel.SetActive(true);
+        StartCoroutine(FadeIn(duration));
+    }
+
+    private IEnumerator FadeIn(float duration)
+    {
+        float elapsed = 0;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            group.alpha = Mathf.Lerp(0, 1, elapsed / duration);
+        }
+
+        yield break;
     }
 
     public void PressResume()
