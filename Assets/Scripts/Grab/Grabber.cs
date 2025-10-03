@@ -153,23 +153,28 @@ public class Grabber : MonoBehaviour
 
                 //int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, blockColliders,
                 //solidMask, QueryTriggerInteraction.Ignore);
+
+
+
                 
-                
-                
-                Debug.Log(lastSafePos);
                 bool moved = false;
                 for (int j = 0; j < n; j++)
                 {
                     var collider = blockColliders[j];
-                    //Debug.Log(blockColliders[j].gameObject);
+                    Debug.Log(n);
                     if (Physics.ComputePenetration(
                         currentGrabbed.triggerCollider, desiredPos, desiredRot,
                         collider, collider.transform.position, collider.transform.rotation,
                         out Vector3 direction, out float distance))
                     {
-                        //bool suspicious = 
-                        //Vector3.Dot
-
+                        bool suspicious = Vector3.Dot(direction, entryNormal) < 0;
+                        Debug.Log(entryNormal);
+                        if (suspicious)
+                        {
+                            Debug.Log("Suspicious direction change");
+                            direction = entryNormal;
+                            distance = Vector3.Dot(transform.position - lastSafePos, entryNormal);
+                        }
 
 
 
