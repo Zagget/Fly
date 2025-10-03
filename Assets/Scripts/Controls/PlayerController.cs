@@ -1,14 +1,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private FloatingMovement floatingMovement;
     [SerializeField] private DesktopMovement desktopMovement;
     [SerializeField] private LookingControls lookingControls;
-    private WalkingMovement walkingMovement;
 
     [Header("Grabbers")]
     [SerializeField] public Grabber leftGrabber;
@@ -34,10 +31,6 @@ public class PlayerController : MonoBehaviour
 
         if (!vr) desktopMovement = GetComponent<DesktopMovement>();
 
-        if (vr) floatingMovement = GetComponent<FloatingMovement>();
-
-        if (vr) walkingMovement = GetComponent<WalkingMovement>();
-
         if (lookingControls == null) lookingControls = GetComponent<LookingControls>();
 
         if (leftGrabber == null) Debug.LogWarning("LeftGrabber is empty");
@@ -54,11 +47,7 @@ public class PlayerController : MonoBehaviour
         if (vr)
         {
             // Right hand
-            SubscribeToAction(inputActions.RightHand.Movement, OnMove);
             SubscribeToAction(inputActions.RightHand.GrabRight, GrabRight);
-            SubscribeToAction(inputActions.RightHand.Movement, OnGroundMove);
-            SubscribeToPressed(inputActions.RightHand.Hover, OnHoverPressed);
-            SubscribeToPressed(inputActions.RightHand.Hover, OnButtonAPressed);
             SubscribeToPressed(inputActions.RightHand.TriggerButton, OnTriggerRight);
 
 
@@ -72,15 +61,11 @@ public class PlayerController : MonoBehaviour
             SubscribeToAction(inputActions.Desktop.Rotate, OnRotateVision);
             SubscribeToAction(inputActions.Desktop.FlyUp, OnFlyUpDesktop);
             SubscribeToAction(inputActions.Desktop.FlyDown, OnFlyDownDesktop);
-            SubscribeToPressed(inputActions.Desktop.Hover, OnHoverPressed);
 
             SubscribeToAction(inputActions.Desktop.GrabDesktop, OnGrabDesktop);
             inputActions.Desktop.LegRubbing.started += OnLegRubbingDesktop;
             inputActions.Desktop.MousePointer.performed += OnLookDesktop;
         }
-
-        inputActions.LeftHand.ActivatePower.started += ActivatePower;
-        inputActions.LeftHand.TogglePower.started += TogglePower;
 
         SubscribeToAction(inputActions.RightHand.Menu, ToggleMenu);
     }
@@ -90,10 +75,7 @@ public class PlayerController : MonoBehaviour
         if (vr)
         {
             // Right hand
-            UnsubscribeFromAction(inputActions.RightHand.Movement, OnMove);
             UnsubscribeFromAction(inputActions.RightHand.GrabRight, GrabRight);
-            UnsubscribeFromAction(inputActions.RightHand.Movement, OnGroundMove);
-            UnsubscribeToPressed(inputActions.RightHand.Hover, OnHoverPressed);
             UnsubscribeToPressed(inputActions.RightHand.TriggerButton, OnTriggerRight);
 
             // Left hand
@@ -111,8 +93,6 @@ public class PlayerController : MonoBehaviour
             inputActions.Desktop.MousePointer.performed -= OnLookDesktop;
         }
 
-        inputActions.LeftHand.ActivatePower.started -= ActivatePower;
-        inputActions.LeftHand.TogglePower.started -= TogglePower;
         UnsubscribeFromAction(inputActions.RightHand.Menu, ToggleMenu);
     }
 
@@ -161,15 +141,10 @@ public class PlayerController : MonoBehaviour
         currentState?.StateUpdate();
     }
 
-    private void OnMove(InputAction.CallbackContext context) => currentState?.HandleMovement(context, floatingMovement);
-    private void OnGroundMove(InputAction.CallbackContext context) => currentState?.HandleWalkingMovement(context, walkingMovement);
     private void GrabRight(InputAction.CallbackContext context) => currentState?.HandleGrabRight(context, rightGrabber);
     private void GrabLeft(InputAction.CallbackContext context) => currentState?.HandleGrabLeft(context, leftGrabber);
     private void OnRotateVision(InputAction.CallbackContext context) => currentState?.HandleRotateVision(context, lookingControls);
-    private void ActivatePower(InputAction.CallbackContext context) => currentState?.HandleActivatePower(context, this);
-    private void TogglePower(InputAction.CallbackContext context) => currentState?.HandleTogglePower(context);
     private void ToggleMenu(InputAction.CallbackContext context) => currentState?.HandleToggleMenu(context);
-    private void OnButtonAPressed(InputAction.CallbackContext context) => currentState?.HandlePrimaryButton(context);
     private void OnTriggerRight(InputAction.CallbackContext context) => currentState?.HandleTriggerRight(context);
 
     // Desktop
@@ -179,5 +154,4 @@ public class PlayerController : MonoBehaviour
     private void OnFlyDownDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopFlyDown(context, desktopMovement);
     private void OnGrabDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopGrab(context, desktopGrabber);
     private void OnLegRubbingDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopLegRubbing(context);
-    private void OnHoverPressed(InputAction.CallbackContext context) => currentState?.HandleDesktopHover(context);
 }
