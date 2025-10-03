@@ -28,7 +28,7 @@ public class PowerManager : MonoBehaviour
     {
         if (currentPower == null || currentPower.basePower == null) return;
         float charge = LegRubbing.Instance.TotalRubbing;
-        currentPower.basePower.Activate(rigManager, charge, this, playerController);
+        currentPower.basePower.Activate(rigManager, 100, this, playerController);
     }
 
     void FindPower(Powers power)
