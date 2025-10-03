@@ -3473,6 +3473,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1085859545}
     - target: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
+      propertyPath: deadZone
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5561808291904335753, guid: d32f288d7e7e9754db5aa3dea483b7ea, type: 3}
       propertyPath: centerEyeTransform
       value: 
       objectReference: {fileID: 2059226509}
@@ -4827,7 +4831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Destructible
   health: 5
-  ShatteredVersionPrefab: {fileID: 919132149155446097, guid: 5a02abc5bb5cf1b489d7656cf2b54820, type: 3}
+  ShatteredVersionPrefab: {fileID: 9176888717638935288, guid: eee570efcbea71d4580c128e858e7a98, type: 3}
 --- !u!114 &1685556844
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 public class FloatingMovement : MonoBehaviour
 {
@@ -11,7 +10,7 @@ public class FloatingMovement : MonoBehaviour
     [SerializeField] private float controllerYOffset = 100; //Offset is approximately from ground, where ~0 is the floor.
     [SerializeField] private float controllerZOffset; //offset is how close controllers have to be to the player to count as 0 or negative.
 
-    private float deadZone = 0.3f;
+    [SerializeField] private float deadZone = 0.6f;
     [SerializeField] private Transform centerEyeTransform;
     [SerializeField] private float headsetYOffset = 1.15f;
 
@@ -44,7 +43,7 @@ public class FloatingMovement : MonoBehaviour
         else
         {
             usingVR = true;
-            deadZone = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
+            //deadZone = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
             maxControllerHeight = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey);
         }
 
@@ -85,7 +84,7 @@ public class FloatingMovement : MonoBehaviour
 
         if (lastState == StateManager.Instance.menuState)
         {
-            deadZone = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
+           // deadZone = PlayerPrefs.GetFloat(ControllerData.deadZoneSizeKey);
             maxControllerHeight = PlayerPrefs.GetFloat(ControllerData.maxControllerHeightKey);
         }
     }
@@ -138,9 +137,6 @@ public class FloatingMovement : MonoBehaviour
 
         Vector3 cPos = centerEyeTransform.localPosition;
 
-        Vector3 offsetTracking = ((leftController + rightController) / 2);
-
-
 
         xValue = (((leftController + rightController).x / 2) - cPos.x) * 100;
 
@@ -150,11 +146,20 @@ public class FloatingMovement : MonoBehaviour
         zValue = (((leftController + rightController).z / 2) - cPos.z) * 100;
         zValue -= controllerZOffset;
 
-        if (Mathf.Abs(xValue) < deadZone) xValue = 0;
+        if (Mathf.Abs(xValue) < deadZone)
+        {
+            xValue = 0;
+        }
 
-        if (Mathf.Abs(yValue) < deadZone) yValue = 0;
+        if (Mathf.Abs(yValue) < deadZone)
+        {
+            yValue = 0;
+        }
 
-        if (Mathf.Abs(zValue) < deadZone) zValue = 0;
+        if (Mathf.Abs(zValue) < deadZone)
+        {
+            zValue = 0;
+        }
 
 
         //Debug.Log(" X: " +  xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
