@@ -12,13 +12,13 @@ public class PersonMovement : MonoBehaviour
     [Range(0.1f, 50)][SerializeField] float activeMovingFrequency = 0.1f;
     [SerializeField] Collider[] triggerColliders;
     [Header("Movement Area")]
-    [SerializeField] Transform standingLocation;
+    public Transform standingLocation;
     [SerializeField] Bounds[] movingAreas;
     private int currentBounds;
     [SerializeField] Transform chairSeat;
     [SerializeField] Door door;
     [SerializeField] LightSwitch lightSwitch;
-    float targetThreshold = 0.5f;
+    float targetThreshold = 0.05f;
     PersonStates personStates;
     Vector3 target;
     Vector3 targetDirection;
@@ -184,18 +184,27 @@ public class PersonMovement : MonoBehaviour
         animator.SetBool("IsWalking", !reachedTarget);
         movementCoroutine = StartCoroutine(MoveToTarget(target));
     }
-    IEnumerator RotateTowards(Vector3 direction)
+    public IEnumerator RotateTowards(Vector3 direction)
     {
+        direction.y = 0f;
         direction.Normalize();
 
-        while (Vector3.Angle(transform.forward, direction) > targetThreshold)
+        if (Vector3.Angle(transform.forward, direction) <= 0.5f)
         {
-            Vector3 newDirection = Vector3.RotateTowards(
-                transform.forward, direction,
-                moveSpeed * Time.deltaTime, 0f);
-
-            transform.rotation = Quaternion.LookRotation(newDirection);
+            //Angle too small
             yield return null;
+        }
+        else
+        {
+            while (Vector3.Angle(transform.forward, direction) > targetThreshold)
+            {
+                Vector3 newDirection = Vector3.RotateTowards(
+                    transform.forward, direction,
+                    (moveSpeed / 2) * Time.deltaTime, 0f);
+
+                transform.rotation = Quaternion.LookRotation(newDirection);
+                yield return null;
+            }
         }
     }
 

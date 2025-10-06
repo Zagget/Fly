@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3327186024967982296}
   - component: {fileID: 7043585250266492040}
   - component: {fileID: 6658427131446149489}
-  - component: {fileID: 6576476354032769069}
   - component: {fileID: 8469164718360205318}
   m_Layer: 0
   m_Name: Person
@@ -53,8 +52,8 @@ MonoBehaviour:
   passiveMovingFrequency: 10
   activeMovingFrequency: 0.1
   triggerColliders:
-  - {fileID: 6576476354032769069}
   - {fileID: 257746764098653595}
+  standingLocation: {fileID: 0}
   movingAreas:
   - m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 50, y: 0, z: 50}
@@ -96,27 +95,6 @@ MonoBehaviour:
   timeToShootBazooka: 0
   reqTimesAnnoyedForBazooka: 0
   bazookaHolder: {fileID: 0}
---- !u!135 &6576476354032769069
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013573715678995120}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 20, z: 0}
 --- !u!54 &8469164718360205318
 Rigidbody:
   m_ObjectHideFlags: 0

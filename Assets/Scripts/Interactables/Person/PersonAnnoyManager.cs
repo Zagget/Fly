@@ -19,6 +19,8 @@ public class PersonAnnoyManager : MonoBehaviour
     [SerializeField] int reqTimesAnnoyedForBazooka;
     [SerializeField] GameObject bazookaHolder;
     bool isBazookaCoroutineRunning;
+    Coroutine swatRoutine;
+    Coroutine rotationRoutine;
     void Start()
     {
         triggerCollider = GetComponent<Collider>();
@@ -60,34 +62,50 @@ public class PersonAnnoyManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled &&
-            personState.currentState != BehaviourStates.bazooka)
+        if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
         {
-            if (personState.currentState == BehaviourStates.Chasing)
+            if (personState.currentState == BehaviourStates.Standing)
             {
-                animator.SetTrigger("Attack");
+                if (swatRoutine != null)
+                {
+                    StopCoroutine(swatRoutine);
+                    swatRoutine = null;
+                }
+                swatRoutine = StartCoroutine(SwatPlayer(other.transform.position));
+                return;
             }
-            else
+           if (personState.currentState != BehaviourStates.bazooka)
             {
-                annoyedAmount++;
-                Debug.Log("Annoyed person to: " + annoyedAmount);
-                personState.ChangeState(BehaviourStates.Annoyed);
+                if (personState.currentState == BehaviourStates.Chasing)
+                {
+                    animator.SetTrigger("Attack");
+                }
+                else
+                {
+                    annoyedAmount++;
+                    Debug.Log("Annoyed person to: " + annoyedAmount);
+                    personState.ChangeState(BehaviourStates.Annoyed);
+                }
             }
-        }
+        } 
     }
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player") && personState.currentState != BehaviourStates.Disabled)
         {
-            if (totalTimesAnnoyed >= reqTimesAnnoyedForBazooka)
+            if (personState.currentState == BehaviourStates.Standing)
             {
-                if (personState.currentState != BehaviourStates.bazooka && !isBazookaCoroutineRunning)
-                {
-                    StartCoroutine(ShootBazooka(timeToShootBazooka));
-                    personState.ChangeState(BehaviourStates.bazooka);
-                }        
                 return;
             }
+            if (totalTimesAnnoyed >= reqTimesAnnoyedForBazooka)
+                {
+                    if (personState.currentState != BehaviourStates.bazooka && !isBazookaCoroutineRunning)
+                    {
+                        StartCoroutine(ShootBazooka(timeToShootBazooka));
+                        personState.ChangeState(BehaviourStates.bazooka);
+                    }
+                    return;
+                }
 
             if (personState.currentState == BehaviourStates.Chasing) return;
 
@@ -100,6 +118,27 @@ public class PersonAnnoyManager : MonoBehaviour
                 personState.ChangeState(BehaviourStates.Wandering);
             }
         }
+    }
+
+    IEnumerator SwatPlayer(Vector3 swatTarget)
+    {
+        Vector3 targetDir = swatTarget - transform.position;
+        if (rotationRoutine != null)
+        {
+            StopCoroutine(rotationRoutine);
+            rotationRoutine = null;
+        }
+        yield return rotationRoutine = StartCoroutine(personMovement.RotateTowards(targetDir));
+
+        animator.SetTrigger("Attack");
+        yield return AnimationManager.Instance.WaitForAnimation(animator, "Attack");
+        
+        if (rotationRoutine != null)
+        {
+            StopCoroutine(rotationRoutine);
+            rotationRoutine = null;
+        }
+        yield return rotationRoutine = StartCoroutine(personMovement.RotateTowards(personMovement.standingLocation.forward));
     }
 
     IEnumerator ShootBazooka(float duration)
