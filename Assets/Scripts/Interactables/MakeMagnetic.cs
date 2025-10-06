@@ -40,20 +40,21 @@ public class MakeMagnetic : MonoBehaviour
         if (inRange)
             rb.AddForce(targetNormal * -1, ForceMode.Impulse);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name.Contains(objectToBeDrawnTo.name))
+        {
+            inRange = true;
+            rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name.Contains(objectToBeDrawnTo.name))
         {
             inRange = false;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name.Contains(objectToBeDrawnTo.name))
-        {
-            inRange = true;
+            rb.constraints = RigidbodyConstraints.None;
         }
     }
 }

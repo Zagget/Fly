@@ -30,6 +30,11 @@ public class FloatingMovement : MonoBehaviour
     private bool usingVR;
     private float maxControllerHeight;
 
+    /// <summary>
+    /// Speed related to how close the controllers are to the deadZone.
+    /// </summary>
+    [SerializeField] private AnimationCurve speedCurve;
+
     private void Start()
     {
         StateManager.Instance.OnStateChanged += OnSateChanged;
@@ -93,6 +98,8 @@ public class FloatingMovement : MonoBehaviour
     {
         Vector3 inputDirection = controllerPositionInput.normalized;
 
+
+
         linVel = Vector3.zero;
 
         linVel += RigManager.instance.currentRb.transform.forward
@@ -146,6 +153,13 @@ public class FloatingMovement : MonoBehaviour
         zValue = (((leftController + rightController).z / 2) - cPos.z) * 100;
         zValue -= controllerZOffset;
 
+        Debug.Log(speedCurve.Evaluate(Mathf.Abs(yValue)));
+
+        xValue *= speedCurve.Evaluate(Mathf.Abs(xValue));
+        yValue *= speedCurve.Evaluate(Mathf.Abs(yValue));
+        zValue *= speedCurve.Evaluate(Mathf.Abs(zValue));
+
+
         if (Mathf.Abs(xValue) < deadZone)
         {
             xValue = 0;
@@ -160,7 +174,6 @@ public class FloatingMovement : MonoBehaviour
         {
             zValue = 0;
         }
-
 
         //Debug.Log(" X: " +  xValue + " " + " Y: " + yValue + " " + " Z: " + zValue);
 
