@@ -12,6 +12,7 @@ public class PersonMovement : MonoBehaviour
     [Range(0.1f, 50)][SerializeField] float activeMovingFrequency = 0.1f;
     [SerializeField] Collider[] triggerColliders;
     [Header("Movement Area")]
+    [SerializeField] Transform standingLocation;
     [SerializeField] Bounds[] movingAreas;
     private int currentBounds;
     [SerializeField] Transform chairSeat;
@@ -46,7 +47,8 @@ public class PersonMovement : MonoBehaviour
     void OnEnable()
     {
         PersonStates.onStateChanged += StopCurrentMoveCoroutine;
-        PersonStates.onPersonNeutral += CheckMovement;
+        PersonStates.onPersonStanding += CheckMovement;
+        PersonStates.onPersonWandering += CheckMovement;
         PersonStates.onPersonAnnoyed += CheckMovement;
         PersonStates.onPersonChasing += CheckMovement;
         PersonStates.OnPersonSitting += CheckMovement;
@@ -59,7 +61,8 @@ public class PersonMovement : MonoBehaviour
     void OnDisable()
     {
         PersonStates.onStateChanged -= StopCurrentMoveCoroutine;
-        PersonStates.onPersonNeutral -= CheckMovement;
+        PersonStates.onPersonStanding -= CheckMovement;
+        PersonStates.onPersonWandering -= CheckMovement;
         PersonStates.onPersonAnnoyed -= CheckMovement;
         PersonStates.onPersonChasing -= CheckMovement;
         PersonStates.OnPersonSitting -= CheckMovement;
@@ -102,7 +105,10 @@ public class PersonMovement : MonoBehaviour
             case BehaviourStates.Disabled:
                 // No movement
                 break;
-            case BehaviourStates.Neutral:
+            case BehaviourStates.Standing:
+                SetTarget(standingLocation.position);
+                break;
+            case BehaviourStates.Wandering:
                 Vector3 newTarget = new Vector3(UnityEngine.Random.Range(movingAreas[currentBounds].min.x, movingAreas[currentBounds].max.x), transform.position.y,
                                     UnityEngine.Random.Range(movingAreas[currentBounds].min.z, movingAreas[currentBounds].max.z));
                 SetTarget(newTarget); //moves to random point inside movingArea
@@ -115,19 +121,19 @@ public class PersonMovement : MonoBehaviour
                 movementCheckCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
                 break;
             case BehaviourStates.Chasing:
-                SetTarget(new Vector3(playerPos.x, transform.position.y, playerPos.z)); //moves towards player
+                SetTarget(playerPos); //moves towards player
                 movementCheckCoroutine = StartCoroutine(RecheckMovement(activeMovingFrequency));
                 break;
             case BehaviourStates.Sitting:
-                SetTarget(new Vector3(chairSeat.position.x, transform.position.y, chairSeat.position.z)); //move to chair
+                SetTarget(chairSeat.position); //move to chair
                 break;
             case BehaviourStates.OpenDoor:
                 Vector3 doorInteractPos = door.transform.GetChild(0).position;
-                SetTarget(new Vector3(doorInteractPos.x, transform.position.y, doorInteractPos.z));
+                SetTarget(door.transform.GetChild(0).position); 
                 break;
             case BehaviourStates.SwitchLight:
                 Vector3 lightInteractPos = lightSwitch.transform.parent.GetChild(0).position;
-                SetTarget(new Vector3(lightInteractPos.x, transform.position.y, lightInteractPos.z));
+                SetTarget(lightSwitch.transform.parent.GetChild(0).position); 
                 break;
             case BehaviourStates.bazooka:
                 break;
@@ -167,7 +173,7 @@ public class PersonMovement : MonoBehaviour
 
     void SetTarget(Vector3 moveTarget)
     {
-        target = moveTarget;
+        target = new Vector3(moveTarget.x, transform.position.y, moveTarget.z);
         reachedTarget = false;
 
         if (movementCoroutine != null)
@@ -178,6 +184,20 @@ public class PersonMovement : MonoBehaviour
         animator.SetBool("IsWalking", !reachedTarget);
         movementCoroutine = StartCoroutine(MoveToTarget(target));
     }
+    IEnumerator RotateTowards(Vector3 direction)
+    {
+        direction.Normalize();
+
+        while (Vector3.Angle(transform.forward, direction) > targetThreshold)
+        {
+            Vector3 newDirection = Vector3.RotateTowards(
+                transform.forward, direction,
+                moveSpeed * Time.deltaTime, 0f);
+
+            transform.rotation = Quaternion.LookRotation(newDirection);
+            yield return null;
+        }
+    }
 
     IEnumerator RecheckMovement(float time)
     {
@@ -185,7 +205,7 @@ public class PersonMovement : MonoBehaviour
         CheckMovement();
     }
 
-    void StopCurrentMoveCoroutine(BehaviourStates behaviourStates = BehaviourStates.Neutral)
+    void StopCurrentMoveCoroutine(BehaviourStates behaviourStates = BehaviourStates.Wandering)
     {
         StopAllCoroutines();
         movementCoroutine = null;
@@ -201,14 +221,17 @@ public class PersonMovement : MonoBehaviour
 
         switch (personStates.currentState)
         {
-            case BehaviourStates.Neutral:
+            case BehaviourStates.Standing:
+                StartCoroutine(RotateTowards(standingLocation.forward));
+                break;
+            case BehaviourStates.Wandering:
                 break;
             case BehaviourStates.Annoyed:
                 break;
             case BehaviourStates.Chasing:
                 //reached player
                 Debug.Log("Person reached player");
-                personStates.ChangeState(BehaviourStates.Neutral); //temp
+                personStates.ChangeState(BehaviourStates.Wandering); //temp
                 break;
             case BehaviourStates.Sitting:
                 PersonSit(chairSeat);
@@ -238,7 +261,7 @@ public class PersonMovement : MonoBehaviour
         transform.rotation = interactPosition.rotation;
         animator.SetTrigger("Interact"); //Play interact animation. Interact event is triggered by animation clip
         yield return AnimationManager.Instance.WaitForAnimation(animator, "Interact");
-        personStates.ChangeState(BehaviourStates.Neutral);
+        personStates.ChangeState(BehaviourStates.Wandering);
     }
     void PersonRagdoll()
     {
@@ -265,7 +288,8 @@ public class PersonMovement : MonoBehaviour
             rb.isKinematic = true;
         }
         CacheTargetPose();
-        //StartCoroutine(BlendRagdollAnimation());
+        
+        //Blend ragdoll to animation
         float blendDuration = 1.5f;
         float elapsed = 0f;
         while (elapsed < blendDuration)
@@ -296,7 +320,6 @@ public class PersonMovement : MonoBehaviour
 
     void CacheTargetPose()
     {
-        Debug.Log("Caching crouch pose");
         animator.enabled = true;
         animator.Play("Crouch", 0, 0); // Sample first frame of crouch
         animator.Update(0);          
@@ -315,7 +338,9 @@ public class PersonMovement : MonoBehaviour
         {
             Gizmos.DrawWireCube(movingAreas[i].center, movingAreas[i].size);
         }
-        //Gizmos.DrawWireCube(movingAreas[0].center, movingAreas[0].size);
         Gizmos.DrawLine(transform.position, target);
+        Gizmos.DrawCube(standingLocation.position, Vector3.one * 3);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(standingLocation.position, standingLocation.position + standingLocation.forward * 5);
     }
 }

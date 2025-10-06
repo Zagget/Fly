@@ -5,7 +5,8 @@ using UnityEngine;
 public enum BehaviourStates
 {
     Disabled, //used to disable person behaviour
-    Neutral,
+    Standing,
+    Wandering,
     Annoyed,
     Chasing,
     Sitting,
@@ -18,8 +19,9 @@ public class PersonStates : MonoBehaviour
 {
     public delegate void OnPersonIgnore();
     public static event OnPersonIgnore onPersonDisabled;
-    public delegate void OnPersonNeutral();
-    public static event OnPersonNeutral onPersonNeutral;
+    public static event Action onPersonStanding;
+    public delegate void OnPersonWandering();
+    public static event OnPersonWandering onPersonWandering;
     public delegate void OnPersonAnnoyed();
     public static event OnPersonAnnoyed onPersonAnnoyed;
     public delegate void OnPersonChasing();
@@ -53,7 +55,6 @@ public class PersonStates : MonoBehaviour
 
     public void ChangeState(BehaviourStates newState)
     {
-        //Debug.Log($"old state: {preBehaviour}, new state: {newState}");
         if (preBehaviour == BehaviourStates.Sitting &&
             newState != BehaviourStates.Sitting &&
             animator.GetCurrentAnimatorStateInfo(0).IsName("Sitting_Idle_Loop"))
@@ -65,9 +66,7 @@ public class PersonStates : MonoBehaviour
         {
             //Recover from ragdoll and invoke after done recovering
             Debug.Log("Recovering from ragdoll...");
-            OnRagdollReset?.Invoke(); //InvokeAfterAnimation is triggered during OnRagDollReset
-                                      //TODO: Fix so that the state isn't lost when you change it. Maybe add a timer for how long person is ragdolled
-                                      //TODO: Cleanup
+            OnRagdollReset?.Invoke(); 
             StartCoroutine(InvokeAfterRagdollRecovery(newState));
         }
         else
@@ -107,8 +106,11 @@ public class PersonStates : MonoBehaviour
             case BehaviourStates.Disabled:
                 onPersonDisabled?.Invoke();
                 break;
-            case BehaviourStates.Neutral:
-                onPersonNeutral?.Invoke();
+            case BehaviourStates.Standing:
+                onPersonStanding?.Invoke();
+                break;
+            case BehaviourStates.Wandering:
+                onPersonWandering?.Invoke();
                 break;
             case BehaviourStates.Annoyed:
                 onPersonAnnoyed?.Invoke();

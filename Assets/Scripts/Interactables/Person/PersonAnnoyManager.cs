@@ -97,7 +97,7 @@ public class PersonAnnoyManager : MonoBehaviour
             }
             else
             {
-                personState.ChangeState(BehaviourStates.Neutral);
+                personState.ChangeState(BehaviourStates.Wandering);
             }
         }
     }
@@ -121,7 +121,7 @@ public class PersonAnnoyManager : MonoBehaviour
         }
 
         bazookaHolder.SetActive(false);
-        personState.ChangeState(BehaviourStates.Neutral);
+        personState.ChangeState(BehaviourStates.Wandering);
         isBazookaCoroutineRunning = false;
     }
 }
