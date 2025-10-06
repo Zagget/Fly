@@ -39,6 +39,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Sound
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1b3a5c6b78b1494690078f2eb61d07f
+    m_Address: Assets/Sounds/Environment/test.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d21fc2ad62c472945a0e005a4ead1f7c
     m_Address: Assets/Sounds/Player/Walking.asset
     m_ReadOnly: 0

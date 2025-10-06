@@ -98,5 +98,7 @@ public class ShatteredObject : MonoBehaviour
             if (value > 1) { break; }
             yield return new WaitForEndOfFrame();
         }
+        Destroy(decayObject.gameObject);
+        //if you get error, check rigidbody list to make sure it is referencing the correct game objects.
     }
 }

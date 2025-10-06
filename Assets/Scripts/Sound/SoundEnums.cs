@@ -19,6 +19,12 @@ public enum Flying
      flying1,
      flying2
 }
+public enum Simontest
+{
+     Random,
+     collision4,
+     footstep2
+}
 public enum Stopping
 {
      Random,
