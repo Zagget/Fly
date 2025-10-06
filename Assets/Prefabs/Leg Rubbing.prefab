@@ -81,8 +81,8 @@ MonoBehaviour:
   rightHand: {fileID: 0}
   center: {fileID: 4666009665202329088}
   handRotation: {fileID: 62549913285973281}
-  maxDistance: 0.3
-  minRubbingPerSecond: 0.1
+  maxDistance: 0.2
+  minRubbingPerSecond: 0.06
   rubInterval: 0.03
   timeToGainCharge: 1
 --- !u!1 &4822790293256413728

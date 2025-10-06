@@ -83,7 +83,7 @@ public class ShatteredObject : MonoBehaviour
             rigidbody.AddExplosionForce(magnitude, point, Mathf.Infinity, falseLift, ForceMode.Acceleration);
             StartCoroutine(decay(rigidbody.transform));
         }
-        Destroy(gameObject, decayTime + 1);
+        Destroy(gameObject, decayTime);
     }
 
     IEnumerator decay(Transform decayObject)
@@ -92,11 +92,11 @@ public class ShatteredObject : MonoBehaviour
         Vector3 scale = decayObject.localScale;
         while (true)
         {
+            decayObject.position = Vector3.zero;
             value = (Time.time - decayStart) / decayTime;
             decayObject.localScale = scale * decayCurve.Evaluate(value);
             if (value > 1) { break; }
             yield return new WaitForEndOfFrame();
         }
-        Destroy(decayObject.gameObject);
     }
 }

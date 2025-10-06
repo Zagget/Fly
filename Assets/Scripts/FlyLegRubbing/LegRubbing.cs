@@ -86,9 +86,9 @@ public class LegRubbing : MonoBehaviour
             timeSpentRubbing += Time.deltaTime;
             chargeChange?.Invoke(TotalRubbing);
         }
-        else timeSpentRubbing = 0;
+        else { timeSpentRubbing = 0; }
 
-        if (timeSpentRubbing >= timeToGainCharge) TotalRubbing += Time.deltaTime;
+        if (timeSpentRubbing >= timeToGainCharge) {TotalRubbing += Time.deltaTime; Debug.Log("totalrubing: " + TotalRubbing);}
 
     }
 
