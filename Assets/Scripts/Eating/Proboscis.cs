@@ -92,7 +92,10 @@ public class Proboscis : MonoBehaviour
         }
         if (currentFood != null && (offset - targetPosition).sqrMagnitude < Mathf.Pow(distanceToEat, 2)) 
         {
-            PowerProgression.Instance.AddEnergy(currentFood.Eat(EatingPower * Time.deltaTime, this)); 
+            if (PowerProgression.Instance != null)
+            {
+                PowerProgression.Instance.AddEnergy(currentFood.Eat(EatingPower * Time.deltaTime, this));
+            }
         }
 
         foreach (Collider collider in collidersToRemove)

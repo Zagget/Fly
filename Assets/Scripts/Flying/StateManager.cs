@@ -25,6 +25,7 @@ public class StateManager : MonoBehaviour
     [HideInInspector] public MenuState menuState = new();
     [HideInInspector] public TutorialState tutorialState = new();
     [HideInInspector] public DashState dashState = new();
+    [HideInInspector] public RacePreparationsState racePreparationsState = new();
 
     private bool isWalkingState;
 

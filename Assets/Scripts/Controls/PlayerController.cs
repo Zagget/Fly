@@ -23,6 +23,14 @@ public class PlayerController : MonoBehaviour
     private Input inputActions;
     private BasePlayerState currentState;
 
+    public static PlayerController Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(this);
+    }
+
     private void Start()
     {
         vr = RigManager.instance.usingVr;
@@ -68,6 +76,7 @@ public class PlayerController : MonoBehaviour
         }
 
         SubscribeToAction(inputActions.RightHand.Menu, ToggleMenu);
+        LegRubbing.Instance.chargeChange += RubbingChange;
     }
 
     private void OnDisable()
@@ -94,6 +103,7 @@ public class PlayerController : MonoBehaviour
         }
 
         UnsubscribeFromAction(inputActions.RightHand.Menu, ToggleMenu);
+        LegRubbing.Instance.chargeChange -= RubbingChange;
     }
 
     private void SubscribeToPressed(InputAction action, Action<InputAction.CallbackContext> callback)
@@ -146,6 +156,7 @@ public class PlayerController : MonoBehaviour
     private void OnRotateVision(InputAction.CallbackContext context) => currentState?.HandleRotateVision(context, lookingControls);
     private void ToggleMenu(InputAction.CallbackContext context) => currentState?.HandleToggleMenu(context);
     private void OnTriggerRight(InputAction.CallbackContext context) => currentState?.HandleTriggerRight(context);
+    private void RubbingChange(float amount) => currentState?.HandleRubbingChange(amount);
 
     // Desktop
     private void OnLookDesktop(InputAction.CallbackContext context) => currentState?.HandleDesktopLook(context, lookingControls);

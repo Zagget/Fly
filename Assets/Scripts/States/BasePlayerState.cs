@@ -95,4 +95,6 @@ public abstract class BasePlayerState
     {
 
     }
+
+    public virtual void HandleRubbingChange(float amount) { }
 }
