@@ -128,7 +128,8 @@ public class Grabber : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 probe.SetPositionAndRotation(desiredPos, desiredRot);
-                int n = 0;   
+                int n = 0;  
+                entryNormal = Vector3.zero;
                 if (currentGrabbed.triggerCollider is SphereCollider sphere)
                 {
                     n = Physics.OverlapSphereNonAlloc(probe.position, sphere.radius, blockColliders,
@@ -136,19 +137,22 @@ public class Grabber : MonoBehaviour
                 }
                 if (currentGrabbed.triggerCollider is CapsuleCollider capsule)
                 {
-                    GetCapsulePoints(capsule, out Vector3 point0, out Vector3 point1);
+                    GetCapsulePoints(capsule, probe.position, out Vector3 point0, out Vector3 point1);
                     n = Physics.OverlapCapsuleNonAlloc(point0, point1, capsule.radius, blockColliders,
                                                         solidMask, QueryTriggerInteraction.Ignore);
                     if (n == 0)
                     {
                         lastSafePos = probe.position;
+                        
                     }
                     delta = transform.position - lastSafePos;
                     dir = delta.normalized;
+                    GetCapsulePoints(capsule, lastSafePos, out point0, out point1);
                     if (Physics.CapsuleCast(point0, point1, capsule.radius, dir, out RaycastHit hit, delta.magnitude, solidMask, QueryTriggerInteraction.Ignore))
                     {
                         entryNormal = hit.normal;
                     }
+                    
                 }
 
                 //int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, blockColliders,
@@ -161,17 +165,17 @@ public class Grabber : MonoBehaviour
                 for (int j = 0; j < n; j++)
                 {
                     var collider = blockColliders[j];
-                    Debug.Log(n);
+                    
                     if (Physics.ComputePenetration(
                         currentGrabbed.triggerCollider, desiredPos, desiredRot,
                         collider, collider.transform.position, collider.transform.rotation,
                         out Vector3 direction, out float distance))
                     {
                         bool suspicious = Vector3.Dot(direction, entryNormal) < 0;
-                        Debug.Log(entryNormal);
-                        if (suspicious)
+
+                        if (suspicious && entryNormal != Vector3.zero)
                         {
-                            Debug.Log("Suspicious direction change");
+                            //Debug.Log("Suspicious direction change");
                             direction = entryNormal;
                             distance = Vector3.Dot(transform.position - lastSafePos, entryNormal);
                         }
@@ -180,6 +184,7 @@ public class Grabber : MonoBehaviour
 
                         //Debug.Log(distance);
                         desiredPos += direction * distance;
+                        Debug.Log("desiredPos: " + desiredPos + "\nsuspicious: " + suspicious + ", n: " + n + ", entryNormal: " + entryNormal + ", lastSafePos: " + lastSafePos);
                         moved = true;
                     }
                 }
@@ -188,7 +193,7 @@ public class Grabber : MonoBehaviour
 
             currentGrabbed.transform.position = desiredPos;
             currentGrabbed.transform.rotation = desiredRot;
-
+            //Debug.Log(lastSafePos);
         }
     }
 
@@ -227,12 +232,14 @@ public class Grabber : MonoBehaviour
         Physics.IgnoreCollision(collider1, collider2, false);
     }
 
-    void GetCapsulePoints(CapsuleCollider capsule, out Vector3 point0, out Vector3 point1)
+    void GetCapsulePoints(CapsuleCollider capsule, Vector3 atPosition, out Vector3 point0, out Vector3 point1)
     {
-        Vector3 center = capsule.transform.TransformPoint(capsule.center);
-        Vector3 axis = capsule.direction == 0 ? Vector3.right : (capsule.direction == 1 ? Vector3.up : Vector3.forward);
+        CapsuleCollider unrealCapsule = capsule;
+        unrealCapsule.transform.position = atPosition;
+        Vector3 center = unrealCapsule.transform.TransformPoint(unrealCapsule.center);
+        Vector3 axis = unrealCapsule.direction == 0 ? Vector3.right : (unrealCapsule.direction == 1 ? Vector3.up : Vector3.forward);
         
-        float halfHeight = Mathf.Max(0, (capsule.height / 2) - capsule.radius);
+        float halfHeight = Mathf.Max(0, (unrealCapsule.height / 2) - unrealCapsule.radius);
         point0 = center + axis * halfHeight;
         point1 = center - axis * halfHeight;
     }
