@@ -7,6 +7,7 @@ public class PersonAnnoyManager : MonoBehaviour
     [SerializeField] int annoyThreshold = 10;
     [Range(0, 50)][SerializeField] float chaseDuration = 5f;
     [SerializeField] float chaseSpeed = 13;
+    [SerializeField] Collider handTrigger;
     float normalSpeed;
     Collider triggerCollider;
     bool isChasing;
@@ -28,6 +29,7 @@ public class PersonAnnoyManager : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         personMovement = GetComponent<PersonMovement>();
         normalSpeed = personMovement.moveSpeed;
+        handTrigger.enabled = false;
     }
 
     void OnEnable()
@@ -71,7 +73,7 @@ public class PersonAnnoyManager : MonoBehaviour
                     StopCoroutine(swatRoutine);
                     swatRoutine = null;
                 }
-                swatRoutine = StartCoroutine(SwatPlayer(other.transform.position));
+                swatRoutine = StartCoroutine(SwatPlayer(other.transform));
                 return;
             }
            if (personState.currentState != BehaviourStates.bazooka)
@@ -120,9 +122,9 @@ public class PersonAnnoyManager : MonoBehaviour
         }
     }
 
-    IEnumerator SwatPlayer(Vector3 swatTarget)
+    IEnumerator SwatPlayer(Transform swatTarget)
     {
-        Vector3 targetDir = swatTarget - transform.position;
+        Vector3 targetDir = swatTarget.position - transform.position;
         if (rotationRoutine != null)
         {
             StopCoroutine(rotationRoutine);
@@ -130,9 +132,11 @@ public class PersonAnnoyManager : MonoBehaviour
         }
         yield return rotationRoutine = StartCoroutine(personMovement.RotateTowards(targetDir));
 
+        handTrigger.enabled = true;
         animator.SetTrigger("Attack");
         yield return AnimationManager.Instance.WaitForAnimation(animator, "Attack");
-        
+        handTrigger.enabled = false;
+
         if (rotationRoutine != null)
         {
             StopCoroutine(rotationRoutine);
