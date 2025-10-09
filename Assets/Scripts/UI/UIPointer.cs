@@ -28,22 +28,31 @@ public class UIPointer : MonoBehaviour
         rb.isKinematic = true;
         rb.useGravity = false;
 
+        // Create a cube for the visual pointer
         pointerCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
         Destroy(pointerCube.GetComponent<Collider>());
 
         pointerCube.transform.SetParent(transform, false);
-
         pointerCube.transform.localPosition = boxCollider.center;
         pointerCube.transform.localScale = boxCollider.size;
 
         pointerCube.layer = LayerMask.NameToLayer("Overlay UI");
 
+        // --- Use an Unlit shader with transparency ---
         var renderer = pointerCube.GetComponent<Renderer>();
-        renderer.material = new Material(Shader.Find("Standard"));
+
+        Shader unlitShader = Shader.Find("Unlit/Color");
+        if (unlitShader == null)
+        {
+            unlitShader = Shader.Find("Universal Render Pipeline/Unlit");
+        }
+
+        renderer.material = new Material(unlitShader);
         renderer.material.color = color;
 
-        SetVisible(false);
+        renderer.material.SetFloat("_Surface", 1);
+        renderer.material.renderQueue = 3000;
+
         boxCollider.enabled = false;
 
         SetVisible(true);
