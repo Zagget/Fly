@@ -6,7 +6,6 @@ public class RaceHUD : MonoBehaviour
 {
     public static RaceHUD Instance { get; private set; }
 
-    [SerializeField] GameObject arrow;
     [SerializeField] GameObject chargeHint;
     [SerializeField] Slider chargeSlider;
     [SerializeField] GameObject timerImage;
@@ -53,7 +52,6 @@ public class RaceHUD : MonoBehaviour
 
     private void DisableAllElements()
     {
-        arrow.SetActive(false);
         chargeHint.SetActive(false);
         chargeSlider.gameObject.SetActive(false);
         timerImage.SetActive(false);
@@ -62,7 +60,6 @@ public class RaceHUD : MonoBehaviour
     public void StartStandby()
     {
         state = RaceHolder.states.standby;
-        arrow.SetActive(true);
     }
 
     public void StartCountdown(float time, RaceHolder raceHolder)
@@ -72,7 +69,6 @@ public class RaceHUD : MonoBehaviour
         this.time = time;
         SetSliderValue(0);
         LegRubbing.Instance.chargeChange += SetSliderValue;
-        arrow.SetActive(false);
         chargeSlider.gameObject.SetActive(true);
         chargeHint.SetActive(true);
         timerImage.SetActive(true);
