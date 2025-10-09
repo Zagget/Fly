@@ -25,8 +25,8 @@ public class MainMenu : MonoBehaviour
 
     public void PressPlay()
     {
-        playerController.SetState(StateManager.Instance.flyingState);
         StateManager.Instance.OnStateChanged -= OnStateChanged;
+        playerController.SetState(StateManager.Instance.flyingState);
         gameObject.SetActive(false);
     }
 
