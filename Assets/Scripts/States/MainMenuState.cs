@@ -15,6 +15,16 @@ public class MainMenuState : BasePlayerState
         }
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+        if (rig.usingVr)
+        {
+            player.leftPointer.SetVisible(false);
+            player.rightPointer.SetVisible(false);
+        }
+    }
+
     public override void HandleTriggerRight(InputAction.CallbackContext context)
     {
         player.rightPointer.OnPress(context);
