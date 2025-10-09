@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         playerController = PlayerController.Instance;
-       // playerController.SetState(StateManager.Instance.mainMenuState);
+        // playerController.SetState(StateManager.Instance.mainMenuState);
         StateManager.Instance.OnStateChanged += OnStateChanged;
     }
 
@@ -55,5 +55,4 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
 #endif
     }
-
 }
