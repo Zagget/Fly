@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject[] UIToDisableWithCredits;
@@ -12,8 +11,8 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         playerController = PlayerController.Instance;
-       // playerController.SetState(StateManager.Instance.mainMenuState);
         StateManager.Instance.OnStateChanged += OnStateChanged;
+        playerController.SetState(StateManager.Instance.mainMenuState);
     }
 
     private void OnStateChanged(BasePlayerState newState, BasePlayerState lastState)
@@ -34,7 +33,7 @@ public class MainMenu : MonoBehaviour
     public void PressSettings()
     {
         gameObject.SetActive(false);
-        menuUI.EnterMenu();
+        playerController.SetState(StateManager.Instance.menuState);
     }
 
     public void PressCredits()
@@ -45,6 +44,15 @@ public class MainMenu : MonoBehaviour
         }
 
         UIToEnableWithCredits.SetActive(!UIToEnableWithCredits.activeSelf);
+    }
+
+    public void PressReturn()
+    {
+        UIToEnableWithCredits.SetActive(!UIToEnableWithCredits.activeSelf);
+        foreach (GameObject go in UIToDisableWithCredits)
+        {
+            go.SetActive(!go.activeSelf);
+        }
     }
 
     public void PressQuit()

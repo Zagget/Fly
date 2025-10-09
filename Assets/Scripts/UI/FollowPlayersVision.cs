@@ -10,7 +10,8 @@ public class FollowPlayersVision : MonoBehaviour
 
     private BasePlayerState menu;
     private BasePlayerState tutorial;
-    private bool followPlayer = true;
+    private BasePlayerState mainMenu;
+    private bool followPlayer = false;
 
     private void Start()
     {
@@ -19,8 +20,13 @@ public class FollowPlayersVision : MonoBehaviour
 
         menu = StateManager.Instance.menuState;
         tutorial = StateManager.Instance.tutorialState;
+        mainMenu = StateManager.Instance.mainMenuState;
 
         StateManager.Instance.OnStateChanged += CheckForMenuState;
+
+        currentDirection = Vector3.Slerp(currentDirection, cameraTransform.forward, slerpAmount * Time.deltaTime);
+        transform.rotation = cameraTransform.rotation;
+        transform.position = cameraTransform.position + currentDirection * distance;
     }
 
     void OnDisable()
@@ -30,7 +36,7 @@ public class FollowPlayersVision : MonoBehaviour
 
     private void CheckForMenuState(BasePlayerState newState, BasePlayerState oldState)
     {
-        if (newState == menu || newState == tutorial)
+        if (newState == menu || newState == tutorial || newState == mainMenu)
         {
             followPlayer = false;
             return;

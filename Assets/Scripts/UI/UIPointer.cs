@@ -45,10 +45,14 @@ public class UIPointer : MonoBehaviour
 
         SetVisible(false);
         boxCollider.enabled = false;
+
+        SetVisible(true);
     }
 
     public void SetVisible(bool visible)
     {
+        if (pointerCube == null) return; //controllers are not connected so start has not been executed yet.
+
         pointerCube.SetActive(visible);
         boxCollider.enabled = visible;
 

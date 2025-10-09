@@ -46,8 +46,6 @@ public class PlayerController : MonoBehaviour
         if (desktopGrabber == null) Debug.LogWarning("DesktopGrabber is empty");
 
         SubscribeToInputs();
-
-        SetState(StateManager.Instance.flyingState);
     }
 
     private void SubscribeToInputs()
