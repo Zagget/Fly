@@ -19,6 +19,11 @@ public enum Flying
      flying1,
      flying2
 }
+public enum PersonAction
+{
+     Random,
+     slap
+}
 public enum Simontest
 {
      Random,

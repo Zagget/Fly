@@ -3,6 +3,13 @@ using UnityEngine;
 public class PersonHand : MonoBehaviour
 {
     [SerializeField] Transform personCenter;
+    private AudioSource personSource;
+
+    void Awake()
+    {
+        personSource = gameObject.AddComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -14,6 +21,7 @@ public class PersonHand : MonoBehaviour
 
     void ApplySlapForce(Transform target)
     {
+        SoundManager.instance.PlaySound(PersonAction.slap, personSource); 
         Vector3 targetDir = target.position - personCenter.position;
         targetDir.y = 0f;
         Rigidbody otherRb = target.GetComponent<Rigidbody>();
