@@ -7,7 +7,7 @@ public class RaceHUD : MonoBehaviour
     public static RaceHUD Instance { get; private set; }
 
     [SerializeField] GameObject arrow;
-    [SerializeField] TextMeshProUGUI chargeHint;
+    [SerializeField] GameObject chargeHint;
     [SerializeField] Slider chargeSlider;
     [SerializeField] GameObject timerImage;
     [SerializeField] TextMeshProUGUI timer;
@@ -54,7 +54,7 @@ public class RaceHUD : MonoBehaviour
     private void DisableAllElements()
     {
         arrow.SetActive(false);
-        chargeHint.gameObject.SetActive(false);
+        chargeHint.SetActive(false);
         chargeSlider.gameObject.SetActive(false);
         timerImage.SetActive(false);
     }
@@ -74,14 +74,14 @@ public class RaceHUD : MonoBehaviour
         LegRubbing.Instance.chargeChange += SetSliderValue;
         arrow.SetActive(false);
         chargeSlider.gameObject.SetActive(true);
-        chargeHint.gameObject.SetActive(true);
+        chargeHint.SetActive(true);
         timerImage.SetActive(true);
     }
 
     public void StartRace()
     {
         state = RaceHolder.states.racing;
-        chargeHint.gameObject.SetActive(false);
+        chargeHint.SetActive(false);
     }
 
     public void ExitRace()

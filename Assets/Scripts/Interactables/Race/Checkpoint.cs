@@ -6,7 +6,6 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject, other);
         if (!other.CompareTag("Player")) return;
         if (!other.TryGetComponent<Rigidbody>(out Rigidbody rigidbody)) return;
         holder.CheckPointReached(transform.GetSiblingIndex(), transform, rigidbody);

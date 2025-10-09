@@ -7441,6 +7441,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7403245424062398922}
     m_Modifications:
+    - target: {fileID: 1643543175750818219, guid: fe48eef6ae1a39f4fa878d407760edf9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f7f681cd213d9a7488500ce745f2d4f8, type: 3}
+    - target: {fileID: 2082631057437931520, guid: fe48eef6ae1a39f4fa878d407760edf9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201813155748024329, guid: fe48eef6ae1a39f4fa878d407760edf9, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201813155748024329, guid: fe48eef6ae1a39f4fa878d407760edf9, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201813155748024329, guid: fe48eef6ae1a39f4fa878d407760edf9, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3708268098821185314, guid: fe48eef6ae1a39f4fa878d407760edf9, type: 3}
       propertyPath: m_Name
       value: RaceHUD
