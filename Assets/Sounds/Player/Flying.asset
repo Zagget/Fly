@@ -16,12 +16,12 @@ MonoBehaviour:
   - name: flying1
     clip: {fileID: 8300000, guid: a5ab7253762801345a7bc9d6cba737ef, type: 3}
     volume: 0.5
-    minPitch: 0.95
-    maxPitch: 1.1
+    minPitch: 1
+    maxPitch: 1
     mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
   - name: flying2
     clip: {fileID: 8300000, guid: 7ae4a0e10c45afa43837325b1b4ddf52, type: 3}
     volume: 0.5
     minPitch: 1
-    maxPitch: 1.1
+    maxPitch: 1
     mixer: {fileID: -8397167678920493519, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}

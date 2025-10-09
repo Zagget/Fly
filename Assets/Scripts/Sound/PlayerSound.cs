@@ -27,6 +27,9 @@ public class PlayerSound : MonoBehaviour
         loopingSource = gameObject.AddComponent<AudioSource>();
         miscSource = gameObject.AddComponent<AudioSource>();
 
+        loopingSource.playOnAwake = false;
+        miscSource.playOnAwake = false;
+
         loopingSource.spatialBlend = 0f;
         miscSource.spatialBlend = 0f;
     }
@@ -40,6 +43,17 @@ public class PlayerSound : MonoBehaviour
         menu = StateManager.Instance.menuState;
 
         StateManager.Instance.OnStateChanged += OnChangedState;
+        SoundManager.instance.SoundDoneLoading += SoundDone;
+    }
+
+    private void SoundDone()
+    {
+        if (IsState(flying))
+        {
+            Debug.Log("Sound Activating");
+
+            SoundManager.instance.PlaySound(Flying.Random, loopingSource, true);
+        }
     }
 
     private void OnChangedState(BasePlayerState newState, BasePlayerState oldState)
@@ -47,18 +61,16 @@ public class PlayerSound : MonoBehaviour
         if (newState == currentState) return;
 
         currentState = newState;
-        //Debug.Log($"Sound To {newState} From {oldState}");
+        Debug.Log($"Sound To {newState} From {oldState}");
 
-        if (IsState(hover))
-        {
-            SoundManager.instance.PlaySound(Stopping.Random, miscSource);
-        }
-
-        if (IsState(flying))
-        {
-            if (!loopingSource.isPlaying)
-                SoundManager.instance.PlaySound(Flying.Random, loopingSource, true);
-        }
+        // if (IsState(flying))
+        // {
+        //     if (!loopingSource.isPlaying)
+        //     {
+        //         
+        //         SoundManager.instance.PlaySound(Flying.Random, loopingSource, true);
+        //     }
+        // }
 
         if (IsState(menu) && oldState == flying)
         {

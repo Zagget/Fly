@@ -5,6 +5,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Collections;
 using UnityEngine.InputSystem;
+using System;
 
 public class SoundManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField, Range(1, 100)] private int _amountOfAudioSources = 40;
     [SerializeField, Range(1, 100)] private int _amountOfAudioSourcesLoop = 5;
 
+    public event Action SoundDoneLoading;
     private List<SoundData> _currentSoundData = new List<SoundData>();
     private AudioSourcePool _oneShotPool2D;
     private AudioSourcePool _loopPool2D;
@@ -53,6 +55,7 @@ public class SoundManager : MonoBehaviour
             Debug.Log($"{name} All SoundData loaded successfully!");
             _currentSoundData = new List<SoundData>(handle.Result);
             mixerData.ApplyAllVolume(audioMixer);
+            SoundDoneLoading?.Invoke();
         }
         else
         {
@@ -94,7 +97,7 @@ public class SoundManager : MonoBehaviour
 
         if (sid.songName == "Random")
         {
-            SoundData.SoundEntry randomEntry = soundData.sounds[Random.Range(0, soundData.sounds.Length)];
+            SoundData.SoundEntry randomEntry = soundData.sounds[UnityEngine.Random.Range(0, soundData.sounds.Length)];
             PlayClip(randomEntry, source, loop);
             return;
         }
@@ -132,7 +135,7 @@ public class SoundManager : MonoBehaviour
         source.clip = entry.clip;
         source.volume = entry.volume;
 
-        float randomPitch = Random.Range(entry.minPitch, entry.maxPitch);
+        float randomPitch = UnityEngine.Random.Range(entry.minPitch, entry.maxPitch);
         source.pitch = randomPitch;
 
         source.outputAudioMixerGroup = entry.mixer;

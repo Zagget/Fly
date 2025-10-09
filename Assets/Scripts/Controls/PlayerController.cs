@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
         SubscribeToInputs();
 
-        SetState(StateManager.Instance.walkingState);
+        SetState(StateManager.Instance.flyingState);
     }
 
     private void SubscribeToInputs()
