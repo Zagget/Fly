@@ -33,6 +33,10 @@ public class PersonMovement : MonoBehaviour
     Dictionary<Transform, Pose> targetPose = new();
     void Start()
     {
+        if (standingLocation == null)
+        {
+            standingLocation = transform;
+        }
         var rigidbodies = new HashSet<Rigidbody>(GetComponentsInChildren<Rigidbody>());
         target = transform.position;
         personStates = GetComponent<PersonStates>();
@@ -225,7 +229,11 @@ public class PersonMovement : MonoBehaviour
     {
         reachedTarget = true;
         animator.SetBool("IsWalking", !reachedTarget);
-        StopCoroutine(movementCoroutine);
+        if (movementCoroutine != null)
+        {
+            StopCoroutine(movementCoroutine);
+            movementCoroutine = null;
+        }
         movementCoroutine = null;
 
         switch (personStates.currentState)
