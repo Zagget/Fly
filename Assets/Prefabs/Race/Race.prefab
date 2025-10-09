@@ -50,7 +50,7 @@ MonoBehaviour:
   lookahead: 2
   minDotProduct: 0.979
   timeToStart: 1.5
-  timeForCountdown: 4
+  timeForCountdown: 3.2
   raceTime: 20
 --- !u!1 &6679717949562583561
 GameObject:
