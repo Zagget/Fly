@@ -888,6 +888,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6566952541289332214, guid: 022128d5db094e643bf6f25dbf53b61a, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 8a23b09e7e9e67d4ca740107400a8fd8, type: 3}
     - target: {fileID: 8017261167089072798, guid: 022128d5db094e643bf6f25dbf53b61a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
