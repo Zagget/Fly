@@ -31,22 +31,27 @@ public class PersonMovement : MonoBehaviour
     Rigidbody[] ragdollRB;
     Dictionary<Transform, Pose> ragdollPose = new();
     Dictionary<Transform, Pose> targetPose = new();
+
+    void Awake()
+    {
+        var rigidbodies = new HashSet<Rigidbody>(GetComponentsInChildren<Rigidbody>());
+        
+        personStates = transform.GetComponent<PersonStates>();
+        animator = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody>();
+        rigidbodies.Remove(rb);
+        ragdollRB = rigidbodies.ToArray();
+    }
     void Start()
     {
         if (standingLocation == null)
         {
             standingLocation = transform;
         }
-        var rigidbodies = new HashSet<Rigidbody>(GetComponentsInChildren<Rigidbody>());
         target = transform.position;
-        personStates = GetComponent<PersonStates>();
-        animator = GetComponentInChildren<Animator>();
         StopCurrentMoveCoroutine();
         StartCoroutine(RecheckMovement(2));
-        rb = GetComponent<Rigidbody>();
         
-        rigidbodies.Remove(rb);
-        ragdollRB = rigidbodies.ToArray();
     }
     void OnEnable()
     {
