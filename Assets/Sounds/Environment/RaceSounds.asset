@@ -15,7 +15,7 @@ MonoBehaviour:
   sounds:
   - name: raceCountdown
     clip: {fileID: 8300000, guid: e0d29fb19cd08d64ca2ac16facf3daf9, type: 3}
-    volume: 0.352
+    volume: 0.12
     minPitch: 0.99
     maxPitch: 1.02
     mixer: {fileID: 24300002, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
@@ -27,7 +27,7 @@ MonoBehaviour:
     mixer: {fileID: 24300002, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
   - name: FinishLine
     clip: {fileID: 8300000, guid: 4dfba58fb95161140a178c635bb34d8b, type: 3}
-    volume: 0.352
+    volume: 0.064
     minPitch: 0.99
     maxPitch: 1.01
     mixer: {fileID: 24300002, guid: ba3c33d9668fefa4282be324fa61a6ab, type: 2}
