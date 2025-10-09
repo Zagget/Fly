@@ -45,12 +45,11 @@ public class PersonStates : MonoBehaviour
     }
     public delegate void StateChanged(BehaviourStates newState);
     public static StateChanged onStateChanged;
-    Animator animator;
+    [SerializeField] Animator animator;
 
-    void Awake()
+    void Start()
     {
         ChangeState(currentState);
-        animator = GetComponentInChildren<Animator>();
     }
 
     public void ChangeState(BehaviourStates newState)
@@ -66,7 +65,7 @@ public class PersonStates : MonoBehaviour
         {
             //Recover from ragdoll and invoke after done recovering
             Debug.Log("Recovering from ragdoll...");
-            OnRagdollReset?.Invoke(); 
+            OnRagdollReset?.Invoke();
             StartCoroutine(InvokeAfterRagdollRecovery(newState));
         }
         else
