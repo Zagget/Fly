@@ -1828,7 +1828,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -3948,7 +3948,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068609467574053609, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
       propertyPath: far clip plane
-      value: 15000
+      value: 4500
       objectReference: {fileID: 0}
     - target: {fileID: 3669970260420095825, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
       propertyPath: m_Name
@@ -5920,7 +5920,13 @@ PrefabInstance:
       value: Background Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6778822737456718436, guid: 47f647f9d6267b94f98bd0f8e0a00e17, type: 3}
+    - {fileID: 4108608704795899334, guid: 47f647f9d6267b94f98bd0f8e0a00e17, type: 3}
+    - {fileID: 7636597083336208742, guid: 47f647f9d6267b94f98bd0f8e0a00e17, type: 3}
+    - {fileID: 2968929183277641137, guid: 47f647f9d6267b94f98bd0f8e0a00e17, type: 3}
+    - {fileID: 2888062564864454892, guid: 47f647f9d6267b94f98bd0f8e0a00e17, type: 3}
+    - {fileID: 792371948111113132, guid: 47f647f9d6267b94f98bd0f8e0a00e17, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47f647f9d6267b94f98bd0f8e0a00e17, type: 3}
@@ -8161,7 +8167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2813678862579869370, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
       propertyPath: far clip plane
-      value: 15000
+      value: 4500
       objectReference: {fileID: 0}
     - target: {fileID: 6265669384132575880, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
       propertyPath: m_Name
