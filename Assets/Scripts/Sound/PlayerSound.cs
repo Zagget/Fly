@@ -5,15 +5,12 @@ public class PlayerSound : MonoBehaviour
 {
     [Header("Smooth Settings")]
     [SerializeField] private float maxSpeed = 30;
-    [SerializeField] private float pitchSmooth = 0.9f;
     [SerializeField] private float volumeSmooth = 0.2f;
     [SerializeField] private float smoothSpeed = 10f;
 
-    [Header("Volume/Pitch")]
+    [Header("Volume")]
     [SerializeField] private float minVolume = 0.2f;
     [SerializeField] private float maxVolume = 0.7f;
-    [SerializeField] private float minPitch = 0.9f;
-    [SerializeField] private float maxPitch = 1.1f;
 
     private AudioSource loopingSource;
     private AudioSource miscSource;

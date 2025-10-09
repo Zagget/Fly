@@ -97,5 +97,7 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+#Font
 Assets/TextMesh Pro/Fonts/LEMONMILK-Regular SDF.asset
-Assets/TextMesh Pro/Fonts/LEMONMILK-Regular SDF.asset
+Assets/TextMesh Pro/Fonts/LEMONMILK-Regular SDF.asset.meta
