@@ -1779,7 +1779,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -3929,10 +3929,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3068609467574053609, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
-      propertyPath: far clip plane
-      value: 4500
-      objectReference: {fileID: 0}
     - target: {fileID: 3669970260420095825, guid: 4ac46f2e5c8c1f14da5adf8e79dc5b9d, type: 3}
       propertyPath: m_Name
       value: DesktopRig
@@ -5499,6 +5495,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock
       objectReference: {fileID: 0}
+    - target: {fileID: 7230160497120477443, guid: d7dce48e404868c46a862ca531fddf3d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.436
+      objectReference: {fileID: 0}
     - target: {fileID: 8006661295067487161, guid: d7dce48e404868c46a862ca531fddf3d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -5705,7 +5705,7 @@ Transform:
   m_GameObject: {fileID: 1441463772}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 58.42, y: 29.45, z: 6.47}
+  m_LocalPosition: {x: 59.38, y: 29.45, z: 6.47}
   m_LocalScale: {x: 17.22, y: 17.22, z: 17.22}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8312,38 +8312,6 @@ PrefabInstance:
     - target: {fileID: 1388064432731622709, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -18.011047
-      objectReference: {fileID: 0}
-    - target: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.3951797
-      objectReference: {fileID: 0}
-    - target: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -25.476196
-      objectReference: {fileID: 0}
-    - target: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.8154103
-      objectReference: {fileID: 0}
-    - target: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.04457959
-      objectReference: {fileID: 0}
-    - target: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.57627726
-      objectReference: {fileID: 0}
-    - target: {fileID: 1526259541633251041, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.031989574
-      objectReference: {fileID: 0}
-    - target: {fileID: 2813678862579869370, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
-      propertyPath: far clip plane
-      value: 4500
       objectReference: {fileID: 0}
     - target: {fileID: 6265669384132575880, guid: 1ded72c3e0aa43f4a88ba15af6459f62, type: 3}
       propertyPath: m_Name

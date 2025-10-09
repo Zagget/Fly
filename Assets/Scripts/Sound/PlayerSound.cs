@@ -48,12 +48,11 @@ public class PlayerSound : MonoBehaviour
 
     private void SoundDone()
     {
-        if (IsState(flying))
-        {
-            Debug.Log("Sound Activating");
 
-            SoundManager.instance.PlaySound(Flying.Random, loopingSource, true);
-        }
+        Debug.Log("Sound Activating");
+
+        SoundManager.instance.PlaySound(Flying.Random, loopingSource, true);
+
     }
 
     private void OnChangedState(BasePlayerState newState, BasePlayerState oldState)
@@ -108,9 +107,6 @@ public class PlayerSound : MonoBehaviour
 
     public void PlayCollisionSound()
     {
-        //Debug.Log("Sound Colliding");
-        if (!IsState(flying)) return;
-
         SoundManager.instance.PlaySound(Colliding.Random, miscSource);
         miscSource.volume = loopingSource.volume;
     }
