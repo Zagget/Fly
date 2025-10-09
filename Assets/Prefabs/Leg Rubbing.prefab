@@ -84,7 +84,7 @@ MonoBehaviour:
   maxDistance: 0.2
   minRubbingPerSecond: 0.06
   rubInterval: 0.03
-  timeToGainCharge: 1
+  timeToGainCharge: 0
 --- !u!1 &4822790293256413728
 GameObject:
   m_ObjectHideFlags: 0

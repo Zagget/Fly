@@ -3,18 +3,13 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     [HideInInspector] public RaceHolder holder;
-    new Collider collider;
-
-    private void Awake()
-    {
-        collider = GetComponent<Collider>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject, other);
         if (!other.CompareTag("Player")) return;
         if (!other.TryGetComponent<Rigidbody>(out Rigidbody rigidbody)) return;
-        holder.CheckPointReached(transform.GetSiblingIndex(), collider, rigidbody);
+        holder.CheckPointReached(transform.GetSiblingIndex(), transform, rigidbody);
     }
 
     public void Show()

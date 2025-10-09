@@ -14,6 +14,8 @@ public class FloatingMovement : MonoBehaviour
     [SerializeField] private Transform centerEyeTransform;
     [SerializeField] private float headsetYOffset = 1.15f;
 
+    [SerializeField] private float racingSpeedBoost;
+
     private Vector3 leftController;
     private Vector3 rightController;
 
@@ -26,6 +28,7 @@ public class FloatingMovement : MonoBehaviour
 
     private float timeToSlowInput = 1;
     private float controllerInputMultiplier = 1;
+    private float speedBoost = 1;
 
     private bool usingVR;
     private float maxControllerHeight;
@@ -66,7 +69,7 @@ public class FloatingMovement : MonoBehaviour
         controllerPositionInput = GetControllerPositions();
         StandardControls();
 
-        rb.linearVelocity = linVel;
+        rb.linearVelocity = linVel * speedBoost;
     }
 
     void OnSateChanged(BasePlayerState state, BasePlayerState lastState)
@@ -78,14 +81,22 @@ public class FloatingMovement : MonoBehaviour
             {
                 StartCoroutine(nameof(SlowControllerInput));
             }
-
+            speedBoost = 1;
+        }
+        else if (state == StateManager.Instance.racingState && usingVR)
+        {
+            this.enabled = true;
+            speedBoost = racingSpeedBoost;
         }
         else if (this.enabled == true && usingVR)
         {
             rb.linearVelocity = Vector3.zero;
             linVel = rb.linearVelocity;
             this.enabled = false;
+            speedBoost = 1;
+
         }
+        else speedBoost = 1;
 
         if (lastState == StateManager.Instance.menuState)
         {
@@ -153,7 +164,7 @@ public class FloatingMovement : MonoBehaviour
         zValue = (((leftController + rightController).z / 2) - cPos.z) * 100;
         zValue -= controllerZOffset;
 
-        Debug.Log(speedCurve.Evaluate(Mathf.Abs(yValue)));
+        //Debug.Log(speedCurve.Evaluate(Mathf.Abs(yValue)));
 
         xValue *= speedCurve.Evaluate(Mathf.Abs(xValue));
         yValue *= speedCurve.Evaluate(Mathf.Abs(yValue));

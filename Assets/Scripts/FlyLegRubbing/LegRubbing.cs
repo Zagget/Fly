@@ -36,11 +36,7 @@ public class LegRubbing : MonoBehaviour
         inVR = RigManager.instance.usingVr;
         rotationForMaxRubbing = handRotation.worldToLocalMatrix;
 
-        if (inVR && (leftHand == null || rightHand == null || center == null))
-        {
-            gameObject.SetActive(false);
-            return;
-        }
+        gameObject.SetActive(false);
     }
 
     public float ResetRubbing()
@@ -88,7 +84,7 @@ public class LegRubbing : MonoBehaviour
         }
         else { timeSpentRubbing = 0; }
 
-        if (timeSpentRubbing >= timeToGainCharge) {TotalRubbing += Time.deltaTime; Debug.Log("totalrubing: " + TotalRubbing);}
+        if (timeSpentRubbing >= timeToGainCharge) { TotalRubbing += Time.deltaTime; }
 
     }
 

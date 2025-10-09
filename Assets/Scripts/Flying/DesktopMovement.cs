@@ -1,4 +1,5 @@
 using Oculus.Interaction;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,10 +20,13 @@ public class DesktopMovement : MonoBehaviour
     [SerializeField] private float horizontalMaxVel;
     [SerializeField] private float horizontalDecceleration;
 
+    [SerializeField] private float racingSpeedBoost = 1.3f;
+
     private float currentHorizontalSpeed;
     private float targetHorizontalSpeed;
 
     private float speed;
+    private float speedBoost;
 
     Vector3 linVel;
 
@@ -50,7 +54,7 @@ public class DesktopMovement : MonoBehaviour
         linVel = rb.linearVelocity;
         VerticalFlight();
         HorizontalControlls();
-        rb.linearVelocity = linVel;
+        rb.linearVelocity = linVel * speedBoost;
     }
 
     private void OnChangeState(BasePlayerState newState, BasePlayerState oldState)
@@ -58,13 +62,21 @@ public class DesktopMovement : MonoBehaviour
         if (newState == stateManager.flyingState)
         {
             this.enabled = true;
+            speedBoost = 1;
+        }
+        else if (newState == stateManager.racingState)
+        {
+            this.enabled = true;
+            speedBoost = racingSpeedBoost;
         }
         else if (oldState == stateManager.flyingState)
         {
             this.enabled = false;
             rb.linearVelocity = Vector3.zero;
             linVel = Vector3.zero;
+            speedBoost = 1;
         }
+        else speedBoost = 1;
     }
 
     private void VerticalFlight()
