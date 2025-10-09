@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: d3444ddf75fa2734abea3c3394809643
   m_SerializeEntries:
+  - m_GUID: 152435882f3da154d8dda9957c9b90e7
+    m_Address: Assets/Sounds/Environment/RaceSounds.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4223f2d1d544aa64192ee194175a0969
     m_Address: Assets/Sounds/Player/Flying.asset
     m_ReadOnly: 0

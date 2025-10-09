@@ -61,12 +61,14 @@ public class RaceHolder : MonoBehaviour
 
     private void HandleFinish()
     {
+        SoundManager.instance.PlaySound(RaceSounds.FinishLine);
         RaceHUD.Instance.ExitRace();
         ExitRace();
     }
 
     private void HandleProgression()
     {
+        SoundManager.instance.PlaySound(RaceSounds.okay);
         currentCheckpoint++;
         ShowCheckpoints();
     }
@@ -101,6 +103,7 @@ public class RaceHolder : MonoBehaviour
 
     private void StartCountdown()
     {
+        SoundManager.instance.PlaySound(RaceSounds.raceCountdown);
         LegRubbing.Instance.gameObject.SetActive(true);
         RaceHUD.Instance.StartCountdown(raceTime, this);
         currentState = states.countdown;

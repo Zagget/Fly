@@ -24,6 +24,13 @@ public enum PersonAction
      Random,
      slap
 }
+public enum RaceSounds
+{
+     Random,
+     FinishLine,
+     okay,
+     raceCountdown
+}
 public enum Simontest
 {
      Random,
