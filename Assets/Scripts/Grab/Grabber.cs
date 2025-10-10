@@ -26,6 +26,8 @@ public class Grabber : MonoBehaviour
     private Quaternion desiredRot;
 
     private Vector3 lastSafePos;
+    private Quaternion lastSafeRot;
+
     private Vector3 delta;
     private Vector3 dir;
     private Vector3 entryNormal;
@@ -111,91 +113,157 @@ public class Grabber : MonoBehaviour
         desiredRot = transform.rotation;
 
 
-        MoveGrabbedItem();
+        //MoveGrabbedItem();
+        MoveGrabbedAlternative();
 
     }
 
-
-
-    private void MoveGrabbedItem()
+    private void MoveGrabbedAlternative()
     {
         if (currentGrabbed != null)
         {
             
 
-            Transform probe = currentGrabbed.triggerCollider.transform;
 
-            for (int i = 0; i < 3; i++)
+            if (currentGrabbed.triggerCollider is CapsuleCollider capsule)
             {
-                probe.SetPositionAndRotation(desiredPos, desiredRot);
-                int n = 0;  
-                entryNormal = Vector3.zero;
-                if (currentGrabbed.triggerCollider is SphereCollider sphere)
-                {
-                    n = Physics.OverlapSphereNonAlloc(probe.position, sphere.radius, blockColliders,
+                GetCapsulePoints(capsule, desiredPos, desiredRot, out Vector3 point0, out Vector3 point1);
+                int n = Physics.OverlapCapsuleNonAlloc(point0, point1, capsule.radius, blockColliders,
                                                         solidMask, QueryTriggerInteraction.Ignore);
+                if (n == 0)
+                {
+                    lastSafePos = desiredPos;
+                    lastSafeRot = desiredRot;
+                    return;
                 }
-                if (currentGrabbed.triggerCollider is CapsuleCollider capsule)
-                {
-                    GetCapsulePoints(capsule, probe.position, out Vector3 point0, out Vector3 point1);
-                    n = Physics.OverlapCapsuleNonAlloc(point0, point1, capsule.radius, blockColliders,
+                GetCapsulePoints(capsule, lastSafePos, desiredRot, out point0, out point1);
+                int n2 = Physics.OverlapCapsuleNonAlloc(point0, point1, capsule.radius, blockColliders,
                                                         solidMask, QueryTriggerInteraction.Ignore);
-                    if (n == 0)
+                if (n2 != 0)
+                {
+                    bool isMoved = false;
+                    for (int i = 0; i < 3; i++)
                     {
-                        lastSafePos = probe.position;
-                        
+                        foreach (var collider in blockColliders)
+                        {
+
+                            if (Physics.ComputePenetration(
+                                currentGrabbed.triggerCollider, lastSafePos, desiredRot,
+                                collider, collider.transform.position, collider.transform.rotation,
+                                out Vector3 direction, out float distance))
+                            {
+                                lastSafePos += direction * distance;
+
+                                isMoved = true;
+                            }
+                        }
+                        if (!isMoved) break;
                     }
-                    delta = transform.position - lastSafePos;
-                    dir = delta.normalized;
-                    GetCapsulePoints(capsule, lastSafePos, out point0, out point1);
-                    if (Physics.CapsuleCast(point0, point1, capsule.radius, dir, out RaycastHit hit, delta.magnitude, solidMask, QueryTriggerInteraction.Ignore))
-                    {
-                        entryNormal = hit.normal;
-                    }
+                }
+                GetCapsulePoints(capsule, lastSafePos, desiredRot, out point0, out point1);
+                delta = desiredPos - lastSafePos;
+                dir = delta.normalized;
+                
+                if (Physics.CapsuleCast(point0, point1, capsule.radius, dir, out RaycastHit hit, delta.magnitude,
+                                        solidMask, QueryTriggerInteraction.Ignore))
+                {
                     
                 }
 
-                //int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, blockColliders,
-                //solidMask, QueryTriggerInteraction.Ignore);
+
+            }
+
+
+
+
+
+
+        }
+
+
+
+    }
+
+    //private void MoveGrabbedItem()
+    //{
+    //    if (currentGrabbed != null)
+    //    {
+            
+
+    //        Transform probe = currentGrabbed.triggerCollider.transform;
+
+    //        for (int i = 0; i < 3; i++)
+    //        {
+    //            Debug.Log(i);
+    //            probe.SetPositionAndRotation(desiredPos, desiredRot);
+    //            int n = 0;  
+    //            //entryNormal = Vector3.zero;
+    //            if (currentGrabbed.triggerCollider is SphereCollider sphere)
+    //            {
+    //                n = Physics.OverlapSphereNonAlloc(probe.position, sphere.radius, blockColliders,
+    //                                                    solidMask, QueryTriggerInteraction.Ignore);
+    //            }
+    //            if (currentGrabbed.triggerCollider is CapsuleCollider capsule)
+    //            {
+    //                GetCapsulePoints(capsule, probe.position, out Vector3 point0, out Vector3 point1);
+    //                n = Physics.OverlapCapsuleNonAlloc(point0, point1, capsule.radius, blockColliders,
+    //                                                    solidMask, QueryTriggerInteraction.Ignore);
+    //                if (n == 0)
+    //                {
+    //                    lastSafePos = probe.position;
+                        
+    //                }
+    //                delta = transform.position - lastSafePos;
+    //                dir = delta.normalized;
+    //                GetCapsulePoints(capsule, lastSafePos, out point0, out point1);
+    //                if (Physics.CapsuleCast(point0, point1, capsule.radius, dir, out RaycastHit hit, delta.magnitude, solidMask, QueryTriggerInteraction.Ignore))
+    //                {
+    //                    entryNormal = hit.normal;
+    //                }
+                    
+    //            }
+
+    //            //int n = Physics.OverlapSphereNonAlloc(probe.position, currentGrabbed.triggerCollider.radius, blockColliders,
+    //            //solidMask, QueryTriggerInteraction.Ignore);
 
 
 
                 
-                bool moved = false;
-                for (int j = 0; j < n; j++)
-                {
-                    var collider = blockColliders[j];
+    //            bool moved = false;
+    //            for (int j = 0; j < n; j++)
+    //            {
+    //                var collider = blockColliders[j];
                     
-                    if (Physics.ComputePenetration(
-                        currentGrabbed.triggerCollider, desiredPos, desiredRot,
-                        collider, collider.transform.position, collider.transform.rotation,
-                        out Vector3 direction, out float distance))
-                    {
-                        bool suspicious = Vector3.Dot(direction, entryNormal) < 0;
+    //                if (Physics.ComputePenetration(
+    //                    currentGrabbed.triggerCollider, desiredPos, desiredRot,
+    //                    collider, collider.transform.position, collider.transform.rotation,
+    //                    out Vector3 direction, out float distance))
+    //                {
+    //                    bool suspicious = Vector3.Dot(direction, entryNormal) < 0;
 
-                        if (suspicious && entryNormal != Vector3.zero)
-                        {
-                            //Debug.Log("Suspicious direction change");
-                            direction = entryNormal;
-                            distance = Vector3.Dot(transform.position - lastSafePos, entryNormal);
-                        }
+    //                    if (suspicious && entryNormal != Vector3.zero)
+    //                    {
+    //                        Debug.Log("Suspicious direction change");
+    //                        direction = entryNormal;
+    //                        distance = Vector3.Dot(desiredPos - lastSafePos, entryNormal);
+    //                    }
 
 
 
-                        //Debug.Log(distance);
-                        desiredPos += direction * distance;
-                        Debug.Log("desiredPos: " + desiredPos + "\nsuspicious: " + suspicious + ", n: " + n + ", entryNormal: " + entryNormal + ", lastSafePos: " + lastSafePos);
-                        moved = true;
-                    }
-                }
-                if (!moved) break;
-            }
+    //                    //Debug.Log(distance);
+    //                    desiredPos += direction * distance;
+    //                    //Debug.Log("desiredPos: " + desiredPos + "\nsuspicious: " + suspicious + ", n: " + n + ", entryNormal: " + entryNormal + ", lastSafePos: " + lastSafePos);
+    //                    moved = true;
+    //                }
+    //            }
+    //            if (!moved) break;
+    //        }
 
-            currentGrabbed.transform.position = desiredPos;
-            currentGrabbed.transform.rotation = desiredRot;
-            //Debug.Log(lastSafePos);
-        }
-    }
+    //        currentGrabbed.transform.position = desiredPos;
+    //        currentGrabbed.transform.rotation = desiredRot;
+    //        //Debug.Log(lastSafePos);
+    //    }
+    //}
 
 
     private void OnTriggerEnter(Collider other)
@@ -232,10 +300,10 @@ public class Grabber : MonoBehaviour
         Physics.IgnoreCollision(collider1, collider2, false);
     }
 
-    void GetCapsulePoints(CapsuleCollider capsule, Vector3 atPosition, out Vector3 point0, out Vector3 point1)
+    void GetCapsulePoints(CapsuleCollider capsule, Vector3 atPosition, Quaternion atRotation, out Vector3 point0, out Vector3 point1)
     {
         CapsuleCollider unrealCapsule = capsule;
-        unrealCapsule.transform.position = atPosition;
+        unrealCapsule.transform.SetPositionAndRotation(atPosition, atRotation);
         Vector3 center = unrealCapsule.transform.TransformPoint(unrealCapsule.center);
         Vector3 axis = unrealCapsule.direction == 0 ? Vector3.right : (unrealCapsule.direction == 1 ? Vector3.up : Vector3.forward);
         
