@@ -19,6 +19,7 @@ public class RigManager : MonoBehaviour
     public Transform eyeAnchor;
     public Camera desktopCamera;
     public Camera VRCamera;
+    public LegRubbing legRubbing;
 
     void Awake()
     {
@@ -47,6 +48,7 @@ public class RigManager : MonoBehaviour
 
             pTransform = vrRig.transform;
             eyeAnchor = pTransform.GetComponentInChildren<AudioListener>().transform;
+            legRubbing = pTransform.GetComponentInChildren<LegRubbing>();
         }
         else
         {
@@ -60,6 +62,7 @@ public class RigManager : MonoBehaviour
             desktopCamera = desktopRig.GetComponent<Camera>();
             pTransform = desktopCamera.transform;
             eyeAnchor = desktopCamera.transform;
+            legRubbing = desktopRig.GetComponentInChildren<LegRubbing>();
 
             desktopRig.AddComponent<AudioListener>();
         }

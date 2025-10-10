@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
 
         SubscribeToAction(inputActions.RightHand.Menu, ToggleMenu);
-        LegRubbing.Instance.chargeChange += RubbingChange;
+        RigManager.instance.legRubbing.chargeChange += RubbingChange;
     }
 
     private void OnDisable()
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         }
 
         UnsubscribeFromAction(inputActions.RightHand.Menu, ToggleMenu);
-        LegRubbing.Instance.chargeChange -= RubbingChange;
+        RigManager.instance.legRubbing.chargeChange -= RubbingChange;
     }
 
     private void SubscribeToPressed(InputAction action, Action<InputAction.CallbackContext> callback)

@@ -4,7 +4,7 @@ public class RacingState : FlyingState
 {
     public override void StateUpdate()
     {
-        if (LegRubbing.Instance.RemoveRubbing(Time.deltaTime) <= 0)
+        if (RigManager.instance.legRubbing.RemoveRubbing(Time.deltaTime) <= 0)
         {
             player.SetState(StateManager.Instance.flyingState);
         }

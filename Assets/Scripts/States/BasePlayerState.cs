@@ -74,7 +74,7 @@ public abstract class BasePlayerState
 
     public virtual void HandleDesktopLegRubbing(InputAction.CallbackContext context)
     {
-        LegRubbing.Instance.HandleDesktopRubbing(context);
+        RigManager.instance.legRubbing.HandleDesktopRubbing(context);
     }
 
     public virtual void HandleDesktopFlyUp(InputAction.CallbackContext context, DesktopMovement movement)

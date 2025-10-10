@@ -55,7 +55,7 @@ public class RaceHolder : MonoBehaviour
 
         RaceHUD.Instance.StartStandby();
         PlayerController.Instance.SetState(StateManager.Instance.racePreparationsState);
-        LegRubbing.Instance.ResetRubbing();
+        RigManager.instance.legRubbing.ResetRubbing();
         ShowCheckpoints();
     }
 
@@ -104,7 +104,7 @@ public class RaceHolder : MonoBehaviour
     private void StartCountdown()
     {
         SoundManager.instance.PlaySound(RaceSounds.raceCountdown);
-        LegRubbing.Instance.gameObject.SetActive(true);
+        RigManager.instance.legRubbing.gameObject.SetActive(true);
         RaceHUD.Instance.StartCountdown(raceTime, this);
         currentState = states.countdown;
         raceUI.StartCountDown(timeForCountdown);
@@ -113,7 +113,7 @@ public class RaceHolder : MonoBehaviour
 
     public void StartRace()
     {
-        LegRubbing.Instance.gameObject.SetActive(false);
+        RigManager.instance.legRubbing.gameObject.SetActive(false);
         RaceHUD.Instance.StartRace();
         PlayerController.Instance.SetState(StateManager.Instance.racingState);
         currentState = states.racing;

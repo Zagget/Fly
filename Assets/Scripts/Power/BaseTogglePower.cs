@@ -21,7 +21,7 @@ public class BaseTogglePower : BasePower
 
     public override void Continues()
     {
-        if (LegRubbing.Instance.RemoveRubbing(chargeDrain * Time.deltaTime) <= 0)
+        if (RigManager.instance.legRubbing.RemoveRubbing(chargeDrain * Time.deltaTime) <= 0)
         {
             DeactivateToggle();
         }

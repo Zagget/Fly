@@ -10,7 +10,7 @@ public class PowerUI : MonoBehaviour
     private void Start()
     {
         PowerManager.onChangePower += OnChangePower;
-        LegRubbing.Instance.chargeChange += OnChangeCharge;
+        RigManager.instance.legRubbing.chargeChange += OnChangeCharge;
     }
 
     public void OnChangePower(powerPair powerPair)
@@ -35,6 +35,6 @@ public class PowerUI : MonoBehaviour
     private void OnDisable()
     {
         PowerManager.onChangePower -= OnChangePower;
-        LegRubbing.Instance.chargeChange -= OnChangeCharge;
+        RigManager.instance.legRubbing.chargeChange -= OnChangeCharge;
     }
 }

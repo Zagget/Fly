@@ -9,7 +9,7 @@ public class BaseInstantPower : BasePower
         base.Activate(rigManager, currentCharge, powerManager, playerController);
         powerManager.continues += Continues;
 
-        LegRubbing.Instance.RemoveRubbing(maximumCharge);
+        RigManager.instance.legRubbing.RemoveRubbing(maximumCharge);
         Start();
     }
 

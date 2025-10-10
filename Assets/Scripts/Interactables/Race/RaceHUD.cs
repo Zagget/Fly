@@ -68,7 +68,7 @@ public class RaceHUD : MonoBehaviour
         state = RaceHolder.states.countdown;
         this.time = time;
         SetSliderValue(0);
-        LegRubbing.Instance.chargeChange += SetSliderValue;
+        RigManager.instance.legRubbing.chargeChange += SetSliderValue;
         chargeSlider.gameObject.SetActive(true);
         chargeHint.SetActive(true);
         timerImage.SetActive(true);
@@ -83,7 +83,7 @@ public class RaceHUD : MonoBehaviour
     public void ExitRace()
     {
         state = RaceHolder.states.idle;
-        LegRubbing.Instance.chargeChange -= SetSliderValue;
+        RigManager.instance.legRubbing.chargeChange -= SetSliderValue;
         DisableAllElements();
     }
 

@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class LegRubbing : MonoBehaviour
 {
-    public static LegRubbing Instance { get; private set; }
 
     [SerializeField] Transform leftHand;
     [SerializeField] Transform rightHand;
@@ -24,12 +23,6 @@ public class LegRubbing : MonoBehaviour
     float lastDifference;
     float timeSpentRubbing;
     bool inVR;
-
-    private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(this);
-    }
 
     private void Start()
     {

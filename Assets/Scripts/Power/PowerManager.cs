@@ -27,7 +27,7 @@ public class PowerManager : MonoBehaviour
     public void ActivatePower(InputAction.CallbackContext context, PlayerController playerController)
     {
         if (currentPower == null || currentPower.basePower == null) return;
-        float charge = LegRubbing.Instance.TotalRubbing;
+        float charge = RigManager.instance.legRubbing.TotalRubbing;
         currentPower.basePower.Activate(rigManager, 100, this, playerController);
     }
 
